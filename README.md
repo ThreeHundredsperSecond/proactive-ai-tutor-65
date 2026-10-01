@@ -4,7 +4,7 @@
 
 ## Команда
 
-- [ThreeHundredsperSecond](https://github.com/ThreeHundredsperSecond)
+- [Vladislav Chumachenko](https://github.com/ThreeHundredsperSecond)
 - [Bogdan Luckyanchuk](https://github.com/Bogdan108)
 - [Salman Chakaev](https://github.com/srchakaev)
 - [Alexander](https://github.com/ex-alander)
