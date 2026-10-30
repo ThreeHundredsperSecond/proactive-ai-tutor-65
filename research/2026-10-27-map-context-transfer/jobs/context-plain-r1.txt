@@ -1,0 +1,19 @@
+Применение фиксированной карточки к ТЕКУЩЕМУ шагу, не решение задачи. Читай только назначенный вход и задание. Не читать другие исследования, корпус, другой вариант контекста или ответы других агентов. Не browse, не вычисляй решение заново, не дописывай шаги. Вход содержит3случая; узел уже задан.
+current — действие, которое оценивается сейчас. context — буквальные результаты предшествующих шагов, если они переданы. Контекст можно использовать для известности входного состояния и предусловий, но он НЕ доказывает, что предыдущее действие заново выполнено в current. Нужна ссылка на сторону каждой цитаты.
+Для каждого случая:
+operation_observed=full|partial|none|uncertain — форма и объём одного применения core_operation в current. Учитывай evidence_rule, includes/excludes. Если правило было применено при нарушенных условиях, форму и допустимость оценивай раздельно. Нельзя приписывать действие только по совпадению слов или выполнению его раньше. operation_evidence — буквальные цитаты только из current.
+input_state=supported|not_shown|violated — доступно ли требуемое input_representation. input_evidence может ссылаться на current или context. Нельзя восстанавливать недостающий вход по одной применённой формуле.
+Для каждого precondition: status=known|not_shown|violated; evidence с источником current либо id элемента context. known допустимо для явно данного факта или непосредственного чтения явно предъявленного входа (например, ненулевой числовой старший коэффициент в записанном квадратном уравнении). Объясни такое чтение. Неизвестное условие не означает ошибку математики. checked_in_current=true только если current сам устанавливает/проверяет этот предикат, не просто использует известный факт. Примечания алгоритма не являются дополнительными предусловиями.
+coverage=full|partial|none — покрывает ли узел все действия current. remainder — цитаты непокрытого; эта оценка отделена от operation_observed.
+Итог support СТРОГО:
+если operation_observed=none -> no_current_action;
+иначе если input_state=violated или хотябыоднопредусловие violated -> violated_application;
+иначе если operation_observed=full, input_state=supported и всепредусловия known -> supported_application;
+иначе -> conditional_application.
+Не выводить освоение ученика. Случаи с недостатком контекста и неисполненной операцией — разные причины отказа.
+JSONвыход:
+{"rows":[{"id":"Q01","operation_observed":"full|partial|none|uncertain","operation_evidence":[{"source":"current","quote":"буквальная цитата"}],"input_state":"supported|not_shown|violated","input_evidence":[{"source":"current|before_s1|...","quote":"..."}],"preconditions":[{"id":"p1","status":"known|not_shown|violated","checked_in_current":false,"evidence":[{"source":"...","quote":"..."}],"reason":"основание"}],"coverage":"full|partial|none","remainder":[{"source":"current","quote":"..."}],"support":"...","note":"что доказано/неизвестно"}],"limits":["..."]}
+Для known/violated и supported/violated input нужны непустые буквальные evidence; для not_shown допускаются пустые. Все id предусловий карточки присутствуют ровно один раз. Каждый Q01/Q02/Q03 ровно один раз. Точные источники ограничены current и id реально переданного context. Сохраняй только назначенный выход, проверь JSON и цитаты. Финал — путь и прочитанные файлы, без повторения всего ответа.
+
+ВХОД: research/2026-10-27-map-context-transfer/inputs/context-plain-r1.json
+ВЫХОД: research/2026-10-27-map-context-transfer/raw/context-plain-r1.json
