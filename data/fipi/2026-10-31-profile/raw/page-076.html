@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html XMLNS:m="http://www.w3.org/1998/Math/MathML">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" /><LINK href="../../styles.css" rel="STYLESHEET" type="text/css">
+<LINK href="../../xmodules/os/img/_styles.css?v=1.04" rel="STYLESHEET" type="text/css">
+<script type="text/javascript" src="../../lib/mml/mathjax-4-config.js"></script><script type="text/javascript" src="../../lib/mml/mathjax-4/mml-chtml.js"></script><script type="text/javascript" src="../../lib/t3utils.js?v=2.04"></script><script type="text/javascript">var home_directory="../../";</script><meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<META NAME="Document-state" CONTENT="Dynamic"><META HTTP-EQUIV="pragma" CONTENT="no-cache"><META HTTP-EQUIV="expires" CONTENT="0"><meta http-equiv="X-UA-Compatible" content="IE=10"/><link rel='shortcut icon' href='img/icon.png'><style>@media print {.noprint {display:none !important;}}</style><title>Открытый банк тестовых заданий</title>
+</head>
+<body class='questions-container' style='font-size:11pt'>
+		<script language="javascript">
+        var abort_answer_senging;
+		function onButtonClick(formid = '')
+		{
+			var aform=document.getElementById('checkform'+formid);
+            abort_answer_senging = false;
+            if (formid)
+                eval('setAnswer'+formid+'(aform);');
+            else
+			    setAnswer(aform);
+            if (abort_answer_senging) return;
+			;
+			//aform.submit();
+            if (aform.setBtn)
+                aform.setBtn.disabled=true;
+		}
+		function onResetClick(formid = '')
+		{
+			var aform=document.getElementById('checkform'+formid);
+			var aEl = document.createElement('input');
+			aEl.type = 'hidden';
+			aEl.name = 'reset';
+			aEl.value = 1;
+			aform.appendChild(aEl);
+			
+;
+			aform.submit();
+		}
+
+		function noAction()
+		{
+		}
+
+		</script>
+        <style type="text/css">
+			.img_scroll_container { height: 400px; overflow-y: scroll; text-align: center; width:100%;}
+			.img_scroll_container img { width: 700px }
+            .printbody .img_scroll_container { height: auto; overflow-y: hidden; }
+            .printbody .img_scroll_container img { width: 650px }
+            .active-distractor:hover{cursor:pointer; background-color: #f2f2f2;}
+            .active-distractor.checked-distractor{background-color: #e8e8e8;}
+		</style>
+		<script language="javascript">
+		var qguid='';
+		var qfiles_location='../../';
+
+		function ShowPictureQ(s,hint)
+		{
+			while ((p=s.indexOf(". "))>0)
+			s=s.substring(0,p+1)+s.substring(p+2);
+			document.write('<IMG SRC="'+qfiles_location+s+'" ALIGN=ABSMIDDLE alt="'+hint+'" border="0"> ');
+		}
+
+		function ShowPictureQBL(s,hint,h,bl)
+		{
+			while ((p=s.indexOf(". "))>0)
+			s=s.substring(0,p+1)+s.substring(p+2);
+			var vspace=h/2-bl;
+			if (vspace<0) vspace=-vspace;
+			document.write('<IMG SRC="'+qfiles_location+s+'" ALIGN=MIDDLE border="0" alt="'+hint+'" VSPACE='+(vspace)+' STYLE="position:relative; top:'+(h/2-bl)+'px;">');
+		}
+
+
+		
+		function ShowPictureQ2WH(s,s2,hint,w,h)
+		{
+            if (s.indexOf('.flv')>0 ||s.indexOf('.mp4')>0 ||s.indexOf('.swf')>0)
+                s='../../show_media.php?m='+encodeURIComponent(s)+'&w='+w+'&h='+h;
+
+			w=w+40;
+			h=h+30;
+
+						document.write('<a href="javascript:var wnd=window.open(\''+qfiles_location+s+'\',\'\',\',status=1,resizable=1,menubar=0,scrollbars=1,width='+w+', height='+h+',left='+((screen.width-w)/2)+',top='+((screen.height-h)/2)+'\');wnd.focus();"><IMG BORDER=0 SRC="'+qfiles_location+s2+'" ALIGN=ABSMIDDLE style="cursor:pointer" alt="'+hint+'"></a> ');
+			//alert('вставил картинку!');
+		}
+
+		function ShowPictureQ3WH(s,s2,s3,hint,w,h)
+		{
+			ShowPictureQ2WH(s,s2,hint,w,h);
+		}
+
+		function ShowPictureQ2(s,s2,hint)
+		{
+			ShowPictureQ2WH(s,s2,hint,600,400);
+		};
+
+		function invertImage(img, s, s2)
+		{
+			if (img.src.indexOf(s)>0) img.src=qfiles_location+s2; else img.src=qfiles_location+s;
+		}
+
+		function ShowPictureQ3(s,s2,hint)
+		{
+			while ((p=s.indexOf(". "))>0)
+			s=s.substring(0,p+1)+s.substring(p+2);
+            var onclick=(s.indexOf('.jpg')>0||s.indexOf('.png')>0||s.indexOf('.gif')>0 ?'onclick="invertImage(this, \''+s+'\', \''+s2+'\')"':'');
+			document.write('<IMG SRC="'+qfiles_location+s2+'" '+onclick+' ALIGN=ABSMIDDLE style="cursor:pointer" alt="'+hint+'" border="0"> ');
+		};
+
+		function showXGraphic(xml)
+		{
+			document.write("<object classid=\"CLSID:A40BD42C-2DF9-4DB6-AE58-6411A05C7827\" ID=GraphX, width=258, height=410 ><param name=DEsignMode value=1><param name=\"Buffer\" value='<?xml version=\"1.0\"?>"+xml+"'></object>");
+		}
+		/*
+function ShowPictureQGX2(img,xml)
+{
+w=500;
+h=400;
+document.write('<IMG BORDER=0 SRC="'+qfiles_location+img+'" ALIGN=ABSMIDDLE>');
+}
+*/
+		function ShowPictureQGX2(img,xml)
+		{
+			w=500;
+			h=400;
+			document.write('<a href="javascript:var wnd=window.open(\'../../showxgprahic.php?qguid='+qguid+'&xml='+xml+'\',\'\',\',status=1,resizable=1,menubar=0,scrollbars=1,width='+w+', height='+h+',left='+((screen.width-w)/2)+',top='+((screen.height-h)/2)+'\');wnd.focus();"><IMG BORDER=0 SRC="'+qfiles_location+img+'" ALIGN=ABSMIDDLE style="cursor:pointer"></a> ');
+		}
+
+		</script>
+		<script language='JavaScript'>
+var files_location='';
+var files_abs_location='';
+var space_after_img=true;
+function ShowPicture(s)
+{document.write('<IMG SRC="'+files_location+s+'" ALIGN=absmiddle border=0>'+(space_after_img?' ':''));}
+function ShowPicture2(s,s2,w,h)
+{if (w>800) w=800;
+ if (h>600) h=600;
+ align='ABSMIDDLE'; 
+document.write('<a href="javascript:var wnd=window.open(\''+files_location+s+'\',\'_blank\',\'resizable=1,menubar=0,scrollbars=1,width='+(w+40)+',height='+(h+20)+',left='+((screen.width-w-40)/2)+',top='+((screen.height-h-20)/2)+'\');wnd.focus();"><IMG BORDER=0 SRC="'+files_location+s2+'" ALIGN='+align+'></a>'+(space_after_img?' ':''));}
+function ShowPicture2S(objsrc,imgsrc,datasrc,w,h)
+{ShowPicture2(objsrc,imgsrc,w,h);}
+function ShowPictureBL(s,bl)
+{document.write('<IMG SRC="'+files_location+s+'" ALIGN=MIDDLE VSPACE='+bl+' STYLE="position:relative; top:-'+(bl)+'px;" border=0>');}
+function ShowPictureBL2(s,bl,h)
+{ var vspace=h/2-bl;
+  		if (vspace<0) vspace=-vspace;
+document.write('<IMG SRC="'+files_location+s+'" ALIGN=MIDDLE VSPACE='+((vspace))+' STYLE="position:relative; top:'+(h/2-bl-1)+'px;" border=0>');}
+function ShowPictureGX(img,xml)
+		{
+		w=500;
+		h=400;
+		document.write('<a href="javascript:var wnd=window.open(\'../../showxgprahic.php?xml='+files_abs_location+xml+'\',\'\',\',status=1,resizable=1,menubar=1,scrollbars=1,width='+w+', height='+h+',left='+((screen.width-w)/2)+',top='+((screen.height-h)/2)+'\');wnd.focus();"><IMG BORDER=0 SRC="'+files_location+img+'" ALIGN=ABSMIDDLE style="cursor:pointer"></a> ');
+		}function TraceLink(indx,n)
+{ if (n.charAt(0)=='{')
+  		{
+			var guid=n.substring(1,9)+n.substring(10,14)+n.substring(15,19)+n.substring(20,24)+n.substring(25,37);
+			showdocbyguid(guid);
+  		}
+  		else
+  		{var wnd=window.open('../../tracelink.php?project_guid=AC437B34557F88EA4115D2F374B0A07B&cdf='+n,'link_wnd','toolbar=1,resizable=1,menubar=0, location=0,scrollbars=1,width=416,height=350,left=0,top=0');
+wnd.focus();
+ }
+}
+function showdocbyguid(guid)
+{var wnd=window.open('../../tracelink.php?project_guid=AC437B34557F88EA4115D2F374B0A07B&doc_guid='+guid.toUpperCase(),'link_wnd','toolbar=1,resizable=1,menubar=0, location=0,scrollbars=1,width=416,height=350,left=0,top=0');
+wnd.focus();
+}
+function delFile(fguid)
+{
+if (confirm('Удалить файл?'))
+  location.href='delete.php?proj=AC437B34557F88EA4115D2F374B0A07B&md=qprint&fguid='+fguid}
+function ShowFlash(url)
+{
+			w='100%'; h='100%';
+			url='../../'+files_location+url;
+			document.write('<object tabindex=0 ID=ilFlash classid=CLSID:D27CDB6E-AE6D-11cf-96B8-444553540000 width='+w+' height='+h+' codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0">'+
+		'<param name=movie value="'+url+'"><PARAM play=true><PARAM SWLIVECONNECT=true><PARAM MENU=true><PARAM LOOP=false>'+
+		'<PARAM NAME=scale VALUE=noScale><embed src="'+url+'" quality=high bgcolor=#FFFFFF  width='+w+' height='+h+' scale=noScale type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockWaveFlash"></embed></object>');}
+	function showXGraphic(xml)
+		{
+		//alert("<object classid=\"CLSID:A40BD42C-2DF9-4DB6-AE58-6411A05C7827\" ID=GraphX, width=258, height=410 ><param name=DEsignMode value=0><param name=\"Buffer\" value='<?xml version=\"1.0\"?>"+xml+"'></object>");
+		document.write("<object classid=\"CLSID:A40BD42C-2DF9-4DB6-AE58-6411A05C7827\" ID=GraphX, width=258, height=410 ><param name=DEsignMode value=0><param name=\"Buffer\" value='<?xml version=\"1.0\"?>"+xml+"'></object>");
+		}
+	</script><script type='text/javascript'>
+	var solvedQst = localStorage.getItem("OS:AC437B34557F88EA4115D2F374B0A07B:SOLVED");
+	solvedQst = solvedQst ? new Set(solvedQst.split(",")): new Set();
+	var favQst = localStorage.getItem("OS:AC437B34557F88EA4115D2F374B0A07B:FAV");
+	favQst = favQst ? new Set(favQst.split(",")): new Set();
+
+
+
+var request = createAJAXRequest();
+
+function toggleQFavour(qblock) {    var fvbtn = document.getElementById(qblock).getElementsByClassName('favorite-button');
+    toggleFavour(fvbtn[0]);
+}
+
+function toggleFavour(btn) {	btn.classList.toggle('is-favorite');
+    btn.title = btn.classList.contains('is-favorite')?'В Избранном':'Добавить в Избранное';}
+
+function setToStr(set) {	if (browser.isIE) {		let str = '';
+		set.forEach(function(elem){
+		    str += elem + (str?",":"")
+ 	 	});
+ 	 	return str;	} else {		return Array.from(set).join(",")	}}
+
+
+function changeFavour(btn, qst) {	if (btn.classList.contains('is-favorite'))
+	    favQst.delete(qst);
+    else
+        favQst.add(qst);
+    localStorage.setItem("OS:AC437B34557F88EA4115D2F374B0A07B:FAV", setToStr(favQst));
+	toggleFavour(btn);}
+
+function changeStatus(qst, panel){
+    let answer = solvedQst.has(qst)? '0': '1';
+	if (answer == '0')		solvedQst.delete(qst);
+    else
+        solvedQst.add(qst);
+    localStorage.setItem("OS:AC437B34557F88EA4115D2F374B0A07B:SOLVED", setToStr(solvedQst));
+    setQSolved(panel, answer)
+}
+
+
+
+function checkButtonClick(form, setanswer, panel) {
+	form = document.getElementById(form);
+	setanswer(form);
+    if (!request.inProcess) {
+        request.open('POST', 'solve.php', true);
+        request.onreadystatechange = checkSolutionDone;
+        request.inProcess = true;
+        request.panel = panel;
+
+        var formData = new FormData(form);
+        formData.append("ajax", "1");
+        formData.append("proj", "AC437B34557F88EA4115D2F374B0A07B")
+
+		if (browser.isIE)
+			request.qst = form.guid.value;
+		else
+	        request.qst = formData.get("guid");
+
+        request.send(formData);
+
+        panel.getElementsByClassName('task-status')[0].innerHTML = "<img class='loader' src='img/loading_spinner.gif'>";    }
+}
+
+function checkSolutionDone() {    if (request.readyState==4)  {
+        request.inProcess = false;
+        answer = "0";
+        if (request.status==200) {
+            answer = request.responseText;
+        }
+        if (answer!='1' && answer!='2' && answer!='3') {
+        	answer = "0";
+        }
+        qst = request.qst;
+
+        if (answer == '0' || answer == '2')
+    		solvedQst.delete(qst);
+        else
+            solvedQst.add(qst);
+        localStorage.setItem("OS:AC437B34557F88EA4115D2F374B0A07B:SOLVED", setToStr(solvedQst));
+        setQSolved(request.panel, answer);
+    }
+}
+
+function setQSolved(block, answer) {	if (typeof(block) === 'string')
+	    block = document.getElementById(block);
+	var statusNode = block.getElementsByClassName('task-status')[0];
+    statusNode.className= "task-status task-status-" + answer ;
+    if (answer=='1')
+        statusNode.innerHTML = "РЕШЕНО";
+    else if (answer=='2')
+        statusNode.innerHTML = "НЕВЕРНО";
+    else if (answer=='3')
+        statusNode.innerHTML = "ВЕРНО";
+    else
+        statusNode.innerHTML = "НЕ РЕШЕНО";}
+
+</script>
+
+ <div class="qblock" id='q82DA5C'> 	    <div id="hint" class="hint" name="hint">Впишите правильный ответ.</div>
+	    		<form action='javascript:noAction()' name='checkform82DA5C' id='checkform82DA5C' method="get"		>
+		<input type="Hidden" name="guid" value="8FA769219EBDB57E4A51E1771DCD6795">
+		<script language='JavaScript'> 
+ function setAnswer82DA5C(aform)
+ {;}
+ </script><TABLE WIDTH="100%" border='0' bgcolor='gray' cellspacing='1' cellpadding=2>
+  <TR><TD valign=top width=100% bgcolor="#FAFBCA" class='cell_0'>  <p class="MsoNormal">На рисунке изображены графики функций видов <m:math> <m:semantics> <m:mrow> <m:mi>f</m:mi><m:mrow><m:mo>(</m:mo> <m:mi>x</m:mi> <m:mo>)</m:mo></m:mrow><m:mo>=</m:mo><m:mi>a</m:mi><m:msup> <m:mi>x</m:mi> <m:mn>2</m:mn> </m:msup> <m:mo>+</m:mo><m:mi>b</m:mi><m:mi>x</m:mi><m:mo>+</m:mo><m:mi>c</m:mi> </m:mrow> </m:semantics> </m:math>&nbsp;и&nbsp;<m:math> <m:semantics> <m:mrow> <m:mi>g</m:mi><m:mrow><m:mo>(</m:mo> <m:mi>x</m:mi> <m:mo>)</m:mo></m:mrow><m:mo>=</m:mo><m:mi>k</m:mi><m:mi>x</m:mi><m:mo>,</m:mo> </m:mrow> </m:semantics> </m:math>&nbsp;пересекающиеся в точках <m:math> <m:semantics> <m:mi>A</m:mi> </m:semantics> </m:math>&nbsp;и <m:math> <m:semantics> <m:mrow> <m:mi>B</m:mi><m:mo>.</m:mo> </m:mrow> </m:semantics> </m:math>&nbsp;Найдите абсциссу точки <m:math> <m:semantics> <m:mrow> <m:mi>B</m:mi><m:mo>.</m:mo> </m:mrow> </m:semantics> </m:math></p> <p class="MsoNormal"><span>&nbsp;</span><span></span></p> <p class="MsoNormal" align="center"><script language='javascript'> ShowPictureQ('docs/AC437B34557F88EA4115D2F374B0A07B/questions/3E0F94247E47BEF843295DED08C62B47(copy2)/xs3qstsrc3E0F94247E47BEF843295DED08C62B47_1_1670412634.png');</script></p> <p class="MsoNormal"><span>&nbsp;</span></p>  </TD></TR>
+  <TR bgcolor="#FFFFFF"><TD>
+	  <TABLE WIDTH="100%" class='submit-outblock'>
+	  	<TR><TD class='varinats-block'><a name="variants"></a><br><div><table width='100%' cellspacing=0 cellpadding=1><tr><td width=100%><input type=text name="answer" size=40 value="" maxlength="250"></td></tr></table></div><br></TD></TR>
+	  	<TR><TD class='submit-block'></TD></TR>
+	  </TABLE>
+  </TD></TR></TABLE>	</form>
+	<form name='chkcodeform'>
+			<input type='hidden' name='guid' value='8FA769219EBDB57E4A51E1771DCD6795'>
+			<input type='hidden' name='answer' value="">
+			<input type='hidden' name='chkcode' value=''>
+		</form> </div> <div id='i82DA5C'>
+    <div class="separator"></div>
+    <div class="task-header-panel">
+        <div class="info-button" onclick='this.parentNode.classList.toggle("show-info")'>i</div>
+        <div class="task-info-panel">
+            <div class="task-info-title">
+                <span>СВОЙСТВА ЗАДАНИЯ</span>
+                <span class="task-info-title-close-button" onclick='this.parentNode.parentNode.parentNode.classList.toggle("show-info")'></span>
+            </div>
+            <div class="task-info-content">
+                <table><tbody>
+                    <tr><td class="param-name">КЭС:</td><td class="param-row"><div>3.1 Функция, способы задания функции. График функции. Взаимно обратные функции. Чётные и нечётные функции. Периодические функции</div></td></tr>                                                                                <tr><td class="param-name">Тип ответа:</td><td>Краткий ответ</td></tr>                                      </tbody></table>
+            </div>
+        </div>
+        <div class="id-text">Номер: <span class="canselect">82DA5C</span></div>
+        <div class="favorite-button" title="Добавить в Избранное" onclick="changeFavour(this,'8FA769219EBDB57E4A51E1771DCD6795')"></div>
+                         <div class="answer-panel">
+             <span class="status-title-text hidden-xs">Статус задания:</span>
+             <span class="task-status task-status-0">НЕ РЕШЕНО</span>
+             <span class="answer-button" onclick="checkButtonClick('checkform82DA5C', setAnswer82DA5C, this.parentNode)">Ответить</span>
+        </div>
+
+    </div>
+</div>	    <script type='text/javascript'>
+	        if (favQst.has("8FA769219EBDB57E4A51E1771DCD6795"))
+	            toggleQFavour('i82DA5C');
+	        if (solvedQst.has("8FA769219EBDB57E4A51E1771DCD6795"))
+	            setQSolved('i82DA5C', '1');
+	    </script>
+	     <div class="qblock hide-form" id='q4F4FA2'> 	    <div id="hint" class="hint" name="hint">Дайте развернутый ответ.</div>
+	    		<form action='javascript:noAction()' name='checkform4F4FA2' id='checkform4F4FA2' method="post" enctype="multipart/form-data"		>
+		<input type="Hidden" name="guid" value="9060115cc2e8482a968a83d5ed2e4f1e">
+		<TABLE WIDTH="100%" border='0' bgcolor='gray' cellspacing='1' cellpadding=2>
+  <TR><TD valign=top width=100% bgcolor="#FAFBCA" class='cell_0'>  <p class=MsoNormal>Решите неравенство <span class=mml><m:math><m:mstyle displaystyle="true"><m:mrow><m:mfrac><m:mrow><m:msup><m:mn>3</m:mn><m:mrow><m:mn>3</m:mn><m:mi>x</m:mi></m:mrow></m:msup><m:mo>&#x2212;</m:mo><m:mn>15</m:mn><m:mo>&#x22C5;</m:mo><m:msup><m:mn>9</m:mn><m:mi>x</m:mi></m:msup><m:mo>+</m:mo><m:mn>7</m:mn><m:mo>&#x22C5;</m:mo><m:msup><m:mn>3</m:mn><m:mrow><m:mi>x</m:mi><m:mtext>&#x2004;</m:mtext><m:mo>+</m:mo><m:mtext>&#x2004;</m:mtext><m:mn>2</m:mn></m:mrow></m:msup><m:mo>&#x2212;</m:mo><m:mn>81</m:mn></m:mrow><m:mrow><m:mi>x</m:mi><m:mo>&#x2212;</m:mo><m:mn>1</m:mn></m:mrow></m:mfrac><m:mo>&#x2264;</m:mo><m:mn>0.</m:mn></m:mrow></m:mstyle></m:math></span><span>&nbsp;</span></p>  </TD></TR>
+  <TR bgcolor="#FFFFFF"><TD>
+	  <TABLE WIDTH="100%" class='submit-outblock'>
+	  	<TR><TD class='varinats-block'><a name="variants"></a><br><div>&nbsp;</div><br></TD></TR>
+	  	<TR><TD class='submit-block'></TD></TR>
+	  </TABLE>
+  </TD></TR></TABLE>	</form>
+	 </div> <div id='i4F4FA2'>
+    <div class="separator"></div>
+    <div class="task-header-panel">
+        <div class="info-button" onclick='this.parentNode.classList.toggle("show-info")'>i</div>
+        <div class="task-info-panel">
+            <div class="task-info-title">
+                <span>СВОЙСТВА ЗАДАНИЯ</span>
+                <span class="task-info-title-close-button" onclick='this.parentNode.parentNode.parentNode.classList.toggle("show-info")'></span>
+            </div>
+            <div class="task-info-content">
+                <table><tbody>
+                    <tr><td class="param-name">КЭС:</td><td class="param-row"><div>2.7 Показательные и логарифмические неравенства</div></td></tr>                                                                                <tr><td class="param-name">Тип ответа:</td><td>Развернутый ответ</td></tr>                                      </tbody></table>
+            </div>
+        </div>
+        <div class="id-text">Номер: <span class="canselect">4F4FA2</span></div>
+        <div class="favorite-button" title="Добавить в Избранное" onclick="changeFavour(this,'9060115cc2e8482a968a83d5ed2e4f1e')"></div>
+                         <div class="answer-panel">
+             <span class="status-title-text hidden-xs">Статус задания:</span>
+             <span class="task-status task-status-0">НЕ РЕШЕНО</span>
+             <span class="answer-button" onclick="changeStatus('9060115cc2e8482a968a83d5ed2e4f1e',this.parentNode)">Изменить статус</span>
+        </div>
+
+    </div>
+</div>	    <script type='text/javascript'>
+	        if (favQst.has("9060115cc2e8482a968a83d5ed2e4f1e"))
+	            toggleQFavour('i4F4FA2');
+	        if (solvedQst.has("9060115cc2e8482a968a83d5ed2e4f1e"))
+	            setQSolved('i4F4FA2', '1');
+	    </script>
+	     <div class="qblock hide-form" id='qF416AF'> 	    <div id="hint" class="hint" name="hint">Дайте развернутый ответ.</div>
+	    		<form action='javascript:noAction()' name='checkformF416AF' id='checkformF416AF' method="post" enctype="multipart/form-data"		>
+		<input type="Hidden" name="guid" value="91150D660275A3B645B480EE2249EA6E">
+		<TABLE WIDTH="100%" border='0' bgcolor='gray' cellspacing='1' cellpadding=2>
+  <TR><TD valign=top width=100% bgcolor="#FAFBCA" class='cell_0'>  <p class=MsoNormal><span>В правильной треугольной призме <span><script language='javascript'> ShowPictureQ('docs/AC437B34557F88EA4115D2F374B0A07B/questions/F1947523C7A693E74DF4EF2CBB22D35D(copy1)/xs3qstsrcF1947523C7A693E74DF4EF2CBB22D35D_1_1580116867.gif');</script></span> сторона <span><script language='javascript'> ShowPictureQ('docs/AC437B34557F88EA4115D2F374B0A07B/questions/F1947523C7A693E74DF4EF2CBB22D35D(copy1)/xs3qstsrcF1947523C7A693E74DF4EF2CBB22D35D_2_1580116867.gif');</script></span> основания равна 6, <br> а боковое ребро <span><script language='javascript'> ShowPictureQ('docs/AC437B34557F88EA4115D2F374B0A07B/questions/F1947523C7A693E74DF4EF2CBB22D35D(copy1)/xs3qstsrcF1947523C7A693E74DF4EF2CBB22D35D_3_1580116867.gif');</script></span> равно 4. На рёбрах <span><script language='javascript'> ShowPictureQ('docs/AC437B34557F88EA4115D2F374B0A07B/questions/F1947523C7A693E74DF4EF2CBB22D35D(copy1)/xs3qstsrcF1947523C7A693E74DF4EF2CBB22D35D_4_1580116867.gif');</script></span></span> и <span><script language='javascript'> ShowPictureQ('docs/AC437B34557F88EA4115D2F374B0A07B/questions/F1947523C7A693E74DF4EF2CBB22D35D(copy1)/xs3qstsrcF1947523C7A693E74DF4EF2CBB22D35D_5_1580116867.gif');</script></span> отмечены точки <span><script language='javascript'> ShowPictureQ('docs/AC437B34557F88EA4115D2F374B0A07B/questions/F1947523C7A693E74DF4EF2CBB22D35D(copy1)/xs3qstsrcF1947523C7A693E74DF4EF2CBB22D35D_6_1580116867.gif');</script></span> и <span><script language='javascript'> ShowPictureQ('docs/AC437B34557F88EA4115D2F374B0A07B/questions/F1947523C7A693E74DF4EF2CBB22D35D(copy1)/xs3qstsrcF1947523C7A693E74DF4EF2CBB22D35D_7_1580116867.gif');</script></span> соответственно, причём <span><script language='javascript'> ShowPictureQ('docs/AC437B34557F88EA4115D2F374B0A07B/questions/F1947523C7A693E74DF4EF2CBB22D35D(copy1)/xs3qstsrcF1947523C7A693E74DF4EF2CBB22D35D_8_1580116867.gif');</script></span>.</p> <p class=MsoNormal>а)&nbsp;Точки <span><script language='javascript'> ShowPictureQ('docs/AC437B34557F88EA4115D2F374B0A07B/questions/F1947523C7A693E74DF4EF2CBB22D35D(copy1)/xs3qstsrcF1947523C7A693E74DF4EF2CBB22D35D_9_1580116867.gif');</script></span> и <span><script language='javascript'> ShowPictureQ('docs/AC437B34557F88EA4115D2F374B0A07B/questions/F1947523C7A693E74DF4EF2CBB22D35D(copy1)/xs3qstsrcF1947523C7A693E74DF4EF2CBB22D35D_10_1580116867.gif');</script></span> — центры окружностей, описанных около треугольников <span><script language='javascript'> ShowPictureQ('docs/AC437B34557F88EA4115D2F374B0A07B/questions/F1947523C7A693E74DF4EF2CBB22D35D(copy1)/xs3qstsrcF1947523C7A693E74DF4EF2CBB22D35D_11_1580116867.gif');</script></span> и <span><script language='javascript'> ShowPictureQ('docs/AC437B34557F88EA4115D2F374B0A07B/questions/F1947523C7A693E74DF4EF2CBB22D35D(copy1)/xs3qstsrcF1947523C7A693E74DF4EF2CBB22D35D_12_1580116867.gif');</script></span> соответственно. Докажите, что прямая <span><script language='javascript'> ShowPictureQ('docs/AC437B34557F88EA4115D2F374B0A07B/questions/F1947523C7A693E74DF4EF2CBB22D35D(copy1)/xs3qstsrcF1947523C7A693E74DF4EF2CBB22D35D_13_1580116867.gif');</script></span> содержит точку пересечения медиан треугольника <span><script language='javascript'> ShowPictureQ('docs/AC437B34557F88EA4115D2F374B0A07B/questions/F1947523C7A693E74DF4EF2CBB22D35D(copy1)/xs3qstsrcF1947523C7A693E74DF4EF2CBB22D35D_14_1580116867.gif');</script></span>.</p> <p class=MsoNormal>б)&nbsp;Найдите расстояние от точки <span><script language='javascript'> ShowPictureQ('docs/AC437B34557F88EA4115D2F374B0A07B/questions/F1947523C7A693E74DF4EF2CBB22D35D(copy1)/xs3qstsrcF1947523C7A693E74DF4EF2CBB22D35D_15_1580116867.gif');</script></span> до плоскости <span><script language='javascript'> ShowPictureQ('docs/AC437B34557F88EA4115D2F374B0A07B/questions/F1947523C7A693E74DF4EF2CBB22D35D(copy1)/xs3qstsrcF1947523C7A693E74DF4EF2CBB22D35D_14_1580116867.gif');</script></span>.</p>  </TD></TR>
+  <TR bgcolor="#FFFFFF"><TD>
+	  <TABLE WIDTH="100%" class='submit-outblock'>
+	  	<TR><TD class='varinats-block'><a name="variants"></a><br><div>&nbsp;</div><br></TD></TR>
+	  	<TR><TD class='submit-block'></TD></TR>
+	  </TABLE>
+  </TD></TR></TABLE>	</form>
+	 </div> <div id='iF416AF'>
+    <div class="separator"></div>
+    <div class="task-header-panel">
+        <div class="info-button" onclick='this.parentNode.classList.toggle("show-info")'>i</div>
+        <div class="task-info-panel">
+            <div class="task-info-title">
+                <span>СВОЙСТВА ЗАДАНИЯ</span>
+                <span class="task-info-title-close-button" onclick='this.parentNode.parentNode.parentNode.classList.toggle("show-info")'></span>
+            </div>
+            <div class="task-info-content">
+                <table><tbody>
+                    <tr><td class="param-name">КЭС:</td><td class="param-row"><div>7.2 Прямые и плоскости в пространстве</div><div>7.3 Многогранники</div></td></tr>                                                                                <tr><td class="param-name">Тип ответа:</td><td>Развернутый ответ</td></tr>                                      </tbody></table>
+            </div>
+        </div>
+        <div class="id-text">Номер: <span class="canselect">F416AF</span></div>
+        <div class="favorite-button" title="Добавить в Избранное" onclick="changeFavour(this,'91150D660275A3B645B480EE2249EA6E')"></div>
+                         <div class="answer-panel">
+             <span class="status-title-text hidden-xs">Статус задания:</span>
+             <span class="task-status task-status-0">НЕ РЕШЕНО</span>
+             <span class="answer-button" onclick="changeStatus('91150D660275A3B645B480EE2249EA6E',this.parentNode)">Изменить статус</span>
+        </div>
+
+    </div>
+</div>	    <script type='text/javascript'>
+	        if (favQst.has("91150D660275A3B645B480EE2249EA6E"))
+	            toggleQFavour('iF416AF');
+	        if (solvedQst.has("91150D660275A3B645B480EE2249EA6E"))
+	            setQSolved('iF416AF', '1');
+	    </script>
+	     <div class="qblock hide-form" id='qFB11A1'> 	    <div id="hint" class="hint" name="hint">Дайте развернутый ответ.</div>
+	    		<form action='javascript:noAction()' name='checkformFB11A1' id='checkformFB11A1' method="post" enctype="multipart/form-data"		>
+		<input type="Hidden" name="guid" value="9155455EFCD293144CE5B4B7C66D8A51">
+		<TABLE WIDTH="100%" border='0' bgcolor='gray' cellspacing='1' cellpadding=2>
+  <TR><TD valign=top width=100% bgcolor="#FAFBCA" class='cell_0'>  <p class=MsoNormal>В июле 2025 года планируется взять кредит на десять лет в размере <br> 800 тыс. рублей. Условия его возврата таковы:</p> <p class=MsoNormal>—&nbsp;каждый январь долг будет возрастать на <span class=mml><m:math><m:mstyle displaystyle="true"><m:mi>r</m:mi></m:mstyle></m:math></span>&nbsp;% по сравнению с концом предыдущего года (<span class=mml><m:math><m:mstyle displaystyle="true"><m:mi>r</m:mi></m:mstyle></m:math></span><span> </span>— целое число);</p> <p class=MsoNormal>— с февраля по июнь каждого года необходимо оплатить одним платежом часть долга;</p> <p class=MsoNormal>—&nbsp;в июле 2026, 2027, 2028, 2029 и 2030 годов долг должен быть на какую-то одну и ту же величину меньше долга на июль предыдущего года;</p> <p class=MsoNormal>—&nbsp;в июле 2030 года долг должен составить 200 тыс.&nbsp;рублей;</p> <p class=MsoNormal>—&nbsp;в июле 2031, 2032, 2033, 2034 и 2035 годов долг должен быть на другую одну и ту же величину меньше долга на июль предыдущего года;</p> <p class=MsoNormal>—&nbsp;к июлю 2035 года долг должен быть выплачен полностью.</p> <p class=MsoNormal>Известно, что сумма всех платежей после полного погашения кредита будет равна 1480 тыс. рублей. Найдите <span class=mml><m:math><m:mstyle displaystyle="true"><m:mi>r</m:mi></m:mstyle></m:math></span>.</p>  </TD></TR>
+  <TR bgcolor="#FFFFFF"><TD>
+	  <TABLE WIDTH="100%" class='submit-outblock'>
+	  	<TR><TD class='varinats-block'><a name="variants"></a><br><div>&nbsp;</div><br></TD></TR>
+	  	<TR><TD class='submit-block'></TD></TR>
+	  </TABLE>
+  </TD></TR></TABLE>	</form>
+	 </div> <div id='iFB11A1'>
+    <div class="separator"></div>
+    <div class="task-header-panel">
+        <div class="info-button" onclick='this.parentNode.classList.toggle("show-info")'>i</div>
+        <div class="task-info-panel">
+            <div class="task-info-title">
+                <span>СВОЙСТВА ЗАДАНИЯ</span>
+                <span class="task-info-title-close-button" onclick='this.parentNode.parentNode.parentNode.classList.toggle("show-info")'></span>
+            </div>
+            <div class="task-info-content">
+                <table><tbody>
+                    <tr><td class="param-name">КЭС:</td><td class="param-row"><div>2.1 Целые и дробно-рациональные уравнения</div><div>3.8 Арифметическая и геометрическая прогрессии. Формула сложных процентов</div></td></tr>                                                                                <tr><td class="param-name">Тип ответа:</td><td>Развернутый ответ</td></tr>                                      </tbody></table>
+            </div>
+        </div>
+        <div class="id-text">Номер: <span class="canselect">FB11A1</span></div>
+        <div class="favorite-button" title="Добавить в Избранное" onclick="changeFavour(this,'9155455EFCD293144CE5B4B7C66D8A51')"></div>
+                         <div class="answer-panel">
+             <span class="status-title-text hidden-xs">Статус задания:</span>
+             <span class="task-status task-status-0">НЕ РЕШЕНО</span>
+             <span class="answer-button" onclick="changeStatus('9155455EFCD293144CE5B4B7C66D8A51',this.parentNode)">Изменить статус</span>
+        </div>
+
+    </div>
+</div>	    <script type='text/javascript'>
+	        if (favQst.has("9155455EFCD293144CE5B4B7C66D8A51"))
+	            toggleQFavour('iFB11A1');
+	        if (solvedQst.has("9155455EFCD293144CE5B4B7C66D8A51"))
+	            setQSolved('iFB11A1', '1');
+	    </script>
+	     <div class="qblock" id='qF2CCA3'> 	    <div id="hint" class="hint" name="hint">Впишите правильный ответ.</div>
+	    		<form action='javascript:noAction()' name='checkformF2CCA3' id='checkformF2CCA3' method="get"		>
+		<input type="Hidden" name="guid" value="91EA6AF6A297944F44A60044DBF6F529">
+		<script language='JavaScript'> 
+ function setAnswerF2CCA3(aform)
+ {;}
+ </script><TABLE WIDTH="100%" border='0' bgcolor='gray' cellspacing='1' cellpadding=2>
+  <TR><TD valign=top width=100% bgcolor="#FAFBCA" class='cell_0'>  <p class="MsoNormal"><span>Моторная лодка прошла против течения реки 143 км и вернулась в пункт отправления, затратив на обратный путь на 2 часа меньше. Найдите скорость лодки в неподвижной воде, если скорость течения равна 1 км/ч. Ответ дайте в км/ч.</span><span></span></p>  </TD></TR>
+  <TR bgcolor="#FFFFFF"><TD>
+	  <TABLE WIDTH="100%" class='submit-outblock'>
+	  	<TR><TD class='varinats-block'><a name="variants"></a><br><div><table width='100%' cellspacing=0 cellpadding=1><tr><td width=100%><input type=text name="answer" size=40 value="" maxlength="250"></td></tr></table></div><br></TD></TR>
+	  	<TR><TD class='submit-block'></TD></TR>
+	  </TABLE>
+  </TD></TR></TABLE>	</form>
+	<form name='chkcodeform'>
+			<input type='hidden' name='guid' value='91EA6AF6A297944F44A60044DBF6F529'>
+			<input type='hidden' name='answer' value="">
+			<input type='hidden' name='chkcode' value=''>
+		</form> </div> <div id='iF2CCA3'>
+    <div class="separator"></div>
+    <div class="task-header-panel">
+        <div class="info-button" onclick='this.parentNode.classList.toggle("show-info")'>i</div>
+        <div class="task-info-panel">
+            <div class="task-info-title">
+                <span>СВОЙСТВА ЗАДАНИЯ</span>
+                <span class="task-info-title-close-button" onclick='this.parentNode.parentNode.parentNode.classList.toggle("show-info")'></span>
+            </div>
+            <div class="task-info-content">
+                <table><tbody>
+                    <tr><td class="param-name">КЭС:</td><td class="param-row"><div>2.1 Целые и дробно-рациональные уравнения</div></td></tr>                                                                                <tr><td class="param-name">Тип ответа:</td><td>Краткий ответ</td></tr>                                      </tbody></table>
+            </div>
+        </div>
+        <div class="id-text">Номер: <span class="canselect">F2CCA3</span></div>
+        <div class="favorite-button" title="Добавить в Избранное" onclick="changeFavour(this,'91EA6AF6A297944F44A60044DBF6F529')"></div>
+                         <div class="answer-panel">
+             <span class="status-title-text hidden-xs">Статус задания:</span>
+             <span class="task-status task-status-0">НЕ РЕШЕНО</span>
+             <span class="answer-button" onclick="checkButtonClick('checkformF2CCA3', setAnswerF2CCA3, this.parentNode)">Ответить</span>
+        </div>
+
+    </div>
+</div>	    <script type='text/javascript'>
+	        if (favQst.has("91EA6AF6A297944F44A60044DBF6F529"))
+	            toggleQFavour('iF2CCA3');
+	        if (solvedQst.has("91EA6AF6A297944F44A60044DBF6F529"))
+	            setQSolved('iF2CCA3', '1');
+	    </script>
+	     <div class="qblock" id='q0DC0A0'> 	    <div id="hint" class="hint" name="hint">Впишите правильный ответ.</div>
+	    		<form action='javascript:noAction()' name='checkform0DC0A0' id='checkform0DC0A0' method="get"		>
+		<input type="Hidden" name="guid" value="922A7299F46CACE249B862D245B00CDE">
+		<script language='JavaScript'> 
+ function setAnswer0DC0A0(aform)
+ {;}
+ </script><TABLE WIDTH="100%" border='0' bgcolor='gray' cellspacing='1' cellpadding=2>
+  <TR><TD valign=top width=100% bgcolor="#FAFBCA" class='cell_0'>  <p class="MsoNormal">Найдите значение выражения <m:math><m:mstyle displaystyle="true"> <m:semantics> <m:mrow> <m:msqrt> <m:mn>2</m:mn> </m:msqrt> <m:mo>&#x2212;</m:mo><m:mn>2</m:mn><m:msqrt> <m:mn>2</m:mn> </m:msqrt> <m:msup> <m:mrow> <m:mi>sin</m:mi> </m:mrow> <m:mn>2</m:mn> </m:msup> <m:mfrac> <m:mrow> <m:mtext>15&#x03C0;</m:mtext> </m:mrow> <m:mn>8</m:mn> </m:mfrac> </m:mrow>  </m:semantics> </m:mstyle></m:math>.<span></span></p>  </TD></TR>
+  <TR bgcolor="#FFFFFF"><TD>
+	  <TABLE WIDTH="100%" class='submit-outblock'>
+	  	<TR><TD class='varinats-block'><a name="variants"></a><br><div><table width='100%' cellspacing=0 cellpadding=1><tr><td width=100%><input type=text name="answer" size=40 value="" maxlength="250"></td></tr></table></div><br></TD></TR>
+	  	<TR><TD class='submit-block'></TD></TR>
+	  </TABLE>
+  </TD></TR></TABLE>	</form>
+	<form name='chkcodeform'>
+			<input type='hidden' name='guid' value='922A7299F46CACE249B862D245B00CDE'>
+			<input type='hidden' name='answer' value="">
+			<input type='hidden' name='chkcode' value=''>
+		</form> </div> <div id='i0DC0A0'>
+    <div class="separator"></div>
+    <div class="task-header-panel">
+        <div class="info-button" onclick='this.parentNode.classList.toggle("show-info")'>i</div>
+        <div class="task-info-panel">
+            <div class="task-info-title">
+                <span>СВОЙСТВА ЗАДАНИЯ</span>
+                <span class="task-info-title-close-button" onclick='this.parentNode.parentNode.parentNode.classList.toggle("show-info")'></span>
+            </div>
+            <div class="task-info-content">
+                <table><tbody>
+                    <tr><td class="param-name">КЭС:</td><td class="param-row"><div>1.5 Синус, косинус и тангенс числового аргумента. Арксинус, арккосинус, арктангенс числового аргумента</div><div>1.8 Преобразование выражений</div></td></tr>                                                                                <tr><td class="param-name">Тип ответа:</td><td>Краткий ответ</td></tr>                                      </tbody></table>
+            </div>
+        </div>
+        <div class="id-text">Номер: <span class="canselect">0DC0A0</span></div>
+        <div class="favorite-button" title="Добавить в Избранное" onclick="changeFavour(this,'922A7299F46CACE249B862D245B00CDE')"></div>
+                         <div class="answer-panel">
+             <span class="status-title-text hidden-xs">Статус задания:</span>
+             <span class="task-status task-status-0">НЕ РЕШЕНО</span>
+             <span class="answer-button" onclick="checkButtonClick('checkform0DC0A0', setAnswer0DC0A0, this.parentNode)">Ответить</span>
+        </div>
+
+    </div>
+</div>	    <script type='text/javascript'>
+	        if (favQst.has("922A7299F46CACE249B862D245B00CDE"))
+	            toggleQFavour('i0DC0A0');
+	        if (solvedQst.has("922A7299F46CACE249B862D245B00CDE"))
+	            setQSolved('i0DC0A0', '1');
+	    </script>
+	     <div class="qblock hide-form" id='q0B28A5'> 	    <div id="hint" class="hint" name="hint">Дайте развернутый ответ.</div>
+	    		<form action='javascript:noAction()' name='checkform0B28A5' id='checkform0B28A5' method="post" enctype="multipart/form-data"		>
+		<input type="Hidden" name="guid" value="92864FF3FC2EB81040E4811732C6A3EF">
+		<TABLE WIDTH="100%" border='0' bgcolor='gray' cellspacing='1' cellpadding=2>
+  <TR><TD valign=top width=100% bgcolor="#FAFBCA" class='cell_0'>  <p class="MsoNormal">В прямоугольном параллелепипеде <m:math> <m:semantics> <m:mrow> <m:mi>A</m:mi><m:mi>B</m:mi><m:mi>C</m:mi><m:mi>D</m:mi><m:msub> <m:mi>A</m:mi> <m:mn>1</m:mn> </m:msub> <m:msub> <m:mi>B</m:mi> <m:mn>1</m:mn> </m:msub> <m:msub> <m:mi>C</m:mi> <m:mn>1</m:mn> </m:msub> <m:msub> <m:mi>D</m:mi> <m:mn>1</m:mn> </m:msub> </m:mrow> </m:semantics> </m:math>&nbsp;через середину <m:math> <m:semantics> <m:mi>M</m:mi> </m:semantics> </m:math>&nbsp;диагонали <m:math> <m:semantics> <m:mrow> <m:mi>A</m:mi><m:msub> <m:mi>C</m:mi> <m:mn>1</m:mn> </m:msub> </m:mrow> </m:semantics> </m:math>&nbsp;проведена плоскость <m:math> <m:semantics> <m:mtext>&#x03B1;</m:mtext> </m:semantics> </m:math>&nbsp;перпендикулярно этой диагонали, <m:math> <m:semantics> <m:mrow> <m:mi>A</m:mi><m:mi>B</m:mi><m:mo>=</m:mo><m:mn>5,</m:mn> </m:mrow> </m:semantics> </m:math>&nbsp;<m:math> <m:semantics> <m:mrow> <m:mi>B</m:mi><m:mi>C</m:mi><m:mo>=</m:mo><m:mn>3,</m:mn> </m:mrow> </m:semantics> </m:math>&nbsp;<m:math> <m:semantics> <m:mrow> <m:mi>A</m:mi><m:msub> <m:mi>A</m:mi> <m:mn>1</m:mn> </m:msub> <m:mo>=</m:mo><m:mn>4.</m:mn> </m:mrow> </m:semantics> </m:math></p> <p class="MsoNormal">а)&nbsp;Докажите, что плоскость <m:math> <m:semantics> <m:mtext>&#x03B1;</m:mtext> </m:semantics> </m:math>&nbsp;содержит точку <m:math> <m:semantics> <m:mrow> <m:msub> <m:mi>D</m:mi> <m:mn>1</m:mn> </m:msub> <m:mo>.</m:mo> </m:mrow> </m:semantics> </m:math></p> <p class="MsoNormal">б)&nbsp;Найдите отношение, в котором плоскость <m:math> <m:semantics> <m:mtext>&#x03B1;</m:mtext> </m:semantics> </m:math>&nbsp;делит ребро <m:math> <m:semantics> <m:mrow> <m:msub> <m:mi>A</m:mi> <m:mn>1</m:mn> </m:msub> <m:msub> <m:mi>B</m:mi> <m:mn>1</m:mn> </m:msub> <m:mo>.</m:mo> </m:mrow> </m:semantics> </m:math><span></span></p>  </TD></TR>
+  <TR bgcolor="#FFFFFF"><TD>
+	  <TABLE WIDTH="100%" class='submit-outblock'>
+	  	<TR><TD class='varinats-block'><a name="variants"></a><br><div>&nbsp;</div><br></TD></TR>
+	  	<TR><TD class='submit-block'></TD></TR>
+	  </TABLE>
+  </TD></TR></TABLE>	</form>
+	 </div> <div id='i0B28A5'>
+    <div class="separator"></div>
+    <div class="task-header-panel">
+        <div class="info-button" onclick='this.parentNode.classList.toggle("show-info")'>i</div>
+        <div class="task-info-panel">
+            <div class="task-info-title">
+                <span>СВОЙСТВА ЗАДАНИЯ</span>
+                <span class="task-info-title-close-button" onclick='this.parentNode.parentNode.parentNode.classList.toggle("show-info")'></span>
+            </div>
+            <div class="task-info-content">
+                <table><tbody>
+                    <tr><td class="param-name">КЭС:</td><td class="param-row"><div>7.1 Фигуры на плоскости</div><div>7.2 Прямые и плоскости в пространстве</div><div>7.3 Многогранники</div></td></tr>                                                                                <tr><td class="param-name">Тип ответа:</td><td>Развернутый ответ</td></tr>                                      </tbody></table>
+            </div>
+        </div>
+        <div class="id-text">Номер: <span class="canselect">0B28A5</span></div>
+        <div class="favorite-button" title="Добавить в Избранное" onclick="changeFavour(this,'92864FF3FC2EB81040E4811732C6A3EF')"></div>
+                         <div class="answer-panel">
+             <span class="status-title-text hidden-xs">Статус задания:</span>
+             <span class="task-status task-status-0">НЕ РЕШЕНО</span>
+             <span class="answer-button" onclick="changeStatus('92864FF3FC2EB81040E4811732C6A3EF',this.parentNode)">Изменить статус</span>
+        </div>
+
+    </div>
+</div>	    <script type='text/javascript'>
+	        if (favQst.has("92864FF3FC2EB81040E4811732C6A3EF"))
+	            toggleQFavour('i0B28A5');
+	        if (solvedQst.has("92864FF3FC2EB81040E4811732C6A3EF"))
+	            setQSolved('i0B28A5', '1');
+	    </script>
+	     <div class="qblock" id='q714DA4'> 	    <div id="hint" class="hint" name="hint">Впишите правильный ответ.</div>
+	    		<form action='javascript:noAction()' name='checkform714DA4' id='checkform714DA4' method="get"		>
+		<input type="Hidden" name="guid" value="930057241c374b7ebd4012041036fe94">
+		<script language='JavaScript'> 
+ function setAnswer714DA4(aform)
+ {;}
+ </script><TABLE WIDTH="100%" border='0' bgcolor='gray' cellspacing='1' cellpadding=2>
+  <TR><TD valign=top width=100% bgcolor="#FAFBCA" class='cell_0'>  <p class="MsoNormal">Найдите точку минимума функции <span class="apple-converted-space"><m:math> <m:semantics> <m:mrow> <m:mi>y</m:mi><m:mo>=</m:mo><m:msup> <m:mi>x</m:mi> <m:mn>3</m:mn> </m:msup> <m:mo>&#x2212;</m:mo><m:mn>12</m:mn><m:msup> <m:mi>x</m:mi> <m:mn>2</m:mn> </m:msup> <m:mo>+</m:mo><m:mn>36</m:mn><m:mi>x</m:mi><m:mo>+</m:mo><m:mn>17.</m:mn> </m:mrow> </m:semantics> </m:math></span><span></span></p>  </TD></TR>
+  <TR bgcolor="#FFFFFF"><TD>
+	  <TABLE WIDTH="100%" class='submit-outblock'>
+	  	<TR><TD class='varinats-block'><a name="variants"></a><br><div><table width='100%' cellspacing=0 cellpadding=1><tr><td width=100%><input type=text name="answer" size=40 value="" maxlength="250"></td></tr></table></div><br></TD></TR>
+	  	<TR><TD class='submit-block'></TD></TR>
+	  </TABLE>
+  </TD></TR></TABLE>	</form>
+	<form name='chkcodeform'>
+			<input type='hidden' name='guid' value='930057241c374b7ebd4012041036fe94'>
+			<input type='hidden' name='answer' value="">
+			<input type='hidden' name='chkcode' value=''>
+		</form> </div> <div id='i714DA4'>
+    <div class="separator"></div>
+    <div class="task-header-panel">
+        <div class="info-button" onclick='this.parentNode.classList.toggle("show-info")'>i</div>
+        <div class="task-info-panel">
+            <div class="task-info-title">
+                <span>СВОЙСТВА ЗАДАНИЯ</span>
+                <span class="task-info-title-close-button" onclick='this.parentNode.parentNode.parentNode.classList.toggle("show-info")'></span>
+            </div>
+            <div class="task-info-content">
+                <table><tbody>
+                    <tr><td class="param-name">КЭС:</td><td class="param-row"><div>4.1 Производная функции. Производные элементарных функций</div><div>4.2 Применение производной к исследованию функций на монотонность и экстремумы. Нахождение наибольшего и наименьшего значения функции на отрезке</div></td></tr>                                                                                <tr><td class="param-name">Тип ответа:</td><td>Краткий ответ</td></tr>                                      </tbody></table>
+            </div>
+        </div>
+        <div class="id-text">Номер: <span class="canselect">714DA4</span></div>
+        <div class="favorite-button" title="Добавить в Избранное" onclick="changeFavour(this,'930057241c374b7ebd4012041036fe94')"></div>
+                         <div class="answer-panel">
+             <span class="status-title-text hidden-xs">Статус задания:</span>
+             <span class="task-status task-status-0">НЕ РЕШЕНО</span>
+             <span class="answer-button" onclick="checkButtonClick('checkform714DA4', setAnswer714DA4, this.parentNode)">Ответить</span>
+        </div>
+
+    </div>
+</div>	    <script type='text/javascript'>
+	        if (favQst.has("930057241c374b7ebd4012041036fe94"))
+	            toggleQFavour('i714DA4');
+	        if (solvedQst.has("930057241c374b7ebd4012041036fe94"))
+	            setQSolved('i714DA4', '1');
+	    </script>
+	     <div class="qblock" id='q79CEAC'> 	    <div id="hint" class="hint" name="hint">Впишите правильный ответ.</div>
+	    		<form action='javascript:noAction()' name='checkform79CEAC' id='checkform79CEAC' method="get"		>
+		<input type="Hidden" name="guid" value="93AABCB965C2965D4A2A01478A8DC5C9">
+		<script language='JavaScript'> 
+ function setAnswer79CEAC(aform)
+ {;}
+ </script><TABLE WIDTH="100%" border='0' bgcolor='gray' cellspacing='1' cellpadding=2>
+  <TR><TD valign=top width=100% bgcolor="#FAFBCA" class='cell_0'>  <p class="MsoNormal" align="left"><span>Найдите наибольшее значение функции</span></p> <p class="MsoNormal" align="center"><m:math><m:mstyle displaystyle="true"> <m:semantics> <m:mrow> <m:mi>y</m:mi><m:mo>=</m:mo><m:mn>10</m:mn><m:mi>sin</m:mi><m:mi>x</m:mi><m:mo>&#x2212;</m:mo><m:mfrac> <m:mrow> <m:mn>36</m:mn><m:mi>x</m:mi> </m:mrow> <m:mtext>&#x03C0;</m:mtext> </m:mfrac> <m:mo>+</m:mo><m:mn>7</m:mn> </m:mrow>  </m:semantics> </m:mstyle></m:math><span></span></p> <p class="MsoNormal"><span>на отрезке <m:math><m:mstyle displaystyle="true"> <m:semantics> <m:mrow> <m:mrow><m:mo>[</m:mo> <m:mrow> <m:mo>&#x2212;</m:mo><m:mtext>&#x2009;</m:mtext><m:mfrac> <m:mrow> <m:mn>5</m:mn><m:mtext>&#x03C0;</m:mtext> </m:mrow> <m:mn>6</m:mn> </m:mfrac> <m:mo>;</m:mo><m:mtext>&#x2009;</m:mtext><m:mn>0</m:mn> </m:mrow> <m:mo>]</m:mo></m:mrow> </m:mrow>  </m:semantics> </m:mstyle></m:math>.</span><span></span></p>  </TD></TR>
+  <TR bgcolor="#FFFFFF"><TD>
+	  <TABLE WIDTH="100%" class='submit-outblock'>
+	  	<TR><TD class='varinats-block'><a name="variants"></a><br><div><table width='100%' cellspacing=0 cellpadding=1><tr><td width=100%><input type=text name="answer" size=40 value="" maxlength="250"></td></tr></table></div><br></TD></TR>
+	  	<TR><TD class='submit-block'></TD></TR>
+	  </TABLE>
+  </TD></TR></TABLE>	</form>
+	<form name='chkcodeform'>
+			<input type='hidden' name='guid' value='93AABCB965C2965D4A2A01478A8DC5C9'>
+			<input type='hidden' name='answer' value="">
+			<input type='hidden' name='chkcode' value=''>
+		</form> </div> <div id='i79CEAC'>
+    <div class="separator"></div>
+    <div class="task-header-panel">
+        <div class="info-button" onclick='this.parentNode.classList.toggle("show-info")'>i</div>
+        <div class="task-info-panel">
+            <div class="task-info-title">
+                <span>СВОЙСТВА ЗАДАНИЯ</span>
+                <span class="task-info-title-close-button" onclick='this.parentNode.parentNode.parentNode.classList.toggle("show-info")'></span>
+            </div>
+            <div class="task-info-content">
+                <table><tbody>
+                    <tr><td class="param-name">КЭС:</td><td class="param-row"><div>4.1 Производная функции. Производные элементарных функций</div><div>4.2 Применение производной к исследованию функций на монотонность и экстремумы. Нахождение наибольшего и наименьшего значения функции на отрезке</div></td></tr>                                                                                <tr><td class="param-name">Тип ответа:</td><td>Краткий ответ</td></tr>                                      </tbody></table>
+            </div>
+        </div>
+        <div class="id-text">Номер: <span class="canselect">79CEAC</span></div>
+        <div class="favorite-button" title="Добавить в Избранное" onclick="changeFavour(this,'93AABCB965C2965D4A2A01478A8DC5C9')"></div>
+                         <div class="answer-panel">
+             <span class="status-title-text hidden-xs">Статус задания:</span>
+             <span class="task-status task-status-0">НЕ РЕШЕНО</span>
+             <span class="answer-button" onclick="checkButtonClick('checkform79CEAC', setAnswer79CEAC, this.parentNode)">Ответить</span>
+        </div>
+
+    </div>
+</div>	    <script type='text/javascript'>
+	        if (favQst.has("93AABCB965C2965D4A2A01478A8DC5C9"))
+	            toggleQFavour('i79CEAC');
+	        if (solvedQst.has("93AABCB965C2965D4A2A01478A8DC5C9"))
+	            setQSolved('i79CEAC', '1');
+	    </script>
+	     <div class="qblock hide-form" id='q74C1A9'> 	    <div id="hint" class="hint" name="hint">Дайте развернутый ответ.</div>
+	    		<form action='javascript:noAction()' name='checkform74C1A9' id='checkform74C1A9' method="post" enctype="multipart/form-data"		>
+		<input type="Hidden" name="guid" value="93BA0527912CA59247AE88322FD11DFE">
+		<TABLE WIDTH="100%" border='0' bgcolor='gray' cellspacing='1' cellpadding=2>
+  <TR><TD valign=top width=100% bgcolor="#FAFBCA" class='cell_0'>  <p class="MsoNormal">а)&nbsp;Решите уравнение</p> <p class="MsoNormal" align="center"><m:math><m:mstyle displaystyle="true"> <m:semantics> <m:mrow> <m:mn>2</m:mn><m:msup> <m:mrow> <m:mi>cos</m:mi> </m:mrow> <m:mn>3</m:mn> </m:msup> <m:mtext>&#x200B;</m:mtext><m:mi>x</m:mi><m:mo>+</m:mo><m:msqrt> <m:mn>3</m:mn> </m:msqrt> <m:msup> <m:mrow> <m:mi>cos</m:mi> </m:mrow> <m:mn>2</m:mn> </m:msup> <m:mtext>&#x200B;</m:mtext><m:mi>x</m:mi><m:mo>+</m:mo><m:mn>2</m:mn><m:mi>cos</m:mi><m:mi>x</m:mi><m:mo>+</m:mo><m:msqrt> <m:mn>3</m:mn> </m:msqrt> <m:mo>=</m:mo><m:mn>0</m:mn> </m:mrow>  </m:semantics> </m:mstyle></m:math>.</p> <p class="MsoNormal">б)&nbsp;Укажите корни этого уравнения, принадлежащие отрезку <m:math><m:mstyle displaystyle="true"> <m:semantics> <m:mrow> <m:mrow><m:mo>[</m:mo> <m:mrow> <m:mo>&#x2212;</m:mo><m:mtext>&#x2009;</m:mtext><m:mtext>2&#x03C0;</m:mtext><m:mtext>&#x2009;</m:mtext><m:mo>;</m:mo><m:mtext>&#x2009;</m:mtext><m:mo>&#x2212;</m:mo><m:mfrac> <m:mtext>&#x03C0;</m:mtext> <m:mn>2</m:mn> </m:mfrac> </m:mrow> <m:mo>]</m:mo></m:mrow> </m:mrow>  </m:semantics> </m:mstyle></m:math>.<span></span></p>  </TD></TR>
+  <TR bgcolor="#FFFFFF"><TD>
+	  <TABLE WIDTH="100%" class='submit-outblock'>
+	  	<TR><TD class='varinats-block'><a name="variants"></a><br><div>&nbsp;</div><br></TD></TR>
+	  	<TR><TD class='submit-block'></TD></TR>
+	  </TABLE>
+  </TD></TR></TABLE>	</form>
+	 </div> <div id='i74C1A9'>
+    <div class="separator"></div>
+    <div class="task-header-panel">
+        <div class="info-button" onclick='this.parentNode.classList.toggle("show-info")'>i</div>
+        <div class="task-info-panel">
+            <div class="task-info-title">
+                <span>СВОЙСТВА ЗАДАНИЯ</span>
+                <span class="task-info-title-close-button" onclick='this.parentNode.parentNode.parentNode.classList.toggle("show-info")'></span>
+            </div>
+            <div class="task-info-content">
+                <table><tbody>
+                    <tr><td class="param-name">КЭС:</td><td class="param-row"><div>2.1 Целые и дробно-рациональные уравнения</div><div>2.3 Тригонометрические уравнения</div></td></tr>                                                                                <tr><td class="param-name">Тип ответа:</td><td>Развернутый ответ</td></tr>                                      </tbody></table>
+            </div>
+        </div>
+        <div class="id-text">Номер: <span class="canselect">74C1A9</span></div>
+        <div class="favorite-button" title="Добавить в Избранное" onclick="changeFavour(this,'93BA0527912CA59247AE88322FD11DFE')"></div>
+                         <div class="answer-panel">
+             <span class="status-title-text hidden-xs">Статус задания:</span>
+             <span class="task-status task-status-0">НЕ РЕШЕНО</span>
+             <span class="answer-button" onclick="changeStatus('93BA0527912CA59247AE88322FD11DFE',this.parentNode)">Изменить статус</span>
+        </div>
+
+    </div>
+</div>	    <script type='text/javascript'>
+	        if (favQst.has("93BA0527912CA59247AE88322FD11DFE"))
+	            toggleQFavour('i74C1A9');
+	        if (solvedQst.has("93BA0527912CA59247AE88322FD11DFE"))
+	            setQSolved('i74C1A9', '1');
+	    </script>
+	    
+<div id='bottom_marker'></div>
+
+<script type='text/javascript'>
+function setSize() {  if (window.parent) {
+    window.parent.setQCount(1148);
+    //var rect = document.body.getBoundingClientRect();
+    //window.parent.setContainerSize(rect.bottom - rect.top);
+    //window.parent.setContainerSize(Math.max(
+    //      document.body.offsetHeight, document.documentElement.offsetHeight,
+    //      document.body.clientHeight, document.documentElement.clientHeight)
+    //);
+    resizeContainer();
+  }
+}
+
+var cWidth = document.body.offsetWidth;
+
+function resizeContainer(){
+    var rect = document.getElementById('bottom_marker').getBoundingClientRect(); //document.body.lastChild.getBoundingClientRect();
+    window.parent.setContainerSize(rect.bottom);}
+
+function windowResize() {
+    if (cWidth != document.body.offsetWidth) {    	cWidth = document.body.offsetWidth;
+    	resizeContainer();
+    }}
+
+if (window.parent) {
+    window.parent.setQCount(1148, 76, 10);
+    
+    if (MathJax) {
+        MathJax.Hub.Register.StartupHook("End",function () { setSize(); setTimeout(resizeContainer, 1000) });
+    }
+
+	if (window.addEventListener)
+        window.addEventListener('resize', windowResize);
+    else if (window.attachEvent)
+        window.attachEvent('onresize', windowResize);
+}
+
+</script>
+<SCRIPT language=JavaScript src="../../lib/bdetect.js" type=text/javascript></SCRIPT>
+
+<script language='JavaScript'>
+var crtm="1793442836";
+function SubmitForm(aform,pgname)
+{
+var aEl = document.createElement('input');
+if (!browser.isMac || !browser.isIE)
+  aEl.type = 'hidden';
+aEl.style.display = 'none';
+aEl.name = 'crtm';
+aEl.value = crtm;
+aform.appendChild(aEl);
+aform.action=pgname;
+aform.submit();
+
+}
+function GetPageName(pgname,extparams){
+if (pgname=='') pgname='/bank/questions.php';
+if (extparams=='')
+	pgname=pgname+"?crtm="+crtm;
+else	pgname=pgname+"?crtm="+crtm+"&"+extparams;
+return pgname;}
+function ShowPage(pgname,extparams,wndname,wndparam){
+if (wndname=='') {
+
+  location.href=GetPageName(pgname,extparams);
+
+  }
+  else
+ {if (wndparam=='')
+wnd=window.open(GetPageName(pgname,extparams),wndname);
+else wnd=window.open(GetPageName(pgname,extparams),wndname,wndparam);
+wnd.focus();}
+}
+</script>
+<script language='javascript'>
+                function onXS3DocumectLoad() {setSize();
+ }
+
+		if (window.addEventListener)
+            window.addEventListener('load', onXS3DocumectLoad);
+        else if (window.attachEvent)
+            window.attachEvent('onload', onXS3DocumectLoad);
+        else
+            window.onload = onXS3DocumectLoad;
+ </script><script language='javascript'>
+                function onXS3DocumectUnload(e) {
+			    	document.cookie = "md_auto=qprint; path=/; SameSite=Lax";
+			   		//return false;
+		    }
+		if (window.addEventListener)
+            window.addEventListener('beforeunload', onXS3DocumectUnload);
+        else if (window.attachEvent)
+            window.attachEvent('onbeforeunload', onXS3DocumectUnload);
+        else
+            window.onbeforeunload = onXS3DocumectUnload;
+        </script></body>
+</html>
