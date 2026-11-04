@@ -1,0 +1,99 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>F6158A</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>7. ФИПИ F6158A</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Найдите значение выражения <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mn>3</mn><mi>cos</mi><mn>2</mn><mtext>α</mtext><mtext>,</mtext> </mrow> </semantics> </math> если <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>sin</mi><mtext>α</mtext><mo>=</mo><mn>0,2.</mn> </mrow> </semantics> </math><span></span></p>  </section></div><p>КЭС: 1.5 Синус, косинус и тангенс числового аргумента. Арксинус, арккосинус, арктангенс числового аргумента; 1.8 Преобразование выражений</p><h2>Ответ</h2><p>2,76</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Выразить косинус двойного угла через синус исходного угла и подставить заданное значение.</td><td>cos(2α)=1−2sin²α=1−2·0,2²=0,92.</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Вычислить значение выражения с найденным косинусом.</td><td>3cos(2α)=3·0,92=2,76.</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Применение формулы косинуса двойного угла через синус&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Вычислять косинус двойного угла по синусу исходного угла</h3><p>Для действительного угла с известным значением синуса применить тождество cos(2α)=1−2sin²α и вычислить косинус двойного угла; знания четверти не требуется.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;cos(2α)=1−2sin²α=1−2·0,2²=0,92.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;,
+      &quot;reason&quot;: &quot;Формула двойного угла сводит выражение к синусу одного аргумента; определение охватывает наблюдаемое преобразование.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_55d5a6d9eb3c&quot;,
+      &quot;reason&quot;: &quot;Также охватывает сведение формулой двойного угла к одной тригонометрической функции; основания предпочесть другому узлу нет.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_3d70ab3eb24a&quot;,
+      &quot;reason&quot;: &quot;Ограничен произведением синуса и косинуса или синусом двойного аргумента, а здесь косинус двойного аргумента.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6d4854d97c9c&quot;,
+      &quot;reason&quot;: &quot;Основное тождество само по себе не заменяет формулу косинуса двойного угла; отдельного применения к sin²α+cos²α в решении нет.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Применение cos(2α)=1−2sin²α и вычисление по данному синусу наблюдаются непосредственно; знания четверти действительно не требуется. Числовая подстановка завершает то же действие и сама по себе не требует дробления. Однако два предварительных определения тригонометрического преобразования перекрываются и не дают обоснованного единственного ID; поэтому соответствие не подтверждено как match.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc2"><h3>kc2 · Вычислять произведение числового коэффициента и известного значения выражения</h3><p>По числовому коэффициенту и известному числовому значению множителя выполнить умножение, получая значение произведения.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;3cos(2α)=3·0,92=2,76.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+      &quot;reason&quot;: &quot;Предполагает подстановку аргумента в установленную формулу функции; здесь уже найденное числовое значение множителя умножают на коэффициент, аргумент функции не подставляют.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+      &quot;reason&quot;: &quot;Нет физической формулы, соотнесения величин и единиц; выполняется обычное числовое умножение.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_89184e5e6ac9&quot;,
+      &quot;reason&quot;: &quot;Вспомогательный параметр не вводился; вычисленное значение косинуса не является отдельной параметризацией задачи.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;По предыдущему шагу известен косинус 0,92; в текущем шаге выполняется единственное числовое умножение на заданный коэффициент 3. Полный каталог не содержит определения именно этой арифметической операции. Сюжет с косинусом не меняет её границы.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Вычислять произведение известных числовых множителей&quot;,
+    &quot;definition&quot;: &quot;По известным числовым значениям множителей вычислить их произведение; получение значений множителей и преобразование символического выражения рассматриваются отдельно.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s1:result&quot;
+    ],
+    &quot;description&quot;: &quot;Определения literal_cc7d68a38f29 и literal_55d5a6d9eb3c перекрываются на применении формулы косинуса двойного угла. В переданном каталоге нет правила выбора между ними.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc1&quot;
+    ]
+  }
+]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\F6158A.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\F6158A.json&quot;
+}</pre></html>

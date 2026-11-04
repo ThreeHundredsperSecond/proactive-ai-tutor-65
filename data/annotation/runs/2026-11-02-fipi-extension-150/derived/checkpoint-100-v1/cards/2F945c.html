@@ -1,0 +1,92 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>2F945c</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>31. ФИПИ 2F945c</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal"><span>Конкурс исполнителей проводится в 4 дня. Всего заявлено 50 выступлений: <br> по одному от каждой страны, участвующей в конкурсе. Исполнитель из России участвует в конкурсе. В первый день запланировано 20 выступлений, остальные распределены поровну между оставшимися днями. Порядок выступлений определяется жеребьёвкой. Какова вероятность того, что выступление этого исполнителя из России состоится во второй день конкурса?</span></p>  </section></div><p>КЭС: 6.2 Вероятность</p><h2>Ответ</h2><p>0,2</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Определить число выступлений во второй день по равномерному распределению оставшихся выступлений.</td><td>После первого дня остаётся 50 − 20 = 30 выступлений; на каждый из трёх оставшихся дней приходится 30 / 3 = 10 выступлений.</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Вычислить вероятность попадания выступления российского исполнителя на одно из мест второго дня при жеребьёвке.</td><td>Все 50 мест равновероятны для данного исполнителя, из них 10 приходятся на второй день. Поэтому P = 10 / 50 = 0,2.</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Подсчёт мест нужного дня и применение классической вероятности&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Распределить остаток количества поровну между группами</h3><p>По общему количеству объектов, количеству в выделенной группе и числу остальных групп вычесть выделенное количество и разделить остаток на число групп; применяется при условии равного распределения остатка.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;После первого дня остаётся 50 − 20 = 30 выступлений; на каждый из трёх оставшихся дней приходится 30 / 3 = 10 выступлений.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;Вычислены остаток и размер равных групп; аффинное уравнение с неизвестной не решается.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_032c8bc781fd&quot;,
+      &quot;reason&quot;: &quot;Нет процентного отношения целочисленных численностей и моделирования изменения состава.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;direct_proportion&quot;,
+      &quot;reason&quot;: &quot;Коэффициент функции y=kx по точке не восстанавливается; равное распределение остатка не соответствует этому определению.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдается единое арифметическое действие по сюжету: исключить выделенную часть общего количества и определить размер каждой из равных оставшихся групп. Равенство распределения и число дней заданы условием. Полный каталог не содержит определения этой операции; отдельные вычитание и деление дробить не требуется.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Распределять остаток количества поровну между группами&quot;,
+    &quot;definition&quot;: &quot;По общему количеству объектов, количеству в выделенной части и положительному числу остальных групп найти размер одной группы как частное остатка и числа групп, если равное распределение остатка задано или установлено. Для неделимых объектов учитывать целочисленность полученного размера.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Вычислить вероятность попадания в группу равновероятных мест</h3><p>При случайном назначении объекта на равновероятные места разделить число мест нужной группы на общее число мест; применяется, когда жеребьёвка обеспечивает равновероятность каждого места для данного объекта.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;Все 50 мест равновероятны для данного исполнителя, из них 10 приходятся на второй день. Поэтому P = 10 / 50 = 0,2.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+      &quot;reason&quot;: &quot;Этот узел охватывает выбор исходов и равновозможность, но не вычисление отношения 10/50, составляющее действие локального кандидата. Модель в s2 присутствует дополнительно.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+      &quot;reason&quot;: &quot;Пересечение независимых событий и произведение их вероятностей не используются.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат определён как деление числа мест нужной группы на общее число равновероятных мест; жеребьёвка и равновероятность являются его условиями применения. Результат s1 даёт m=10, условие даёт n=50, в s2 явно зафиксирована конечная равновозможная модель и вычислено m/n. Это полностью соответствует classical_probability. Дополнительное построение модели в том же шаге отмечено отдельно как пробел разметки, а не включено в границы данного match.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;missing_annotation&quot;,
+    &quot;refs&quot;: [
+      &quot;condition&quot;,
+      &quot;step:s2:result&quot;
+    ],
+    &quot;description&quot;: &quot;В s2 исходами выбраны места выступления и явно сказано, что все 50 мест равновероятны для исполнителя; источник равновозможности — жеребьёвка из условия. Это наблюдаемое построение равновозможной модели (equiprobable_model), которое каталог отделяет от вычисления m/n. Отдельного локального кандидата для него нет; kc2 по своему определению описывает вычисление при уже заданной равновероятности. Пробел не подрывает соответствие вычисления classical_probability.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc2&quot;
+    ]
+  }
+]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\2F945c.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\2F945c.json&quot;
+}</pre></html>

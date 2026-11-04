@@ -1,0 +1,132 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>338D5A</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>42. ФИПИ 338D5A</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section> <p class="MsoNormal">Для получения на экране увеличенного изображения лампочки в лаборатории используется собирающая линза с фокусным расстоянием <?xml:namespace prefix = m ns = "http://www.w3.org/1998/Math/MathML" /><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><semantics><mrow><mi>f</mi><mtext> </mtext><mo>=</mo><mn>36</mn><mtext> </mtext> </mrow></semantics></mstyle></math>см. Расстояние <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><semantics><mrow><msub><mi>d</mi> <mn>1</mn> </msub></mrow></semantics></mstyle></math> от линзы до лампочки может изменяться в пределах от 30 см до 50 см, а расстояние <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><semantics><mrow><msub><mi>d</mi> <mn>2</mn> </msub></mrow></semantics></mstyle></math> от линзы до экрана <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><semantics><mo>—</mo> </semantics></mstyle></math> в пределах от 160 см до 180 см. Изображение на экране будет чётким, если выполнено соотношение</p>
+<p class="MsoNormal" align="center"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><semantics><mrow><mfrac><mn>1</mn> <mrow><msub><mi>d</mi> <mn>1</mn> </msub></mrow></mfrac><mo>+</mo><mfrac> <mn>1</mn> <mrow><msub><mi>d</mi> <mn>2</mn> </msub></mrow></mfrac><mo>=</mo><mfrac> <mn>1</mn> <mi>f</mi> </mfrac></mrow></semantics></mstyle></math>.</p>
+<p class="MsoNormal">На каком наименьшем расстоянии от линзы нужно поместить лампочку, чтобы её изображение на экране было чётким? Ответ дайте в сантиметрах.</p></section></div><p>КЭС: 2.5 Целые и дробно-рациональные неравенства</p><h2>Ответ</h2><p>45</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Выразить расстояние до лампочки через расстояние до экрана из условия чёткости изображения.</td><td>При d₁ &gt; 0 и 160 ≤ d₂ ≤ 180 имеем 1/d₁ = 1/36 − 1/d₂ = (d₂ − 36)/(36d₂), поэтому d₁ = 36d₂/(d₂ − 36) = 36 + 1296/(d₂ − 36). Знаменатель положителен на всём допустимом интервале d₂.</td><td>k1</td></tr><tr><td>s2 · condition, s1</td><td>Определить, при каком допустимом расстоянии до экрана выражение для расстояния до лампочки минимально.</td><td>На отрезке [160; 180] положительный знаменатель d₂ − 36 возрастает, поэтому 1296/(d₂ − 36), а вместе с ней d₁, убывает. Минимум достигается при d₂ = 180.</td><td>k2</td></tr><tr><td>s3 · condition, s1, s2</td><td>Вычислить минимальное расстояние и проверить его допустимость по условиям задачи.</td><td>d₁ = 36 + 1296/(180 − 36) = 45 см. Значение 45 принадлежит отрезку [30; 50], а d₂ = 180 допустимо; следовательно, найденный минимум достижим. Проверка чёткости: 1/45 + 1/180 = 1/36.</td><td>k3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Выражение расстояния и поиск минимума по монотонности&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="k1"><h3>k1 · Выразить переменную из соотношения обратных величин</h3><p>Для соотношения суммы обратных величин с известным ненулевым параметром привести дроби к общему знаменателю и выразить одну переменную через другую; сохранить ограничения ненулевых знаменателей и проверить возможность обращения полученной дроби.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;При d₁ &gt; 0 и 160 ≤ d₂ ≤ 180 имеем 1/d₁ = 1/36 − 1/d₂ = (d₂ − 36)/(36d₂), поэтому d₁ = 36d₂/(d₂ − 36) = 36 + 1296/(d₂ − 36). Знаменатель положителен на всём допустимом интервале d₂.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_67caf017b566&quot;,
+      &quot;reason&quot;: &quot;Объединение дробей наблюдается как компонент, но определение не включает обращение дроби и выражение переменной.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9698b97fef22&quot;,
+      &quot;reason&quot;: &quot;Здесь дроби объединены и обращены, а не выполнено предусмотренное определением умножение уравнения на общий знаменатель.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;Исходное равенство рациональное с двумя переменными; числовое линейное уравнение одной переменной не решается.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0a4ebc8382b5&quot;,
+      &quot;reason&quot;: &quot;Нет подстановки выраженной переменной в другое равенство; исходная связь не линейная по расстояниям.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+      &quot;reason&quot;: &quot;Контроль ненулевых знаменателей является компонентом и не охватывает получение зависимости.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдается цельное преобразование соотношения обратных величин в явную зависимость с проверкой допустимости обращения. Полный каталог не содержит определения, охватывающего эту операцию целиком; сопутствующие дробные преобразования не дают полного match к одному из узких узлов.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Выражать переменную из суммы обратных величин&quot;,
+    &quot;definition&quot;: &quot;Из равенства 1/x + 1/y = 1/f при заданном ненулевом f выразить x как функцию y, приведя разность дробей к общему знаменателю и обратив её при установленной ненулевости; сохранить ограничения x≠0, y≠0 и y≠f.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="k2"><h3>k2 · Найти минимум дробной зависимости по монотонности</h3><p>Для зависимости, представленной суммой постоянной и положительной постоянной, делённой на положительное возрастающее линейное выражение, установить убывание на заданном замкнутом интервале и выбрать правую границу как точку минимума.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;global_interval_extreme&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;На отрезке [160; 180] положительный знаменатель d₂ − 36 возрастает, поэтому 1296/(d₂ − 36), а вместе с ней d₁, убывает. Минимум достигается при d₂ = 180.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;d₁ = 36 + 1296/(180 − 36) = 45 см.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;,
+      &quot;reason&quot;: &quot;Убывание установлено непосредственно сравнением положительных знаменателей, производная не вычисляется.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_31eed356b5e1&quot;,
+      &quot;reason&quot;: &quot;Не подставляется оценка ограниченного числителя: исследуется убывание уже заданной зависимости и выбирается глобальный минимум на отрезке.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_159daa67ec43&quot;,
+      &quot;reason&quot;: &quot;Нет вершины квадратной функции и проверки её принадлежности области.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;По монотонности зависимости на замкнутом интервале установлен глобальный минимум на правом конце; его значение вычислено в следующем шаге, что прямо указано отдельным свидетельством. Способ обоснования монотонности не приписывается производной. Ограничение на d₁ проверено отдельно в s3.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="k3"><h3>k3 · Проверить достижимость экстремального значения в прикладной модели</h3><p>Подставить выбранное граничное значение в полученную зависимость, вычислить искомую величину и проверить соблюдение ограничений на обе величины и исходного соотношения; признать минимум достижимым только при выполнении всех ограничений.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_a873d91378ab&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;d₁ = 36 + 1296/(180 − 36) = 45 см. Значение 45 принадлежит отрезку [30; 50], а d₂ = 180 допустимо; следовательно, найденный минимум достижим. Проверка чёткости: 1/45 + 1/180 = 1/36.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+      &quot;reason&quot;: &quot;Близкая проверка области и исходного соотношения, но здесь проверяется достижение граничного оптимума, а не отбираются корни решённого уравнения.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+      &quot;reason&quot;: &quot;Подстановка и вычисление входят как компонент, но не охватывают проверку ограничений и достижимости границы.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;optimal_bound_attainment&quot;,
+      &quot;reason&quot;: &quot;Общее доказательство оптимальности включает получение границы в s2; локальный k3 соответствует непосредственно проверке граничного ответа, а не всему доказательству.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_f6b803c5f9c2&quot;,
+      &quot;reason&quot;: &quot;Определение требует целочисленного объекта; расстояния в модели не ограничены целыми числами.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Выбранное граничное d₂ подставлено в зависимость, вычислено d₁, проверены обе допустимые области и исходное условие чёткости. Это целиком покрывает проверку допустимости и достижения граничного ответа; вычисление является частью этой проверки.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\338D5A.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\338D5A.json&quot;
+}</pre></html>

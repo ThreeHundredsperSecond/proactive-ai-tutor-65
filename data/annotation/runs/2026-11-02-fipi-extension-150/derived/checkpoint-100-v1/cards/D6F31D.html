@@ -1,0 +1,142 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>D6F31D</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>32. ФИПИ D6F31D</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">При сближении источника и приёмника звуковых сигналов, движущихся <br> в некоторой среде по прямой навстречу друг другу со скоростями <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mi>u</mi> </semantics> </math> и <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mi>v</mi> </semantics> </math> <br> (в м/с) соответственно, частота звукового сигнала <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mi>f</mi> </semantics> </math> (в Гц), регистрируемого приёмником, вычисляется по формуле <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>f</mi><mtext> </mtext><mo>=</mo><msub> <mi>f</mi> <mn>0</mn> </msub> <mtext> </mtext><mo>⋅</mo><mfrac> <mrow> <mi>c</mi><mo>+</mo><mi>u</mi> </mrow> <mrow> <mi>c</mi><mo>−</mo><mi>v</mi> </mrow> </mfrac> </mrow> </semantics> </math>, где <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msub> <mi>f</mi> <mn>0</mn> </msub> <mtext> </mtext><mo>=</mo><mn>160</mn><mtext> </mtext><mtext>Гц</mtext> </mrow> </semantics> </math> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> частота исходного сигнала, <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mi>c</mi> </semantics> </math> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> скорость распространения сигнала в среде <br> (в м/с), а <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>u</mi><mo>=</mo><mn>8</mn><mtext> </mtext><mtext>м</mtext><mtext> </mtext><mo>/</mo><mtext>​</mtext><mtext>с</mtext> </mrow> </semantics> </math> и <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>v</mi><mo>=</mo><mn>11</mn><mtext> </mtext><mtext>м</mtext><mtext> </mtext><mo>/</mo><mtext>​</mtext><mtext>с</mtext> </mrow> </semantics> </math> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> скорости источника и приёмника относительно среды. При какой скорости распространения сигнала в среде частота сигнала в приёмнике будет равна 170 Гц? Ответ дайте в м/с.<span></span></p>  </section></div><p>КЭС: 2.1 Целые и дробно-рациональные уравнения</p><h2>Ответ</h2><p>315</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Подставить заданные частоту и скорости в формулу, сохранив ограничение на знаменатель.</td><td>170 = 160(c + 8)/(c − 11), c ≠ 11; скорость распространения должна быть положительной.</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Умножить рациональное уравнение на ненулевой знаменатель и привести к линейному виду.</td><td>При c ≠ 11: 170(c − 11) = 160(c + 8), то есть 10c = 3150.</td><td>kc2</td></tr><tr><td>s3 · s2, s1, condition</td><td>Решить линейное уравнение и проверить допустимость найденной скорости в исходной формуле.</td><td>c = 315 м/с. Значение положительно и не равно 11; 160(315 + 8)/(315 − 11) = 160 · 323/304 = 170 Гц.</td><td>kc3, kc4</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Подстановка в формулу частоты и сведение к линейному уравнению&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Составлять уравнение подстановкой данных в заданную формулу</h3><p>На входе формула зависимости величин и известные значения; подставить данные, оставив искомую величину неизвестной, и сохранить ограничения области определения формулы. Применяется, когда зависимость явно задана условием.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Подставить заданные частоту и скорости в формулу, сохранив ограничение на знаменатель.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;170 = 160(c + 8)/(c − 11), c ≠ 11; скорость распространения должна быть положительной.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+      &quot;reason&quot;: &quot;Соответствует подстановке и получению уравнения, но не охватывает отдельное установление ограничения знаменателя.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+      &quot;reason&quot;: &quot;Охватывает c ≠ 11, но не подстановку данных в физическую формулу.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cb48e5bc61de&quot;,
+      &quot;reason&quot;: &quot;Определение требует построения неравенства, здесь составлено равенство.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат явно объединяет получение числового соотношения из заданной зависимости с сохранением области определения. Оба действия наблюдаются в s1 и имеют разные определения в каталоге; назначение одного узкого узла всему кандидату скрыло бы вторую часть.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;definition&quot;: &quot;Соотнести известные величины с обозначениями заданной формулы и подстановкой получить уравнение относительно искомой скорости.&quot;,
+        &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;
+      },
+      {
+        &quot;definition&quot;: &quot;Исключить нуль знаменателя c − 11 и сохранить c ≠ 11 при последующих преобразованиях.&quot;,
+        &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Приводить рациональное уравнение к линейному устранением знаменателя</h3><p>На входе рациональное уравнение с линейными выражениями и ограничением ненулевого знаменателя; умножить обе части на знаменатель, раскрыть скобки и собрать члены. Применяется, когда после преобразования получается линейное уравнение; исключённые значения сохраняются.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_9698b97fef22&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Умножить рациональное уравнение на ненулевой знаменатель и привести к линейному виду.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;При c ≠ 11: 170(c − 11) = 160(c + 8), то есть 10c = 3150.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;Исходный объект s2 — рациональное уравнение; решение уже полученного линейного уравнения выполнено отдельно в s3.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+      &quot;reason&quot;: &quot;Ограничение сохраняется, но кандидат включает именно устранение знаменателя, а не только запись области.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Из рационального уравнения s1 с установленным ненулевым знаменателем выполнено умножение на c − 11 с сохранением исключения, затем упрощение. Это соответствует определению преобразования рационального уравнения; специализация до линейного результата не создаёт нового KC.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Решать линейное уравнение с числовыми коэффициентами</h3><p>На входе линейное уравнение одной переменной с числовыми коэффициентами; выполнить равносильные преобразования и найти значение переменной при ненулевом коэффициенте при ней.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;c = 315 м/с.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [],
+  &quot;rationale&quot;: &quot;Входное состояние s2 содержит аффинное равенство 10c = 3150 с ненулевым коэффициентом. В s3 получено его единственное решение 315. Составление модели и устранение знаменателя выполнены ранее и не приписываются этому действию.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Проверять найденное значение по исходной формуле и ограничениям величины</h3><p>На входе найденное значение, исходная формула и ограничения из условия или области определения; проверить допустимость и подстановкой подтвердить требуемое значение зависимой величины. Применяется к решениям уравнений, полученных из заданной зависимости.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;Значение положительно и не равно 11; 160(315 + 8)/(315 − 11) = 160 · 323/304 = 170 Гц.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_a873d91378ab&quot;,
+      &quot;reason&quot;: &quot;Проверяется найденный корень равенства, а не достижение граничного ответа в задаче с ограничением.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+      &quot;reason&quot;: &quot;Нет заданного промежутка; дополнительно к области проверены физический смысл и исходное соотношение, прямо предусмотренные выбранным узлом.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+      &quot;reason&quot;: &quot;Вычисление значения формулы является компонентом проверки; оно само не охватывает отбор по физическим ограничениям.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдаются все элементы определения: проверка положительности физической скорости, исключённого значения знаменателя и исходного соотношения подстановкой. Вычисление 170 корректно; подходящий узел не требует обязательного отклонения хотя бы одного корня.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\D6F31D.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\D6F31D.json&quot;
+}</pre></html>

@@ -1,0 +1,106 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>F3F0DF</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>1. ФИПИ F3F0DF</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Стрелок стреляет по одному разу в каждую из четырёх мишеней. Вероятность попадания в мишень при каждом отдельном выстреле равна 0,9. Найдите вероятность того, что стрелок попадёт в первую мишень <br> и не попадёт в три последние.<span></span></p>  </section></div><p>КЭС: 6.2 Вероятность</p><h2>Ответ</h2><p>0,0009</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти вероятность промаха как вероятность события, противоположного попаданию.</td><td>Вероятность промаха при каждом выстреле равна 1 − 0,9 = 0,1.</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>При независимости выстрелов перемножить вероятности попадания в первую мишень и промахов по трём остальным.</td><td>P = 0,9 · 0,1 · 0,1 · 0,1 = 0,0009. Порядок исходов задан условием, поэтому множитель числа перестановок не требуется.</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Вероятность промаха и правило произведения для независимых выстрелов&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Вычислять вероятность противоположного события</h3><p>По известной вероятности события находить вероятность его дополнения вычитанием из единицы; применимо к взаимно исключающим и исчерпывающим исходам события и его дополнения.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Найти вероятность промаха как вероятность события, противоположного попаданию.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;Вероятность промаха при каждом выстреле равна 1 − 0,9 = 0,1.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;reason&quot;: &quot;Определение требует подсчёта равновозможных исходов и отношения m/n; здесь вероятность дополнения получена вычитанием из единицы.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;bernoulli_model&quot;,
+      &quot;reason&quot;: &quot;Задание модели испытаний не совпадает с вычислением вероятности противоположного события.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+      &quot;reason&quot;: &quot;Произведение вероятностей независимых событий не является вычислением вероятности дополнения.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдается одно действие: из вероятности попадания получить вероятность непопадания формулой P(не A)=1−P(A). Попадание и непопадание образуют противоположные события одного выстрела; независимость разных выстрелов для этого действия не нужна. Во всём переданном каталоге определения такого действия нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Вычислять вероятность противоположного события&quot;,
+    &quot;definition&quot;: &quot;По вероятности события A находить вероятность его дополнения формулой P(не A)=1−P(A), установив, что рассматриваемые события противоположны.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Вычислять вероятность заданной последовательности независимых исходов</h3><p>По вероятностям требуемых исходов независимых испытаний находить вероятность их совместного наступления произведением вероятностей; при фиксированном порядке исходов не вводить комбинаторный множитель.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;При независимости выстрелов перемножить вероятности попадания в первую мишень и промахов по трём остальным.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;P = 0,9 · 0,1 · 0,1 · 0,1 = 0,0009. Порядок исходов задан условием, поэтому множитель числа перестановок не требуется.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;bernoulli_model&quot;,
+      &quot;reason&quot;: &quot;Это задание предпосылок модели, а кандидат и действие s2 вычисляют вероятность пересечения уже выбранных событий.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_8e6b7abd8340&quot;,
+      &quot;reason&quot;: &quot;Выбор позиций успехов числом сочетаний не выполняется: задана единственная последовательность исходов.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;reason&quot;: &quot;Подсчёт равновозможных исходов и деление m/n не выполняются.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В явно принятой автором модели независимых выстрелов вычисляется пересечение четырёх событий: успеха первого и неуспехов остальных. Для этого применено произведение их вероятностей, что целиком соответствует определению. Фиксированный порядок определяет само пересечение и не создаёт отдельного действия подсчёта перестановок. Соответствие относится к условной модели автора: независимость явно принята в s2 и оговорена в warnings, но не следует из одинаковых маргинальных вероятностей в условии.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[
+  &quot;Использовано стандартное для этой модели предположение о независимости результатов отдельных выстрелов; в тексте условия оно явно не сформулировано.&quot;
+]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;input&quot;,
+    &quot;refs&quot;: [
+      &quot;condition&quot;,
+      &quot;step:s2:action&quot;
+    ],
+    &quot;description&quot;: &quot;Условие задаёт вероятность попадания при каждом выстреле, но явно не задаёт независимость. Автор открыто принимает её в модели и отмечает это в warnings. Поэтому численный ответ обоснован в принятой модели, а из одних буквально заданных вероятностей совместная вероятность не определяется. Это ограничение исходного условия не блокирует сопоставление наблюдаемого условного применения правила произведения.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc2&quot;
+    ]
+  }
+]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\F3F0DF.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\F3F0DF.json&quot;
+}</pre></html>

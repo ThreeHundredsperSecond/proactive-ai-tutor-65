@@ -1,0 +1,56 @@
+{
+  "task_id": "68Ac00",
+  "catalog_version": "fipi50-editorial-v1-frozen",
+  "decisions": [
+    {
+      "local_kc_id": "kc1",
+      "status": "match",
+      "catalog_kc_id": "literal_6241f0b09502",
+      "evidence": [{"ref": "step:s1:result", "quote": "f(x)=a·x(x−2). Из f(3)=3 следует 3a=3, a=1; поэтому f(x)=x²−2x."}],
+      "context_refs": ["condition", "image:assets/49ff31995e34f0ed00c16561.png"],
+      "alternatives_checked": [{"catalog_kc_id": "graph_coordinates", "reason": "Охватывает чтение нулей и точки, но не восстановление квадратной функции и её коэффициента."}],
+      "rationale": "Использованы два различных нуля 0 и 2 и дополнительная точка (3;3), видимые по единичной сетке. Записана факторизованная форма и найден ненулевой старший коэффициент — всё действие определения каталога выполнено.",
+      "proposal": null,
+      "blocking": false,
+      "issue_ids": []
+    },
+    {
+      "local_kc_id": "kc2",
+      "status": "match",
+      "catalog_kc_id": "direct_proportion",
+      "evidence": [{"ref": "step:s2:action", "quote": "Определить коэффициент прямой g(x)=kx по отмеченной точке (1; 3)."}, {"ref": "step:s2:result", "quote": "k=3/1=3; g(x)=3x."}],
+      "context_refs": ["condition", "image:assets/49ff31995e34f0ed00c16561.png"],
+      "alternatives_checked": [{"catalog_kc_id": "literal_f253b50b98a1", "reason": "Это восстановление общего y=kx+b по двум точкам, тогда как вид y=kx дан условием и достаточно одной точки."}, {"catalog_kc_id": "graph_coordinates", "reason": "Чтение координат — вход для вычисления коэффициента, не всё действие."}],
+      "rationale": "У прямой пропорциональности вычислен k по точке с ненулевой абсциссой; точка (1;3) отмечена на прямой. Определение каталога совпадает по операции и условиям.",
+      "proposal": null,
+      "blocking": false,
+      "issue_ids": []
+    },
+    {
+      "local_kc_id": "kc3",
+      "status": "match",
+      "catalog_kc_id": "graph_intersection",
+      "evidence": [{"ref": "step:s3:action", "quote": "Приравнять значения функций для нахождения абсцисс пересечения."}, {"ref": "step:s3:result", "quote": "x²−2x=3x, то есть x²−5x=0."}],
+      "context_refs": ["step:s1:result", "step:s2:result"],
+      "alternatives_checked": [],
+      "rationale": "Из двух установленных формул на общей области R составлено равенство значений при одном x. Решение уравнения здесь ещё не производится; перенос слагаемого не меняет основной операции моделирования пересечения.",
+      "proposal": null,
+      "blocking": false,
+      "issue_ids": []
+    },
+    {
+      "local_kc_id": "kc4",
+      "status": "needs_split",
+      "catalog_kc_id": null,
+      "evidence": [{"ref": "step:s4:result", "quote": "x(x−5)=0, откуда x=0 или x=5. На рисунке A — начало координат, поэтому абсцисса другой точки B равна 5."}],
+      "context_refs": ["step:s3:result", "condition", "image:assets/49ff31995e34f0ed00c16561.png"],
+      "alternatives_checked": [{"catalog_kc_id": "zero_product", "reason": "Полностью описывает получение обоих корней после вынесения x, но не выбор корня для другой именованной точки."}, {"catalog_kc_id": "literal_c840012ba3dd", "reason": "Корень 0 допустим и удовлетворяет исходному равенству; его не выбирают из-за принадлежности точке A, а не физической недопустимости."}, {"catalog_kc_id": "literal_8409c9003f48", "reason": "Заданного промежутка и проверки его границ нет."}, {"catalog_kc_id": "literal_cab525070130", "reason": "Здесь факторизация служит решению уравнения, а не исследованию знака."}],
+      "rationale": "Кандидат явно соединяет решение уравнения и соотнесение корней с именованными точками пересечения. Нельзя весь составной кандидат приравнять к zero_product. Арифметику линейного множителя отдельно не дроблю.",
+      "proposal": {"parts": [{"definition": "Для неполного квадратного уравнения вынести переменную за скобки, найти нули множителей и сохранить все корни.", "catalog_kc_id": "zero_product"}, {"definition": "По известной абсциссе одной из двух различных точек пересечения соотнести найденные корни с точками и выбрать абсциссу другой точки.", "catalog_kc_id": null, "status": "new_candidate"}]},
+      "blocking": false,
+      "issue_ids": ["i1"]
+    }
+  ],
+  "issues": [{"id": "i1", "kind": "boundary", "refs": ["step:s4:action", "step:s4:result"], "description": "kc4 объединяет решение уравнения через нулевое произведение и выбор абсциссы точки B после идентификации A. Это две операции, у которых нет одного полного соответствия в каталоге; математической ошибки здесь не обнаружено.", "blocking": false, "affected_local_kc_ids": ["kc4"]}],
+  "review_scope": "KC mapping with incidental mathematical checks; not expert validation"
+}

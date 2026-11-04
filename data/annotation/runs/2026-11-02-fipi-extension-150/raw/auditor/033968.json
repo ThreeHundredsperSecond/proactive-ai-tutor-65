@@ -1,0 +1,98 @@
+{
+  "task_id": "033968",
+  "catalog_version": "fipi50-editorial-v1-frozen",
+  "decisions": [
+    {
+      "local_kc_id": "k1",
+      "status": "uncertain",
+      "catalog_kc_id": null,
+      "evidence": [{"ref": "step:s1:result", "quote": "(x−2)^9>0. Поскольку степень нечётная, x>2; область определения — (2,+∞)."}],
+      "context_refs": ["condition"],
+      "alternatives_checked": [
+        {"catalog_kc_id": "literal_7baedb55a81a", "reason": "Положительность единственного аргумента и сохранение ограничения выполнены; определение охватывает этот случай."},
+        {"catalog_kc_id": "literal_0214fc221120", "reason": "Положительность аргумента и полученная область также соответствуют этому определению; отдельного исследуемого промежутка условие не задаёт."}
+      ],
+      "rationale": "Область найдена корректно через положительность нечётной степени. Два определения области логарифма перекрываются на этом входе; правила выбора между ними не заданы. Нечётная степень не создаёт самостоятельного нового KC по одному виду аргумента.",
+      "proposal": null,
+      "blocking": false,
+      "issue_ids": ["i1"]
+    },
+    {
+      "local_kc_id": "k2",
+      "status": "match",
+      "catalog_kc_id": "literal_7e7fe72c8c10",
+      "evidence": [{"ref": "step:s2:result", "quote": "y′=9−9(x−2)^8/(x−2)^9=9−9/(x−2)."}],
+      "context_refs": ["condition", "step:s1:result"],
+      "alternatives_checked": [
+        {"catalog_kc_id": "literal_0efedaf04823", "reason": "Степенное правило и линейность участвуют в вычислении, но не покрывают производную логарифма."},
+        {"catalog_kc_id": "literal_3a3e1295118b", "reason": "Исходная функция не многочлен; определение не охватывает логарифмический член."}
+      ],
+      "rationale": "Вычислено u′/u для u=(x−2)^9>0 с правилом суммы. Хотя название каталожного узла упоминает линейный аргумент, его буквальное определение задаёт формулу для u>0 без ограничения линейностью. Сопоставление сделано по определению; внутренняя производная и сокращение служат вычислению этой формулы.",
+      "proposal": null,
+      "blocking": false,
+      "issue_ids": []
+    },
+    {
+      "local_kc_id": "k3",
+      "status": "match",
+      "catalog_kc_id": "literal_9698b97fef22",
+      "evidence": [{"ref": "step:s3:result", "quote": "При x>2 равенство 9−9/(x−2)=0 эквивалентно 9(x−2)−9=0."}],
+      "context_refs": ["step:s1:result", "step:s2:result"],
+      "alternatives_checked": [
+        {"catalog_kc_id": "denominator_domain", "reason": "Сохранение ненулевого знаменателя является условием, но кандидат выполняет также умножение уравнения на него."},
+        {"catalog_kc_id": "linear_equation", "reason": "Здесь только получено линейное равенство; его решение находится в следующем шаге."}
+      ],
+      "rationale": "Знаменатель x−2 ненулевой по ранее установленному x>2. Умножение на общий знаменатель выполняет определение рационального преобразования целиком; то, что результат линейный, лишь частный случай.",
+      "proposal": null,
+      "blocking": false,
+      "issue_ids": []
+    },
+    {
+      "local_kc_id": "k4",
+      "status": "needs_split",
+      "catalog_kc_id": null,
+      "evidence": [{"ref": "step:s4:result", "quote": "9x−27=0, поэтому x=3; значение принадлежит (2,+∞)."}],
+      "context_refs": ["step:s1:result", "step:s3:result"],
+      "alternatives_checked": [
+        {"catalog_kc_id": "linear_equation", "reason": "Покрывает решение равенства, но не самостоятельную проверку области логарифма."},
+        {"catalog_kc_id": "literal_ae9adc80bc91", "reason": "Покрывает проверку допустимости, но не получение корня."},
+        {"catalog_kc_id": "stationary_point", "reason": "Более широкое действие решения f′=0 на области распределено между s3 и s4; локальный кандидат заявлен как линейное решение с отбором."}
+      ],
+      "rationale": "Смешаны нахождение корня линейного уравнения и отбор по внешнему ограничению. Алгебра внутри линейного решения не дробится.",
+      "proposal": {"parts": [
+        {"definition": "Решить линейное равенство 9x−27=0 с числовыми коэффициентами.", "catalog_kc_id": "linear_equation"},
+        {"definition": "Проверить найденное значение x=3 на принадлежность установленной области x>2.", "catalog_kc_id": "literal_ae9adc80bc91"}
+      ]},
+      "blocking": false,
+      "issue_ids": []
+    },
+    {
+      "local_kc_id": "k5",
+      "status": "needs_split",
+      "catalog_kc_id": null,
+      "evidence": [{"ref": "step:s5:result", "quote": "На (2,3) производная отрицательна, на (3,+∞) положительна. Функция убывает до x=3 и возрастает после, поэтому её точка минимума — x=3."}],
+      "context_refs": ["step:s1:result", "step:s2:result", "step:s4:result"],
+      "alternatives_checked": [
+        {"catalog_kc_id": "local_extreme_sign", "reason": "Покрывает вывод о минимуме по смене знака, но кандидат явно включает также монотонность на частях области."},
+        {"catalog_kc_id": "derivative_monotonicity", "reason": "Покрывает знаки и вывод об убывании/возрастании, но вывод о типе экстремума задан отдельно."},
+        {"catalog_kc_id": "global_interval_extreme", "reason": "Вход не является задачей на экстремум на отрезке; исследуется открытая неограниченная область."}
+      ],
+      "rationale": "В одном кандидате наблюдаются два связанных вывода: монотонность по знакам производной и минимум по переходу от минуса к плюсу. В каталоге они представлены отдельными определениями; узкий match скрывал бы часть заявленного действия.",
+      "proposal": {"parts": [
+        {"definition": "Установить отрицательность и положительность производной на двух промежутках и вывести убывание и возрастание функции.", "catalog_kc_id": "derivative_monotonicity"},
+        {"definition": "По смене знака производной с минуса на плюс в x=3 установить точку минимума.", "catalog_kc_id": "local_extreme_sign"}
+      ]},
+      "blocking": false,
+      "issue_ids": []
+    }
+  ],
+  "issues": [{
+    "id": "i1",
+    "kind": "boundary",
+    "refs": ["step:s1:result"],
+    "description": "Определения literal_7baedb55a81a и literal_0214fc221120 перекрываются на нахождении области единственного натурального логарифма; приоритет между ними не задан. Это препятствует однозначному выбору ID для k1, но не математическому выводу.",
+    "blocking": false,
+    "affected_local_kc_ids": ["k1"]
+  }],
+  "review_scope": "KC mapping with incidental mathematical checks; not expert validation"
+}

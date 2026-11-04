@@ -1,0 +1,124 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>F2CCA3</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>3. ФИПИ F2CCA3</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal"><span>Моторная лодка прошла против течения реки 143 км и вернулась в пункт отправления, затратив на обратный путь на 2 часа меньше. Найдите скорость лодки в неподвижной воде, если скорость течения равна 1 км/ч. Ответ дайте в км/ч.</span><span></span></p>  </section></div><p>КЭС: 2.1 Целые и дробно-рациональные уравнения</p><h2>Ответ</h2><p>12</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Обозначить собственную скорость лодки через v и составить уравнение разности времени движения.</td><td>Скорости против течения и по течению равны v−1 и v+1 км/ч; необходимо v&gt;1. Время движения против течения равно 143/(v−1), обратно — 143/(v+1). Поэтому 143/(v−1)−143/(v+1)=2.</td><td>k1</td></tr><tr><td>s2 · s1</td><td>Привести рациональное уравнение к квадратному при установленном ограничении скорости.</td><td>При v&gt;1 знаменатель (v−1)(v+1) ненулевой. Получаем 286/(v²−1)=2, откуда 286=2(v²−1) и v²=144.</td><td>k2</td></tr><tr><td>s3 · s1, s2</td><td>Решить полученное квадратное уравнение и отобрать допустимую скорость.</td><td>Корни v=12 и v=−12. Ограничению v&gt;1 удовлетворяет только v=12. Скорость лодки в неподвижной воде равна 12 км/ч.</td><td>k3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Уравнение разности времени движения по течению и против течения&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="k1"><h3>k1 · Составить уравнение разности времени движения по реке</h3><p>Для движения на известных расстояниях по течению и против него выразить путевые скорости через собственную скорость и скорость течения, времена — как отношения расстояний к скоростям и связать их заданной разностью времени. Собственная скорость должна превышать скорость течения.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_63c80a69a122&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;Скорости против течения и по течению равны v−1 и v+1 км/ч; необходимо v&gt;1. Время движения против течения равно 143/(v−1), обратно — 143/(v+1). Поэтому 143/(v−1)−143/(v+1)=2.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+      &quot;reason&quot;: &quot;Здесь строится модель движения и разности времён, а не производится подстановка в уже заданную физическую формулу.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдается полное моделирование времени движения по реке: скорости v±c, времена s/скорость и уравнение заданной разности. Положительность обеих скоростей сохранена условием v&gt;1. Стоянка в исходном условии отсутствует, поэтому отделять её не требуется.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="k2"><h3>k2 · Преобразовать рациональное уравнение с сопряжёнными линейными знаменателями</h3><p>В уравнении с дробями, знаменатели которых имеют вид переменная плюс и минус одна и та же постоянная, привести дроби к общему знаменателю и устранить его при условии ненулевых знаменателей, получив равносильное полиномиальное уравнение.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_9698b97fef22&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;При v&gt;1 знаменатель (v−1)(v+1) ненулевой. Получаем 286/(v²−1)=2, откуда 286=2(v²−1) и v²=144.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_67caf017b566&quot;,
+      &quot;reason&quot;: &quot;Объединение дробей является компонентом, но кандидат и шаг включают также устранение знаменателя в уравнении.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+      &quot;reason&quot;: &quot;Сохранение ограничений знаменателей — только условие более полного наблюдаемого преобразования уравнения.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Из установленной в s1 области v&gt;1 следует ненулевой общий знаменатель; в s2 дроби объединены и уравнение умножено на этот знаменатель с получением равносильного полиномиального уравнения. Сопряжённые линейные знаменатели являются частным случаем определения каталога.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="k3"><h3>k3 · Решить уравнение квадрата и отобрать допустимые корни</h3><p>Для уравнения, в котором квадрат неизвестного равен положительной постоянной, получить два противоположных корня и оставить только удовлетворяющие ранее установленным ограничениям.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k3&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;Корни v=12 и v=−12.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;Ограничению v&gt;1 удовлетворяет только v=12.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_57e72251d4a8&quot;,
+      &quot;reason&quot;: &quot;Полностью покрывает получение двух корней v²=144, но не последующий отбор по физическому ограничению.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+      &quot;reason&quot;: &quot;Покрывает проверку допустимости по модели, но не нахождение обоих квадратных корней.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+      &quot;reason&quot;: &quot;В решении нет вычисления дискриминанта; наблюдается непосредственное решение уравнения квадрата.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_8409c9003f48&quot;,
+      &quot;reason&quot;: &quot;Отбор здесь обусловлен допустимостью скорости в модели, а не отдельным заданным промежутком для ответа.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат соединяет получение двух противоположных корней и их проверку по ранее установленному физическому ограничению. Ни один из двух подходящих узлов не покрывает оба действия целиком. Решение математически согласовано с уравнением и областью, оснований блокировать сопоставление частей нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;name&quot;: &quot;Решить уравнение вида x²=c&quot;,
+        &quot;definition&quot;: &quot;Для установленного v²=144 получить оба действительных корня v=±12.&quot;,
+        &quot;catalog_kc_id&quot;: &quot;literal_57e72251d4a8&quot;,
+        &quot;evidence_refs&quot;: [
+          &quot;step:s3:result&quot;
+        ]
+      },
+      {
+        &quot;name&quot;: &quot;Отобрать алгебраические решения по условиям модели&quot;,
+        &quot;definition&quot;: &quot;Проверить найденные скорости по установленному условию v&gt;1 и исключить v=−12.&quot;,
+        &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+        &quot;evidence_refs&quot;: [
+          &quot;step:s3:result&quot;
+        ]
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\F2CCA3.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\F2CCA3.json&quot;
+}</pre></html>

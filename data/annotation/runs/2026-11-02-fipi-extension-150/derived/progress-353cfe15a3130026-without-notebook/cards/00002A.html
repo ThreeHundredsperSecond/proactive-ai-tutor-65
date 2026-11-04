@@ -1,0 +1,195 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>00002A</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>24. ФИПИ 00002A</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal"><span>Водолазный колокол, содержащий </span><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mtext>υ</mtext><mo>=</mo><mn>8</mn> </mrow> </semantics> </math><span> моль воздуха при давлении <br> </span><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msub> <mi>p</mi> <mn>1</mn> </msub> <mtext> </mtext><mo>=</mo><mn>20</mn> </mrow> </semantics> </math><span> атмосфер, медленно опускают на дно водоёма. При этом происходит изотермическое сжатие воздуха до конечного давления </span><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msub> <mi>p</mi> <mn>2</mn> </msub> </mrow> </semantics> </math><span> (в атмосферах). Работа, совершаемая водой при сжатии воздуха, вычисляется по формуле </span><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mo>=</mo><mi>α</mi><mtext>υ</mtext><mi>T</mi><msub> <mrow> <mi>log</mi> </mrow> <mn>2</mn> </msub> <mtext> </mtext><mfrac> <mrow> <msub> <mi>p</mi> <mn>2</mn> </msub> </mrow> <mrow> <msub> <mi>p</mi> <mn>1</mn> </msub> </mrow> </mfrac> </mrow> </semantics> </math><span>, где </span><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>α</mi><mo>=</mo><mn>5,8</mn><mtext> </mtext><mfrac> <mrow> <mtext>Дж</mtext> </mrow> <mrow> <mtext>моль</mtext><mo>⋅</mo><mtext>K</mtext> </mrow> </mfrac> </mrow> </semantics> </math><span> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> постоянная, </span><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>T</mi><mo>=</mo><mn>300</mn><mtext> </mtext><mtext>K</mtext> </mrow> </semantics> </math><span> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> температура воздуха. Найдите давление </span><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msub> <mi>p</mi> <mn>2</mn> </msub> </mrow> </semantics> </math><span> воздуха в колоколе, <br> если при сжатии воздуха была совершена работа в 27 840 Дж. <br> Ответ дайте в атмосферах.</span><span></span></p>  </section></div><p>КЭС: 2.4 Показательные и логарифмические уравнения</p><h2>Ответ</h2><p>80</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Подставить известные значения работы, количества вещества, температуры, постоянной и начального давления в заданную формулу.</td><td>27840 = 13920·log₂(p₂/20). Область определения: p₂ &gt; 0; при сжатии p₂ ≥ 20.</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Разделить обе части уравнения на ненулевой числовой коэффициент при логарифме.</td><td>log₂(p₂/20) = 2.</td><td>kc2</td></tr><tr><td>s3 · s2</td><td>Перейти от логарифмического равенства к показательному по определению логарифма.</td><td>p₂/20 = 2² = 4.</td><td>kc3</td></tr><tr><td>s4 · s3, s1</td><td>Решить полученное линейное уравнение и проверить ограничения на давление.</td><td>p₂ = 80 атмосфер; значение положительно и больше начального давления, поэтому соответствует сжатию и области определения.</td><td>kc4</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Подстановка в формулу работы и обращение логарифма&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Составить уравнение подстановкой данных в заданную формулу</h3><p>По заданной зависимости и известным значениям величин подставить данные, вычислить числовые коэффициенты и получить уравнение относительно искомой величины, сохранив ограничения области определения и ситуации. Применяется, когда нужная зависимость дана в условии.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Подставить известные значения работы, количества вещества, температуры, постоянной и начального давления в заданную формулу.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;27840 = 13920·log₂(p₂/20). Область определения: p₂ &gt; 0; при сжатии p₂ ≥ 20.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+      &quot;reason&quot;: &quot;Охватывает подстановку и вычисление коэффициента, но не самостоятельное установление логарифмической и физической области.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_7baedb55a81a&quot;,
+      &quot;reason&quot;: &quot;Охватывает логарифмическую область, но не подстановку и не условие сжатия.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cb48e5bc61de&quot;,
+      &quot;reason&quot;: &quot;Здесь уравнение по известной работе, а не перевод ограничения в неравенство.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Авторский кандидат объединяет получение числового уравнения из данной физической зависимости с установлением ограничений двух разных источников. Ни одно близкое определение каталога не покрывает всё действие целиком.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;definition&quot;: &quot;Соотнести известные физические величины с данной формулой и получить числовое уравнение относительно неизвестной.&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;physical_formula_substitution&quot;
+        ]
+      },
+      {
+        &quot;definition&quot;: &quot;Установить положительность аргумента логарифма при допустимом основании.&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;literal_7baedb55a81a&quot;
+        ]
+      },
+      {
+        &quot;definition&quot;: &quot;Перевести указанное сжатие в ограничение на конечное давление относительно начального.&quot;,
+        &quot;possible_catalog_kc_ids&quot;: []
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Изолировать выражение делением на ненулевой коэффициент</h3><p>В уравнении, где искомое выражение умножено на известный ненулевой числовой коэффициент, разделить обе части на этот коэффициент и получить равносильное равенство для выражения.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Разделить обе части уравнения на ненулевой числовой коэффициент при логарифме.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;log₂(p₂/20) = 2.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;Действие над логарифмическим выражением не решает аффинное уравнение относительно исходной переменной p₂; это только подготовка нелинейного уравнения.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9a635e89ccb3&quot;,
+      &quot;reason&quot;: &quot;Определение логарифма на этом шаге ещё не применено.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_7570fa06d474&quot;,
+      &quot;reason&quot;: &quot;Не выделяется общий множитель числителя и знаменателя дроби; выполняется преобразование равенства.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдается изоляция выражения делением обеих частей на известное ненулевое число 13920. После полного просмотра каталога отдельного определения такого преобразования уравнения не найдено. Самостоятельная ценность столь мелкого узла требует обсуждения; это не предложение дробить решение обычного линейного уравнения.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;В равенстве c·F(x)=d при известном числовом c≠0 разделить обе части на c и получить равносильное F(x)=d/c на прежней области определения.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Преобразовать логарифмическое равенство по определению логарифма</h3><p>Из равенства логарифма выражения заданному числу получить равенство аргумента соответствующей степени основания. Требуются положительное основание, отличное от единицы, и положительный аргумент.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_9a635e89ccb3&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Перейти от логарифмического равенства к показательному по определению логарифма.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;p₂/20 = 2² = 4.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_2443f08dda82&quot;,
+      &quot;reason&quot;: &quot;Во входе один логарифм равен числу; два логарифма не приравниваются.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d66dd830e876&quot;,
+      &quot;reason&quot;: &quot;Не вычисляется показатель степени для известного аргумента, а восстанавливается аргумент по известному логарифму.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+      &quot;reason&quot;: &quot;Нет приведения степеней к одному основанию с последующим приравниванием показателей.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Определение логарифма непосредственно применено к равенству log₂(p₂/20)=2. Основание 2 допустимо, положительность аргумента обеспечена областью p₂&gt;0, установленной в s1. Получено равенство аргумента степени основания; дальнейшее линейное решение остаётся s4.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Решить линейное уравнение с числовыми коэффициентами</h3><p>По линейному уравнению относительно одной неизвестной выполнить равносильные преобразования и вычислить корень, затем проверить его соответствие заданным ограничениям на неизвестную.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:action&quot;,
+      &quot;quote&quot;: &quot;Решить полученное линейное уравнение и проверить ограничения на давление.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;p₂ = 80 атмосфер; значение положительно и больше начального давления, поэтому соответствует сжатию и области определения.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s3:result&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;Полностью соответствует получению корня p₂=80 из p₂/20=4, но не охватывает отдельную физическую проверку кандидата.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+      &quot;reason&quot;: &quot;Близко проверке физического смысла, однако каталог также требует проверку исходного соотношения, явной обратной подстановки в исходную формулу здесь нет. Не охватывает получение корня.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+      &quot;reason&quot;: &quot;Проверяет область и заданный промежуток, но не решение линейного равенства; физический смысл не сводится к одному названию этого узла.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Само линейное уравнение решено одним действием без лишнего дробления. Однако кандидат дополнительно включает отбор корня по логарифмическим и физическим ограничениям; совпадение с linear_equation покрывает лишь первую часть.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;definition&quot;: &quot;Решить аффинное уравнение с числовыми коэффициентами относительно давления.&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;linear_equation&quot;
+        ]
+      },
+      {
+        &quot;definition&quot;: &quot;Проверить найденное давление на положительность аргумента логарифма и соответствие сжатию; для полного соответствия узлу отбора по модели дополнительно показать проверку исходного соотношения.&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;literal_c840012ba3dd&quot;,
+          &quot;literal_ae9adc80bc91&quot;
+        ]
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\00002A.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\00002A.json&quot;
+}</pre></html>

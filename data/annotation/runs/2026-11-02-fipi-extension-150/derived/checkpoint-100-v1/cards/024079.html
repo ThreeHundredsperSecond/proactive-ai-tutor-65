@@ -1,0 +1,187 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>024079</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>29. ФИПИ 024079</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section> <p class="Basis">Решите неравенство <span><img src="../../../inputs/assets/480dd7e08adda9e174b224f4.png" alt="Рисунок ФИПИ"></span>.</p>
+<p class="Basis"><span lang="EN-US"> </span></p> </section></div><p>КЭС: 2.5 Целые и дробно-рациональные неравенства; 2.7 Показательные и логарифмические неравенства</p><h2>Ответ</h2><p>[−√2; √2] ∪ [3; 4)</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти область допустимых значений логарифмов.</td><td>Требуется 4−x&gt;0 и x²−8x+16=(4−x)²&gt;0. Совместно эти условия дают x&lt;4; основание 0,2 положительно и отлично от 1.</td><td>k1</td></tr><tr><td>s2 · condition, s1</td><td>Преобразовать логарифм квадрата положительного выражения.</td><td>При x&lt;4 имеем log_{0,2}((4−x)²)=2log_{0,2}(4−x). Исходное неравенство равносильно x²log_{0,2}(4−x)≥2log_{0,2}(4−x).</td><td>k2</td></tr><tr><td>s3 · s2</td><td>Перенести слагаемые в одну часть и вынести общий множитель.</td><td>Получаем (x²−2)log_{0,2}(4−x)≥0 при x&lt;4.</td><td>k3</td></tr><tr><td>s4 · s1, s3</td><td>Определить знаки множителей и решить неравенство произведения на ОДЗ.</td><td>Множитель x²−2 равен нулю при x=±√2, отрицателен между корнями и положителен вне их. Так как 0&lt;0,2&lt;1, логарифм log_{0,2}(4−x) отрицателен при x&lt;3, равен нулю при x=3 и положителен при 3&lt;x&lt;4. Произведение неотрицательно на [−√2;√2] и [3;4). Значение x=4 исключено ОДЗ.</td><td>k4, k5</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Сведение логарифмического неравенства к произведению и анализ знаков&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="k1"><h3>k1 · Определять ОДЗ логарифмического выражения</h3><p>Для выражения с логарифмами потребовать положительность каждого аргумента и допустимость основания; совместно решить полученные ограничения до эквивалентных преобразований.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_7baedb55a81a&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;Требуется 4−x&gt;0 и x²−8x+16=(4−x)²&gt;0. Совместно эти условия дают x&lt;4; основание 0,2 положительно и отлично от 1.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;image:assets/480dd7e08adda9e174b224f4.png&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0214fc221120&quot;,
+      &quot;reason&quot;: &quot;Определение дополнительно требует проверки рассматриваемого промежутка; здесь устанавливается совместная ОДЗ нескольких логарифмов с проверкой основания.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_37584ab15732&quot;,
+      &quot;reason&quot;: &quot;Квадратного корня в исходном выражении нет.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Проверены положительность обоих аргументов и допустимость общего постоянного основания, сохранено исключение x≥4. Это целое действие выбранного определения.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="k2"><h3>k2 · Преобразовывать логарифм степени положительного выражения</h3><p>При положительном выражении под степенью и допустимом основании применять правило вынесения показателя степени перед логарифмом; положительность проверяется по доступным ограничениям.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;При x&lt;4 имеем log_{0,2}((4−x)²)=2log_{0,2}(4−x).&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+      &quot;reason&quot;: &quot;Законы степеней не включают тождество логарифма степени.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ad68659d5755&quot;,
+      &quot;reason&quot;: &quot;Преобразует разность логарифмов в логарифм частного, а не логарифм степени.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_872613285a26&quot;,
+      &quot;reason&quot;: &quot;Смена основания здесь не выполняется.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;На установленной области 4−x&gt;0 показатель степени вынесен перед логарифмом. Полного определения этой операции в каталоге нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;При u&gt;0 и b&gt;0, b≠1 преобразовать log_b(u^p) в p log_b(u), сохраняя необходимые ограничения.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="k3"><h3>k3 · Выносить общий множитель при преобразовании неравенства</h3><p>Для суммы или разности выражений с общим множителем перенести все члены в одну часть и представить её произведением без деления на множитель, знак и нулевые значения которого могут быть неизвестны.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k3&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Перенести слагаемые в одну часть и вынести общий множитель.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;Получаем (x²−2)log_{0,2}(4−x)≥0 при x&lt;4.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+      &quot;reason&quot;: &quot;Объект определения — многочлен; здесь общий множитель является логарифмом и всё выражение не является многочленом.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+      &quot;reason&quot;: &quot;Здесь преобразуется неравенство; уравнение нулевого произведения не решается.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_7570fa06d474&quot;,
+      &quot;reason&quot;: &quot;Сокращения дроби и проверки ненулевого сокращаемого множителя нет.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Перенос и вынесение общего множителя образуют одно преобразование разности в произведение, не требующее деления на логарифм с неизвестным знаком и возможным нулём. Каталог не содержит полного соответствия для такого объекта.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Представить разность с общим множителем как произведение после переноса членов неравенства в одну часть, не деля на множитель неизвестного знака или возможного нулевого значения.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="k4"><h3>k4 · Определять знак логарифма по сравнению аргумента с единицей</h3><p>Для положительного аргумента и допустимого постоянного основания определить знак логарифма, сравнив аргумент с единицей и учитывая возрастание или убывание логарифмической функции.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k4&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_eae4ca1f2f8b&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;Так как 0&lt;0,2&lt;1, логарифм log_{0,2}(4−x) отрицателен при x&lt;3, равен нулю при x=3 и положителен при 3&lt;x&lt;4.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d66dd830e876&quot;,
+      &quot;reason&quot;: &quot;Определение логарифма для вычисления отдельного значения не покрывает определение знаков на промежутках.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Сравнения логарифма с нулём переведены в сравнения его положительного аргумента с единицей с учётом убывающего основания. Это частный случай целого действия логарифмического неравенства по монотонности.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="k5"><h3>k5 · Решать неравенство произведения по знакам множителей</h3><p>Для произведения с установленными нулями и знаками множителей разбить допустимую область на интервалы, выбрать интервалы нужного знака и включить допустимые нули при нестрогом неравенстве.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k5&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;Произведение неотрицательно на [−√2;√2] и [3;4). Значение x=4 исключено ОДЗ.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s3:result&quot;,
+    &quot;step:s4:result&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;rational_intervals&quot;,
+      &quot;reason&quot;: &quot;Определение ограничено рациональным неравенством; здесь произведение содержит логарифм.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_1b97db4e28e8&quot;,
+      &quot;reason&quot;: &quot;Покрывает знак отдельного квадратного множителя, а не произведения с логарифмом.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+      &quot;reason&quot;: &quot;Совмещение ОДЗ является компонентом, но определение не покрывает выбор интервалов по знакам произведения.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Использованы установленные в s4 знаки двух множителей и нули, включены допустимые нули нестрогого неравенства, исключена граница ОДЗ. Полного определения для произведения нерациональных функций в каталоге нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Для произведения функций с установленными на общей области нулями и знаками выбрать промежутки нужного знака произведения, учитывая строгость неравенства и допустимость границ.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;missing_annotation&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s4:result&quot;
+    ],
+    &quot;description&quot;: &quot;В s4 отдельно установлены корни ±√2 и знаки квадратного трёхчлена x²−2. k4 относится к логарифму, а k5 по своему определению использует уже установленные знаки; получение знаков квадратного множителя остаётся без отдельного локального кандидата. Близкое определение каталога — literal_1b97db4e28e8; это не меняет решения по существующим кандидатам.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;k5&quot;
+    ]
+  }
+]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\024079.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\024079.json&quot;
+}</pre></html>

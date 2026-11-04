@@ -1,0 +1,117 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>7F0767</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>48. ФИПИ 7F0767</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">На конференцию приехали учёные из трёх стран: 3 из Дании, 4 из Венгрии <br> и 3 из Болгарии. Каждый из них делает на конференции один доклад. Порядок докладов определяется жеребьёвкой. Найдите вероятность того, <br> что седьмым окажется доклад учёного из Болгарии.<span></span></p>  </section></div><p>КЭС: 6.2 Вероятность</p><h2>Ответ</h2><p>0,3</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Подсчитать общее число участников и число благоприятных кандидатов на седьмое место.</td><td>Всего 3+4+3=10 участников; из Болгарии — 3 участника.</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Использовать равновероятность попадания каждого участника на фиксированное место при жеребьёвке и вычислить вероятность.</td><td>На седьмом месте равновероятно может оказаться любой из 10 участников, поэтому вероятность доклада учёного из Болгарии равна 3/10=0,3.</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Классическая вероятность для фиксированного места в случайном порядке&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Подсчитать число исходов по составу непересекающихся групп</h3><p>По численностям непересекающихся групп сложить их размеры для получения общего числа объектов и выделить число объектов с требуемым признаком.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Подсчитать общее число участников и число благоприятных кандидатов на седьмое место.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;Всего 3+4+3=10 участников; из Болгарии — 3 участника.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;reason&quot;: &quot;Определение охватывает вычисление m/n, а не подготовительный подсчёт численностей; в s1 вероятность ещё не вычислена.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+      &quot;reason&quot;: &quot;Подсчёт участников не обосновывает одинаковые вероятности элементарных исходов.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_032c8bc781fd&quot;,
+      &quot;reason&quot;: &quot;Нет моделирования процентной доли, ограничений на целочисленные количества или изменения состава.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдается простой подсчёт общего количества сложением численностей непересекающихся групп и выделение количества объектов нужной группы. Подходящего определения для этого подготовительного действия в полном каталоге нет. Разделять само сложение на арифметические поддействия не требуется.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Подсчитывать общую численность и численность выделенной группы&quot;,
+    &quot;definition&quot;: &quot;По заданным численностям непересекающихся групп получить общую численность суммированием и выделить число объектов с требуемым признаком. Обоснование равновозможности и вычисление вероятности не включаются.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Вычислить вероятность признака участника на фиксированном месте случайного порядка</h3><p>При равновероятном случайном порядке участников использовать равновероятность каждого участника на заданном допустимом месте и разделить число участников с требуемым признаком на общее число участников.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Использовать равновероятность попадания каждого участника на фиксированное место при жеребьёвке и вычислить вероятность.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;На седьмом месте равновероятно может оказаться любой из 10 участников, поэтому вероятность доклада учёного из Болгарии равна 3/10=0,3.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+      &quot;reason&quot;: &quot;Соответствует компоненту выбора участника на фиксированном месте, но явно исключает вычисление m/n, входящее в состав локального кандидата.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;reason&quot;: &quot;Соответствует компоненту 3/10=0,3, но не охватывает обоснование равновозможности, явно входящее в локальное определение.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;bernoulli_model&quot;,
+      &quot;reason&quot;: &quot;Не задаётся серия независимых испытаний с постоянной вероятностью; используется один фиксированный номер случайного порядка.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет построение равновозможной модели и вычисление отношения благоприятных исходов ко всем. В s2 оба компонента выражены явно, а каталог намеренно разводит их. Численности получены в s1, случайный порядок задан условием. Совпадение с одним узким узлом не покрывает весь кандидат.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;name&quot;: &quot;Задать равновозможный исход как участника на фиксированном месте&quot;,
+        &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+        &quot;definition&quot;: &quot;При порядке, определённом жеребьёвкой, рассмотреть каждого участника как возможного обладателя седьмого места и использовать одинаковую вероятность этих исходов.&quot;
+      },
+      {
+        &quot;name&quot;: &quot;Вычислить вероятность по числу благоприятных и всех исходов&quot;,
+        &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+        &quot;definition&quot;: &quot;В установленной конечной равновозможной модели вычислить отношение 3 благоприятных исходов к 10 возможным: 3/10=0,3.&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s2:action&quot;,
+      &quot;step:s2:result&quot;
+    ],
+    &quot;description&quot;: &quot;Локальный kc2 соединяет два действия, явно разделённых определениями каталога: обоснование равновозможности и вычисление m/n. Это замечание к границе кандидата, а не математическая ошибка решения.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc2&quot;
+    ]
+  }
+]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\7F0767.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\7F0767.json&quot;
+}</pre></html>

@@ -1,0 +1,101 @@
+{
+  "task_id": "F2A2EB",
+  "catalog_version": "fipi50-editorial-v1-frozen",
+  "decisions": [
+    {
+      "local_kc_id": "k1",
+      "status": "match",
+      "catalog_kc_id": "literal_fe8297102f74",
+      "evidence": [{"ref": "step:s1:result", "quote": "EB=EM и KB=KM."}],
+      "context_refs": ["condition"],
+      "alternatives_checked": [{"catalog_kc_id": "literal_5140d12e0e85", "reason": "Равноудалённость здесь следует из серединного перпендикуляра, а не из медианы к гипотенузе."}],
+      "rationale": "Для двух точек E и K заданного серединного перпендикуляра получены равенства расстояний до B и M. Операция, объект и основание полностью соответствуют определению.",
+      "proposal": null,
+      "blocking": false,
+      "issue_ids": []
+    },
+    {
+      "local_kc_id": "k2",
+      "status": "match",
+      "catalog_kc_id": "isosceles_angles",
+      "evidence": [{"ref": "step:s2:result", "quote": "В равнобедренном BEM углы при B,M равны β"}, {"ref": "step:s2:result", "quote": "В BKM углы при B,M равны γ"}],
+      "context_refs": ["condition", "step:s1:result"],
+      "alternatives_checked": [{"catalog_kc_id": "literal_f5a787e19d0e", "reason": "Сумма углов и смежность используются далее, но сами равенства углов при основании следуют из равенств сторон."}],
+      "rationale": "Равенства EB=EM и KB=KM установлены в s1. В s2 из них получены равенства противолежащих углов двух равнобедренных треугольников; обозначения β и γ также введены в s1. Это самостоятельный наблюдаемый компонент шага, полностью соответствующий кандидату и определению каталога.",
+      "proposal": null,
+      "blocking": false,
+      "issue_ids": []
+    },
+    {
+      "local_kc_id": "k3",
+      "status": "match",
+      "catalog_kc_id": "literal_f5a787e19d0e",
+      "evidence": [{"ref": "step:s2:result", "quote": "поэтому ∠AEM=2β."}, {"ref": "step:s2:result", "quote": "∠CMB=120°-γ, значит ∠CMK=120°-2γ=2β."}],
+      "context_refs": ["condition", "step:s1:result"],
+      "alternatives_checked": [{"catalog_kc_id": "literal_adbf18f11761", "reason": "Вычитание углов с общей стороной является лишь частью вывода; кандидат также охватывает сумму углов треугольника и смежность, которые прямо охвачены выбранным определением."}, {"catalog_kc_id": "isosceles_angles", "reason": "Равенство углов при основании даёт входное состояние, но не покрывает вывод смежного угла и сравнение двух целевых углов."}],
+      "rationale": "Вычисляются углы через сумму углов треугольника, смежность лучей EA и EB и вычитание угла BMK из CMB. Положение точек задано условием, β+γ=60° — в s1. Равенство ∠CMK=2β использует именно эти основания, а не перенос действия из предыдущего шага.",
+      "proposal": null,
+      "blocking": false,
+      "issue_ids": []
+    },
+    {
+      "local_kc_id": "k4",
+      "status": "match",
+      "catalog_kc_id": "similarity_AA",
+      "evidence": [{"ref": "step:s3:result", "quote": "∠EAM=∠MCK=60° и ∠AEM=∠CMK. Поэтому AEM~CMK, соответствие A↔C,E↔M,M↔K; коэффициент равен AE/CM."}],
+      "context_refs": ["condition", "step:s2:result"],
+      "alternatives_checked": [{"catalog_kc_id": "literal_d5e287608dd5", "reason": "Этот узел предполагает также составление пропорции длин; здесь основное действие — доказательство подобия по двум углам с явным соответствием."}, {"catalog_kc_id": "literal_b58390338050", "reason": "Не просто используется уже доказанное подобие: оно впервые устанавливается по двум парам равных углов."}],
+      "rationale": "Одна пара углов равна 60° из равносторонности и принадлежности точек сторонам, другая доказана в s2. В s3 сформулированы обе пары, вывод о подобии и соответствие вершин и сторон — все элементы определения.",
+      "proposal": null,
+      "blocking": false,
+      "issue_ids": []
+    },
+    {
+      "local_kc_id": "k5",
+      "status": "match",
+      "catalog_kc_id": "cosine_law",
+      "evidence": [{"ref": "step:s4:action", "quote": "б) Найти AE по равенству EB=EM и теореме косинусов"}, {"ref": "step:s4:result", "quote": "Масштабируем AC=AB=5,AM=1,CM=4. При AE=e получаем EM²=e²-e+1"}],
+      "context_refs": ["condition"],
+      "alternatives_checked": [{"catalog_kc_id": "pythagoras", "reason": "Треугольник AEM имеет угол A=60°, а не прямой; присутствует смешанный член -e."}],
+      "rationale": "Для треугольника AEM стороны AE=e и AM=1 образуют угол 60° по условию. Равенство EM²=e²+1-2e cos60°=e²-e+1 связывает именно соответствующие стороны и угол невырожденного треугольника.",
+      "proposal": null,
+      "blocking": false,
+      "issue_ids": []
+    },
+    {
+      "local_kc_id": "k6",
+      "status": "match",
+      "catalog_kc_id": "linear_equation",
+      "evidence": [{"ref": "step:s4:result", "quote": "Тогда (5-e)²=e²-e+1 ⇒ e=8/3."}],
+      "context_refs": [],
+      "alternatives_checked": [{"catalog_kc_id": "quadratic_discriminant", "reason": "После раскрытия квадрата коэффициент при e² сокращается; квадратного уравнения с ненулевым старшим коэффициентом здесь нет."}, {"catalog_kc_id": "literal_57e72251d4a8", "reason": "Не решается изолированное уравнение e²=c и не извлекаются два квадратных корня."}],
+      "rationale": "Стрелка сжимает раскрытие квадрата, сокращение e² и решение 25-10e=1-e, то есть -9e=-24. Полученное e=8/3 подтверждает решение аффинного равенства. Кандидат k6 описывает только линейное решение, поэтому соответствует узлу; предшествующее преобразование записанного нелинейного равенства не включается в этот match и отмечено как отдельный пробел разметки.",
+      "proposal": null,
+      "blocking": false,
+      "issue_ids": ["i1"]
+    },
+    {
+      "local_kc_id": "k7",
+      "status": "match",
+      "catalog_kc_id": "similar_area",
+      "evidence": [{"ref": "step:s5:result", "quote": "AE/CM=(8/3)/4=2/3, поэтому S(AEM)/S(CMK)=(2/3)²=4/9."}],
+      "context_refs": ["step:s3:result", "step:s4:result"],
+      "alternatives_checked": [{"catalog_kc_id": "literal_b58390338050", "reason": "Здесь искомое отношение площадей получается возведением коэффициента подобия в квадрат, а не только пропорцией длин."}, {"catalog_kc_id": "right_triangle_area", "reason": "Площадь через произведение катетов не вычисляется, прямоугольность данных треугольников не установлена."}],
+      "rationale": "Подобие и соответствие AE↔CM установлены в s3, длины — в s4. В текущем шаге вычислен коэффициент соответствующих длин и возведён в квадрат для отношения площадей, что полностью соответствует определению.",
+      "proposal": null,
+      "blocking": false,
+      "issue_ids": []
+    }
+  ],
+  "issues": [
+    {
+      "id": "i1",
+      "kind": "missing_annotation",
+      "refs": ["step:s4:result"],
+      "description": "В переходе (5-e)²=e²-e+1 ⇒ e=8/3 сжаты раскрытие квадрата и сокращение одинаковых квадратичных членов, приводящие к линейному равенству. Это наблюдаемое преобразование нелинейной записи отдельно не представлено среди кандидатов. k6 покрывает последующее линейное решение, а k5 — геометрическую формулу; объединять преобразование с linear_equation по определению каталога нельзя. Замечание не опровергает правильность e=8/3 и не блокирует узкое соответствие k6.",
+      "blocking": false,
+      "affected_local_kc_ids": ["k6"]
+    }
+  ],
+  "review_scope": "KC mapping with incidental mathematical checks; not expert validation"
+}

@@ -1,0 +1,102 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>DcF3c4</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>10. ФИПИ DcF3c4</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Найдите значение выражения <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mfrac> <mrow> <mn>2</mn><mi>sin</mi><mn>70</mn><mi>°</mi> </mrow> <mrow> <mi>cos</mi><mn>35</mn><mi>°</mi><mo>⋅</mo><mi>cos</mi><mn>55</mn><mi>°</mi> </mrow> </mfrac> <mo>.</mo> </mrow> </semantics> </math> <span></span></p>  </section></div><p>КЭС: 1.5 Синус, косинус и тангенс числового аргумента. Арксинус, арккосинус, арктангенс числового аргумента</p><h2>Ответ</h2><p>4</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Применить формулу синуса двойного угла и формулу приведения косинуса дополнительного угла.</td><td>sin70°=2sin35°cos35°; cos55°=sin35°. Поэтому выражение равно 4sin35°cos35°/(cos35°sin35°).</td><td>kc1, kc2</td></tr><tr><td>s2 · s1</td><td>Сократить ненулевые общие множители числителя и знаменателя.</td><td>Поскольку 35° — острый угол, sin35° и cos35° положительны. Сокращение допустимо, значение выражения равно 4.</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Приведение тригонометрических функций к общему аргументу с последующим сокращением&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Преобразовывать синус двойного угла</h3><p>Для синуса угла, представимого как удвоенный аргумент, применять тождество sin(2α)=2sinαcosα; тождество справедливо для любого действительного аргумента.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_3d70ab3eb24a&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;sin70°=2sin35°cos35°&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;,
+      &quot;reason&quot;: &quot;Описывает комплексное сведение формулами приведения и двойного угла; локальный кандидат охватывает только формулу двойного угла.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_55d5a6d9eb3c&quot;,
+      &quot;reason&quot;: &quot;Общее сведение к одной функции шире локальной замены синуса удвоенного аргумента; отдельное определение literal_3d70ab3eb24a прямо задаёт наблюдаемую операцию.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В s1 синус удвоенного аргумента 70° заменён произведением 2sin35°cos35°. Это целиком одна из двух явно разрешённых направлений замены в определении выбранного узла. Дополнительных условий, кроме согласованной градусной меры, тождество не требует.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Выражать косинус дополнительного угла через синус</h3><p>Для косинуса угла вида 90°−α применять тождество cos(90°−α)=sinα, согласуя единицы измерения углов.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;cos55°=sin35°&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;,
+      &quot;reason&quot;: &quot;Кандидат является компонентом общего преобразования формулами приведения и двойного угла, а не всем определённым действием сведения выражения.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_55d5a6d9eb3c&quot;,
+      &quot;reason&quot;: &quot;Узел охватывает сведение к одной тригонометрической функции с использованием формул приведения и двойного угла; здесь локально выделена лишь замена косинуса дополнительного угла.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_3d70ab3eb24a&quot;,
+      &quot;reason&quot;: &quot;Определение касается двойного угла, а не взаимного перехода косинуса и синуса дополнительных углов.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдается замена cos55° на sin35° при 55°=90°−35°. Полный каталог просмотрен: отдельного определения этой операции нет. Общие тригонометрические узлы задают более широкое составное действие; соответствие компонента не приравнивается к полному match.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Выражать косинус дополнительного угла через синус&quot;,
+    &quot;definition&quot;: &quot;При согласованных единицах углов заменить cos(90°−α) на sinα (или cos(π/2−α) на sinα в радианах), проверив соотношение аргументов. Это отдельная замена по формуле приведения, без включения преобразования двойного угла.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Сокращать общие ненулевые множители дроби</h3><p>При наличии одинаковых множителей в числителе и знаменателе проверить их ненулевое значение и сократить, сохранив ограничения исходного знаменателя.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_7570fa06d474&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Сократить ненулевые общие множители числителя и знаменателя.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;Поскольку 35° — острый угол, sin35° и cos35° положительны. Сокращение допустимо, значение выражения равно 4.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+      &quot;reason&quot;: &quot;Учитывает исключения знаменателя, но не само сокращение общих множителей.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_695d7a370e3b&quot;,
+      &quot;reason&quot;: &quot;Требует отношения синуса к косинусу как тангенса; тангенс в данном сокращении не используется.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Из s1 получена дробь с общими множителями sin35° и cos35°. В s2 их положительность явно обоснована остротой угла; оба множителя сокращены, остаётся 4. Операция, ненулевость и результат полностью соответствуют определению.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\DcF3c4.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\DcF3c4.json&quot;
+}</pre></html>

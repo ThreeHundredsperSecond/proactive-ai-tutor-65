@@ -1,0 +1,76 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>110B03</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>43. ФИПИ 110B03</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Найдите значение выражения <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msub> <mrow> <mi>log</mi> </mrow> <mn>2</mn> </msub> <mn>6,4</mn><mo>+</mo><msub> <mrow> <mi>log</mi> </mrow> <mn>2</mn> </msub> <mn>10.</mn> </mrow> </semantics> </math><span></span></p>  </section></div><p>КЭС: 1.6 Логарифм числа. Десятичные и натуральные логарифмы; 1.8 Преобразование выражений</p><h2>Ответ</h2><p>6</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Объединить сумму логарифмов с одинаковым основанием в логарифм произведения; оба аргумента положительны, основание положительно и не равно единице.</td><td>log₂(6,4) + log₂(10) = log₂(6,4 · 10) = log₂(64).</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Вычислить логарифм, представив его аргумент степенью основания.</td><td>64 = 2⁶, поэтому log₂(64) = 6.</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Объединение логарифмов и вычисление по определению&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Объединять сумму логарифмов в логарифм произведения</h3><p>Для двух логарифмов с общим положительным основанием, отличным от единицы, и положительными аргументами заменить их сумму логарифмом произведения аргументов.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;log₂(6,4) + log₂(10) = log₂(6,4 · 10) = log₂(64).&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:action&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ad68659d5755&quot;,
+      &quot;reason&quot;: &quot;Определение охватывает разность логарифмов и логарифм частного, а здесь сумма и произведение. Общее семейство свойств не устанавливает полное соответствие.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_872613285a26&quot;,
+      &quot;reason&quot;: &quot;Переход к общему основанию по формуле отношения логарифмов не выполняется: основание 2 уже общее.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_7baedb55a81a&quot;,
+      &quot;reason&quot;: &quot;Допустимость основания и аргументов проверена как предпосылка, но определение не охватывает преобразование суммы в логарифм произведения.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдается тождественное преобразование суммы двух логарифмов общего допустимого основания с положительными аргументами в логарифм их произведения. Условия выполнены для основания 2 и аргументов 6,4 и 10; автор их явно отмечает. В полном каталоге подходящего определения этого действия нет. Вычисление произведения не требует отдельного дробления кандидата.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Объединять сумму логарифмов в логарифм произведения&quot;,
+    &quot;definition&quot;: &quot;При общем основании b&gt;0, b≠1 и положительных аргументах u,v заменить log_b u+log_b v на log_b(uv), сохраняя допустимость выражений.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Вычислять логарифм степени основания</h3><p>Если положительный аргумент представлен степенью положительного основания, отличного от единицы, определить значение логарифма как показатель этой степени.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_d66dd830e876&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;64 = 2⁶, поэтому log₂(64) = 6.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9a635e89ccb3&quot;,
+      &quot;reason&quot;: &quot;Предназначен для решения простейшего логарифмического уравнения; здесь нет уравнения с неизвестным аргументом, вычисляется числовой логарифм.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+      &quot;reason&quot;: &quot;Не выполняется преобразование по законам степени степени, произведения или частного; представление 64=2⁶ служит вычислению логарифма по определению.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Автор находит показатель допустимого основания 2, степень которого равна положительному аргументу 64. Это целиком соответствует определению вычисления логарифма. Аргумент получен предыдущим шагом, но действие объединения логарифмов в текущий шаг не переносится.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\110B03.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\110B03.json&quot;
+}</pre></html>

@@ -1,0 +1,88 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>55A294</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>11. ФИПИ 55A294</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">В телевизоре ёмкость высоковольтного конденсатора <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>C</mi><mo>=</mo><mn>8</mn><mo>⋅</mo><msup> <mrow> <mn>10</mn> </mrow> <mrow> <mo>−</mo><mtext> </mtext><mn>6</mn> </mrow> </msup> <mtext> </mtext><mtext>Ф</mtext><mtext>.</mtext> </mrow> </semantics> </math> Параллельно с конденсатором подключён резистор с сопротивлением <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>R</mi><mo>=</mo><mn>5</mn><mo>⋅</mo><msup> <mrow> <mn>10</mn> </mrow> <mn>6</mn> </msup> <mtext> </mtext><mtext>Ом</mtext><mtext>.</mtext> </mrow> </semantics> </math> Во время работы телевизора напряжение на конденсаторе <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msub> <mi>U</mi> <mn>0</mn> </msub> <mtext> </mtext><mo>=</mo><mn>56</mn><mtext> </mtext><mtext>кВ</mtext><mtext>.</mtext> </mrow> </semantics> </math> После выключения телевизора напряжение на конденсаторе убывает до значения <span><img src="../../../inputs/assets/dce1e0b6083ab94a79451fcb.png" alt="Рисунок ФИПИ"></span> (в киловольтах) за время (в секундах), определяемое выражением <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>t</mi><mo>=</mo><mi>α</mi><mi>R</mi><mi>C</mi><msub> <mrow> <mi>log</mi> </mrow> <mn>2</mn> </msub> <mfrac> <mrow> <msub> <mi>U</mi> <mn>0</mn> </msub> </mrow> <mi>U</mi> </mfrac> </mrow> </semantics> </math>, где <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>α</mi><mo>=</mo><mn>1,5</mn> </mrow> </semantics> </math> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> постоянная. Определите напряжение на конденсаторе, если после выключения телевизора прошло <br> 180 секунд. Ответ дайте в киловольтах.<span></span></p>  </section></div><p>КЭС: 2.4 Показательные и логарифмические уравнения</p><h2>Ответ</h2><p>7</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Подставить параметры и прошедшее время в заданную формулу, учитывая положительность напряжения.</td><td>U&gt;0; RC=(5·10^6)(8·10^−6)=40, поэтому 180=60·log₂(56/U), откуда log₂(56/U)=3.</td><td>k1</td></tr><tr><td>s2 · s1, condition</td><td>Перейти от логарифмического равенства к показательному и найти напряжение.</td><td>56/U=2³=8, поэтому U=7 кВ. Значение положительно и меньше начального напряжения.</td><td>k2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Подстановка в формулу разрядки и применение определения логарифма&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="k1"><h3>k1 · Подставлять данные в логарифмическую формулу величины</h3><p>При заданных значениях параметров и одной неизвестной величине подставить данные в формулу с логарифмом, вычислить числовые коэффициенты и выделить логарифм; аргумент логарифма должен быть положительным, единицы величин — согласованными с формулой.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Подставить параметры и прошедшее время в заданную формулу, учитывая положительность напряжения.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;U&gt;0; RC=(5·10^6)(8·10^−6)=40, поэтому 180=60·log₂(56/U), откуда log₂(56/U)=3.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+      &quot;reason&quot;: &quot;Здесь не вычисляется значение функции по заданному аргументу: подстановка физических параметров даёт соотношение с неизвестным напряжением.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;Деление числового соотношения на 60 присутствует как простое приведение результата подстановки; этот узел не описывает весь кандидат, включая сопоставление параметров с формулой.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cb48e5bc61de&quot;,
+      &quot;reason&quot;: &quot;Ограничение в неравенство не переводится; время задано точным равенством.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдается подстановка C, R, U0, α и t в уже данную физическую формулу с сохранением согласованных единиц. Вычисление RC и коэффициента 60, затем деление на него дают числовое соотношение; это арифметическое оформление подстановки, без вывода модели или снятия логарифма. Логарифмическая форма формулы сама не образует другой KC. Положительность U зафиксирована, напряжения U0 и U используются в киловольтах, как задано в условии.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="k2"><h3>k2 · Находить неизвестное в аргументе логарифма по определению</h3><p>Для равенства логарифма положительного отношения числу перейти к равенству отношения степени основания и вычислить неизвестный знаменатель, проверив положительность; основание логарифма положительно и отлично от единицы.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_9a635e89ccb3&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Перейти от логарифмического равенства к показательному и найти напряжение.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;56/U=2³=8, поэтому U=7 кВ. Значение положительно и меньше начального напряжения.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d66dd830e876&quot;,
+      &quot;reason&quot;: &quot;Вычислять числовое значение логарифма не требуется: его значение 3 уже установлено, ищется неизвестное в аргументе.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_2443f08dda82&quot;,
+      &quot;reason&quot;: &quot;Не записано равенство двух логарифмов; непосредственно применено определение к равенству логарифма числу.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+      &quot;reason&quot;: &quot;Нет приведения степеней к общему основанию и приравнивания показателей.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9698b97fef22&quot;,
+      &quot;reason&quot;: &quot;Этот узел описывает преобразование рационального уравнения с ограничениями знаменателей, но не основное действие снятия логарифма по определению.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Из входного равенства log₂(56/U)=3 при U&gt;0 выполнен переход к 56/U=2³, затем найдено U=7 и проверена положительность. Основание 2 допустимо, аргумент положителен по состоянию s1. Это решение простейшего логарифмического уравнения по определению; элементарное нахождение неизвестного знаменателя завершает это действие, отдельная дробная модель или новый нелинейный метод не вводятся.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\55A294.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\55A294.json&quot;
+}</pre></html>

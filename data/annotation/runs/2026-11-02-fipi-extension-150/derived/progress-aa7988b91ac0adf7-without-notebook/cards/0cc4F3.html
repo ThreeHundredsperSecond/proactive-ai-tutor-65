@@ -1,0 +1,81 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>0cc4F3</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>15. ФИПИ 0cc4F3</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal"><span>При выпечке хлеба производится контрольное взвешивание свежей буханки. Известно, что вероятность того, что её масса окажется меньше 810 г, равна 0,95.</span> Вероятность того, что масса буханки окажется больше 790 г, равна 0,86. Найдите вероятность того, что масса буханки окажется больше 790 г, но меньше 810 г.</p>  </section></div><p>КЭС: 6.2 Вероятность</p><h2>Ответ</h2><p>0,81</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Обозначить события A={масса меньше 810 г}, B={масса больше 790 г} и установить вероятность объединения.</td><td>Любая масса удовлетворяет хотя бы одному из неравенств, поэтому P(A∪B)=1. Искомое событие — A∩B.</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Применить формулу вероятности объединения и выразить вероятность пересечения.</td><td>P(A∩B)=P(A)+P(B)−P(A∪B)=0,95+0,86−1=0,81.</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Достоверное объединение и формула сложения вероятностей&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Установить достоверность объединения событий по числовым ограничениям</h3><p>Для событий, заданных неравенствами одной случайной величины, проверить покрытие всех возможных значений их объединением; при полном покрытии установить вероятность объединения равной единице, учитывая строгость границ.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;Любая масса удовлетворяет хотя бы одному из неравенств, поэтому P(A∪B)=1.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:action&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+      &quot;reason&quot;: &quot;Определение требует совмещения ограничений пересечением или исключением, а здесь доказывается полнота объединения событий и устанавливается его вероятность.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+      &quot;reason&quot;: &quot;Элементарные равновозможные исходы не вводятся; достоверность объединения не требует равновозможной модели.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В s1 события заданы неравенствами одной величины; поскольку 790&lt;810, их объединение охватывает любое значение, включая обе граничные массы. Наблюдается установление достоверного события, а не пересечение допустимых значений. После просмотра полного каталога определения этой операции не найдено.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Устанавливать достоверность объединения событий по числовым ограничениям&quot;,
+    &quot;definition&quot;: &quot;Для событий, заданных неравенствами одной случайной величины, проверить покрытие всего пространства возможных значений объединением с учётом границ; при полном покрытии установить вероятность объединения равной единице.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Вычислить вероятность пересечения по формуле сложения вероятностей</h3><p>По вероятностям двух событий и их объединения вычислить вероятность пересечения как сумму вероятностей событий за вычетом вероятности объединения; независимость не требуется.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;P(A∩B)=P(A)+P(B)−P(A∪B)=0,95+0,86−1=0,81.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:action&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+      &quot;reason&quot;: &quot;Определение требует обоснованной независимости и произведения вероятностей. Здесь используется формула сложения без предположения независимости.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;reason&quot;: &quot;Не вычисляется отношение чисел равновозможных исходов; используются заданные вероятности двух событий и установленная вероятность объединения.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;В s2 применяется вероятностное тождество и подстановка значений; определение решения аффинного уравнения не включает выбор вероятностного соотношения.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдаемая операция — нахождение вероятности пересечения по вероятностям событий и их объединения. Вход P(A∪B)=1 получен в s1, числовые вероятности даны условием. Формула и арифметика верны; независимость не нужна. После просмотра полного каталога соответствующего определения нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Вычислять вероятность пересечения по формуле сложения вероятностей&quot;,
+    &quot;definition&quot;: &quot;По известным вероятностям двух событий и их объединения вычислить вероятность пересечения по равенству P(A∩B)=P(A)+P(B)−P(A∪B), не предполагая независимости событий.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\0cc4F3.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\0cc4F3.json&quot;
+}</pre></html>

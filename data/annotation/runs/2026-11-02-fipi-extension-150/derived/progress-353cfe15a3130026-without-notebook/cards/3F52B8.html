@@ -1,0 +1,48 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>3F52B8</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>23. ФИПИ 3F52B8</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Найдите значение выражения <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mn>6</mn><msub> <mrow> <mi>log</mi> </mrow> <mrow> <mroot> <mrow> <mn>13</mn> </mrow> <mn>6</mn> </mroot> </mrow> </msub> <mn>13.</mn> </mrow> </semantics> </math><span></span></p>  </section></div><p>КЭС: 1.3 Арифметический корень натуральной степени. Действия с арифметическими корнями натуральной степени; 1.6 Логарифм числа. Десятичные и натуральные логарифмы; 1.8 Преобразование выражений</p><h2>Ответ</h2><p>36</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Вычислить логарифм по определению и значение выражения.</td><td>Основание 13^(1/6) положительно и не равно 1, аргумент 13 положителен. Так как (13^(1/6))^6 = 13, то log_(13^(1/6))(13) = 6. Следовательно, 6 · 6 = 36.</td><td>kc1</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Вычисление по определению логарифма&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Вычислять логарифм по основанию, являющемуся степенью аргумента</h3><p>Для положительного аргумента, отличного от единицы, и основания, равного его ненулевой степени, применить определение логарифма и получить величину, обратную показателю этой степени; при наличии числового множителя вычислить значение выражения.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_d66dd830e876&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;Основание 13^(1/6) положительно и не равно 1, аргумент 13 положителен. Так как (13^(1/6))^6 = 13, то log_(13^(1/6))(13) = 6.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;Следовательно, 6 · 6 = 36.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9a635e89ccb3&quot;,
+      &quot;reason&quot;: &quot;Близкое определение использует определение логарифма, но относится к решению логарифмического уравнения. Здесь вычисляется заданный числовой логарифм, неизвестная переменная и уравнение с ней не вводятся; узел вычисления логарифма описывает наблюдаемую задачу точнее.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+      &quot;reason&quot;: &quot;Равенство (13^(1/6))^6 = 13 подтверждает значение показателя, но законы степеней описывают лишь вспомогательный компонент, а не всё вычисление логарифма.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_872613285a26&quot;,
+      &quot;reason&quot;: &quot;Переход к общему основанию и отношение логарифмов в решении не выполняются.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдаемое действие — найти показатель степени допустимого числового основания, дающий положительный аргумент. Допустимость явно установлена в результате s1, а показатель 6 проверен возведением основания в степень. Основание как степень аргумента — частный случай каталожного определения, а не отдельная операция. Финальное умножение на заданный числовой коэффициент является элементарным завершением вычисления и не требует отдельного KC или дробления кандидата. Ответ 36 согласуется с выражением в condition.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\3F52B8.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\3F52B8.json&quot;
+}</pre></html>

@@ -1,0 +1,202 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>656B14</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>39. ФИПИ 656B14</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">На рисунке изображены графики функций видов <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>f</mi><mrow><mo>(</mo> <mi>x</mi> <mo>)</mo></mrow><mo>=</mo><mi>a</mi><msqrt> <mi>x</mi> </msqrt> </mrow> </semantics> </math> и <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>g</mi><mrow><mo>(</mo> <mi>x</mi> <mo>)</mo></mrow><mo>=</mo><mi>k</mi><mi>x</mi><mo>,</mo> </mrow> </semantics> </math> пересекающиеся в точках <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mi>A</mi> </semantics> </math> и <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>B</mi><mo>.</mo> </mrow> </semantics> </math> Найдите абсциссу точки <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>B</mi><mo>.</mo> </mrow> </semantics> </math></p> <p class="MsoNormal"><span> </span></p> <p class="MsoNormal" align="center"><img src="../../../inputs/assets/5b566b09a19e5494593d6fb0.png" alt="Рисунок ФИПИ"></p> <p class="MsoNormal"><span> </span></p>  </section></div><p>КЭС: 1.3 Арифметический корень натуральной степени. Действия с арифметическими корнями натуральной степени; 3.1 Функция, способы задания функции. График функции. Взаимно обратные функции. Чётные и нечётные функции. Периодические функции</p><h2>Ответ</h2><p>100</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Прочитать координаты отмеченных точек графиков по единичной сетке.</td><td>На графике f отмечена точка (1; 2), на графике g — точка (5; 1).</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Подставить координаты точек в заданные виды функций и определить коэффициенты.</td><td>2 = a√1, поэтому a = 2; 1 = 5k, поэтому k = 1/5. Следовательно, f(x) = 2√x и g(x) = x/5.</td><td>kc2</td></tr><tr><td>s3 · s2</td><td>Приравнять значения функций в точках пересечения с учётом области определения.</td><td>2√x = x/5 при x ≥ 0.</td><td>kc3</td></tr><tr><td>s4 · condition, s3</td><td>Решить уравнение пересечения заменой t = √x и выбрать точку B.</td><td>При t = √x ≥ 0 получаем 2t = t²/5, то есть t(t − 10) = 0. Отсюда t = 0 или t = 10, поэтому x = 0 или x = 100. Обе величины удовлетворяют исходному уравнению. На рисунке A — начало координат; вторая точка пересечения B имеет абсциссу 100.</td><td>kc4</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Восстановление формул по отмеченным точкам и решение уравнения пересечения&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Считывать координаты отмеченной точки по координатной сетке</h3><p>По отмеченной точке на графике и установленному масштабу осей определить её абсциссу и ординату; применять к точкам с однозначно читаемым положением на сетке.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;graph_coordinates&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;На графике f отмечена точка (1; 2), на графике g — точка (5; 1).&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;image:assets/5b566b09a19e5494593d6fb0.png&quot;,
+      &quot;region_description&quot;: &quot;В верхней правой части сетки на кривой отмечена точка на пересечении x=1 и y=2; на прямой справа отмечена точка x=5, y=1. Подписи единичных делений задают масштаб.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [],
+  &quot;alternatives_checked&quot;: [],
+  &quot;rationale&quot;: &quot;Наблюдается считывание координат двух отмеченных точек по однозначной единичной сетке; восстановление формул не включено в этот кандидат и вынесено в s2.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Определять множитель функции по точке её графика</h3><p>Для функции вида y = cφ(x) и известной точки графика подставить координаты и найти c делением на ненулевое значение φ(x); применять при известном виде φ и допустимой абсциссе.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;2 = a√1, поэтому a = 2; 1 = 5k, поэтому k = 1/5.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_51a8c0abd718&quot;,
+      &quot;reason&quot;: &quot;Полностью покрывает восстановление a для корневой функции, но не восстановление k прямой пропорциональности и не весь обобщённый кандидат.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;direct_proportion&quot;,
+      &quot;reason&quot;: &quot;Полностью покрывает определение k для y=kx, но не корневую функцию.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;Решение числовых линейных равенств является компонентом; определение не включает подстановку точки в семейство функций и восстановление формулы.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_f253b50b98a1&quot;,
+      &quot;reason&quot;: &quot;Требует двух точек и восстановления общего y=kx+b; здесь известен вид y=kx и достаточно одной ненулевой точки.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Одна общая формулировка автора реализована в s2 на двух различных семействах функций, которым в каталоге соответствуют отдельные узлы. Одному узкому узлу нельзя назначить всё действие. Разделение предлагается по двум восстановлениям формул, без дробления арифметики линейных равенств.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;definition&quot;: &quot;По точке (1;2) функции y=a√x с x&gt;0 найти a=2.&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;literal_51a8c0abd718&quot;
+        ]
+      },
+      {
+        &quot;definition&quot;: &quot;По точке (5;1) функции y=kx с ненулевой абсциссой найти k=1/5.&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;direct_proportion&quot;
+        ]
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc3"><h3>kc3 · Составлять уравнение абсцисс точек пересечения графиков</h3><p>По двум формулам функций приравнять их значения на общей области определения; решения задают абсциссы общих точек.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;graph_intersection&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Приравнять значения функций в точках пересечения с учётом области определения.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;2√x = x/5 при x ≥ 0.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [],
+  &quot;rationale&quot;: &quot;Из восстановленных формул составлено равенство значений на общей области x≥0. Решение уравнения не включено и выполнено в следующем шаге, что совпадает с границей узла.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Решать уравнение пропорциональности квадратного корня и аргумента</h3><p>В уравнении вида c√x = dx при d ≠ 0 учесть x ≥ 0, заменить √x неотрицательной переменной, решить полученное квадратное уравнение через вынесение общего множителя, отобрать допустимые значения и вернуться к x; сохранять нулевой корень.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;При t = √x ≥ 0 получаем 2t = t²/5, то есть t(t − 10) = 0. Отсюда t = 0 или t = 10, поэтому x = 0 или x = 100.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;Обе величины удовлетворяют исходному уравнению.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s3:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_a30e088aef8f&quot;,
+      &quot;reason&quot;: &quot;Покрывает неотрицательную замену и обратный переход к x, но не решение полученного уравнения нулевым произведением.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+      &quot;reason&quot;: &quot;Покрывает получение обоих корней из t(t−10)=0 с сохранением нуля, но не ввод замены и восстановление x.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_a5938e1a7fec&quot;,
+      &quot;reason&quot;: &quot;Покрывает область радиканда и проверку кандидатов после преобразований, но не весь метод решения.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+      &quot;reason&quot;: &quot;Дискриминант в s4 не вычисляется; квадратное уравнение решено разложением на множители.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+      &quot;reason&quot;: &quot;Определение ориентировано на факторизацию для исследования знака; здесь произведение используется для решения равенства.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Авторский кандидат явно объединяет ввод замены, решение преобразованного уравнения и проверку допустимости. Эти действия наблюдаемы, но ни одно определение каталога не покрывает всю цепочку. Математического препятствия соответствиям частей не обнаружено: t=0 и t=10 неотрицательны, x=0 и x=100 удовлетворяют исходному равенству.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;definition&quot;: &quot;Ввести t=√x≥0 и после нахождения t восстановить x=t².&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;literal_a30e088aef8f&quot;
+        ]
+      },
+      {
+        &quot;definition&quot;: &quot;Получить нули множителей t(t−10)=0 и сохранить оба допустимых корня, включая нулевой.&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;zero_product&quot;
+        ]
+      },
+      {
+        &quot;definition&quot;: &quot;Сохранить неотрицательность радиканда и проверить найденные x в исходном уравнении.&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;literal_a5938e1a7fec&quot;
+        ]
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i2&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s2:result&quot;
+    ],
+    &quot;description&quot;: &quot;Общий кандидат восстановления множителя включает два семейства функций; каталог хранит их отдельными определениями. Требуется раздельное сопоставление частей, а не назначение всего кандидата одному узлу.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc2&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;i2&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s4:result&quot;
+    ],
+    &quot;description&quot;: &quot;Кандидат объединяет замену квадратного корня, нулевое произведение и проверку корней; соответствие одному компонентному узлу означало бы потерю границ действия.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc4&quot;
+    ]
+  }
+]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\656B14.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\656B14.json&quot;
+}</pre></html>

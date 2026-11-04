@@ -1,0 +1,120 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>C41083</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>41. ФИПИ C41083</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: False · blocking_audit_issue</p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal"><a name="_GoBack"></a>Стрелок стреляет по одному разу в каждую из четырёх мишеней. Вероятность попадания в мишень при каждом отдельном выстреле равна 0,7. Найдите вероятность того, что стрелок попадёт в первую мишень и не попадёт в три последние.</p>  </section></div><p>КЭС: 6.2 Вероятность</p><h2>Ответ</h2><p>0,0189</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти вероятность промаха как вероятность события, противоположного попаданию.</td><td>Вероятность промаха при каждом выстреле равна 1 − 0,7 = 0,3.</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Перемножить вероятности попадания при первом выстреле и промахов при трёх следующих, используя стандартную для этой модели независимость выстрелов.</td><td>P = 0,7 · 0,3 · 0,3 · 0,3 = 0,0189.</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Вероятность фиксированной последовательности результатов выстрелов&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Вычислять вероятность противоположного события</h3><p>По известной вероятности события вычислить вероятность его дополнения до единицы; применяется к двум взаимоисключающим исходам, исчерпывающим все возможности.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Найти вероятность промаха как вероятность события, противоположного попаданию.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;Вероятность промаха при каждом выстреле равна 1 − 0,7 = 0,3.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;reason&quot;: &quot;Здесь не считается отношение числа благоприятных исходов к числу равновозможных; применяется дополнение вероятности до единицы.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;bernoulli_model&quot;,
+      &quot;reason&quot;: &quot;Описание модели испытаний с двумя исходами не является вычислением вероятности противоположного события.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+      &quot;reason&quot;: &quot;Пересечение независимых событий и произведение вероятностей не используются в s1.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдается вычисление вероятности дополнения события попадания: промах исчерпывает остальные исходы одного выстрела. Независимость разных выстрелов для этого не нужна. После просмотра полного каталога отдельного определения операции P(не A)=1−P(A) не найдено.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Вычислять вероятность противоположного события&quot;,
+    &quot;definition&quot;: &quot;По известной вероятности события A вычислить вероятность его дополнения как 1−P(A), установив, что рассматриваемое событие действительно является дополнением A в том же пространстве исходов.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Вычислять вероятность заданной последовательности независимых исходов</h3><p>По вероятностям требуемых исходов независимых испытаний найти вероятность их совместного наступления как произведение вероятностей; применяется при фиксированном порядке исходов и независимости испытаний.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Перемножить вероятности попадания при первом выстреле и промахов при трёх следующих, используя стандартную для этой модели независимость выстрелов.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;P = 0,7 · 0,3 · 0,3 · 0,3 = 0,0189.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+      &quot;reason&quot;: &quot;Операция и объект совпадают: произведение вероятностей четырёх требуемых исходов. Но определение требует обоснованной независимости; условие сообщает лишь одинаковые маргинальные вероятности, а s2 явно вводит дополнительное предположение.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;bernoulli_model&quot;,
+      &quot;reason&quot;: &quot;В s2 действительно явно принята независимость, что допустимо для этого определения модели. Однако локальный kc2 описывает вычисление совместной вероятности, а не задание модели; присвоить ему этот узел вместо операции нельзя.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_8e6b7abd8340&quot;,
+      &quot;reason&quot;: &quot;Позиции исходов фиксированы условием, выбора размещений успеха и вычисления числа сочетаний нет.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Внутри дополнительно принятой независимой модели произведение и арифметика верны. Тем не менее независимость не следует из равенства вероятностей попадания; при зависимых выстрелах запрошенная совместная вероятность может быть другой. Поэтому без уточнения допустимости этой предпосылки нельзя подтвердить полное соответствие определению с требованием обоснованной независимости. Это неопределённость предусловия, а не отсутствие операции умножения.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: true,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[
+  &quot;Независимость выстрелов явно не сформулирована в условии; использована стандартная для такой задачи модель независимых испытаний. Равенство вероятностей попадания само по себе независимости не гарантирует.&quot;
+]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;input&quot;,
+    &quot;refs&quot;: [
+      &quot;condition&quot;,
+      &quot;step:s2:action&quot;,
+      &quot;step:s2:result&quot;
+    ],
+    &quot;description&quot;: &quot;В условии не указана независимость выстрелов. Она явно принята автором как стандартная модель, но не обоснована данными. При одних и тех же вероятностях попадания 0,7 возможны зависимые результаты; поэтому число 0,0189 является ответом при дополнительном предположении. Для подтверждения узла вычисления пересечения при обоснованной независимости нужно уточнить модель или правило допустимости такого предположения. Замечание не затрагивает вычисление вероятности промаха.&quot;,
+    &quot;blocking&quot;: true,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc2&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;i2&quot;,
+    &quot;kind&quot;: &quot;missing_annotation&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s2:action&quot;,
+      &quot;condition&quot;
+    ],
+    &quot;description&quot;: &quot;В s2 явно принято дополнительное модельное предположение о независимости. В каталоге есть bernoulli_model, допускающий явно принятые предпосылки; отдельного локального кандидата на задание этой модели нет. Это действие следует отличать от последующего перемножения вероятностей, не меняя исходную разметку молча.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc2&quot;
+    ]
+  }
+]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\C41083.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\C41083.json&quot;
+}</pre></html>

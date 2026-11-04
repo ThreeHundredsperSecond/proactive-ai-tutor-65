@@ -1,0 +1,87 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>282EDC</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>5. ФИПИ 282EDC</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <table class="MsoTableGrid" border="0" cellspacing="0" cellpadding="0"> <tr> <td valign="top"> <p class="MsoNormal">Площадь параллелограмма <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mi>C</mi><mi>D</mi> </mrow> </semantics> </math> равна 24. Точка <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mi>E</mi> </semantics> </math> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> середина стороны <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>D</mi><mo>.</mo> </mrow> </semantics> </math> Найдите площадь трапеции <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>B</mi><mi>C</mi><mi>D</mi><mi>E</mi><mo>.</mo> </mrow> </semantics> </math></p> </td> <td valign="top"> <p class="MsoNormal" align="right"><img src="../../../inputs/assets/973d05c71be06ad24ed981c1.png" alt="Рисунок ФИПИ"></p> </td> </tr> </table> <p class="MsoNormal"><span> </span></p>  </section></div><p>КЭС: 7.1 Фигуры на плоскости</p><h2>Ответ</h2><p>18</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Выразить площадь треугольника ABE через площадь параллелограмма, используя основание AE и общую высоту к прямой AD.</td><td>Поскольку E — середина AD, AE=AD/2. Высота из B к AD равна высоте параллелограмма h, поэтому S_ABE=(1/2)·AE·h=(1/4)·AD·h=24/4=6.</td><td>k1</td></tr><tr><td>s2 · condition, s1</td><td>Вычесть площадь отсечённого треугольника из площади параллелограмма.</td><td>Отрезок BE делит параллелограмм на треугольник ABE и трапецию BCDE без перекрытия внутренних областей. S_BCDE=24−6=18.</td><td>k2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Площадь трапеции как дополнение треугольника с половинным основанием&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="k1"><h3>k1 · Сопоставлять площади треугольника и параллелограмма по общей высоте</h3><p>Для треугольника с основанием на стороне параллелограмма и противоположной вершиной на параллельной стороне выразить отношение площадей как половину отношения оснований, используя общую высоту и формулы площадей.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Выразить площадь треугольника ABE через площадь параллелограмма, используя основание AE и общую высоту к прямой AD.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;Поскольку E — середина AD, AE=AD/2. Высота из B к AD равна высоте параллелограмма h, поэтому S_ABE=(1/2)·AE·h=(1/4)·AD·h=24/4=6.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;similar_area&quot;,
+      &quot;reason&quot;: &quot;Отношение площадей здесь получено по общей высоте и формулам площадей треугольника и параллелограмма; подобие фигур и квадрат коэффициента подобия не используются.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;right_triangle_area&quot;,
+      &quot;reason&quot;: &quot;Треугольник ABE не установлен как прямоугольный; используется основание и перпендикулярная высота, а не два катета.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_a776d95ccb64&quot;,
+      &quot;reason&quot;: &quot;Восстановление отношения двух частей отрезка по доле целого не охватывает сопоставление площадей фигур разных типов по общей высоте.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдается единое сопоставление площадей треугольника и параллелограмма через общую высоту: отношение площадей равно половине отношения оснований. Основание AE лежит на AD, вершина B лежит на противоположной параллельной стороне; середина задана условием. В полном каталоге определения этого действия нет. Вычисление половины основания и числовой площади не требует отдельного дробления кандидата.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Сопоставлять площади треугольника и параллелограмма по общей высоте&quot;,
+    &quot;definition&quot;: &quot;Для треугольника с основанием на прямой стороны параллелограмма и противоположной вершиной на прямой другой параллельной стороны выразить отношение площадей как половину отношения соответствующих оснований, обосновав равенство высот.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="k2"><h3>k2 · Находить площадь остатка фигуры вычитанием</h3><p>Если фигура разбита на две части с непересекающимися внутренними областями, найти площадь одной части как разность площади всей фигуры и известной площади другой части.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Вычесть площадь отсечённого треугольника из площади параллелограмма.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;Отрезок BE делит параллелограмм на треугольник ABE и трапецию BCDE без перекрытия внутренних областей. S_BCDE=24−6=18.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;similar_area&quot;,
+      &quot;reason&quot;: &quot;Определение описывает квадрат коэффициента подобия, а не аддитивность площади и вычитание известной части.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;right_triangle_area&quot;,
+      &quot;reason&quot;: &quot;В текущем шаге площадь треугольника уже известна из предыдущего шага; вычисляется площадь дополнения, а не площадь прямоугольного треугольника.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Действие выполнено в s2: обосновано разбиение фигуры на две части без перекрытия внутренних областей и из площади целого вычтена известная площадь треугольника. Значение 6 поступает из s1, значение 24 — из условия. Определения аддитивности площади и нахождения площади остатка в полном каталоге нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Находить площадь остатка фигуры вычитанием&quot;,
+    &quot;definition&quot;: &quot;При разбиении фигуры на две части с непересекающимися внутренними областями найти площадь одной части как разность площади всей фигуры и известной площади другой части, обосновав такое разбиение.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\282EDC.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\282EDC.json&quot;
+}</pre></html>

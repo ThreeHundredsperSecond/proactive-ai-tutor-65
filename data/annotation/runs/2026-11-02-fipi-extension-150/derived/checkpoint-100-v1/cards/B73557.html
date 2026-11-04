@@ -1,0 +1,162 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>B73557</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>47. ФИПИ B73557</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal"><span>Найдите наименьшее значение функции</span></p> <p class="MsoNormal" align="center"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>y</mi><mo>=</mo><mn>10</mn><mi>cos</mi><mi>x</mi><mo>+</mo><mfrac> <mrow> <mn>36</mn><mi>x</mi> </mrow> <mtext>π</mtext> </mfrac> <mo>−</mo><mn>6</mn> </mrow>  </semantics> </mstyle></math><span></span></p> <p class="MsoNormal"><span>на отрезке <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mrow><mo>[</mo> <mrow> <mo>−</mo><mtext> </mtext><mfrac> <mrow> <mn>2</mn><mtext>π</mtext> </mrow> <mn>3</mn> </mfrac> <mo>;</mo><mtext> </mtext><mn>0</mn> </mrow> <mo>]</mo></mrow> </mrow>  </semantics> </mstyle></math>.</span><span></span></p>  </section></div><p>КЭС: 4.1 Производная функции. Производные элементарных функций; 4.2 Применение производной к исследованию функций на монотонность и экстремумы. Нахождение наибольшего и наименьшего значения функции на отрезке</p><h2>Ответ</h2><p>-35</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти производную функции.</td><td>y&#x27;(x) = -10 sin x + 36/π; функция непрерывна на [-2π/3; 0] и дифференцируема внутри отрезка.</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Определить знак производной на отрезке и положение минимума.</td><td>При x ∈ [-2π/3; 0] имеем sin x ≤ 0, поэтому y&#x27;(x) ≥ 36/π &gt; 0. Функция строго возрастает на отрезке и достигает наименьшего значения в его левом конце x = -2π/3.</td><td>kc2, kc3</td></tr><tr><td>s3 · condition, s2</td><td>Вычислить значение функции в точке минимума.</td><td>y(-2π/3) = 10 cos(-2π/3) + 36(-2π/3)/π - 6 = -5 - 24 - 6 = -35.</td><td>kc4</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Найти минимум через положительность производной на отрезке&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Дифференцировать сумму косинуса, линейной функции и константы</h3><p>Для суммы косинуса аргумента с постоянным множителем, линейной функции и константы вычислить производную по правилу суммы и таблице производных. Аргумент косинуса совпадает с переменной дифференцирования.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Найти производную функции.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;y&#x27;(x) = -10 sin x + 36/π&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_3a3e1295118b&quot;,
+      &quot;reason&quot;: &quot;Определение ограничено многочленом; косинус в него не входит.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0efedaf04823&quot;,
+      &quot;reason&quot;: &quot;Степенное правило и линейность не покрывают табличную производную косинуса.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_7e7fe72c8c10&quot;,
+      &quot;reason&quot;: &quot;Это производная логарифма, который здесь отсутствует.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдается единое вычисление производной суммы с косинусом аргумента x. Каталог не содержит определения, покрывающего эту операцию целиком; линейная часть не даёт соответствия всему кандидату.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Для суммы a cos x + bx + c с постоянными коэффициентами вычислить производную по линейности и табличной производной косинуса; аргумент косинуса равен переменной дифференцирования.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Установить знак выражения с синусом на промежутке</h3><p>По положению промежутка на тригонометрической окружности установить знак синуса и использовать его вместе со знаками коэффициентов для оценки выражения, линейного относительно синуса. Оценка должна выполняться на всём рассматриваемом промежутке.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;При x ∈ [-2π/3; 0] имеем sin x ≤ 0, поэтому y&#x27;(x) ≥ 36/π &gt; 0.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_534413234aa8&quot;,
+      &quot;reason&quot;: &quot;Узел требует выбора знака при извлечении корня из квадрата; такого преобразования нет.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;,
+      &quot;reason&quot;: &quot;Полное определение включает вывод о монотонности функции, тогда как этот кандидат ограничен оценкой выражения с синусом.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9aee0783618d&quot;,
+      &quot;reason&quot;: &quot;Знак определяется аналитически, график производной не дан и не считывается.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;На всём заданном промежутке установлена неположительность синуса и из неё получена положительная нижняя граница аффинного выражения от синуса. Это действие не совпадает с имеющимися узлами выбора знака из квадрата или чтения графика.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Использовать диапазон аргумента для установления знака синуса на всём промежутке и вывести знаковую оценку выражения a sin x + b с учётом знаков постоянных коэффициентов.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Определить минимум возрастающей функции по знаку производной</h3><p>Для функции, непрерывной на замкнутом отрезке и дифференцируемой внутри него, из положительности производной на внутренности отрезка вывести строгое возрастание и достижение минимума в левом конце.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;Функция строго возрастает на отрезке и достигает наименьшего значения в его левом конце x = -2π/3.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;y&#x27;(x) ≥ 36/π &gt; 0.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;,
+      &quot;reason&quot;: &quot;Покрывает связь знака производной с возрастанием, но не весь составной кандидат, включающий выбор конца для глобального минимума.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;global_interval_extreme&quot;,
+      &quot;reason&quot;: &quot;Покрывает определение глобального экстремума по монотонности вместе с его значением; сам переход от знака производной к монотонности является отдельной частью, а значение вычислено только в s3.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;local_extreme_sign&quot;,
+      &quot;reason&quot;: &quot;Смена знака производной и локальный внутренний экстремум отсутствуют.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат связывает два последовательных вывода: положительная производная даёт возрастание, затем возрастание на замкнутом отрезке локализует глобальный минимум. Ни один узел не соответствует этому составу целиком. Непрерывность и дифференцируемость явно указаны в s1.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;definition&quot;: &quot;Из положительности производной на внутренности отрезка вывести строгое возрастание функции.&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;
+      },
+      {
+        &quot;definition&quot;: &quot;По возрастанию непрерывной функции на замкнутом отрезке установить минимум в левом конце; его значение вычислено в s3.&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;global_interval_extreme&quot;,
+        &quot;qualification&quot;: &quot;В s2 наблюдается локализация; полное определение узла подтверждается только вместе с вычислением значения в s3.&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Вычислить значение тригонометрической функции в заданной точке</h3><p>Подставить заданный аргумент в явную формулу функции, использовать точное значение тригонометрического выражения для табличного угла и выполнить арифметическое упрощение.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;y(-2π/3) = 10 cos(-2π/3) + 36(-2π/3)/π - 6 = -5 - 24 - 6 = -35.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;,
+      &quot;reason&quot;: &quot;Цель действия — вычисление значения всей заданной функции; отдельного преобразования выражения формулами двойного угла не наблюдается.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;global_interval_extreme&quot;,
+      &quot;reason&quot;: &quot;Обоснование выбора точки относится к s2; сам кандидат kc4 описывает вычисление по формуле, без доказательства глобальности.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В установленную формулу подставлен допустимый аргумент, использовано точное значение косинуса и завершено числовое вычисление. Это полностью реализует определение вычисления значения функции по формуле; тригонометрический вид формулы не создаёт отдельного KC.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\B73557.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\B73557.json&quot;
+}</pre></html>

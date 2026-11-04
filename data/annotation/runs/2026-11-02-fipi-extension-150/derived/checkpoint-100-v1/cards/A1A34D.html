@@ -1,0 +1,196 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>A1A34D</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>34. ФИПИ A1A34D</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">а) Решите уравнение</p> <p class="MsoNormal" align="center"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>sin</mi><mn>2</mn><mi>x</mi><mo>+</mo><msqrt> <mn>2</mn> </msqrt> <mi>cos</mi><mrow><mo>(</mo> <mrow> <mi>x</mi><mo>+</mo><mi>π</mi> </mrow> <mo>)</mo></mrow><mo>=</mo><mn>0.</mn> </mrow> </semantics> </math></p> <p class="MsoNormal">б) Укажите корни этого уравнения, принадлежащие отрезку <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mrow><mo>[</mo> <mrow> <mn>3</mn><mi>π</mi><mo>;</mo><mtext> </mtext><mfrac> <mrow> <mn>9</mn><mi>π</mi> </mrow> <mn>2</mn> </mfrac> </mrow> <mo>]</mo></mrow><mo>.</mo> </mrow> </semantics> </math> <span></span></p>  </section></div><p>КЭС: 2.3 Тригонометрические уравнения</p><h2>Ответ</h2><p>а) x = π/2 + πk, k ∈ ℤ; x = π/4 + 2πn или x = 3π/4 + 2πn, n ∈ ℤ. б) 7π/2, 17π/4, 9π/2.</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Применить формулы двойного угла и сдвига на π, затем вынести общий множитель.</td><td>sin 2x = 2sin x cos x, cos(x + π) = −cos x. Уравнение равносильно cos x(2sin x − √2) = 0. Преобразования верны при любом x ∈ ℝ.</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Разложить уравнение с нулевым произведением на два случая.</td><td>cos x = 0 или sin x = √2/2. Деления на cos x нет, поэтому корни первого случая сохранены.</td><td>kc2</td></tr><tr><td>s3 · s2</td><td>Решить простейшее уравнение с косинусом.</td><td>cos x = 0 ⇔ x = π/2 + πk, k ∈ ℤ.</td><td>kc3</td></tr><tr><td>s4 · s2, s3</td><td>Решить простейшее уравнение с синусом.</td><td>sin x = √2/2 ⇔ x = π/4 + 2πn или x = 3π/4 + 2πn, n ∈ ℤ. Вместе с s3 это полный набор корней пункта а).</td><td>kc4</td></tr><tr><td>s5 · condition, s3, s4</td><td>Отобрать корни каждой серии по включению в заданный замкнутый отрезок.</td><td>Для π/2 + πk: 5/2 ≤ k ≤ 4, откуда k = 3, 4 и корни 7π/2, 9π/2. Для π/4 + 2πn: 11/8 ≤ n ≤ 17/8, откуда n = 2 и корень 17π/4. Для 3π/4 + 2πn: 9/8 ≤ n ≤ 15/8, целых n нет. Поэтому в пункте б) получаем 7π/2, 17π/4, 9π/2; правая граница включена.</td><td>kc5</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;а) Факторизация тригонометрического уравнения и решение двух простейших уравнений&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;m2&quot;,
+    &quot;name&quot;: &quot;б) Отбор корней через ограничения целочисленных параметров&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s5&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Преобразовывать тригонометрическое выражение к произведению</h3><p>Для выражения с синусом двойного аргумента и косинусом аргумента, сдвинутого на половину полного оборота, применить соответствующие тождества и вынести общий множитель. Преобразование сохраняет значение на всей действительной области аргумента.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;sin 2x = 2sin x cos x, cos(x + π) = −cos x. Уравнение равносильно cos x(2sin x − √2) = 0.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;,
+      &quot;reason&quot;: &quot;Описывает применение тригонометрических тождеств, но не включает отдельное вынесение общего множителя; результат здесь сохраняет две разные функции.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_55d5a6d9eb3c&quot;,
+      &quot;reason&quot;: &quot;Перекрывается с предыдущим определением; не охватывает всё составное действие и требует сведения к одной функции.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_3d70ab3eb24a&quot;,
+      &quot;reason&quot;: &quot;Покрывает замену sin 2x, но не формулу сдвига и не алгебраическую факторизацию.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+      &quot;reason&quot;: &quot;Факторизация многочлена для исследования знака; здесь тригонометрическое уравнение, а не исследование знака многочлена.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+      &quot;reason&quot;: &quot;Решение по нулевому произведению происходит после факторизации; s1 не получает нули множителей.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет применение двух тригонометрических тождеств и алгебраическое вынесение cos x. Нельзя назначить всему кандидату один узел только по наличию формулы двойного угла. Все преобразования наблюдаемы и допустимы на R, но границы существующих узлов не покрывают их совокупность.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;name&quot;: &quot;Применить формулу синуса двойного угла&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;literal_3d70ab3eb24a&quot;
+        ],
+        &quot;definition&quot;: &quot;Заменить sin 2x на 2sin x cos x.&quot;
+      },
+      {
+        &quot;name&quot;: &quot;Применить формулу сдвига косинуса на π&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;literal_cc7d68a38f29&quot;,
+          &quot;literal_55d5a6d9eb3c&quot;
+        ],
+        &quot;qualification&quot;: &quot;Эти определения перекрываются и шире наблюдаемой части; однозначное полное соответствие не установлено.&quot;
+      },
+      {
+        &quot;name&quot;: &quot;Вынести общий множитель&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [],
+        &quot;definition&quot;: &quot;По распределительному закону представить сумму определённых выражений произведением общего множителя и суммы оставшихся множителей, не выполняя деление на общий множитель.&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc2"><h3>kc2 · Сводить нулевое произведение к совокупности уравнений</h3><p>Если произведение действительных определённых множителей равно нулю, приравнять каждый множитель к нулю и объединить решения без деления на потенциально нулевой множитель.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;cos x = 0 или sin x = √2/2. Деления на cos x нет, поэтому корни первого случая сохранены.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+      &quot;reason&quot;: &quot;Требует получить нули множителей и объединить допустимые корни. Здесь выполнен переход к совокупности уравнений, а нахождение корней отдельно размечено в s3 и s4.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;elementary_trig_equation&quot;,
+      &quot;reason&quot;: &quot;Уравнения только сформированы, полные периодические решения в этом действии ещё не получены.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В s2 наблюдается структурное применение свойства нулевого произведения к определённым действительным множителям и упрощение второго равенства. Это компонент более широкого zero_product, а не весь его результат. Точного определения отдельного перехода в каталоге нет; новое предложение не означает утверждения нового узла.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Переходить от нулевого произведения к совокупности уравнений&quot;,
+    &quot;definition&quot;: &quot;Для произведения определённых действительных множителей, равного нулю, записать равносильную совокупность равенств каждого множителя нулю, сохраняя общую область; нахождение и объединение корней этих равенств рассматриваются отдельно.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Решать уравнение о равенстве косинуса нулю</h3><p>Для косинуса действительного аргумента, равного нулю, записать полную периодическую серию аргументов с целочисленным параметром.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;elementary_trig_equation&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;cos x = 0 ⇔ x = π/2 + πk, k ∈ ℤ.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [],
+  &quot;rationale&quot;: &quot;Простейшее уравнение cos x=c при c=0 решено на всей действительной прямой полной периодической серией с целым параметром. Определение узла выполнено целиком.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Решать простейшее уравнение с синусом</h3><p>Для равенства синуса действительного аргумента допустимому табличному значению найти соответствующие углы за период и записать все серии с целочисленным параметром.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;elementary_trig_equation&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;sin x = √2/2 ⇔ x = π/4 + 2πn или x = 3π/4 + 2πn, n ∈ ℤ.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [],
+  &quot;rationale&quot;: &quot;Решено sin x=c с допустимым табличным значением; приведены обе полные серии на R. Различие синуса и косинуса уже включено в общее определение узла.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc5"><h3>kc5 · Отбирать корни периодических серий на отрезке</h3><p>Для каждой серии корней с целочисленным параметром подставить её в двойное неравенство границ замкнутого отрезка, определить все допустимые целые значения параметра и объединить полученные корни с учётом концов отрезка.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc5&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;periodic_interval&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s5:result&quot;,
+      &quot;quote&quot;: &quot;Для π/2 + πk: 5/2 ≤ k ≤ 4, откуда k = 3, 4 и корни 7π/2, 9π/2. Для π/4 + 2πn: 11/8 ≤ n ≤ 17/8, откуда n = 2 и корень 17π/4. Для 3π/4 + 2πn: 9/8 ≤ n ≤ 15/8, целых n нет.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s3:result&quot;,
+    &quot;step:s4:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_8409c9003f48&quot;,
+      &quot;reason&quot;: &quot;Работает с уже конечным набором корней без периодического параметра; здесь сначала выводятся ограничения целых параметров трёх бесконечных серий.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0cf8af170957&quot;,
+      &quot;reason&quot;: &quot;Линейные неравенства являются частью процедуры, но не охватывают периодические серии, целочисленность параметров и объединение корней.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Для каждой серии получены границы параметра и найдены все допустимые целые значения, включая корень на правом конце. Проверенные границы и конечный ответ согласованы с заданным отрезком; это полное действие periodic_interval.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s1:action&quot;,
+      &quot;step:s1:result&quot;
+    ],
+    &quot;description&quot;: &quot;kc1 объединяет тригонометрические тождества и алгебраическое вынесение общего множителя. Узлы literal_cc7d68a38f29 и literal_55d5a6d9eb3c перекрываются, а literal_3d70ab3eb24a покрывает только двойной угол. Это замечание к границам сопоставления, не математическая ошибка.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc1&quot;
+    ]
+  }
+]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\A1A34D.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\A1A34D.json&quot;
+}</pre></html>

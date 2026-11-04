@@ -1,0 +1,112 @@
+{
+  "task_id": "02A17e",
+  "catalog_version": "fipi50-editorial-v1-frozen",
+  "decisions": [
+    {
+      "local_kc_id": "kc1",
+      "status": "match",
+      "catalog_kc_id": "graph_coordinates",
+      "evidence": [
+        {"ref": "step:s1:result", "quote": "A=(-3;-3); прямая проходит через (0;-2)."},
+        {"ref": "image:assets/8c1b556e22f145c761ccadcc.png", "region_description": "На единичной сетке в третьей четверти отмечена точка A на пересечении прямой и гиперболы: три клетки влево и три вниз от начала координат. На оси ординат отмечена точка прямой на две клетки ниже начала; подписи 1 задают масштаб."}
+      ],
+      "context_refs": [],
+      "alternatives_checked": [],
+      "rationale": "Считаны координаты отмеченной точки и явно заданного пересечения с осью по установленному масштабу; формулы восстанавливаются в следующих шагах.",
+      "proposal": null,
+      "blocking": false,
+      "issue_ids": []
+    },
+    {
+      "local_kc_id": "kc2",
+      "status": "new_candidate",
+      "catalog_kc_id": null,
+      "evidence": [{"ref": "step:s2:result", "quote": "k=xy=(-3)·(-3)=9; f(x)=9/x, x≠0."}],
+      "context_refs": ["condition", "step:s1:result"],
+      "alternatives_checked": [
+        {"catalog_kc_id": "direct_proportion", "reason": "Определение относится к y=kx и вычислению k=y/x, а здесь y=k/x и k=xy."},
+        {"catalog_kc_id": "literal_51a8c0abd718", "reason": "Определяется коэффициент функции y=a√x, другой функциональный объект и зависимость параметра от координат."},
+        {"catalog_kc_id": "literal_6308771d01a6", "reason": "Требует вычислить значение функции при известной формуле, а не восстановить неизвестный параметр по точке."}
+      ],
+      "rationale": "В полном каталоге нет определения восстановления коэффициента обратной пропорциональности по точке. Ненулевая абсцисса дана результатом s1; подстановка и вычисление параметра явно наблюдаются.",
+      "proposal": {"definition": "Для точки (x,y) графика y=k/x с x≠0 определить неизвестный коэффициент по равенству k=xy."},
+      "blocking": false,
+      "issue_ids": []
+    },
+    {
+      "local_kc_id": "kc3",
+      "status": "match",
+      "catalog_kc_id": "literal_f253b50b98a1",
+      "evidence": [{"ref": "step:s3:result", "quote": "b=-2; a=(-2-(-3))/(0-(-3))=1/3; g(x)=x/3-2."}],
+      "context_refs": ["step:s1:result"],
+      "alternatives_checked": [{"catalog_kc_id": "direct_proportion", "reason": "Свободный член ненулевой; восстанавливается общая линейная функция по двум точкам."}],
+      "rationale": "По двум точкам с различными абсциссами определены оба коэффициента y=ax+b; свободный член непосредственно задан точкой на оси ординат.",
+      "proposal": null,
+      "blocking": false,
+      "issue_ids": []
+    },
+    {
+      "local_kc_id": "kc4",
+      "status": "match",
+      "catalog_kc_id": "graph_intersection",
+      "evidence": [{"ref": "step:s4:result", "quote": "9/x=x/3-2 при x≠0"}],
+      "context_refs": ["condition", "step:s2:result", "step:s3:result"],
+      "alternatives_checked": [],
+      "rationale": "Приравнены значения двух восстановленных функций на общей области x≠0; дальнейшее преобразование и решение выделены отдельно.",
+      "proposal": null,
+      "blocking": false,
+      "issue_ids": []
+    },
+    {
+      "local_kc_id": "kc5",
+      "status": "match",
+      "catalog_kc_id": "literal_9698b97fef22",
+      "evidence": [{"ref": "step:s4:result", "quote": "9/x=x/3-2 при x≠0; после умножения на 3x получаем x²-6x-27=0."}],
+      "context_refs": [],
+      "alternatives_checked": [{"catalog_kc_id": "denominator_domain", "reason": "Охватывает лишь сохранение запрета x=0, а не наблюдаемое умножение уравнения на общий знаменатель."}],
+      "rationale": "Установлена ненулевость переменного знаменателя и выполнено равносильное при этом ограничении умножение на 3x; итоговое многочленное уравнение верно.",
+      "proposal": null,
+      "blocking": false,
+      "issue_ids": []
+    },
+    {
+      "local_kc_id": "kc6",
+      "status": "needs_split",
+      "catalog_kc_id": null,
+      "evidence": [{"ref": "step:s5:result", "quote": "x²-6x-27=(x-9)(x+3)=0, поэтому x=9 или x=-3. Оба корня допустимы"}],
+      "context_refs": ["step:s4:result"],
+      "alternatives_checked": [
+        {"catalog_kc_id": "zero_product", "reason": "Соответствует нахождению и объединению допустимых нулей готовых множителей, но не включает самостоятельное получение разложения трёхчлена."},
+        {"catalog_kc_id": "literal_89adef4e8cee", "reason": "Факторизация определена для квадратного трёхчлена с параметром; в текущем действии параметра нет."},
+        {"catalog_kc_id": "literal_cab525070130", "reason": "Определение связано с факторизацией для исследования знака и учётом кратностей, здесь решается уравнение."},
+        {"catalog_kc_id": "quadratic_discriminant", "reason": "Дискриминант и формула корней не использованы."}
+      ],
+      "rationale": "Кандидат прямо соединяет получение факторизации и последующее применение нулевого произведения. Узкий zero_product подтверждает только вторую часть, поэтому целиком match к нему невозможен.",
+      "proposal": {"parts": [
+        {"definition": "Представить квадратный трёхчлен с числовыми коэффициентами произведением линейных множителей с сохранением тождества.", "possible_catalog_kc_id": null},
+        {"definition": "Найти нули полученных множителей и объединить допустимые корни на общей области.", "possible_catalog_kc_id": "zero_product"}
+      ]},
+      "blocking": false,
+      "issue_ids": ["i1"]
+    },
+    {
+      "local_kc_id": "kc7",
+      "status": "new_candidate",
+      "catalog_kc_id": null,
+      "evidence": [{"ref": "step:s5:result", "quote": "Оба корня допустимы; x=-3 соответствует A, следовательно абсцисса B равна 9."}],
+      "context_refs": ["condition", "step:s1:result", "step:s4:result"],
+      "alternatives_checked": [
+        {"catalog_kc_id": "literal_c840012ba3dd", "reason": "Проверяет физический смысл, область и исходное соотношение; здесь оба корня допустимы, выбирается именованная точка через исключение уже известной."},
+        {"catalog_kc_id": "literal_ae9adc80bc91", "reason": "Отбор по области определения и промежутку не отличает эти два допустимых корня; промежуток не задан."},
+        {"catalog_kc_id": "literal_8409c9003f48", "reason": "Требует сравнение корней с границами заданного промежутка, которого здесь нет."},
+        {"catalog_kc_id": "set_intersection", "reason": "Описывает совмещение ограничений допустимости, тогда как x=-3 допустим, но относится к другой именованной точке."}
+      ],
+      "rationale": "Наблюдается соотнесение найденных абсцисс с именованными точками, а не только фильтрация недопустимых корней. Подходящего полного определения в каталоге нет.",
+      "proposal": {"definition": "Из допустимых абсцисс точек пересечения двух графиков выделить абсциссу искомой точки, сопоставив и исключив корень, принадлежащий уже известной другой точке."},
+      "blocking": false,
+      "issue_ids": []
+    }
+  ],
+  "issues": [{"id": "i1", "kind": "boundary", "refs": ["step:s5:result"], "description": "kc6 включает как построение разложения квадратного трёхчлена, так и получение корней из нулевого произведения. Каталожный zero_product покрывает вторую часть; полного соответствия всего кандидата одному узлу нет.", "blocking": false, "affected_local_kc_ids": ["kc6"]}],
+  "review_scope": "KC mapping with incidental mathematical checks; not expert validation"
+}

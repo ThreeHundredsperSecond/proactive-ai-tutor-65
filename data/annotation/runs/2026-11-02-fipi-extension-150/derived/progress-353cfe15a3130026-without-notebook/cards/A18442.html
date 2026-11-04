@@ -1,0 +1,179 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>A18442</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>16. ФИПИ A18442</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Решите неравенство <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mfrac><mrow><msup><mn>2</mn><mrow><mn>3</mn><mi>x</mi></mrow></msup><mo>−</mo><mn>2</mn><mo>⋅</mo><msup><mn>4</mn><mrow><mi>x</mi><mtext> </mtext><mo>+</mo><mtext> </mtext><mn>1</mn></mrow></msup><mo>+</mo><mn>5</mn><mo>⋅</mo><msup><mn>2</mn><mrow><mi>x</mi><mtext> </mtext><mo>+</mo><mtext> </mtext><mn>2</mn></mrow></msup><mo>−</mo><mn>16</mn></mrow><mrow><mi>x</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo>≥</mo><mn>0.</mn></mrow></mstyle></math></span><span> </span></p>  </section></div><p>КЭС: 2.7 Показательные и логарифмические неравенства</p><h2>Ответ</h2><p>(-∞; 1) ∪ [2; +∞)</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Установить область допустимых значений по знаменателю дроби.</td><td>x − 1 ≠ 0, то есть x ≠ 1; показательные выражения определены при всех действительных x.</td><td>k1</td></tr><tr><td>s2 · condition</td><td>Привести степени в числителе к основанию 2 и ввести t = 2^x &gt; 0.</td><td>2^(3x) − 2·4^(x+1) + 5·2^(x+2) − 16 = t³ − 8t² + 20t − 16.</td><td>k2</td></tr><tr><td>s3 · s1, s2</td><td>Разложить полученный многочлен на множители и вернуться к переменной x.</td><td>t³ − 8t² + 20t − 16 = (t − 2)²(t − 4). Исходное неравенство принимает вид (2^x − 2)²(2^x − 4)/(x − 1) ≥ 0 при x ≠ 1.</td><td>k3</td></tr><tr><td>s4 · s1, s3</td><td>Определить знак квадратного множителя на ОДЗ и убрать строго положительный множитель из неравенства.</td><td>2^x − 2 = 0 только при x = 1, который исключён из ОДЗ. Поэтому (2^x − 2)² &gt; 0 на всей ОДЗ и неравенство равносильно (2^x − 4)/(x − 1) ≥ 0 при x ≠ 1.</td><td>k4, k5</td></tr><tr><td>s5 · s1, s4</td><td>Найти критические точки и определить знак дроби на промежутках с учётом монотонности показательной функции.</td><td>Так как 2^x строго возрастает, 2^x − 4 отрицательно при x &lt; 2, равно нулю при x = 2 и положительно при x &gt; 2. Знаменатель меняет знак при x = 1. Дробь положительна на (−∞; 1) и (2; +∞), отрицательна на (1; 2); точка 2 включается, точка 1 исключается. Решение: (−∞; 1) ∪ [2; +∞).</td><td>k5, k6</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Разложение показательного числителя с последующим исследованием знака дроби&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;,
+      &quot;s5&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="k1"><h3>k1 · Устанавливать ограничения по знаменателю дроби</h3><p>Для дробного выражения исключать значения переменной, при которых знаменатель равен нулю, и сохранять эти ограничения при последующих преобразованиях.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;x − 1 ≠ 0, то есть x ≠ 1&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;при x ≠ 1.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;rational_intervals&quot;,
+      &quot;reason&quot;: &quot;Шире ограничения знаменателя: дополнительно требует исследовать знаки на промежутках.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Нули исходного знаменателя выделены, исключение x=1 сохранено в преобразованном неравенстве. Это полное действие ограничения области, а не весь метод интервалов.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="k2"><h3>k2 · Преобразовывать показательный многочлен заменой переменной</h3><p>Если показательные слагаемые приводятся к степеням одного положительного основания, отличного от единицы, применять свойства степеней и заменять базовое показательное выражение новой положительной переменной, получая многочлен.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Привести степени в числителе к основанию 2 и ввести t = 2^x &gt; 0.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;2^(3x) − 2·4^(x+1) + 5·2^(x+2) − 16 = t³ − 8t² + 20t − 16.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+      &quot;reason&quot;: &quot;Покрывает преобразование степеней, но не введение положительной переменной и согласование всех степеней с ней.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Основание 2 положительно и отлично от единицы; введено t=2^x&gt;0, исходные степени согласованы с t и получен многочлен. Это ровно граница определения замены, без решения нового неравенства и обратного перехода.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="k3"><h3>k3 · Разлагать многочлен на линейные множители</h3><p>Для многочлена с найденными корнями выделять соответствующие линейные множители с учётом их кратности и проверять полученное разложение раскрытием скобок или делением многочлена.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;t³ − 8t² + 20t − 16 = (t − 2)²(t − 4).&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_89adef4e8cee&quot;,
+      &quot;reason&quot;: &quot;Относится к квадратному трёхчлену с параметром; здесь кубический многочлен без параметра.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+      &quot;reason&quot;: &quot;Разложение используется для знакового неравенства, а не для решения уравнения через нулевое произведение.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Показано правильное тождественное разложение многочлена в произведение с двойным множителем t−2 и простым t−4, предназначенное для дальнейшего исследования знака. Отдельная строка раскрытия скобок не выписана; тождество непосредственно проверяемо и верно. Обратная подстановка в том же шаге не включается в соответствие самого кандидата факторизации.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="k4"><h3>k4 · Исключать строго положительный множитель при исследовании знака</h3><p>В неравенстве с произведением или дробью устанавливать строгую положительность множителя на рассматриваемой области и удалять его без изменения знака неравенства; для квадратного множителя предварительно учитывать все его нули.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k4&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_f68eccc115c2&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;2^x − 2 = 0 только при x = 1, который исключён из ОДЗ. Поэтому (2^x − 2)² &gt; 0 на всей ОДЗ и неравенство равносильно (2^x − 4)/(x − 1) ≥ 0 при x ≠ 1.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;step:s3:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_b9b755cc8462&quot;,
+      &quot;reason&quot;: &quot;Описывает умножение неравенства на положительное выражение; непосредственно наблюдается удаление положительного множителя.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ef3f8c7287d4&quot;,
+      &quot;reason&quot;: &quot;Требует положительного знаменателя; знаменатель x−1 здесь меняет знак.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Установлены все нули квадратного множителя и их исключение из области. Поэтому множитель строго положителен на всей рассматриваемой области и удаляется из знакового неравенства равносильно.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="k5"><h3>k5 · Определять нули и знак разности показательной функции и константы</h3><p>Для положительного основания, отличного от единицы, находить точку равенства показательной функции положительной константе и использовать возрастание либо убывание функции для определения знака разности по сторонам этой точки.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k5&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;exponential_inequality&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s5:result&quot;,
+      &quot;quote&quot;: &quot;Так как 2^x строго возрастает, 2^x − 4 отрицательно при x &lt; 2, равно нулю при x = 2 и положительно при x &gt; 2.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+      &quot;reason&quot;: &quot;Покрывает лишь переход к равенству показателей при нахождении нуля, но не знаки разности по сторонам нуля.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;,
+      &quot;reason&quot;: &quot;Монотонность показательной функции используется непосредственно; знак производной не исследуется.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Определение знака 2^x−4 означает решение сравнений 2^x&lt;4 и 2^x&gt;4. Автор явно переходит к x&lt;2 и x&gt;2 по возрастанию функции с основанием 2&gt;1, включая границу равенства. Это полное наблюдаемое применение монотонности, а не только необходимое действие нахождения нуля в s4.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="k6"><h3>k6 · Решать дробное неравенство по знакам множителей</h3><p>При известных нулях и знаках числителя и знаменателя разбивать область на промежутки, определять знак частного и выбирать промежутки требуемого знака; включать допустимые нули числителя при нестрогом неравенстве и исключать нули знаменателя.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k6&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;rational_intervals&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s5:result&quot;,
+      &quot;quote&quot;: &quot;Знаменатель меняет знак при x = 1. Дробь положительна на (−∞; 1) и (2; +∞), отрицательна на (1; 2); точка 2 включается, точка 1 исключается. Решение: (−∞; 1) ∪ [2; +∞).&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;step:s4:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_a78667313aa3&quot;,
+      &quot;reason&quot;: &quot;Требует положительного знаменателя, которого на всей области нет.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+      &quot;reason&quot;: &quot;Совмещение ограничений является компонентом, но не покрывает определение знака частного на промежутках.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Дробь разделена нулём числителя x=2 и исключённой точкой знаменателя x=1 на промежутки; определены знаки и обработаны концы. Хотя числитель показательный, определение каталога задаёт операцию по нулям, полюсам и знакам без требования полиномиального числителя; наблюдаемое действие соответствует ему полностью.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\A18442.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\A18442.json&quot;
+}</pre></html>

@@ -1,0 +1,3252 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>F3F0DF</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Стрелок стреляет по одному разу в каждую из четырёх мишеней. Вероятность попадания в мишень при каждом отдельном выстреле равна 0,9. Найдите вероятность того, что стрелок попадёт в первую мишень <br> и не попадёт в три последние.<span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;F3F0DF&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;0,0009&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Найти вероятность промаха как вероятность события, противоположного попаданию.&quot;,
+      &quot;result&quot;: &quot;Вероятность промаха при каждом выстреле равна 1 − 0,9 = 0,1.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;При независимости выстрелов перемножить вероятности попадания в первую мишень и промахов по трём остальным.&quot;,
+      &quot;result&quot;: &quot;P = 0,9 · 0,1 · 0,1 · 0,1 = 0,0009. Порядок исходов задан условием, поэтому множитель числа перестановок не требуется.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Вычислять вероятность противоположного события&quot;,
+      &quot;description&quot;: &quot;По известной вероятности события находить вероятность его дополнения вычитанием из единицы; применимо к взаимно исключающим и исчерпывающим исходам события и его дополнения.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Вычислять вероятность заданной последовательности независимых исходов&quot;,
+      &quot;description&quot;: &quot;По вероятностям требуемых исходов независимых испытаний находить вероятность их совместного наступления произведением вероятностей; при фиксированном порядке исходов не вводить комбинаторный множитель.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Вероятность промаха и правило произведения для независимых выстрелов&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: [
+    &quot;Использовано стандартное для этой модели предположение о независимости результатов отдельных выстрелов; в тексте условия оно явно не сформулировано.&quot;
+  ]
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;F3F0DF&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Найти вероятность промаха как вероятность события, противоположного попаданию.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;Вероятность промаха при каждом выстреле равна 1 − 0,9 = 0,1.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+          &quot;reason&quot;: &quot;Определение требует подсчёта равновозможных исходов и отношения m/n; здесь вероятность дополнения получена вычитанием из единицы.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;bernoulli_model&quot;,
+          &quot;reason&quot;: &quot;Задание модели испытаний не совпадает с вычислением вероятности противоположного события.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+          &quot;reason&quot;: &quot;Произведение вероятностей независимых событий не является вычислением вероятности дополнения.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдается одно действие: из вероятности попадания получить вероятность непопадания формулой P(не A)=1−P(A). Попадание и непопадание образуют противоположные события одного выстрела; независимость разных выстрелов для этого действия не нужна. Во всём переданном каталоге определения такого действия нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Вычислять вероятность противоположного события&quot;,
+        &quot;definition&quot;: &quot;По вероятности события A находить вероятность его дополнения формулой P(не A)=1−P(A), установив, что рассматриваемые события противоположны.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;При независимости выстрелов перемножить вероятности попадания в первую мишень и промахов по трём остальным.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;P = 0,9 · 0,1 · 0,1 · 0,1 = 0,0009. Порядок исходов задан условием, поэтому множитель числа перестановок не требуется.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;bernoulli_model&quot;,
+          &quot;reason&quot;: &quot;Это задание предпосылок модели, а кандидат и действие s2 вычисляют вероятность пересечения уже выбранных событий.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_8e6b7abd8340&quot;,
+          &quot;reason&quot;: &quot;Выбор позиций успехов числом сочетаний не выполняется: задана единственная последовательность исходов.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+          &quot;reason&quot;: &quot;Подсчёт равновозможных исходов и деление m/n не выполняются.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;В явно принятой автором модели независимых выстрелов вычисляется пересечение четырёх событий: успеха первого и неуспехов остальных. Для этого применено произведение их вероятностей, что целиком соответствует определению. Фиксированный порядок определяет само пересечение и не создаёт отдельного действия подсчёта перестановок. Соответствие относится к условной модели автора: независимость явно принята в s2 и оговорена в warnings, но не следует из одинаковых маргинальных вероятностей в условии.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;input&quot;,
+      &quot;refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s2:action&quot;
+      ],
+      &quot;description&quot;: &quot;Условие задаёт вероятность попадания при каждом выстреле, но явно не задаёт независимость. Автор открыто принимает её в модели и отмечает это в warnings. Поэтому численный ответ обоснован в принятой модели, а из одних буквально заданных вероятностей совместная вероятность не определяется. Это ограничение исходного условия не блокирует сопоставление наблюдаемого условного применения правила произведения.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc2&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>68Ac00</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">На рисунке изображены графики функций <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>f</mi><mrow><mo fence="true">(</mo><mi>x</mi><mo fence="true">)</mo></mrow><mo>=</mo><mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi></mrow></mstyle></math></span> и <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>g</mi><mrow><mo fence="true">(</mo><mi>x</mi><mo fence="true">)</mo></mrow><mo>=</mo><mi>k</mi><mi>x</mi><mo>,</mo></mrow></mstyle></math></span> пересекающиеся в точках <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>A</mi></mstyle></math></span> и <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>B</mi><mo>.</mo></mrow></mstyle></math></span> Найдите абсциссу точки <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>B</mi><mo>.</mo></mrow></mstyle></math></span><span> </span></p> <p class="MsoNormal"><span> </span></p> <p class="MsoNormal" align="center"><img src="file:///C:/Users/U_M35CB/Documents/%D0%92%D0%A8%D0%AD/proactive-ai-tutor-65/data/annotation/runs/2026-11-02-fipi-extension-150/inputs/assets/49ff31995e34f0ed00c16561.png" alt="Рисунок ФИПИ"></p> <p class="MsoNormal"><span> </span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;68Ac00&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;5&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Восстановить формулу параболы по отмеченным точкам графика: её нули равны 0 и 2, также она проходит через (3; 3).&quot;,
+      &quot;result&quot;: &quot;f(x)=a·x(x−2). Из f(3)=3 следует 3a=3, a=1; поэтому f(x)=x²−2x.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Определить коэффициент прямой g(x)=kx по отмеченной точке (1; 3).&quot;,
+      &quot;result&quot;: &quot;k=3/1=3; g(x)=3x.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Приравнять значения функций для нахождения абсцисс пересечения.&quot;,
+      &quot;result&quot;: &quot;x²−2x=3x, то есть x²−5x=0.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Решить полученное уравнение разложением на множители и выбрать корень, соответствующий второй точке пересечения.&quot;,
+      &quot;result&quot;: &quot;x(x−5)=0, откуда x=0 или x=5. На рисунке A — начало координат, поэтому абсцисса другой точки B равна 5.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s3&quot;,
+        &quot;condition&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Восстановить квадратную функцию по нулям и дополнительной точке графика&quot;,
+      &quot;description&quot;: &quot;По двум различным нулям параболы записать квадратную функцию в виде произведения линейных множителей и определить старший коэффициент подстановкой координат ещё одной точки, не совпадающей с нулями. Координаты должны однозначно читаться по графику.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Определить коэффициент прямой пропорциональности по точке графика&quot;,
+      &quot;description&quot;: &quot;По координатам точки графика функции прямой пропорциональности с ненулевой абсциссой вычислить коэффициент как отношение ординаты к абсциссе и записать формулу функции.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Составить уравнение для абсцисс пересечения графиков&quot;,
+      &quot;description&quot;: &quot;Для заданных формулами функций приравнять их значения при общем аргументе и привести полученное равенство к уравнению на общей области определения. Его решения задают абсциссы общих точек графиков.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Решить неполное квадратное уравнение вынесением общего множителя&quot;,
+      &quot;description&quot;: &quot;В квадратном уравнении без свободного члена вынести переменную за скобки и применить равенство произведения нулю, сохранив нулевой корень и корень линейного множителя. При геометрической интерпретации соотнести найденные корни с заданными точками.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Восстановление формул по графику и решение уравнения пересечения&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;68Ac00&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_6241f0b09502&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;f(x)=a·x(x−2). Из f(3)=3 следует 3a=3, a=1; поэтому f(x)=x²−2x.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;image:assets/49ff31995e34f0ed00c16561.png&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;graph_coordinates&quot;,
+          &quot;reason&quot;: &quot;Охватывает чтение нулей и точки, но не восстановление квадратной функции и её коэффициента.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Использованы два различных нуля 0 и 2 и дополнительная точка (3;3), видимые по единичной сетке. Записана факторизованная форма и найден ненулевой старший коэффициент — всё действие определения каталога выполнено.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;direct_proportion&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Определить коэффициент прямой g(x)=kx по отмеченной точке (1; 3).&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;k=3/1=3; g(x)=3x.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;image:assets/49ff31995e34f0ed00c16561.png&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_f253b50b98a1&quot;,
+          &quot;reason&quot;: &quot;Это восстановление общего y=kx+b по двум точкам, тогда как вид y=kx дан условием и достаточно одной точки.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;graph_coordinates&quot;,
+          &quot;reason&quot;: &quot;Чтение координат — вход для вычисления коэффициента, не всё действие.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;У прямой пропорциональности вычислен k по точке с ненулевой абсциссой; точка (1;3) отмечена на прямой. Определение каталога совпадает по операции и условиям.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;graph_intersection&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;Приравнять значения функций для нахождения абсцисс пересечения.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;x²−2x=3x, то есть x²−5x=0.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [],
+      &quot;rationale&quot;: &quot;Из двух установленных формул на общей области R составлено равенство значений при одном x. Решение уравнения здесь ещё не производится; перенос слагаемого не меняет основной операции моделирования пересечения.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;x(x−5)=0, откуда x=0 или x=5. На рисунке A — начало координат, поэтому абсцисса другой точки B равна 5.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s3:result&quot;,
+        &quot;condition&quot;,
+        &quot;image:assets/49ff31995e34f0ed00c16561.png&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+          &quot;reason&quot;: &quot;Полностью описывает получение обоих корней после вынесения x, но не выбор корня для другой именованной точки.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+          &quot;reason&quot;: &quot;Корень 0 допустим и удовлетворяет исходному равенству; его не выбирают из-за принадлежности точке A, а не физической недопустимости.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_8409c9003f48&quot;,
+          &quot;reason&quot;: &quot;Заданного промежутка и проверки его границ нет.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+          &quot;reason&quot;: &quot;Здесь факторизация служит решению уравнения, а не исследованию знака.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат явно соединяет решение уравнения и соотнесение корней с именованными точками пересечения. Нельзя весь составной кандидат приравнять к zero_product. Арифметику линейного множителя отдельно не дроблю.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;definition&quot;: &quot;Для неполного квадратного уравнения вынести переменную за скобки, найти нули множителей и сохранить все корни.&quot;,
+            &quot;catalog_kc_id&quot;: &quot;zero_product&quot;
+          },
+          {
+            &quot;definition&quot;: &quot;По известной абсциссе одной из двух различных точек пересечения соотнести найденные корни с точками и выбрать абсциссу другой точки.&quot;,
+            &quot;catalog_kc_id&quot;: null,
+            &quot;status&quot;: &quot;new_candidate&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;boundary&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s4:action&quot;,
+        &quot;step:s4:result&quot;
+      ],
+      &quot;description&quot;: &quot;kc4 объединяет решение уравнения через нулевое произведение и выбор абсциссы точки B после идентификации A. Это две операции, у которых нет одного полного соответствия в каталоге; математической ошибки здесь не обнаружено.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc4&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>F2CCA3</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal"><span>Моторная лодка прошла против течения реки 143 км и вернулась в пункт отправления, затратив на обратный путь на 2 часа меньше. Найдите скорость лодки в неподвижной воде, если скорость течения равна 1 км/ч. Ответ дайте в км/ч.</span><span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;F2CCA3&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;12&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Обозначить собственную скорость лодки через v и составить уравнение разности времени движения.&quot;,
+      &quot;result&quot;: &quot;Скорости против течения и по течению равны v−1 и v+1 км/ч; необходимо v&gt;1. Время движения против течения равно 143/(v−1), обратно — 143/(v+1). Поэтому 143/(v−1)−143/(v+1)=2.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Привести рациональное уравнение к квадратному при установленном ограничении скорости.&quot;,
+      &quot;result&quot;: &quot;При v&gt;1 знаменатель (v−1)(v+1) ненулевой. Получаем 286/(v²−1)=2, откуда 286=2(v²−1) и v²=144.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Решить полученное квадратное уравнение и отобрать допустимую скорость.&quot;,
+      &quot;result&quot;: &quot;Корни v=12 и v=−12. Ограничению v&gt;1 удовлетворяет только v=12. Скорость лодки в неподвижной воде равна 12 км/ч.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;k1&quot;,
+      &quot;name&quot;: &quot;Составить уравнение разности времени движения по реке&quot;,
+      &quot;description&quot;: &quot;Для движения на известных расстояниях по течению и против него выразить путевые скорости через собственную скорость и скорость течения, времена — как отношения расстояний к скоростям и связать их заданной разностью времени. Собственная скорость должна превышать скорость течения.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k2&quot;,
+      &quot;name&quot;: &quot;Преобразовать рациональное уравнение с сопряжёнными линейными знаменателями&quot;,
+      &quot;description&quot;: &quot;В уравнении с дробями, знаменатели которых имеют вид переменная плюс и минус одна и та же постоянная, привести дроби к общему знаменателю и устранить его при условии ненулевых знаменателей, получив равносильное полиномиальное уравнение.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k3&quot;,
+      &quot;name&quot;: &quot;Решить уравнение квадрата и отобрать допустимые корни&quot;,
+      &quot;description&quot;: &quot;Для уравнения, в котором квадрат неизвестного равен положительной постоянной, получить два противоположных корня и оставить только удовлетворяющие ранее установленным ограничениям.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Уравнение разности времени движения по течению и против течения&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;F2CCA3&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;k1&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_63c80a69a122&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;Скорости против течения и по течению равны v−1 и v+1 км/ч; необходимо v&gt;1. Время движения против течения равно 143/(v−1), обратно — 143/(v+1). Поэтому 143/(v−1)−143/(v+1)=2.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+          &quot;reason&quot;: &quot;Здесь строится модель движения и разности времён, а не производится подстановка в уже заданную физическую формулу.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдается полное моделирование времени движения по реке: скорости v±c, времена s/скорость и уравнение заданной разности. Положительность обеих скоростей сохранена условием v&gt;1. Стоянка в исходном условии отсутствует, поэтому отделять её не требуется.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;k2&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_9698b97fef22&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;При v&gt;1 знаменатель (v−1)(v+1) ненулевой. Получаем 286/(v²−1)=2, откуда 286=2(v²−1) и v²=144.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_67caf017b566&quot;,
+          &quot;reason&quot;: &quot;Объединение дробей является компонентом, но кандидат и шаг включают также устранение знаменателя в уравнении.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+          &quot;reason&quot;: &quot;Сохранение ограничений знаменателей — только условие более полного наблюдаемого преобразования уравнения.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Из установленной в s1 области v&gt;1 следует ненулевой общий знаменатель; в s2 дроби объединены и уравнение умножено на этот знаменатель с получением равносильного полиномиального уравнения. Сопряжённые линейные знаменатели являются частным случаем определения каталога.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;k3&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;Корни v=12 и v=−12.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;Ограничению v&gt;1 удовлетворяет только v=12.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_57e72251d4a8&quot;,
+          &quot;reason&quot;: &quot;Полностью покрывает получение двух корней v²=144, но не последующий отбор по физическому ограничению.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+          &quot;reason&quot;: &quot;Покрывает проверку допустимости по модели, но не нахождение обоих квадратных корней.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+          &quot;reason&quot;: &quot;В решении нет вычисления дискриминанта; наблюдается непосредственное решение уравнения квадрата.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_8409c9003f48&quot;,
+          &quot;reason&quot;: &quot;Отбор здесь обусловлен допустимостью скорости в модели, а не отдельным заданным промежутком для ответа.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат соединяет получение двух противоположных корней и их проверку по ранее установленному физическому ограничению. Ни один из двух подходящих узлов не покрывает оба действия целиком. Решение математически согласовано с уравнением и областью, оснований блокировать сопоставление частей нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;name&quot;: &quot;Решить уравнение вида x²=c&quot;,
+            &quot;definition&quot;: &quot;Для установленного v²=144 получить оба действительных корня v=±12.&quot;,
+            &quot;catalog_kc_id&quot;: &quot;literal_57e72251d4a8&quot;,
+            &quot;evidence_refs&quot;: [
+              &quot;step:s3:result&quot;
+            ]
+          },
+          {
+            &quot;name&quot;: &quot;Отобрать алгебраические решения по условиям модели&quot;,
+            &quot;definition&quot;: &quot;Проверить найденные скорости по установленному условию v&gt;1 и исключить v=−12.&quot;,
+            &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+            &quot;evidence_refs&quot;: [
+              &quot;step:s3:result&quot;
+            ]
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>0BC5F1</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Окружность проходит через вершины <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>A</mi>  </semantics> </mstyle></math>, <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>B</mi>  </semantics> </mstyle></math> и <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>C</mi>  </semantics> </mstyle></math> параллелограмма <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mi>C</mi><mi>D</mi> </mrow>  </semantics> </mstyle></math>, пересекает продолжение стороны <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>D</mi> </mrow>  </semantics> </mstyle></math> за точку <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>D</mi>  </semantics> </mstyle></math> в точке <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>E</mi>  </semantics> </mstyle></math> и пересекает продолжение стороны <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>C</mi><mi>D</mi> </mrow>  </semantics> </mstyle></math> за точку <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>D</mi>  </semantics> </mstyle></math> в точке <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>K</mi>  </semantics> </mstyle></math>.</p> <p class="MsoNormal">а) Докажите, что <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>B</mi><mi>K</mi><mo>=</mo><mi>B</mi><mi>E</mi> </mrow>  </semantics> </mstyle></math>.</p> <p class="MsoNormal">б) Найдите отношение <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>K</mi><mi>E</mi><mo>:</mo><mi>A</mi><mi>C</mi> </mrow>  </semantics> </mstyle></math>, если <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mo>∠</mo><mi>B</mi><mi>A</mi><mi>D</mi><mo>=</mo><mn>30</mn><mi>°</mi> </mrow>  </semantics> </mstyle></math>.</p> <p class="MsoNormal"><span> </span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;0BC5F1&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;а) BK = BE. б) KE : AC = √3 : 1.&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Обозначить угол BAD через θ и выразить углы между сторонами параллелограмма и их продолжениями.&quot;,
+      &quot;result&quot;: &quot;Поскольку A, D, E лежат в этом порядке на одной прямой, ∠BAE = θ. Луч CB сонаправлен лучу DA, а луч CK противоположно направлен лучу AB, поэтому ∠BCK = θ. Соседние углы параллелограмма дают ∠ABC = 180° − θ.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Применить равенство вписанных углов, опирающихся на одинаковые хорды.&quot;,
+      &quot;result&quot;: &quot;Точки окружности следуют в порядке A, B, C, E, K или в обратном порядке: D лежит внутри угла ADC и между концами обеих хорд AE и CK. Углы BKE и BAE опираются на хорду BE с одной стороны, а углы BEK и BCK — на хорду BK с одной стороны. Поэтому ∠BKE = ∠BAE = θ и ∠BEK = ∠BCK = θ.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Использовать равенство углов при основании треугольника.&quot;,
+      &quot;result&quot;: &quot;В треугольнике BEK углы при E и K равны, следовательно, противолежащие им стороны BK и BE равны. Пункт а доказан.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Найти углы, противолежащие сравниваемым хордам, при заданном угле параллелограмма.&quot;,
+      &quot;result&quot;: &quot;При θ = 30° угол KBE равен 180° − 2θ = 120°, а угол ABC равен 150°.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s5&quot;,
+      &quot;action&quot;: &quot;Выразить длины хорд через общий радиус окружности и вычислить отношение.&quot;,
+      &quot;result&quot;: &quot;Пусть R — радиус данной окружности. По расширенной теореме синусов в треугольниках BKE и ABC: KE = 2R sin 120° и AC = 2R sin 150°. Следовательно, KE/AC = (√3/2)/(1/2) = √3.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Выражать углы между сторонами параллелограмма и их продолжениями&quot;,
+      &quot;description&quot;: &quot;По заданному углу параллелограмма и порядку точек на прямых определять равные и смежные углы, используя параллельность противоположных сторон и направления лучей. Применимо при явно установленных продолжениях сторон.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Приравнивать вписанные углы, опирающиеся на одну хорду&quot;,
+      &quot;description&quot;: &quot;Для точек одной окружности устанавливать равенство вписанных углов с общей хордой, проверив, что вершины углов лежат по одну сторону от этой хорды. Углы с вершинами по разные стороны нельзя приравнивать этим правилом.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Доказывать равенство сторон треугольника по равенству противолежащих углов&quot;,
+      &quot;description&quot;: &quot;В невырожденном треугольнике по равенству двух внутренних углов заключать равенство противолежащих им сторон.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Находить третий угол треугольника по двум известным&quot;,
+      &quot;description&quot;: &quot;Для невырожденного евклидова треугольника вычислять неизвестный внутренний угол, вычитая сумму двух известных углов из развёрнутого угла.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc5&quot;,
+      &quot;name&quot;: &quot;Вычислять отношение хорд через синусы вписанных углов&quot;,
+      &quot;description&quot;: &quot;Для двух хорд одной окружности выразить каждую длину как удвоенный радиус, умноженный на синус противолежащего вписанного угла; сократить общий радиус и вычислить отношение. Требуется, чтобы оба треугольника были вписаны в одну окружность и невырождены.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;а) Перенос углов с помощью параллельности и вписанных углов с последующим применением признака равнобедренного треугольника&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;m2&quot;,
+      &quot;name&quot;: &quot;б) Сравнение хорд одной окружности по расширенной теореме синусов&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s4&quot;,
+        &quot;s5&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;0BC5F1&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;Луч CB сонаправлен лучу DA, а луч CK противоположно направлен лучу AB, поэтому ∠BCK = θ.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;Соседние углы параллелограмма дают ∠ABC = 180° − θ.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_f5a787e19d0e&quot;,
+          &quot;reason&quot;: &quot;Покрывает сумму и смежность углов, но не перенос угла через параллельные стороны и направления лучей.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_adbf18f11761&quot;,
+          &quot;reason&quot;: &quot;Предусматривает сложение или вычитание углов с общей стороной; равенство углов через параллельность этим не установлено.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат объединяет перенос угла с учётом параллельности и сонаправленности лучей с получением дополнительного соседнего угла. Одно узкое определение каталога не покрывает обе наблюдаемые части.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;name&quot;: &quot;Переносить угол между параллельными направлениями&quot;,
+            &quot;definition&quot;: &quot;По установленной параллельности сторон и направлениям лучей определять равенство либо дополнительность соответствующих углов, явно учитывая продолжения сторон.&quot;,
+            &quot;catalog_kc_id&quot;: null
+          },
+          {
+            &quot;name&quot;: &quot;Выразить соседний угол параллелограмма&quot;,
+            &quot;definition&quot;: &quot;По смежности и параллельности сторон получить дополнительный угол 180° − θ.&quot;,
+            &quot;catalog_kc_id&quot;: &quot;literal_f5a787e19d0e&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;Углы BKE и BAE опираются на хорду BE с одной стороны, а углы BEK и BCK — на хорду BK с одной стороны. Поэтому ∠BKE = ∠BAE = θ и ∠BEK = ∠BCK = θ.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;diameter_angle&quot;,
+          &quot;reason&quot;: &quot;Определение относится только к прямому вписанному углу, опирающемуся на диаметр; диаметр здесь не установлен.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;similarity_AA&quot;,
+          &quot;reason&quot;: &quot;Равные углы здесь получены по хорде, а подобие не устанавливается.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдается равенство двух пар вписанных углов с общей хордой и вершинами в одном сегменте. Общего определения такого действия в каталоге нет. Неточность вспомогательной фразы о положении D отмечена отдельно; порядок пересечения хорд и стороны хорд устанавливаются из условия.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Приравнивать вписанные углы одного сегмента&quot;,
+        &quot;definition&quot;: &quot;Для точек одной окружности по общей хорде и расположению вершин по одну сторону от неё заключать равенство соответствующих вписанных углов; расположение вершин должно быть обосновано.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;В треугольнике BEK углы при E и K равны, следовательно, противолежащие им стороны BK и BE равны.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;isosceles_angles&quot;,
+          &quot;reason&quot;: &quot;Направление определения обратное: из равенства сторон получают равенство углов, тогда как здесь равенство сторон доказывают по углам.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fe8297102f74&quot;,
+          &quot;reason&quot;: &quot;Серединный перпендикуляр и принадлежность ему точки не используются.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Объект — невырожденный треугольник BEK, вход — два равных внутренних угла, результат — равенство противолежащих сторон. Обратная теорема о равнобедренном треугольнике не совпадает с направлением существующего узла.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Доказывать равенство сторон по равенству углов треугольника&quot;,
+        &quot;definition&quot;: &quot;В невырожденном треугольнике из установленного равенства двух внутренних углов заключать равенство противолежащих им сторон.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_f5a787e19d0e&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;При θ = 30° угол KBE равен 180° − 2θ = 120°&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;isosceles_angles&quot;,
+          &quot;reason&quot;: &quot;Здесь исходны уже установленные равные углы; вывод углов из равенства сторон не выполняется.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_adbf18f11761&quot;,
+          &quot;reason&quot;: &quot;Действие использует сумму внутренних углов треугольника, а не сложение углов между лучами с общей стороной.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Два угла BEK и BKE уже равны θ по s2; из суммы углов треугольника вычислен третий угол 180° − 2θ. Операция полностью соответствует части определения каталога о сумме углов при установленных геометрических основаниях.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc5&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s5:result&quot;,
+          &quot;quote&quot;: &quot;По расширенной теореме синусов в треугольниках BKE и ABC: KE = 2R sin 120° и AC = 2R sin 150°. Следовательно, KE/AC = (√3/2)/(1/2) = √3.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s4:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;cosine_law&quot;,
+          &quot;reason&quot;: &quot;Теорема косинусов связывает стороны одного треугольника и угол между ними; здесь применяется связь хорды с общим радиусом и синусом вписанного угла.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_7570fa06d474&quot;,
+          &quot;reason&quot;: &quot;Сокращение общего ненулевого множителя 2R является лишь компонентом; узел не покрывает получение формул длин хорд.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_38dfd2a1aa18&quot;,
+          &quot;reason&quot;: &quot;Определение требует прямоугольный треугольник и отношения его сторон; здесь два произвольных вписанных треугольника.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Для хорд KE и AC одной окружности применена расширенная теорема синусов с общим положительным R и вычислено отношение. Подходящего определения для этой операции в каталоге нет; сокращение радиуса и точные значения синусов не заменяют её геометрическое основание.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Находить отношение хорд через синусы вписанных углов&quot;,
+        &quot;definition&quot;: &quot;Для двух хорд одной окружности выразить их длины как 2R sin α и 2R sin β через противолежащие вписанные углы невырожденных треугольников, сократить общий положительный радиус и вычислить отношение.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;math&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s2:result&quot;
+      ],
+      &quot;description&quot;: &quot;Фраза «D лежит внутри угла ADC» некорректна буквально: D является вершиной этого угла. Это неточность вспомогательного обоснования порядка точек. Из условия A–D–E и C–D–K следуют пересечение хорд внутри окружности и чередование их концов; равенства вписанных углов в данной конфигурации верны. Ошибка формулировки не блокирует сопоставление наблюдаемого применения теоремы.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc2&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>282EDC</h2><p>Впишите правильный ответ.</p><div><section>  <table class="MsoTableGrid" border="0" cellspacing="0" cellpadding="0"> <tr> <td valign="top"> <p class="MsoNormal">Площадь параллелограмма <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mi>C</mi><mi>D</mi> </mrow> </semantics> </math> равна 24. Точка <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mi>E</mi> </semantics> </math> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> середина стороны <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>D</mi><mo>.</mo> </mrow> </semantics> </math> Найдите площадь трапеции <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>B</mi><mi>C</mi><mi>D</mi><mi>E</mi><mo>.</mo> </mrow> </semantics> </math></p> </td> <td valign="top"> <p class="MsoNormal" align="right"><img src="file:///C:/Users/U_M35CB/Documents/%D0%92%D0%A8%D0%AD/proactive-ai-tutor-65/data/annotation/runs/2026-11-02-fipi-extension-150/inputs/assets/973d05c71be06ad24ed981c1.png" alt="Рисунок ФИПИ"></p> </td> </tr> </table> <p class="MsoNormal"><span> </span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;282EDC&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;18&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Выразить площадь треугольника ABE через площадь параллелограмма, используя основание AE и общую высоту к прямой AD.&quot;,
+      &quot;result&quot;: &quot;Поскольку E — середина AD, AE=AD/2. Высота из B к AD равна высоте параллелограмма h, поэтому S_ABE=(1/2)·AE·h=(1/4)·AD·h=24/4=6.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Вычесть площадь отсечённого треугольника из площади параллелограмма.&quot;,
+      &quot;result&quot;: &quot;Отрезок BE делит параллелограмм на треугольник ABE и трапецию BCDE без перекрытия внутренних областей. S_BCDE=24−6=18.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;k1&quot;,
+      &quot;name&quot;: &quot;Сопоставлять площади треугольника и параллелограмма по общей высоте&quot;,
+      &quot;description&quot;: &quot;Для треугольника с основанием на стороне параллелограмма и противоположной вершиной на параллельной стороне выразить отношение площадей как половину отношения оснований, используя общую высоту и формулы площадей.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k2&quot;,
+      &quot;name&quot;: &quot;Находить площадь остатка фигуры вычитанием&quot;,
+      &quot;description&quot;: &quot;Если фигура разбита на две части с непересекающимися внутренними областями, найти площадь одной части как разность площади всей фигуры и известной площади другой части.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Площадь трапеции как дополнение треугольника с половинным основанием&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;282EDC&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;k1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Выразить площадь треугольника ABE через площадь параллелограмма, используя основание AE и общую высоту к прямой AD.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;Поскольку E — середина AD, AE=AD/2. Высота из B к AD равна высоте параллелограмма h, поэтому S_ABE=(1/2)·AE·h=(1/4)·AD·h=24/4=6.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;similar_area&quot;,
+          &quot;reason&quot;: &quot;Отношение площадей здесь получено по общей высоте и формулам площадей треугольника и параллелограмма; подобие фигур и квадрат коэффициента подобия не используются.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;right_triangle_area&quot;,
+          &quot;reason&quot;: &quot;Треугольник ABE не установлен как прямоугольный; используется основание и перпендикулярная высота, а не два катета.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a776d95ccb64&quot;,
+          &quot;reason&quot;: &quot;Восстановление отношения двух частей отрезка по доле целого не охватывает сопоставление площадей фигур разных типов по общей высоте.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдается единое сопоставление площадей треугольника и параллелограмма через общую высоту: отношение площадей равно половине отношения оснований. Основание AE лежит на AD, вершина B лежит на противоположной параллельной стороне; середина задана условием. В полном каталоге определения этого действия нет. Вычисление половины основания и числовой площади не требует отдельного дробления кандидата.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Сопоставлять площади треугольника и параллелограмма по общей высоте&quot;,
+        &quot;definition&quot;: &quot;Для треугольника с основанием на прямой стороны параллелограмма и противоположной вершиной на прямой другой параллельной стороны выразить отношение площадей как половину отношения соответствующих оснований, обосновав равенство высот.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;k2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Вычесть площадь отсечённого треугольника из площади параллелограмма.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;Отрезок BE делит параллелограмм на треугольник ABE и трапецию BCDE без перекрытия внутренних областей. S_BCDE=24−6=18.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;similar_area&quot;,
+          &quot;reason&quot;: &quot;Определение описывает квадрат коэффициента подобия, а не аддитивность площади и вычитание известной части.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;right_triangle_area&quot;,
+          &quot;reason&quot;: &quot;В текущем шаге площадь треугольника уже известна из предыдущего шага; вычисляется площадь дополнения, а не площадь прямоугольного треугольника.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Действие выполнено в s2: обосновано разбиение фигуры на две части без перекрытия внутренних областей и из площади целого вычтена известная площадь треугольника. Значение 6 поступает из s1, значение 24 — из условия. Определения аддитивности площади и нахождения площади остатка в полном каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Находить площадь остатка фигуры вычитанием&quot;,
+        &quot;definition&quot;: &quot;При разбиении фигуры на две части с непересекающимися внутренними областями найти площадь одной части как разность площади всей фигуры и известной площади другой части, обосновав такое разбиение.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>D334F2</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">В июле 2026 года планируется взять кредит в банке на сумму 177 120 рублей. Условия его возврата таковы:</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> каждый январь долг увеличивается на 25 % по сравнению с концом предыдущего года;</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> с февраля по июнь каждого года необходимо выплатить одним платежом часть долга.</p> <p class="MsoNormal">Сколько рублей составит общая сумма платежей, если известно, что кредит будет полностью погашен четырьмя равными платежами (то есть за четыре года)?<span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;D334F2&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;300000 рублей&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Обозначить равный ежегодный платеж через x и построить рекуррентную модель остатка долга после платежа.&quot;,
+      &quot;result&quot;: &quot;Пусть D_0=177120 — долг в июле 2026 года, а D_k — долг после платежа в году 2026+k. Начисление 25% предшествует платежу, поэтому D_k=(5/4)D_{k-1}-x для k=1,2,3,4; условие полного погашения дает D_4=0.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Последовательно раскрыть рекуррентную формулу до четвертого платежа и подставить условие погашения.&quot;,
+      &quot;result&quot;: &quot;D_4=177120(5/4)^4-x[1+5/4+(5/4)^2+(5/4)^3]=0. Следовательно, 177120·625/256=(369/64)x; после умножения на 256 получаем 1476x=110700000.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Решить линейное уравнение относительно ежегодного платежа и проверить допустимость графика погашения.&quot;,
+      &quot;result&quot;: &quot;x=110700000/1476=75000 рублей. По рекуррентной формуле остатки после первых трех платежей равны 146400, 108000 и 60000 рублей; все положительны. В четвертый год долг с процентами равен 75000 рублей и погашается последним платежом, так что кредит действительно выплачивается за четыре года.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;,
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Вычислить общую сумму четырех равных платежей.&quot;,
+      &quot;result&quot;: &quot;4·75000=300000 рублей.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Построить рекуррентную модель долга с процентами и платежами&quot;,
+      &quot;description&quot;: &quot;По начальному долгу, процентной ставке и порядку начисления процентов и внесения платежей выразить остаток долга следующего периода через предыдущий остаток и платеж. Модель применима при заданном порядке финансовых операций и учитывает условие полного погашения.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Развернуть рекуррентное соотношение за конечное число периодов&quot;,
+      &quot;description&quot;: &quot;По рекуррентному соотношению с постоянным множителем и постоянным вычитаемым последовательно выразить конечное значение через начальное и неизвестный платеж, затем использовать заданное конечное значение для построения уравнения.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Решить линейное уравнение с числовыми коэффициентами&quot;,
+      &quot;description&quot;: &quot;По линейному уравнению с одной неизвестной и ненулевым коэффициентом при ней найти неизвестную равносильными преобразованиями.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Проверить срок погашения по последовательности остатков долга&quot;,
+      &quot;description&quot;: &quot;По найденному платежу и модели начислений вычислить промежуточные остатки, проверить их положительность до последнего периода и нулевой остаток после последнего платежа. Применяется при требовании погашения за заданное число периодов.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc5&quot;,
+      &quot;name&quot;: &quot;Вычислить сумму равных платежей&quot;,
+      &quot;description&quot;: &quot;По размеру одинаковых платежей и их количеству найти общую сумму умножением размера платежа на количество.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Модель ежегодных остатков долга с равными платежами&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;D334F2&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;Начисление 25% предшествует платежу, поэтому D_k=(5/4)D_{k-1}-x для k=1,2,3,4; условие полного погашения дает D_4=0.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+          &quot;reason&quot;: &quot;Процентный множитель входит в модель, но определение части и целого не покрывает последовательность начисления, вычитание платежа и остаток долга.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+          &quot;reason&quot;: &quot;Здесь строится модель по финансовому условию, а не подставляются данные в уже заданную формулу.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_33060533660f&quot;,
+          &quot;reason&quot;: &quot;Определение относится к выручке, затратам, выпуску и инвестициям, а не к динамике кредитного долга.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдается перевод порядка финансовых операций в переход между остатками долга с начальным и конечным состояниями. Полного определения такой операции в просмотренном каталоге нет; процентная доля покрывает только компонент.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Строить рекуррентную модель долга&quot;,
+        &quot;definition&quot;: &quot;По начальному долгу, ставке и порядку начисления процентов и платежей выразить остаток следующего периода через предыдущий остаток и платеж, зафиксировав заданные начальное и конечное состояния.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;D_4=177120(5/4)^4-x[1+5/4+(5/4)^2+(5/4)^3]=0.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_0a4ebc8382b5&quot;,
+          &quot;reason&quot;: &quot;Подстановка линейной связи является компонентом развёртывания; определение не описывает конечное развёртывание рекурсии с накоплением слагаемых и использованием конечного состояния.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;arithmetic_series&quot;,
+          &quot;reason&quot;: &quot;Коэффициенты платежа образуют геометрическую, а не арифметическую последовательность; формула суммы арифметической прогрессии не применяется.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+          &quot;reason&quot;: &quot;Кандидат строит конечное уравнение из рекурсии; нахождение неизвестной относится к следующему кандидату.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Из переходного соотношения получено выражение конечного остатка через начальный долг и постоянный платёж, затем наложено конечное условие. Это единая операция конечного развёртывания, не совпадающая целиком с ближайшими определениями каталога.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Разворачивать аффинную рекурсию за заданное число периодов&quot;,
+        &quot;definition&quot;: &quot;Последовательной подстановкой выразить конечное значение рекурсии с постоянным множителем и постоянным вычитаемым через начальное значение и неизвестную величину, затем использовать заданное конечное состояние для составления уравнения.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;x=110700000/1476=75000 рублей.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [],
+      &quot;rationale&quot;: &quot;Из уже построенного аффинного равенства 1476x=110700000 получено единственное решение делением на ненулевой числовой коэффициент. Построение модели и проверка срока сюда не включаются.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;По рекуррентной формуле остатки после первых трех платежей равны 146400, 108000 и 60000 рублей; все положительны. В четвертый год долг с процентами равен 75000 рублей и погашается последним платежом, так что кредит действительно выплачивается за четыре года.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a873d91378ab&quot;,
+          &quot;reason&quot;: &quot;Здесь проверяется найденный корень кредитной модели, а не достижение граничного ответа; оснований считать платёж границей нет.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Найденный алгебраический платёж проверен по исходному рекуррентному соотношению и финансовому смыслу: долг положителен до последнего года и погашается в требуемый срок. Это проверка решения по условиям модели целиком.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc5&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_89184e5e6ac9&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;Вычислить общую сумму четырех равных платежей.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;4·75000=300000 рублей.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;arithmetic_series&quot;,
+          &quot;reason&quot;: &quot;В решении использовано умножение одинакового платежа на количество, без действия суммирования прогрессии по крайним членам.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Ежегодный платёж x — вспомогательная величина, тогда как вопрос требует общей суммы. Вычисление 4x после нахождения x соответствует восстановлению требуемой величины из введённого параметра; числа и кредитный сюжет нового узла не требуют.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>F6158A</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Найдите значение выражения <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mn>3</mn><mi>cos</mi><mn>2</mn><mtext>α</mtext><mtext>,</mtext> </mrow> </semantics> </math> если <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>sin</mi><mtext>α</mtext><mo>=</mo><mn>0,2.</mn> </mrow> </semantics> </math><span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;F6158A&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;2,76&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Выразить косинус двойного угла через синус исходного угла и подставить заданное значение.&quot;,
+      &quot;result&quot;: &quot;cos(2α)=1−2sin²α=1−2·0,2²=0,92.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Вычислить значение выражения с найденным косинусом.&quot;,
+      &quot;result&quot;: &quot;3cos(2α)=3·0,92=2,76.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Вычислять косинус двойного угла по синусу исходного угла&quot;,
+      &quot;description&quot;: &quot;Для действительного угла с известным значением синуса применить тождество cos(2α)=1−2sin²α и вычислить косинус двойного угла; знания четверти не требуется.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Вычислять произведение числового коэффициента и известного значения выражения&quot;,
+      &quot;description&quot;: &quot;По числовому коэффициенту и известному числовому значению множителя выполнить умножение, получая значение произведения.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Применение формулы косинуса двойного угла через синус&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;F6158A&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;uncertain&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;cos(2α)=1−2sin²α=1−2·0,2²=0,92.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;,
+          &quot;reason&quot;: &quot;Формула двойного угла сводит выражение к синусу одного аргумента; определение охватывает наблюдаемое преобразование.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_55d5a6d9eb3c&quot;,
+          &quot;reason&quot;: &quot;Также охватывает сведение формулой двойного угла к одной тригонометрической функции; основания предпочесть другому узлу нет.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_3d70ab3eb24a&quot;,
+          &quot;reason&quot;: &quot;Ограничен произведением синуса и косинуса или синусом двойного аргумента, а здесь косинус двойного аргумента.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_6d4854d97c9c&quot;,
+          &quot;reason&quot;: &quot;Основное тождество само по себе не заменяет формулу косинуса двойного угла; отдельного применения к sin²α+cos²α в решении нет.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Применение cos(2α)=1−2sin²α и вычисление по данному синусу наблюдаются непосредственно; знания четверти действительно не требуется. Числовая подстановка завершает то же действие и сама по себе не требует дробления. Однако два предварительных определения тригонометрического преобразования перекрываются и не дают обоснованного единственного ID; поэтому соответствие не подтверждено как match.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;3cos(2α)=3·0,92=2,76.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+          &quot;reason&quot;: &quot;Предполагает подстановку аргумента в установленную формулу функции; здесь уже найденное числовое значение множителя умножают на коэффициент, аргумент функции не подставляют.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+          &quot;reason&quot;: &quot;Нет физической формулы, соотнесения величин и единиц; выполняется обычное числовое умножение.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_89184e5e6ac9&quot;,
+          &quot;reason&quot;: &quot;Вспомогательный параметр не вводился; вычисленное значение косинуса не является отдельной параметризацией задачи.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;По предыдущему шагу известен косинус 0,92; в текущем шаге выполняется единственное числовое умножение на заданный коэффициент 3. Полный каталог не содержит определения именно этой арифметической операции. Сюжет с косинусом не меняет её границы.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Вычислять произведение известных числовых множителей&quot;,
+        &quot;definition&quot;: &quot;По известным числовым значениям множителей вычислить их произведение; получение значений множителей и преобразование символического выражения рассматриваются отдельно.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;boundary&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;description&quot;: &quot;Определения literal_cc7d68a38f29 и literal_55d5a6d9eb3c перекрываются на применении формулы косинуса двойного угла. В переданном каталоге нет правила выбора между ними.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc1&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>EA6D9D</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">В июле 2020 года планируется взять кредит в банке на некоторую сумму. Условия его возврата таковы:</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mo>—</mo>  </semantics> </mstyle></math> каждый январь долг увеличивается на 10% по сравнению с концом предыдущего года;</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mo>—</mo>  </semantics> </mstyle></math> с февраля по июнь каждого года необходимо выплатить одним платежом часть долга.</p> <p class="MsoNormal">Сколько рублей будет выплачено банку, если известно, что кредит будет полностью погашен тремя равными платежами (то есть за три года) и общая сумма выплат после полного погашения кредита на 34 150 рублей больше суммы, взятой в кредит?<span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;EA6D9D&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;199650 рублей&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Обозначить сумму кредита через S, каждый равный платёж через x и выразить условие о превышении общей суммы выплат над кредитом.&quot;,
+      &quot;result&quot;: &quot;S &gt; 0, x &gt; 0. Всего будет выплачено 3x рублей, поэтому 3x − S = 34150, то есть S = 3x − 34150.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Последовательно вычислить остатки долга после каждого из трёх ежегодных начислений процентов и платежей, затем применить условие полного погашения.&quot;,
+      &quot;result&quot;: &quot;После платежей в 2021, 2022 и 2023 годах остатки равны соответственно D1 = 1,1S − x; D2 = 1,1D1 − x = 1,21S − 2,1x; D3 = 1,1D2 − x = 1,331S − 3,31x. Полное погашение даёт 1,331S − 3,31x = 0.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Подставить выражение суммы кредита в уравнение погашения, решить полученное линейное уравнение и вычислить общую сумму платежей; проверить допустимость графика.&quot;,
+      &quot;result&quot;: &quot;1,331(3x − 34150) − 3,31x = 0, откуда 0,683x = 45453,65 и x = 66550. Сумма кредита S = 165500. Остатки долга после платежей: 115500, 60500 и 0 рублей, поэтому до последнего платежа долг положителен. Общая сумма выплат 3x = 199650 рублей, а её превышение над кредитом равно 199650 − 165500 = 34150 рублей.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;,
+        &quot;kc4&quot;,
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Выразить превышение общей суммы равных платежей над суммой кредита&quot;,
+      &quot;description&quot;: &quot;По числу равных платежей и заданной разности между общей выплатой и первоначальным кредитом составить линейную связь размера платежа и суммы кредита; применяется при одинаковом размере всех учитываемых платежей.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Построить последовательность остатков долга при ежегодном начислении процентов и равных платежах&quot;,
+      &quot;description&quot;: &quot;По первоначальному долгу, постоянной процентной ставке и равному платежу вычислять следующий остаток как предыдущий долг, умноженный на коэффициент роста, минус платёж; применяется, когда начисление процентов предшествует платежу каждого периода. Условие полного погашения задаётся нулевым последним остатком, а допустимость графика проверяется по промежуточным остаткам.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Исключить переменную подстановкой известного выражения&quot;,
+      &quot;description&quot;: &quot;Если одна переменная выражена через другую, подставить это выражение в оставшееся уравнение и привести его к уравнению с одной неизвестной, сохраняя исходные ограничения.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Решить линейное уравнение с числовыми коэффициентами&quot;,
+      &quot;description&quot;: &quot;Для линейного уравнения с одной неизвестной собрать слагаемые, разделить на ненулевой коэффициент при неизвестной и получить её значение; применяется при ненулевом коэффициенте после приведения подобных слагаемых.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Моделирование ежегодного остатка долга и подстановка условия о переплате&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;EA6D9D&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;Всего будет выплачено 3x рублей, поэтому 3x − S = 34150, то есть S = 3x − 34150.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+          &quot;reason&quot;: &quot;Определение исключает построение модели; здесь составляется связь величин по условию.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+          &quot;reason&quot;: &quot;Связь задаёт абсолютную разность общей выплаты и кредита, а не процентную долю.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_33060533660f&quot;,
+          &quot;reason&quot;: &quot;Нет выручки, затрат на выпуск и срока окупаемости; модель кредитной переплаты не соответствует этому определению.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдается перевод числа равных платежей и абсолютной переплаты в линейную связь размера платежа с первоначальной суммой. Полного определения этой операции в просмотренном каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Составлять связь равных платежей и абсолютной переплаты&quot;,
+        &quot;definition&quot;: &quot;По числу n одинаковых платежей x, первоначальной сумме S и превышению общей выплаты над ней на d составить nx − S = d, согласовав денежные единицы.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;D1 = 1,1S − x; D2 = 1,1D1 − x = 1,21S − 2,1x; D3 = 1,1D2 − x = 1,331S − 3,31x. Полное погашение даёт 1,331S − 3,31x = 0.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;Остатки долга после платежей: 115500, 60500 и 0 рублей, поэтому до последнего платежа долг положителен.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+          &quot;reason&quot;: &quot;Перевод 10% в прирост — только компонент; определение не охватывает последовательность начисления и вычитания платежа, терминальное условие и проверку графика.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+          &quot;reason&quot;: &quot;Соответствует части с проверкой найденных значений на условия модели, но не построению долговой рекурсии.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+          &quot;reason&quot;: &quot;Формула долговой динамики выводится из условий, а не дана для подстановки.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Авторский кандидат соединяет построение модели остатков с последующей проверкой допустимости уже найденного графика. В s2 наблюдается первая операция, в s3 — вторая. Одним узким определением каталога весь кандидат не покрывается.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;name&quot;: &quot;Моделировать остаток долга после начисления процентов и платежа&quot;,
+            &quot;definition&quot;: &quot;При начислении p процентов перед каждым равным платежом x построить D_k=(1+p/100)D_(k−1)−x с D_0=S и выразить полное погашение условием D_n=0.&quot;,
+            &quot;possible_catalog_kc_ids&quot;: []
+          },
+          {
+            &quot;name&quot;: &quot;Проверять допустимость найденного графика погашения&quot;,
+            &quot;definition&quot;: &quot;Для найденных сумм проверить положительность долга до последнего платежа и нулевой конечный остаток в исходной кредитной модели.&quot;,
+            &quot;possible_catalog_kc_ids&quot;: [
+              &quot;literal_c840012ba3dd&quot;
+            ]
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_0a4ebc8382b5&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;1,331(3x − 34150) − 3,31x = 0&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_48d7fd02cfd9&quot;,
+          &quot;reason&quot;: &quot;Узкое определение требует подстановки y=mx. Здесь аффинная связь S=3x−34150 с ненулевым свободным членом.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Из линейной связи в s1 выражено S, и в s3 это выражение подставлено в уравнение s2. Уравнение становится уравнением одной переменной; деления на выражение с неизвестной нет, исходные ограничения затем проверены.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;откуда 0,683x = 45453,65 и x = 66550.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [],
+      &quot;alternatives_checked&quot;: [],
+      &quot;rationale&quot;: &quot;Наблюдается решение аффинного уравнения с числовыми коэффициентами: после приведения подобных слагаемых коэффициент 0,683 ненулевой, найдено единственное значение x. Составление модели сюда не включается.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;missing_annotation&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s3:result&quot;
+      ],
+      &quot;description&quot;: &quot;Переход от найденного размера одного платежа к требуемой общей сумме наблюдается в словах «Общая сумма выплат 3x = 199650 рублей», но отдельным локальным кандидатом не покрыт. Близкое определение каталога literal_89184e5e6ac9 описывает восстановление искомой величины из вспомогательного параметра. Это замечание о покрытии разметки, а не о правильности ответа.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: []
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>F89087</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">На доске записано 10 натуральных чисел, среди которых нет одинаковых. Оказалось, что среднее арифметическое любых трёх, четырёх, пяти или шести чисел из записанных является целым числом. Одно из записанных чисел равно 30 033.</p> <p class="MsoNormal">а) Может ли среди записанных на доске чисел быть число 303?</p> <p class="MsoNormal">б) Может ли отношение двух записанных на доске чисел равняться 31?</p> <p class="MsoNormal">в) Отношение двух записанных на доске чисел является квадратом натурального числа <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>n</mi><mo>.</mo></mrow></mstyle></math></span> Найдите наименьшее возможное значение <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>n</mi><mo>.</mo></mrow></mstyle></math></span> </p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;F89087&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;а) Нет. б) Нет. в) 9.&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Сравнить суммы двух наборов одинакового размера, отличающихся только одним числом.&quot;,
+      &quot;result&quot;: &quot;Для любых двух записанных чисел x и y и каждого k из {3,4,5,6} можно выбрать ещё k−1 общих чисел, отличных от x и y: имеется восемь таких чисел. Обе суммы делятся на k, поэтому их разность x−y делится на k. Следовательно, x−y делится на НОК(3,4,5,6)=60.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;,
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Получить необходимое и достаточное условие на записанные числа с учётом известного числа.&quot;,
+      &quot;result&quot;: &quot;Все числа сравнимы с 30033 по модулю 60, то есть имеют остаток 33. Обратно, если все числа имеют вид 33+60t, сумма любых k из них равна 33k+60T и делится на k при k=3,4,5,6. Поэтому достаточно и необходимо, чтобы десять различных натуральных чисел имели остаток 33 по модулю 60 и включали 30033.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Проверить возможность включения предложенного числа по необходимому остатку.&quot;,
+      &quot;result&quot;: &quot;303 имеет остаток 3 по модулю 60, а требуется остаток 33. Ответ на пункт а): нет.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Проверить совместимость заданного отношения с остатками двух чисел.&quot;,
+      &quot;result&quot;: &quot;Если y=31x и x≡33 (mod 60), то y≡31·33≡3 (mod 60), что противоречит y≡33 (mod 60). Ответ на пункт б): нет.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s5&quot;,
+      &quot;action&quot;: &quot;Вывести необходимое сравнение для квадратного множителя отношения.&quot;,
+      &quot;result&quot;: &quot;Пусть y=n²x. Из x≡y≡33 (mod 60) следует 60 | 33(n²−1), или, после сокращения на НОД(33,60)=3, 20 | (n²−1). Таким образом, n²≡1 (mod 20). При n=1 числа x и y совпадают, что запрещено, поэтому n&gt;1.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc5&quot;,
+        &quot;kc6&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s6&quot;,
+      &quot;action&quot;: &quot;Найти наименьший натуральный множитель, удовлетворяющий необходимому сравнению и различию чисел.&quot;,
+      &quot;result&quot;: &quot;Сравнение n²≡1 (mod 20) требует нечётности n и n≡1 или −1 (mod 5). Среди чисел от 2 до 8 остатки ±1 по модулю 5 имеют только 4 и 6, но они чётные. Число 9 подходит: 9²−1=80 делится на 20. Следовательно, n≥9.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc7&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s5&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s7&quot;,
+      &quot;action&quot;: &quot;Построить полный допустимый набор, достигающий найденной нижней границы.&quot;,
+      &quot;result&quot;: &quot;Подходит набор {33,93,153,213,273,333,393,453,2673,30033}. В нём ровно десять различных натуральных чисел, все имеют остаток 33 по модулю 60, и включено 30033. Поэтому все требуемые средние целые. При этом 2673/33=81=9². Нижняя граница достигается, и ответ на пункт в): 9.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc8&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s2&quot;,
+        &quot;s6&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Выводить делимость разности из сумм с общими слагаемыми&quot;,
+      &quot;description&quot;: &quot;Если суммы всех подмножеств заданного размера делятся на этот размер и элементов достаточно, выбрать два подмножества с одинаковой общей частью и вычесть суммы, получая делимость разности двух заменяемых элементов. Применяется при возможности выбрать общую часть без обоих сравниваемых элементов.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Объединять условия делимости через наименьшее общее кратное&quot;,
+      &quot;description&quot;: &quot;Для целого числа, делящегося на каждый из нескольких положительных делителей, вычислить их наименьшее общее кратное и получить делимость на него. Не требует попарной взаимной простоты делителей.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Характеризовать целочисленность средних общим классом вычетов&quot;,
+      &quot;description&quot;: &quot;Используя делимость всех попарных разностей на общий модуль и один известный элемент, определить общий остаток элементов; затем проверить достаточность этого остатка, записав сумму выбранных элементов как кратное их количества. Достаточность здесь применяется, когда каждое разрешённое количество делит модуль.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Исключать значение по несовместимому остатку&quot;,
+      &quot;description&quot;: &quot;При необходимом условии принадлежности числа определённому классу вычетов вычислить остаток предложенного значения и исключить его, если остатки различны.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc5&quot;,
+      &quot;name&quot;: &quot;Переводить целочисленное отношение в условие на вычеты&quot;,
+      &quot;description&quot;: &quot;Если два целых числа связаны равенством с целым множителем и принадлежат заданным классам вычетов, подставить эти остатки в равенство и получить необходимое сравнение для множителя либо противоречие.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc6&quot;,
+      &quot;name&quot;: &quot;Сокращать условие делимости с помощью наибольшего общего делителя&quot;,
+      &quot;description&quot;: &quot;Для условия m | au вычислить d=НОД(a,m) и заменить его эквивалентным условием m/d | u, используя взаимную простоту a/d и m/d.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc7&quot;,
+      &quot;name&quot;: &quot;Находить наименьшее решение квадратного сравнения по простым модулям&quot;,
+      &quot;description&quot;: &quot;Для квадратного сравнения разложить ограничение на условия по делителям модуля, вывести допустимые остатки и чётность, исключить меньшие натуральные значения и проверить первый допустимый кандидат. Учитывать дополнительные ограничения на искомое число.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc8&quot;,
+      &quot;name&quot;: &quot;Подтверждать достижимость минимума явным допустимым набором&quot;,
+      &quot;description&quot;: &quot;После получения нижней границы построить набор требуемой мощности и проверить все исходные ограничения, включая различие, натуральность, обязательные элементы и целевое отношение. Достижение границы вместе с доказанной оценкой устанавливает минимум.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Общая характеристика набора через сравнение сумм подмножеств&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;m2&quot;,
+      &quot;name&quot;: &quot;Пункт а: исключение числа по остатку&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;m3&quot;,
+      &quot;name&quot;: &quot;Пункт б: противоречие для остатка кратного&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s4&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;m4&quot;,
+      &quot;name&quot;: &quot;Пункт в: нижняя граница из квадратного сравнения и достигающий пример&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s5&quot;,
+        &quot;s6&quot;,
+        &quot;s7&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;F89087&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;Обе суммы делятся на k, поэтому их разность x−y делится на k.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_e3fb5cdd2965&quot;,
+          &quot;reason&quot;: &quot;Определение связывает остатки с количеством слагаемых; здесь выбираются два перекрывающихся подмножества и вычитанием выделяется разность заменённых элементов.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдается специальный переход от делимости сумм подмножеств к делимости любой попарной разности. Возможность общей части из k−1 элементов обоснована восемью доступными числами. Соответствующего целого действия в каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Выводить делимость попарных разностей сравнением сумм подмножеств&quot;,
+        &quot;definition&quot;: &quot;При делимости сумм всех подмножеств заданной мощности на один модуль выбрать два подмножества с общей частью и разными одиночными элементами, проверить наличие достаточного числа элементов и вычесть суммы, получая делимость разности этих элементов.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;Следовательно, x−y делится на НОК(3,4,5,6)=60.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_e3fb5cdd2965&quot;,
+          &quot;reason&quot;: &quot;Получение необходимого ограничения на сумму по остаткам не включает объединение нескольких делимостей через НОК.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+          &quot;reason&quot;: &quot;Общее совмещение ограничений не описывает вычисление НОК и теорему о совместной делимости; это другой уровень операции.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Для одной целой разности объединены делимости на 3,4,5,6, включая невзаимно простые делители. Каталог не содержит соответствующей арифметической операции.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Объединять делимости через НОК&quot;,
+        &quot;definition&quot;: &quot;Из делимости целого числа на каждый из нескольких положительных целых делителей получить делимость на их наименьшее общее кратное, вычислив его без предположения попарной взаимной простоты.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;Все числа сравнимы с 30033 по модулю 60, то есть имеют остаток 33.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;Обратно, если все числа имеют вид 33+60t, сумма любых k из них равна 33k+60T и делится на k при k=3,4,5,6.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_e3fb5cdd2965&quot;,
+          &quot;reason&quot;: &quot;Узел даёт необходимое ограничение по модулю для суммы, но не покрывает одновременно восстановление общего остатка по известному элементу и доказательство достаточности для всех разрешённых мощностей.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат соединяет два направленных действия: определение общего класса вычетов из попарных разностей и известного элемента, затем доказательство достаточности через сумму произвольного подмножества. Одно соответствие узкому определению потеряет второе направление.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;name&quot;: &quot;Определять общий остаток по попарным разностям и известному элементу&quot;,
+            &quot;catalog_kc_id&quot;: null,
+            &quot;definition&quot;: &quot;Из делимости всех попарных разностей на модуль и известного элемента установить общий класс вычетов всех элементов.&quot;
+          },
+          {
+            &quot;name&quot;: &quot;Доказывать целочисленность средних представлением сумм&quot;,
+            &quot;catalog_kc_id&quot;: null,
+            &quot;definition&quot;: &quot;Для элементов общего вида r+mt и разрешённых мощностей k, делящих m, записать сумму произвольных k элементов как kr+mT и доказать её делимость на k.&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;303 имеет остаток 3 по модулю 60, а требуется остаток 33. Ответ на пункт а): нет.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_e3fb5cdd2965&quot;,
+          &quot;reason&quot;: &quot;Проверяется отдельное число по готовому необходимому остатку, а не выводится ограничение на сумму и количество слагаемых.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+          &quot;reason&quot;: &quot;Определение относится к области определения и промежутку алгебраических решений, не к исключению числа по классу вычетов.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Проверка необходимого класса вычетов наблюдается буквально. Числовые данные не создают отдельного узла, но общего определения такого модульного исключения в каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Исключать число по необходимому классу вычетов&quot;,
+        &quot;definition&quot;: &quot;Вычислить остаток предложенного целого числа по заданному модулю и исключить его допустимость при несовпадении с ранее доказанным необходимым остатком.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc5&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;Если y=31x и x≡33 (mod 60), то y≡31·33≡3 (mod 60), что противоречит y≡33 (mod 60).&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s5:result&quot;,
+          &quot;quote&quot;: &quot;Пусть y=n²x. Из x≡y≡33 (mod 60) следует 60 | 33(n²−1)&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_e3fb5cdd2965&quot;,
+          &quot;reason&quot;: &quot;Каталожное определение ограничено суммой целых чисел и количеством слагаемых, здесь используется мультипликативная связь двух чисел.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_48d7fd02cfd9&quot;,
+          &quot;reason&quot;: &quot;Подстановка линейной связи в другое уравнение не покрывает переход к сравнению и проверку совместимости остатков.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;В двух шагах выполнена одна переносимая операция: в равенстве с целым множителем заменены числа их классами вычетов, что даёт противоречие или ограничение на множитель. Сокращение делимости в s5 относится к следующему кандидату.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Выводить ограничение на целый множитель через вычеты&quot;,
+        &quot;definition&quot;: &quot;Для целых x,y,q с y=qx и установленными остатками x,y по общему модулю подставить эти остатки в равенство и вывести необходимое сравнение на q или несовместимость фиксированного q.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc6&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s5:result&quot;,
+          &quot;quote&quot;: &quot;60 | 33(n²−1), или, после сокращения на НОД(33,60)=3, 20 | (n²−1).&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_7570fa06d474&quot;,
+          &quot;reason&quot;: &quot;Узел сокращает числитель и знаменатель дроби при ненулевом множителе; сокращение делимости требует НОД и взаимной простоты, это не та же операция.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Переход от делимости произведения к делимости второго множителя с уменьшением модуля на НОД математически корректен; такого определения каталог не содержит.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Сокращать условие делимости через НОД&quot;,
+        &quot;definition&quot;: &quot;Для целых a,u и положительного m заменить m | au эквивалентным условием m/d | u, где d=НОД(a,m), опираясь на взаимную простоту a/d и m/d.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc7&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s6:result&quot;,
+          &quot;quote&quot;: &quot;Сравнение n²≡1 (mod 20) требует нечётности n и n≡1 или −1 (mod 5).&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s6:result&quot;,
+          &quot;quote&quot;: &quot;Среди чисел от 2 до 8 остатки ±1 по модулю 5 имеют только 4 и 6, но они чётные. Число 9 подходит: 9²−1=80 делится на 20. Следовательно, n≥9.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s5:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;finite_exhaustion&quot;,
+          &quot;reason&quot;: &quot;Подходит к исключению всего конечного диапазона 2–8, но не покрывает предварительное получение условий на остатки из квадратного сравнения.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_e3fb5cdd2965&quot;,
+          &quot;reason&quot;: &quot;Определение о суммах и числе слагаемых не является решением квадратного сравнения.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат объединяет вывод ограничений для квадратного сравнения и доказательство минимальности полным исключением меньших значений. Перебор не произвольный: n&gt;1 уже получено в s5, проверка остатков и чётности исключает все 2–8.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;name&quot;: &quot;Выводить ограничения на остатки из квадратного сравнения&quot;,
+            &quot;catalog_kc_id&quot;: null,
+            &quot;definition&quot;: &quot;Перейти от квадратного сравнения к необходимым условиям по делителям модуля и определить разрешённые остатки и чётность переменной.&quot;
+          },
+          {
+            &quot;name&quot;: &quot;Исключать все меньшие целочисленные кандидаты&quot;,
+            &quot;catalog_kc_id&quot;: &quot;finite_exhaustion&quot;,
+            &quot;definition&quot;: &quot;Установить конечный диапазон меньших допустимых натуральных чисел, исключить все его элементы по доказанным ограничениям и проверить первый оставшийся кандидат.&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc8&quot;,
+      &quot;status&quot;: &quot;uncertain&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s7:result&quot;,
+          &quot;quote&quot;: &quot;Подходит набор {33,93,153,213,273,333,393,453,2673,30033}.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s7:result&quot;,
+          &quot;quote&quot;: &quot;В нём ровно десять различных натуральных чисел, все имеют остаток 33 по модулю 60, и включено 30033. Поэтому все требуемые средние целые. При этом 2673/33=81=9². Нижняя граница достигается, и ответ на пункт в): 9.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s2:result&quot;,
+        &quot;step:s6:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;optimal_bound_attainment&quot;,
+          &quot;reason&quot;: &quot;Подходит к общей оценке и достигающему объекту с использованием s6, но пересекается с отдельным узлом о достижимости допустимым примером.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_f6b803c5f9c2&quot;,
+          &quot;reason&quot;: &quot;Предъявление целочисленного объекта и проверка ограничений соответствует действию; определение отдельно упоминает максимум, не запрещая минимум. Правило выбора относительно optimal_bound_attainment не дано.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;integer_construction&quot;,
+          &quot;reason&quot;: &quot;Покрывает построение и проверку объекта, но само по себе не включает заключение об оптимальности.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a873d91378ab&quot;,
+          &quot;reason&quot;: &quot;Проверка граничного ответа близка, однако здесь требуется строить весь набор, а не только подставить границу в готовую модель.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Достигающий набор и все необходимые проверки наблюдаются, арифметических препятствий не видно. Однако два определения каталога перекрываются на этом действии: общее доказательство оценкой и достижимостью и проверка достижимости целочисленным примером. Без правила их границ единственный ID выбрать нельзя.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;boundary&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s6:result&quot;,
+        &quot;step:s7:result&quot;
+      ],
+      &quot;description&quot;: &quot;Для достижения минимума явным целочисленным набором пересекаются optimal_bound_attainment и literal_f6b803c5f9c2; требуется правило выбора общего доказательного действия и проверки достигающего примера. Это не математическая ошибка решения.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc8&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>DcF3c4</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Найдите значение выражения <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mfrac> <mrow> <mn>2</mn><mi>sin</mi><mn>70</mn><mi>°</mi> </mrow> <mrow> <mi>cos</mi><mn>35</mn><mi>°</mi><mo>⋅</mo><mi>cos</mi><mn>55</mn><mi>°</mi> </mrow> </mfrac> <mo>.</mo> </mrow> </semantics> </math> <span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;DcF3c4&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;4&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Применить формулу синуса двойного угла и формулу приведения косинуса дополнительного угла.&quot;,
+      &quot;result&quot;: &quot;sin70°=2sin35°cos35°; cos55°=sin35°. Поэтому выражение равно 4sin35°cos35°/(cos35°sin35°).&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;,
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Сократить ненулевые общие множители числителя и знаменателя.&quot;,
+      &quot;result&quot;: &quot;Поскольку 35° — острый угол, sin35° и cos35° положительны. Сокращение допустимо, значение выражения равно 4.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Преобразовывать синус двойного угла&quot;,
+      &quot;description&quot;: &quot;Для синуса угла, представимого как удвоенный аргумент, применять тождество sin(2α)=2sinαcosα; тождество справедливо для любого действительного аргумента.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Выражать косинус дополнительного угла через синус&quot;,
+      &quot;description&quot;: &quot;Для косинуса угла вида 90°−α применять тождество cos(90°−α)=sinα, согласуя единицы измерения углов.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Сокращать общие ненулевые множители дроби&quot;,
+      &quot;description&quot;: &quot;При наличии одинаковых множителей в числителе и знаменателе проверить их ненулевое значение и сократить, сохранив ограничения исходного знаменателя.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Приведение тригонометрических функций к общему аргументу с последующим сокращением&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;DcF3c4&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_3d70ab3eb24a&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;sin70°=2sin35°cos35°&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;,
+          &quot;reason&quot;: &quot;Описывает комплексное сведение формулами приведения и двойного угла; локальный кандидат охватывает только формулу двойного угла.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_55d5a6d9eb3c&quot;,
+          &quot;reason&quot;: &quot;Общее сведение к одной функции шире локальной замены синуса удвоенного аргумента; отдельное определение literal_3d70ab3eb24a прямо задаёт наблюдаемую операцию.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;В s1 синус удвоенного аргумента 70° заменён произведением 2sin35°cos35°. Это целиком одна из двух явно разрешённых направлений замены в определении выбранного узла. Дополнительных условий, кроме согласованной градусной меры, тождество не требует.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;cos55°=sin35°&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;,
+          &quot;reason&quot;: &quot;Кандидат является компонентом общего преобразования формулами приведения и двойного угла, а не всем определённым действием сведения выражения.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_55d5a6d9eb3c&quot;,
+          &quot;reason&quot;: &quot;Узел охватывает сведение к одной тригонометрической функции с использованием формул приведения и двойного угла; здесь локально выделена лишь замена косинуса дополнительного угла.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_3d70ab3eb24a&quot;,
+          &quot;reason&quot;: &quot;Определение касается двойного угла, а не взаимного перехода косинуса и синуса дополнительных углов.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдается замена cos55° на sin35° при 55°=90°−35°. Полный каталог просмотрен: отдельного определения этой операции нет. Общие тригонометрические узлы задают более широкое составное действие; соответствие компонента не приравнивается к полному match.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Выражать косинус дополнительного угла через синус&quot;,
+        &quot;definition&quot;: &quot;При согласованных единицах углов заменить cos(90°−α) на sinα (или cos(π/2−α) на sinα в радианах), проверив соотношение аргументов. Это отдельная замена по формуле приведения, без включения преобразования двойного угла.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_7570fa06d474&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Сократить ненулевые общие множители числителя и знаменателя.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;Поскольку 35° — острый угол, sin35° и cos35° положительны. Сокращение допустимо, значение выражения равно 4.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+          &quot;reason&quot;: &quot;Учитывает исключения знаменателя, но не само сокращение общих множителей.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_695d7a370e3b&quot;,
+          &quot;reason&quot;: &quot;Требует отношения синуса к косинусу как тангенса; тангенс в данном сокращении не используется.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Из s1 получена дробь с общими множителями sin35° и cos35°. В s2 их положительность явно обоснована остротой угла; оба множителя сокращены, остаётся 4. Операция, ненулевость и результат полностью соответствуют определению.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>55A294</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">В телевизоре ёмкость высоковольтного конденсатора <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>C</mi><mo>=</mo><mn>8</mn><mo>⋅</mo><msup> <mrow> <mn>10</mn> </mrow> <mrow> <mo>−</mo><mtext> </mtext><mn>6</mn> </mrow> </msup> <mtext> </mtext><mtext>Ф</mtext><mtext>.</mtext> </mrow> </semantics> </math> Параллельно с конденсатором подключён резистор с сопротивлением <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>R</mi><mo>=</mo><mn>5</mn><mo>⋅</mo><msup> <mrow> <mn>10</mn> </mrow> <mn>6</mn> </msup> <mtext> </mtext><mtext>Ом</mtext><mtext>.</mtext> </mrow> </semantics> </math> Во время работы телевизора напряжение на конденсаторе <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msub> <mi>U</mi> <mn>0</mn> </msub> <mtext> </mtext><mo>=</mo><mn>56</mn><mtext> </mtext><mtext>кВ</mtext><mtext>.</mtext> </mrow> </semantics> </math> После выключения телевизора напряжение на конденсаторе убывает до значения <span><img src="file:///C:/Users/U_M35CB/Documents/%D0%92%D0%A8%D0%AD/proactive-ai-tutor-65/data/annotation/runs/2026-11-02-fipi-extension-150/inputs/assets/dce1e0b6083ab94a79451fcb.png" alt="Рисунок ФИПИ"></span> (в киловольтах) за время (в секундах), определяемое выражением <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>t</mi><mo>=</mo><mi>α</mi><mi>R</mi><mi>C</mi><msub> <mrow> <mi>log</mi> </mrow> <mn>2</mn> </msub> <mfrac> <mrow> <msub> <mi>U</mi> <mn>0</mn> </msub> </mrow> <mi>U</mi> </mfrac> </mrow> </semantics> </math>, где <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>α</mi><mo>=</mo><mn>1,5</mn> </mrow> </semantics> </math> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> постоянная. Определите напряжение на конденсаторе, если после выключения телевизора прошло <br> 180 секунд. Ответ дайте в киловольтах.<span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;55A294&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;7&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Подставить параметры и прошедшее время в заданную формулу, учитывая положительность напряжения.&quot;,
+      &quot;result&quot;: &quot;U&gt;0; RC=(5·10^6)(8·10^−6)=40, поэтому 180=60·log₂(56/U), откуда log₂(56/U)=3.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Перейти от логарифмического равенства к показательному и найти напряжение.&quot;,
+      &quot;result&quot;: &quot;56/U=2³=8, поэтому U=7 кВ. Значение положительно и меньше начального напряжения.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;condition&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;k1&quot;,
+      &quot;name&quot;: &quot;Подставлять данные в логарифмическую формулу величины&quot;,
+      &quot;description&quot;: &quot;При заданных значениях параметров и одной неизвестной величине подставить данные в формулу с логарифмом, вычислить числовые коэффициенты и выделить логарифм; аргумент логарифма должен быть положительным, единицы величин — согласованными с формулой.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k2&quot;,
+      &quot;name&quot;: &quot;Находить неизвестное в аргументе логарифма по определению&quot;,
+      &quot;description&quot;: &quot;Для равенства логарифма положительного отношения числу перейти к равенству отношения степени основания и вычислить неизвестный знаменатель, проверив положительность; основание логарифма положительно и отлично от единицы.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Подстановка в формулу разрядки и применение определения логарифма&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;55A294&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;k1&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Подставить параметры и прошедшее время в заданную формулу, учитывая положительность напряжения.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;U&gt;0; RC=(5·10^6)(8·10^−6)=40, поэтому 180=60·log₂(56/U), откуда log₂(56/U)=3.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+          &quot;reason&quot;: &quot;Здесь не вычисляется значение функции по заданному аргументу: подстановка физических параметров даёт соотношение с неизвестным напряжением.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+          &quot;reason&quot;: &quot;Деление числового соотношения на 60 присутствует как простое приведение результата подстановки; этот узел не описывает весь кандидат, включая сопоставление параметров с формулой.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_cb48e5bc61de&quot;,
+          &quot;reason&quot;: &quot;Ограничение в неравенство не переводится; время задано точным равенством.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдается подстановка C, R, U0, α и t в уже данную физическую формулу с сохранением согласованных единиц. Вычисление RC и коэффициента 60, затем деление на него дают числовое соотношение; это арифметическое оформление подстановки, без вывода модели или снятия логарифма. Логарифмическая форма формулы сама не образует другой KC. Положительность U зафиксирована, напряжения U0 и U используются в киловольтах, как задано в условии.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;k2&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_9a635e89ccb3&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Перейти от логарифмического равенства к показательному и найти напряжение.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;56/U=2³=8, поэтому U=7 кВ. Значение положительно и меньше начального напряжения.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_d66dd830e876&quot;,
+          &quot;reason&quot;: &quot;Вычислять числовое значение логарифма не требуется: его значение 3 уже установлено, ищется неизвестное в аргументе.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_2443f08dda82&quot;,
+          &quot;reason&quot;: &quot;Не записано равенство двух логарифмов; непосредственно применено определение к равенству логарифма числу.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+          &quot;reason&quot;: &quot;Нет приведения степеней к общему основанию и приравнивания показателей.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_9698b97fef22&quot;,
+          &quot;reason&quot;: &quot;Этот узел описывает преобразование рационального уравнения с ограничениями знаменателей, но не основное действие снятия логарифма по определению.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Из входного равенства log₂(56/U)=3 при U&gt;0 выполнен переход к 56/U=2³, затем найдено U=7 и проверена положительность. Основание 2 допустимо, аргумент положителен по состоянию s1. Это решение простейшего логарифмического уравнения по определению; элементарное нахождение неизвестного знаменателя завершает это действие, отдельная дробная модель или новый нелинейный метод не вводятся.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>6ABF35</h2><p>Впишите правильный ответ.</p><div><section> <p class="Basis">Первая труба пропускает на 4 литра воды в минуту меньше, чем вторая. Сколько литров воды в минуту пропускает первая труба, если резервуар объёмом 285 литров она заполняет на 4 минуты дольше, чем вторая труба?</p> </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;6ABF35&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;15&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Обозначить производительность первой трубы через x и составить уравнение по разности времени заполнения.&quot;,
+      &quot;result&quot;: &quot;x &gt; 0; производительность второй трубы равна x + 4 л/мин. Время заполнения первой трубой — 285/x мин, второй — 285/(x + 4) мин. Получаем 285/x - 285/(x + 4) = 4.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Устранить знаменатели и привести рациональное уравнение к квадратному при заданном ограничении.&quot;,
+      &quot;result&quot;: &quot;При x &gt; 0 оба знаменателя ненулевые. После умножения на x(x + 4): 1140 = 4x(x + 4), откуда x² + 4x - 285 = 0.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Решить полученное квадратное уравнение.&quot;,
+      &quot;result&quot;: &quot;D = 4² - 4·1·(-285) = 1156 = 34². Корни: x = (-4 + 34)/2 = 15 и x = (-4 - 34)/2 = -19.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Отобрать допустимую производительность и проверить разность времени заполнения.&quot;,
+      &quot;result&quot;: &quot;Корень -19 не удовлетворяет x &gt; 0. Для x = 15 вторая труба пропускает 19 л/мин; времена заполнения равны 19 и 15 минутам, разность составляет 4 минуты. Первая труба пропускает 15 л/мин.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Составлять уравнение по разности времени выполнения фиксированного объёма работы&quot;,
+      &quot;description&quot;: &quot;По объёму работы, связи положительных производительностей и разности времён выразить время как отношение объёма к производительности и приравнять разность времён заданной величине; применяется при постоянной производительности.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Приводить рациональное уравнение к многочленному устранением знаменателей&quot;,
+      &quot;description&quot;: &quot;Для рационального уравнения установить ненулевые знаменатели на допустимой области, умножить обе части на общий знаменатель и упростить полученное равносильное уравнение в этой области.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Решать квадратное уравнение через дискриминант&quot;,
+      &quot;description&quot;: &quot;Для квадратного уравнения с ненулевым старшим коэффициентом вычислить дискриминант и найти все действительные корни по формуле, учитывая знак дискриминанта.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Отбирать корни уравнения по ограничениям текстовой задачи&quot;,
+      &quot;description&quot;: &quot;По найденным корням и ограничениям моделируемой величины исключить недопустимые значения и проверить оставшиеся подстановкой в исходные отношения ситуации.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Моделирование разности времени заполнения рациональным уравнением&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;6ABF35&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;x &gt; 0; производительность второй трубы равна x + 4 л/мин. Время заполнения первой трубой — 285/x мин, второй — 285/(x + 4) мин. Получаем 285/x - 285/(x + 4) = 4.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_63c80a69a122&quot;,
+          &quot;reason&quot;: &quot;Определение требует движения по течению и против течения со скоростями v±c и отделения стоянки. Здесь строится модель наполнения по разности производительностей; общая формула времени является компонентом, но не даёт полного соответствия.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+          &quot;reason&quot;: &quot;Этот узел ограничен подстановкой в данную формулу и исключает вывод модели. В условии формула не дана; в s1 строятся зависимости времени и уравнение.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_cb48e5bc61de&quot;,
+          &quot;reason&quot;: &quot;Определение относится к построению неравенства по прикладной формуле, здесь строится равенство разности времён.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Просмотренный каталог не содержит определения построения такой модели производительности. Наблюдается единое моделирующее действие: по фиксированному объёму и связанным положительным производительностям выразить времена и составить уравнение их разности. Числовая специфика труб нового KC не создаёт.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Составлять уравнение по разности времени выполнения фиксированного объёма работы&quot;,
+        &quot;definition&quot;: &quot;При постоянных положительных производительностях выразить время выполнения заданного объёма как отношение объёма к производительности, учесть заданную связь производительностей и составить уравнение по известной разности времён.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_9698b97fef22&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;При x &gt; 0 оба знаменателя ненулевые. После умножения на x(x + 4): 1140 = 4x(x + 4), откуда x² + 4x - 285 = 0.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+          &quot;reason&quot;: &quot;Сохранение ненулевых знаменателей является только компонентом; узел не охватывает умножение уравнения на общий знаменатель.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Для рационального уравнения из s1 указана ненулевость обоих знаменателей на x&gt;0, выполнено умножение на их произведение и упрощение. Это целиком соответствует определению, без добавления запрещённых значений в сохранённой области.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;D = 4² - 4·1·(-285) = 1156 = 34². Корни: x = (-4 + 34)/2 = 15 и x = (-4 - 34)/2 = -19.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_57e72251d4a8&quot;,
+          &quot;reason&quot;: &quot;Здесь решается общее квадратное уравнение с линейным членом через дискриминант, а не уравнение квадрата, равного константе.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Уравнение s2 имеет старший коэффициент 1. В s3 вычислен положительный дискриминант и по формуле найдены оба действительных корня; операция и результат полностью соответствуют узлу.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;Корень -19 не удовлетворяет x &gt; 0. Для x = 15 вторая труба пропускает 19 л/мин; времена заполнения равны 19 и 15 минутам, разность составляет 4 минуты. Первая труба пропускает 15 л/мин.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;,
+        &quot;step:s3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+          &quot;reason&quot;: &quot;Общий узел совмещения ограничений не отражает наблюдаемую проверку физического смысла и исходного соотношения; специальное определение literal_c840012ba3dd охватывает действие целиком.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Положительность производительности задана моделью s1; корни получены в s3. В s4 отрицательный корень исключён и допустимый проверен по исходной разности времён. Отбор и проверка составляют одно предусмотренное определением действие.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>8B91B1</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">В июле 2020 года планируется взять кредит в банке на некоторую сумму. Условия его возврата таковы:</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mo>—</mo>  </semantics> </mstyle></math> каждый январь долг увеличивается на 10% по сравнению с концом предыдущего года;</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mo>—</mo>  </semantics> </mstyle></math> с февраля по июнь каждого года необходимо выплатить одним платежом часть долга.</p> <p class="MsoNormal">Сколько рублей планируется взять в банке, если известно, что кредит будет полностью погашен тремя равными платежами (то есть за три года) и общая сумма выплат после полного погашения кредита на 40 980 рублей больше суммы, взятой в кредит?<span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;8B91B1&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;198600 рублей&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Обозначить сумму кредита через S, равный ежегодный платёж через P и выразить остатки долга после трёх платежей с учётом январских процентов.&quot;,
+      &quot;result&quot;: &quot;S&gt;0, P&gt;0. После первого платежа долг равен 1,1S−P, после второго — 1,21S−2,1P, после третьего — 1,331S−3,31P. Полное погашение даёт 1,331S−3,31P=0.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Составить уравнение по превышению общей суммы выплат над суммой кредита.&quot;,
+      &quot;result&quot;: &quot;3P−S=40980, то есть P=(S+40980)/3.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Подставить выражение платежа в условие полного погашения и решить полученное линейное уравнение относительно суммы кредита.&quot;,
+      &quot;result&quot;: &quot;1,331S−3,31(S+40980)/3=0; 0,683S=3,31·40980; S=198600.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k3&quot;,
+        &quot;k4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Проверить найденную сумму по последовательности платежей и величине переплаты.&quot;,
+      &quot;result&quot;: &quot;P=(198600+40980)/3=79860. Остатки после платежей: 138600, 72600, 0 рублей. До третьего платежа долг положителен, третий платёж его полностью погашает; 3·79860−198600=40980 рублей.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;k1&quot;,
+      &quot;name&quot;: &quot;Выразить остаток кредита после начисления процентов и платежа&quot;,
+      &quot;description&quot;: &quot;По начальному долгу, фиксированной процентной ставке и последовательности равных платежей построить рекуррентное изменение долга: сначала умножить остаток на коэффициент роста, затем вычесть платёж. Применяется при указанном порядке начислений и выплат. Полное погашение задаётся нулевым конечным остатком.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k2&quot;,
+      &quot;name&quot;: &quot;Составить уравнение переплаты по равным платежам&quot;,
+      &quot;description&quot;: &quot;По числу равных платежей, сумме кредита и заданному превышению выплат над кредитом выразить общую сумму выплат как произведение числа платежей на один платёж и приравнять разность выплат и кредита переплате.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k3&quot;,
+      &quot;name&quot;: &quot;Исключить неизвестную подстановкой&quot;,
+      &quot;description&quot;: &quot;Имея два уравнения с общими неизвестными и выражение одной неизвестной через другую, подставить это выражение во второе уравнение и получить уравнение с одной неизвестной.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k4&quot;,
+      &quot;name&quot;: &quot;Решить линейное уравнение с числовыми коэффициентами&quot;,
+      &quot;description&quot;: &quot;Для линейного уравнения с одной неизвестной раскрыть скобки, собрать подобные слагаемые и разделить на ненулевой коэффициент при неизвестной, получив единственный корень.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k5&quot;,
+      &quot;name&quot;: &quot;Проверить кредитный расчёт по графику погашения&quot;,
+      &quot;description&quot;: &quot;Для найденных суммы кредита и платежа последовательно пересчитать остатки долга с начислением процентов, проверить положительность промежуточного долга, нулевой конечный остаток и соответствие общей переплаты условию.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Модель остатков долга и уравнение переплаты с исключением платежа&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;8B91B1&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;k1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;После первого платежа долг равен 1,1S−P, после второго — 1,21S−2,1P, после третьего — 1,331S−3,31P. Полное погашение даёт 1,331S−3,31P=0.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:action&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+          &quot;reason&quot;: &quot;Связь процентной части с целым является лишь компонентом начисления; определение не охватывает последовательную смену остатка после начисления и платежа и нулевое конечное состояние.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+          &quot;reason&quot;: &quot;Готовая формула не дана: автор строит модель динамики долга по словесным правилам.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдается построение последовательности остатков долга при фиксированной ставке и равных платежах с заданным порядком операций. Во всём каталоге нет определения, охватывающего это действие целиком. Число периодов не создаёт отдельного узла.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Моделировать последовательное погашение долга с начислением процентов&quot;,
+        &quot;definition&quot;: &quot;По начальному долгу, ставке и порядку начислений и выплат выразить остатки по периодам правилом D_next=(1+r)D−P; при полном погашении задать конечный остаток нулём, сохраняя смысл промежуточного долга.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;k2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Составить уравнение по превышению общей суммы выплат над суммой кредита.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;3P−S=40980&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:action&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+          &quot;reason&quot;: &quot;Определение прямо исключает построение модели; здесь именно перевод условия о переплате в равенство.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_33060533660f&quot;,
+          &quot;reason&quot;: &quot;Модель прибыли и окупаемости связывает выручку, затраты, выпуск и инвестиции; этих объектов и результата здесь нет.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+          &quot;reason&quot;: &quot;Переплата задана абсолютной суммой, процентная доля в этом равенстве не составляется.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;По числу равных платежей и разности выплат и заёмной суммы построено уравнение переплаты. Подходящего определения после просмотра каталога нет; это отдельное действие от динамики остатков и решения уравнения.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Составлять уравнение переплаты при равных платежах&quot;,
+        &quot;definition&quot;: &quot;Выразить общую сумму n равных платежей как nP и связать её с суммой кредита S и заданной абсолютной переплатой C равенством nP−S=C.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;k3&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_0a4ebc8382b5&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;P=(S+40980)/3.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;1,331S−3,31(S+40980)/3=0&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_48d7fd02cfd9&quot;,
+          &quot;reason&quot;: &quot;Это определение ограничено пропорциональной связью y=mx; здесь выражение P содержит ненулевой свободный член.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Из линейного равенства выражен P, затем выражение подставлено в другое равенство, оставляя одну неизвестную S. Деление на 3 допустимо, ограничения не теряются. Общее определение линейной подстановки соответствует целиком.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;k4&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;1,331S−3,31(S+40980)/3=0; 0,683S=3,31·40980; S=198600.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [],
+      &quot;alternatives_checked&quot;: [],
+      &quot;rationale&quot;: &quot;Наблюдается преобразование аффинного уравнения с числовыми коэффициентами к единственному корню; коэффициент 0,683 ненулевой. Построение модели и исключение переменной не включаются в это соответствие.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;k5&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;P=(198600+40980)/3=79860. Остатки после платежей: 138600, 72600, 0 рублей. До третьего платежа долг положителен, третий платёж его полностью погашает; 3·79860−198600=40980 рублей.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;,
+        &quot;step:s3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a873d91378ab&quot;,
+          &quot;reason&quot;: &quot;Здесь проверяется найденный корень модели кредита, а не достижение граничного ответа.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Проверяется алгебраически найденная сумма на физический смысл и исходные соотношения модели: положительность промежуточного долга, полное погашение в третий срок и заданная переплата. Это соответствует проверке корня по условиям модели; кредитный сюжет не требует нового узла.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>87FAA1</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">На рисунке изображены графики функций видов <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>f</mi><mrow><mo>(</mo> <mi>x</mi> <mo>)</mo></mrow><mo>=</mo><mfrac> <mi>k</mi> <mi>x</mi> </mfrac> </mrow> </semantics> </math> и <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>g</mi><mrow><mo>(</mo> <mi>x</mi> <mo>)</mo></mrow><mo>=</mo><mi>a</mi><mi>x</mi><mo>+</mo><mi>b</mi><mo>,</mo> </mrow> </semantics> </math> пересекающиеся в точках <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mi>A</mi> </semantics> </math> и <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>B</mi><mo>.</mo> </mrow> </semantics> </math> Найдите абсциссу точки <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>B</mi><mo>.</mo> </mrow> </semantics> </math><span></span></p> <p class="MsoNormal"><span> </span><span></span></p> <p class="MsoNormal" align="center"><img src="file:///C:/Users/U_M35CB/Documents/%D0%92%D0%A8%D0%AD/proactive-ai-tutor-65/data/annotation/runs/2026-11-02-fipi-extension-150/inputs/assets/330aa8d32adb543bd96a4006.png" alt="Рисунок ФИПИ"></p> <p class="MsoNormal"><span> </span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;87FAA1&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;12&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Считать координаты отмеченной точки пересечения и пересечения прямой с осью ординат по единичной сетке.&quot;,
+      &quot;result&quot;: &quot;A=(-4;-3); прямая g проходит через (0;-2).&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Подставить координаты A в формулу обратной пропорциональности.&quot;,
+      &quot;result&quot;: &quot;k=(-4)·(-3)=12, поэтому f(x)=12/x при x≠0.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Определить коэффициенты линейной функции по двум точкам.&quot;,
+      &quot;result&quot;: &quot;b=-2; a=(-3-(-2))/(-4-0)=1/4. Следовательно, g(x)=x/4-2.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Приравнять значения функций и привести уравнение к квадратному с сохранением ограничения.&quot;,
+      &quot;result&quot;: &quot;12/x=x/4-2, x≠0. Умножение на 4x даёт x²-8x-48=0.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;,
+        &quot;kc5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s5&quot;,
+      &quot;action&quot;: &quot;Разложить квадратный трёхчлен на множители и найти корни.&quot;,
+      &quot;result&quot;: &quot;(x-12)(x+4)=0, откуда x=12 или x=-4; оба значения удовлетворяют x≠0.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc6&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s4&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s6&quot;,
+      &quot;action&quot;: &quot;Выбрать абсциссу второй точки пересечения, исключив известную точку A.&quot;,
+      &quot;result&quot;: &quot;Абсцисса A равна -4, поэтому абсцисса B равна 12.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc7&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;,
+        &quot;s5&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Считывать координаты точек графика по координатной сетке&quot;,
+      &quot;description&quot;: &quot;По графику с обозначенными осями и установленным масштабом определить абсциссу и ординату отмеченной точки либо точки пересечения с осью; применяется, когда положение точки различимо по сетке.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Определять коэффициент обратной пропорциональности по точке графика&quot;,
+      &quot;description&quot;: &quot;Для функции вида y=k/x и известной принадлежащей графику точки с ненулевой абсциссой вычислить k как произведение координат и записать формулу функции с областью определения.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Восстанавливать линейную функцию по двум точкам&quot;,
+      &quot;description&quot;: &quot;По двум точкам с различными абсциссами вычислить угловой коэффициент как отношение приращений и свободный член подстановкой, получив формулу y=ax+b.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Составлять уравнение абсцисс пересечения графиков&quot;,
+      &quot;description&quot;: &quot;При известных формулах двух функций приравнять их значения на общей области определения; решения полученного уравнения задают абсциссы точек пересечения.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc5&quot;,
+      &quot;name&quot;: &quot;Приводить дробно-рациональное уравнение к многочленному&quot;,
+      &quot;description&quot;: &quot;Для уравнения с переменной в знаменателе установить ограничения ненулевых знаменателей и умножить обе части на общий знаменатель, сохранив ограничения при дальнейшем решении.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc6&quot;,
+      &quot;name&quot;: &quot;Решать квадратное уравнение разложением на множители&quot;,
+      &quot;description&quot;: &quot;Для квадратного трёхчлена, допускающего найденное разложение на линейные множители, представить уравнение как нулевое произведение и получить корни из равенства нулю каждого множителя.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc7&quot;,
+      &quot;name&quot;: &quot;Выбирать вторую точку пересечения по известной первой&quot;,
+      &quot;description&quot;: &quot;Из допустимых корней уравнения пересечения исключить абсциссу уже известной точки и сопоставить оставшийся корень искомой второй точке, если условием установлены две различные точки пересечения.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Восстановление формул по графику и решение уравнения пересечения&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;,
+        &quot;s5&quot;,
+        &quot;s6&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;87FAA1&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;graph_coordinates&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;A=(-4;-3); прямая g проходит через (0;-2).&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;image:assets/330aa8d32adb543bd96a4006.png&quot;,
+          &quot;region_description&quot;: &quot;На единичной сетке слева внизу отмечена точка A на пересечении вертикали x=-4 и горизонтали y=-3; прямая пересекает ось y на отметке -2.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [],
+      &quot;alternatives_checked&quot;: [],
+      &quot;rationale&quot;: &quot;Считаны отмеченная точка и пересечение с осью по установленному масштабу; формулы здесь ещё не восстанавливаются.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;k=(-4)·(-3)=12, поэтому f(x)=12/x при x≠0.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;direct_proportion&quot;,
+          &quot;reason&quot;: &quot;Определение относится к y=kx с вычислением отношения координат; здесь y=k/x и произведение координат.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+          &quot;reason&quot;: &quot;Здесь восстанавливается неизвестный коэффициент по точке, а не значение функции по уже установленной формуле.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_f253b50b98a1&quot;,
+          &quot;reason&quot;: &quot;Восстановление линейной функции имеет иной класс функций и требует двух точек.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдается восстановление коэффициента обратной пропорциональности по известной точке с ненулевой абсциссой. Полного определения этого действия в каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Восстанавливать обратную пропорциональность по точке&quot;,
+        &quot;definition&quot;: &quot;Для y=k/x по принадлежащей графику точке (x0,y0), x0≠0, найти k=x0y0 и записать формулу функции при x≠0.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_f253b50b98a1&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;b=-2; a=(-3-(-2))/(-4-0)=1/4. Следовательно, g(x)=x/4-2.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;direct_proportion&quot;,
+          &quot;reason&quot;: &quot;Свободный член ненулевой; используется общая линейная функция по двум точкам.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;По двум точкам с различными абсциссами восстановлены оба коэффициента y=ax+b; определение целиком выполнено.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;graph_intersection&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;12/x=x/4-2, x≠0.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;,
+        &quot;step:s3:result&quot;,
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [],
+      &quot;rationale&quot;: &quot;Установленные значения двух функций приравнены на общей области x≠0. Последующее преобразование отделено кандидатом kc5.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc5&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_9698b97fef22&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;12/x=x/4-2, x≠0. Умножение на 4x даёт x²-8x-48=0.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;,
+        &quot;step:s3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+          &quot;reason&quot;: &quot;Отражает лишь ограничение знаменателя, а кандидат включает также устранение знаменателя умножением.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Ограничение x≠0 сохранено, уравнение умножено на общий знаменатель 4x; полученный многочлен записан верно. Это полное рациональное преобразование по определению.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc6&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s5:result&quot;,
+          &quot;quote&quot;: &quot;(x-12)(x+4)=0, откуда x=12 или x=-4; оба значения удовлетворяют x≠0.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s4:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+          &quot;reason&quot;: &quot;Покрывает получение допустимых корней из произведения, но не само разложение исходного трёхчлена.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+          &quot;reason&quot;: &quot;Факторизация в определении предназначена для исследования знака и учёта кратностей; здесь решается уравнение.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_89adef4e8cee&quot;,
+          &quot;reason&quot;: &quot;Определение требует параметрического трёхчлена и проверки раскрытием скобок; в наблюдении числовой трёхчлен без такой явной проверки.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+          &quot;reason&quot;: &quot;Дискриминант в решении не вычисляется.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Составной кандидат соединяет факторизацию и решение нулевого произведения с проверкой допустимости. Нельзя целиком отнести его к zero_product.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;name&quot;: &quot;Разложить числовой квадратный трёхчлен на линейные множители&quot;,
+            &quot;catalog_kc_id&quot;: null,
+            &quot;definition&quot;: &quot;Представить числовой квадратный трёхчлен как произведение линейных множителей, тождественное исходному выражению.&quot;
+          },
+          {
+            &quot;name&quot;: &quot;Найти допустимые корни нулевого произведения&quot;,
+            &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+            &quot;definition&quot;: &quot;Получить нули каждого множителя, объединить их и проверить на общей области x≠0.&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc7&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s6:result&quot;,
+          &quot;quote&quot;: &quot;Абсцисса A равна -4, поэтому абсцисса B равна 12.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;,
+        &quot;step:s5:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+          &quot;reason&quot;: &quot;Здесь оба корня допустимы; исключение -4 связано с идентификацией уже известной точки, а не с пересечением ограничений допустимости.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+          &quot;reason&quot;: &quot;Не производится проверка корней на физический смысл, область или исходное соотношение; устанавливается, какой из двух корней соответствует второй точке.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;graph_intersection&quot;,
+          &quot;reason&quot;: &quot;Определение заканчивается составлением равенства и не включает соотнесение его корней с обозначенными точками.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;По известной абсциссе A среди двух допустимых корней идентифицирована абсцисса B. Полного определения такого соответствия в каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Идентифицировать вторую точку пересечения среди корней&quot;,
+        &quot;definition&quot;: &quot;Если условием заданы две различные точки пересечения, а уравнение дало две допустимые абсциссы, сопоставить известную абсциссу первой точке и оставшуюся — искомой второй.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>0cc4F3</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal"><span>При выпечке хлеба производится контрольное взвешивание свежей буханки. Известно, что вероятность того, что её масса окажется меньше 810 г, равна 0,95.</span> Вероятность того, что масса буханки окажется больше 790 г, равна 0,86. Найдите вероятность того, что масса буханки окажется больше 790 г, но меньше 810 г.</p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;0cc4F3&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;0,81&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Обозначить события A={масса меньше 810 г}, B={масса больше 790 г} и установить вероятность объединения.&quot;,
+      &quot;result&quot;: &quot;Любая масса удовлетворяет хотя бы одному из неравенств, поэтому P(A∪B)=1. Искомое событие — A∩B.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Применить формулу вероятности объединения и выразить вероятность пересечения.&quot;,
+      &quot;result&quot;: &quot;P(A∩B)=P(A)+P(B)−P(A∪B)=0,95+0,86−1=0,81.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Установить достоверность объединения событий по числовым ограничениям&quot;,
+      &quot;description&quot;: &quot;Для событий, заданных неравенствами одной случайной величины, проверить покрытие всех возможных значений их объединением; при полном покрытии установить вероятность объединения равной единице, учитывая строгость границ.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Вычислить вероятность пересечения по формуле сложения вероятностей&quot;,
+      &quot;description&quot;: &quot;По вероятностям двух событий и их объединения вычислить вероятность пересечения как сумму вероятностей событий за вычетом вероятности объединения; независимость не требуется.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Достоверное объединение и формула сложения вероятностей&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>
