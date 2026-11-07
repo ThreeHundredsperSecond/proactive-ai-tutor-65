@@ -15,6 +15,10 @@ Commands (from the repository root):
   exec-finish    --run DIR --role author|auditor --task ID [--agent-id X] [--message TEXT]
   validate       --run DIR --role author|auditor --task ID
   status         --run DIR
+  health-render  --run DIR --batch N       (needs .venv with lxml/Pillow and Google Chrome)
+  health-math    --run DIR --batch N
+  health-visual  --run DIR --batch N --reviewer TEXT [--findings JSON]
+  health-finish  --run DIR --batch N
 """
 import argparse
 import hashlib
@@ -307,9 +311,140 @@ def status(a):
     print(json.dumps({'reservation': res['status'], 'issue': res['issue_url'], 'batches': rows}, ensure_ascii=False, indent=1))
 
 
+CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+
+
+def batch_ids(run, b):
+    return read(run / 'manifest.json')['batches'][str(b)]
+
+
+def norm_answer(s):
+    s = str(s).lower().replace('−', '-').replace('∞', 'inf').replace('∪', 'u').replace('union', 'u')
+    s = s.replace(';', ',').replace(' ', '').replace(' ', '')
+    try:
+        return repr(float(s.replace(',', '.')))
+    except ValueError:
+        return s
+
+
+def health_render(a):
+    """Same cards and browser assertions as health_fipi_extension.render; macOS Chrome path."""
+    import tempfile
+    from lxml import html as lhtml
+    from PIL import Image
+    import health_fipi_extension as hx
+    run = run_dir(a.run); b = a.batch
+    hx.RUN = run
+    ids = batch_ids(run, b)
+    plan = read(run / 'checks' / f'batch-{b:02}-sample-plan.json')
+    assert set(plan['task_ids']) <= set(ids)
+    results = []
+    for label, group in [('all', ids)] + [(t, [t]) for t in plan['task_ids']]:
+        page = run / 'checks' / f'batch-{b:02}-{label}.html'
+        page.write_text(hx.document(''.join(hx.card(t) for t in group)), encoding='utf-8')
+        png = page.with_suffix('.png')
+        with tempfile.TemporaryDirectory() as profile:
+            common = [CHROME, '--headless', '--disable-gpu', '--no-first-run', '--no-default-browser-check',
+                      '--user-data-dir=' + profile, '--window-size=1600,2200', '--virtual-time-budget=1000']
+            dom = subprocess.run(common + ['--dump-dom', page.as_uri()], capture_output=True, timeout=120)
+            shot = subprocess.run(common + ['--screenshot=' + str(png), page.as_uri()], capture_output=True, timeout=120)
+        assert dom.returncode == 0 and shot.returncode == 0 and png.exists(), (dom.stderr + shot.stderr).decode(errors='replace')[-400:]
+        h = json.loads(lhtml.fromstring(dom.stdout.decode('utf-8')).xpath('//body/@data-health')[0])
+        inputs = [read(run / 'inputs/tasks' / (t + '.json')) for t in group]
+        assert h['math'] == sum(r['mathml_count'] for r in inputs) and h['mfenced'] == 0 and h['math_ok'], h
+        assert len(h['images']) == sum(len(r['assets']) for r in inputs) and all(h['images']), h
+        assert h['width'] <= 1600, h
+        with Image.open(png) as im:
+            im.verify()
+        results.append({'label': label, 'task_ids': group, 'browser': h,
+                        'screenshot': {'path': rel(png), 'sha256': fsha(png)}, 'html': {'path': rel(page), 'sha256': fsha(page)}})
+    out = run / 'checks' / f'batch-{b:02}-render.json'
+    freeze(out, {'batch': b, 'status': 'technical_pass', 'browser': 'Google Chrome headless (macOS)', 'cards': results})
+    print(rel(out))
+
+
+def health_math(a):
+    """Compare predeclared expectations (written before any author answer) with active author answers."""
+    run = run_dir(a.run); b = a.batch
+    plan = read(run / 'checks' / f'batch-{b:02}-sample-plan.json')
+    expected = {}
+    for kind in ['math-expected', 'math-supplement']:
+        p = run / 'checks' / f'batch-{b:02}-{kind}.json'
+        if p.exists():
+            for c in read(p)['checks']:
+                if c.get('status') == 'independent_expected_before_author' or c['task_id'] not in expected:
+                    expected[c['task_id']] = {**c, 'source': 'checks/' + p.name}
+    checks = []
+    for t in plan['task_ids']:
+        e = expected.get(t, {'status': 'not_checked', 'source': None})
+        ans = read(active(run, t, 'author'))['answer']
+        if e.get('status') == 'independent_expected_before_author':
+            status = 'match' if norm_answer(e['expected_answer']) == norm_answer(ans) else 'mismatch'
+        else:
+            status = 'not_checked'
+        checks.append({'task_id': t, 'status': status, 'expected_answer': e.get('expected_answer'), 'author_answer': ans,
+                       'calculation': e.get('calculation'), 'expectation_source': e['source'],
+                       'prepared_before_new_author_answers': e.get('prepared_before_new_author_answers', False),
+                       'scope': 'Predeclared primary-assistant spot expectation from the 2026-11-02 run; not full expert proof'})
+    out = run / 'checks' / f'batch-{b:02}-math.json'
+    freeze(out, {'batch': b, 'checks': checks, 'systemic_unresolved': any(c['status'] == 'mismatch' for c in checks),
+                 'recorded_at': now()})
+    print(json.dumps(checks, ensure_ascii=False, indent=1))
+
+
+def health_visual(a):
+    """Record an actual look at the rendered screenshots; reviewer and findings are given explicitly."""
+    run = run_dir(a.run); b = a.batch
+    plan = read(run / 'checks' / f'batch-{b:02}-sample-plan.json')
+    rendered = read(run / 'checks' / f'batch-{b:02}-render.json')
+    findings = json.loads(a.findings) if a.findings else []
+    out = run / 'checks' / f'batch-{b:02}-visual.json'
+    freeze(out, {'batch': b, 'reviewed_ids': plan['task_ids'], 'reviewer': a.reviewer,
+                 'scope': 'Source conditions, images and MathML in Chrome screenshots of the sample cards; not full solution expertise',
+                 'findings': findings, 'systemic_unresolved': False, 'recorded_at': now(),
+                 'screenshots': [c['screenshot'] for c in rendered['cards'] if c['label'] != 'all']})
+    print(rel(out))
+
+
+def health_finish(a):
+    run = run_dir(a.run); b = a.batch; ids = batch_ids(run, b)
+    technical, flags = [], []
+    for t in ids:
+        d = read(active(run, t, 'author')); validate_one(d); assert d['task_id'] == t
+        technical.append(check(run, 'auditor', t))
+        q = read(active(run, t, 'auditor'))
+        if d['solution_status'] != 'solved' or q['issues']:
+            flags.append({'task_id': t, 'solution_status': d['solution_status'], 'issues': q['issues']})
+    rendered = read(run / 'checks' / f'batch-{b:02}-render.json')
+    visual = read(run / 'checks' / f'batch-{b:02}-visual.json')
+    math = read(run / 'checks' / f'batch-{b:02}-math.json')
+    plan = read(run / 'checks' / f'batch-{b:02}-sample-plan.json')
+    assert set(visual['reviewed_ids']) >= set(plan['task_ids'])
+    assert {x['task_id'] for x in math['checks']} >= set(plan['task_ids'])
+    assert not visual.get('systemic_unresolved') and not math.get('systemic_unresolved')
+    quarantine = [t for t in ids if read(active(run, t, 'author'))['solution_status'] != 'solved'
+                  or any(i['blocking'] for i in read(active(run, t, 'auditor'))['issues'])]
+    executions = []
+    for t in ids:
+        for role in ['author', 'auditor']:
+            v = read(run / 'validations' / f'{role}-{t}.json')
+            assert v['result']['status'] == 'technical_pass', (role, t)
+            e = run / 'executions' / f'{role}-{t}.json'
+            executions.append({'path': rel(e), 'sha256': fsha(e), 'execution': read(e)})
+    freeze(run / f'batch-execution-{b:02}.json', {'batch': b, 'completed_at': now(), 'tasks': ids, 'executions': executions,
+           'active_attempts': {t: read(run / 'active-attempts.json')[t] for t in ids if t in read(run / 'active-attempts.json')},
+           'technical_validation': 'passed', 'mathematical_correctness': 'not established by coordinator'})
+    freeze(run / 'checks' / f'batch-{b:02}.json', {'batch': b, 'status': 'quarantine' if quarantine else 'pass', 'task_ids': ids,
+           'systemic_unresolved': False, 'technical': technical, 'render': rendered, 'visual_review': visual,
+           'math_spot_checks': math, 'audit_flags': flags, 'quarantined_ids': quarantine})
+    print('Batch health complete:', b, 'quarantine:', quarantine)
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument('command', choices=['prepare', 'reserve', 'verify', 'audit-request', 'exec-start', 'exec-finish', 'validate', 'status'])
+    p.add_argument('command', choices=['prepare', 'reserve', 'verify', 'audit-request', 'exec-start', 'exec-finish', 'validate', 'status',
+                                       'health-render', 'health-math', 'health-visual', 'health-finish'])
+    p.add_argument('--batch', type=int); p.add_argument('--reviewer'); p.add_argument('--findings')
     p.add_argument('--run', required=True)
     p.add_argument('--issue'); p.add_argument('--owner'); p.add_argument('--model')
     p.add_argument('--from-order', type=int); p.add_argument('--to-order', type=int)
@@ -321,7 +456,9 @@ def main():
         print(rel(audit_request(run_dir(a.run), a.task)))
     else:
         {'prepare': prepare, 'reserve': reserve, 'verify': verify, 'exec-start': exec_start,
-         'exec-finish': exec_finish, 'validate': validate, 'status': status}[a.command](a)
+         'exec-finish': exec_finish, 'validate': validate, 'status': status,
+         'health-render': health_render, 'health-math': health_math, 'health-visual': health_visual,
+         'health-finish': health_finish}[a.command](a)
 
 
 if __name__ == '__main__':
