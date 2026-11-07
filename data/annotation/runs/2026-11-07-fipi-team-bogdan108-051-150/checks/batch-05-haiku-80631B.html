@@ -1,0 +1,231 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>80631B</h2><p>Впишите правильный ответ.</p><div><section>  <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0"> <tr> <td valign="top"> <p class="MsoNormal">Конус вписан в шар. Радиус основания конуса равен радиусу шара. Объём шара равен 60. Найдите объём конуса.</p> </td> <td valign="top"> <p class="MsoNormal" align="right"><img src="file:///Users/bogdanlukancuk/proactive-ai-tutor-65/data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/d6bf582bdab4b07d32f77c40.png" alt="Рисунок ФИПИ"></p> </td> </tr> </table> <p class="MsoNormal"><span> </span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;80631B&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;15&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Установить по условию вписанности, что радиус основания конуса равен радиусу шара R, поэтому плоскость основания проходит через центр шара, а вершина конуса лежит на сфере на расстоянии R от центра; высота конуса h = R.&quot;,
+      &quot;result&quot;: &quot;r = R, h = R&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc_1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Записать формулу объёма шара V = (четыре третьих)·π·R³ и из равенства V = 60 найти π·R³.&quot;,
+      &quot;result&quot;: &quot;π·R³ = 45&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc_2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Записать формулу объёма конуса V = (одна третья)·π·r²·h и подставить r = R, h = R, получив V = (одна третья)·π·R³.&quot;,
+      &quot;result&quot;: &quot;V = (1/3)·π·R³&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc_3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Подставить π·R³ = 45 из шага s2 в выражение объёма конуса из шага s3 и вычислить V.&quot;,
+      &quot;result&quot;: &quot;V = 15&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc_3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc_1&quot;,
+      &quot;name&quot;: &quot;Определять размеры конуса, вписанного в шар&quot;,
+      &quot;description&quot;: &quot;Вход: шар радиуса R и конус, основание которого является окружностью на сфере, а вершина лежит на сфере. Операция: если радиус основания равен радиусу шара, то плоскость основания проходит через центр шара, а высота конуса равна радиусу шара. Граница: применяется только к прямому круговому конусу, вписанному в шар.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc_2&quot;,
+      &quot;name&quot;: &quot;Находить произведение степени радиуса шара по его объёму&quot;,
+      &quot;description&quot;: &quot;Вход: известный объём шара. Операция: записать формулу объёма шара через радиус (с коэффициентом четыре третьих и множителем π) и решить полученное линейное равенство относительно π·R³. Граница: применяется, когда неизвестен сам радиус, но известен объём шара.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc_3&quot;,
+      &quot;name&quot;: &quot;Вычислять объём прямого кругового конуса по радиусу основания и высоте&quot;,
+      &quot;description&quot;: &quot;Вход: радиус основания r и высота h прямого кругового конуса. Операция: подставить значения в формулу объёма конуса (с коэффициентом одна треть, множителем π и квадратом радиуса) и упростить. Граница: применяется к прямому круговому конусу с известными радиусом основания и высотой.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Выразить объём конуса через объём шара&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: [
+    &quot;Положение плоскости основания (проходит через центр шара) выводится из условия равенства радиусов и согласуется с рисунком; рисунок используется только как подтверждение, числовых данных с него не снималось.&quot;
+  ]
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;80631B&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc_1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;плоскость основания проходит через центр шара&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;r = R, h = R&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;image:assets/d6bf582bdab4b07d32f77c40.png&quot;,
+          &quot;region_description&quot;: &quot;Сфера с отмеченной точкой центра; вершина конуса отмечена на верхней части поверхности сферы, от неё пунктирными линиями идут рёбра к эллиптическому основанию, которое проходит вблизи отмеченного центра шара. Рисунок только подтверждает расположение, числа с него не снимались.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_1c069a073c08&quot;,
+          &quot;reason&quot;: &quot;Связывает радиус, высоту и образующую прямоугольным треугольником осевого сечения; в шаге s1 соотношение h = R получено из условия вписанности конуса в шар, а не из треугольника конуса.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;pythagoras&quot;,
+          &quot;reason&quot;: &quot;Прямоугольный треугольник с катетами r и h в решении не строится; h = R выводится из равенства радиусов без теоремы Пифагора.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: по равенству радиуса основания и радиуса шара определить положение плоскости основания (через центр шара) и высоту конуса (h = R) для прямого кругового конуса, вписанного в шар. Объект: конус, вписанный в шар. Условия: основание и вершина лежат на сфере, радиус основания равен R. Существующего узла каталога о размещении конуса в шаре нет; ближайший узел по осевому сечению не покрывает это действие. Предлагается новое определение; оно не утверждённый узел. Вывод корректен при условии вписанности (окружность основания лежит на сфере), это условие взято из формулировки задачи.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Определить положение плоскости основания и высоту прямого кругового конуса, вписанного в шар, если радиус основания равен радиусу шара: плоскость основания проходит через центр шара, высота равна радиусу шара.&quot;,
+        &quot;boundary&quot;: &quot;Применяется к прямому круговому конусу, у которого окружность основания и вершина лежат на сфере.&quot;,
+        &quot;note&quot;: &quot;Предложение для рассмотрения, не утверждённый узел каталога.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc_2&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Записать формулу объёма шара V = (четыре третьих)·π·R³ и из равенства V = 60 найти π·R³&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;π·R³ = 45&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+          &quot;reason&quot;: &quot;Часть кандидата: равенство (4/3)·π·X = 60 относительно X = R³ является линейным уравнением с числовыми коэффициентами (π как числовой коэффициент). Целиком кандидат не совпадает, так как включает запись формулы объёма шара.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+          &quot;reason&quot;: &quot;Подстановка в заданную формулу, но определение относится к физическим величинам и согласованию единиц; здесь геометрическая формула без физических данных.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат смешивает два действия: (1) запись формулы объёма шара через радиус, для которой в каталоге отдельного узла нет; (2) решение линейного равенства (4/3)·π·R³ = 60 относительно π·R³, которое соответствует linear_equation. Результат 45 арифметически верен (60·3/4 = 45). Одного узкого KC для всего кандидата нет, поэтому статус needs_split, а не match.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;part&quot;: &quot;Записать формулу объёма шара через радиус&quot;,
+            &quot;possible_catalog_kc_id&quot;: null,
+            &quot;note&quot;: &quot;Отдельного узла для формулы объёма шара в каталоге не найдено.&quot;
+          },
+          {
+            &quot;part&quot;: &quot;Решить равенство (4/3)·π·R³ = 60 относительно π·R³&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;linear_equation&quot;,
+            &quot;note&quot;: &quot;Линейное равенство с числовыми коэффициентами.&quot;
+          }
+        ],
+        &quot;definition&quot;: null
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc_3&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;Записать формулу объёма конуса V = (одна третья)·π·r²·h и подставить r = R, h = R&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;V = (1/3)·π·R³&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;pyramid_volume&quot;,
+          &quot;reason&quot;: &quot;Формула того же вида с коэффициентом 1/3, но определение относится к пирамиде с многоугольным основанием; конус не является пирамидой, поэтому определение не переносится.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_19971b364ca1&quot;,
+          &quot;reason&quot;: &quot;Объём призмы без коэффициента 1/3; не совпадает ни по форме тела, ни по формуле.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+          &quot;reason&quot;: &quot;Общее вычисление значения по формуле; действие на шаге s3 состоит в записи и подстановке формулы объёма конуса, что уже специфично для геометрического тела и не покрывается общей формулировкой.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: записать формулу объёма прямого кругового конуса V = (1/3)·π·r²·h и подставить r = R, h = R с упрощением до (1/3)·π·R³. Объект: прямой круговой конус. Входы: радиус основания и высота, получены на шаге s1. Каталог не содержит узла об объёме конуса; ближайшие узлы относятся к пирамиде и призме. Предлагается новое определение. Шаг s4 помечен как kc_3, но его операция выполняется над уже найденной величиной π·R³ = 45, а не над r и h; это отражено в issue i1 и не учитывается при сопоставлении kc_3.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Вычислять объём прямого кругового конуса: записать формулу V = (1/3)·π·r²·h и подставить известные радиус основания и высоту с упрощением результата.&quot;,
+        &quot;note&quot;: &quot;Формулировка не охватывает шаг s4, см. issue i1.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;missing_annotation&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s4:action&quot;
+      ],
+      &quot;description&quot;: &quot;Шаг s4 размечен как kc_3, но его операция: подстановка уже найденного π·R³ = 45 из шага s2 в выражение (1/3)·π·R³ и вычисление V. Входами kc_3 заявлены радиус основания и высота, а не π·R³. Поэтому разметка шага s4 через kc_3 не подтверждается; отдельного локального кандидата для этого действия нет. Числовой результат V = 15 при этом арифметически верен.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc_3&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>

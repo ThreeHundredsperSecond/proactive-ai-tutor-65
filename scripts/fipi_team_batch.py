@@ -33,6 +33,7 @@ import hashlib
 import importlib.metadata
 import json
 import platform
+import re
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -419,6 +420,8 @@ def batch_ids(run, b):
 def norm_answer(s):
     s = str(s).lower().replace('−', '-').replace('∞', 'inf').replace('∪', 'u').replace('union', 'u')
     s = s.replace(';', ',').replace(' ', '').replace(' ', '')
+    s = re.sub(r'^[a-z](∈|=)', '', s)       # "x ∈ (...)", "x = 5"
+    s = re.sub(r'[а-яё./]+$', '', s)        # trailing units: "км/ч", "рублей"
     try:
         return repr(float(s.replace(',', '.')))
     except ValueError:

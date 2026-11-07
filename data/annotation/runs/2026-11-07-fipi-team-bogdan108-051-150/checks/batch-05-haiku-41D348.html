@@ -1,0 +1,488 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>41D348</h2><p>Дайте развернутый ответ.</p><div><section> <p class="Basis">Решите неравенство <span><img src="file:///Users/bogdanlukancuk/proactive-ai-tutor-65/data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/e6fc07bbca0f96d1cdc6cca1.png" alt="Рисунок ФИПИ"></span></p> </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;41D348&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;x ∈ (−∞; 0) ∪ (0; 1]&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Преобразовать знаменатель по свойству логарифма степени: log_5(2^x) = x·log_5 2.&quot;,
+      &quot;result&quot;: &quot;Знаменатель равен x·log_5 2.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc_log_power&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Найти ОДЗ и знак знаменателя: log_5 2 &gt; 0, поэтому знаменатель не равен нулю при x ≠ 0 и имеет знак x.&quot;,
+      &quot;result&quot;: &quot;x ≠ 0; знаменатель отрицателен при x &lt; 0 и положителен при x &gt; 0.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc_odz&quot;,
+        &quot;kc_log_sign&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Заменить 9^x на (3^x)^2 и обозначить t = 3^x &gt; 0, получив квадратичный относительно t числитель.&quot;,
+      &quot;result&quot;: &quot;Числитель принимает вид t^2 − 4t + 3, где t = 3^x &gt; 0.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc_power_substitution&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Разложить t^2 − 4t + 3 на множители по корням 1 и 3 (их сумма равна 4, произведение равно 3).&quot;,
+      &quot;result&quot;: &quot;Числитель равен (3^x − 1)(3^x − 3).&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc_factor_quadratic&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s5&quot;,
+      &quot;action&quot;: &quot;Определить знаки множителей 3^x − 1 и 3^x − 3 по возрастанию показательной функции с основанием 3.&quot;,
+      &quot;result&quot;: &quot;3^x − 1 &gt; 0 при x &gt; 0 и &lt; 0 при x &lt; 0; 3^x − 3 &gt; 0 при x &gt; 1 и &lt; 0 при x &lt; 1; нули x = 0 и x = 1.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc_exp_sign&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s4&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s6&quot;,
+      &quot;action&quot;: &quot;Найти знак числителя как произведения знаков множителей на промежутках x &lt; 0, 0 &lt; x &lt; 1, x &gt; 1.&quot;,
+      &quot;result&quot;: &quot;Числитель &gt; 0 при x &lt; 0 и x &gt; 1, &lt; 0 при 0 &lt; x &lt; 1, равен 0 при x = 0 и x = 1.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc_sign_product_quotient&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s5&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s7&quot;,
+      &quot;action&quot;: &quot;Определить знак дроби как частного знаков числителя и знаменателя на тех же промежутках, исключив x = 0 по ОДЗ.&quot;,
+      &quot;result&quot;: &quot;Дробь &lt; 0 при x &lt; 0 и 0 &lt; x &lt; 1, равна 0 при x = 1, &gt; 0 при x &gt; 1.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc_sign_product_quotient&quot;,
+        &quot;kc_rational_ineq_interval&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;,
+        &quot;s6&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s8&quot;,
+      &quot;action&quot;: &quot;Выбрать решения неравенства ≤ 0: включить x = 1 (числитель равен нулю, знаменатель не равен нулю) и исключить x = 0.&quot;,
+      &quot;result&quot;: &quot;x ∈ (−∞; 0) ∪ (0; 1].&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc_rational_ineq_interval&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;,
+        &quot;s7&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc_log_power&quot;,
+      &quot;name&quot;: &quot;Преобразовывать_логарифм_степени&quot;,
+      &quot;description&quot;: &quot;Вход: логарифм от степени с положительным основанием и аргументом. Операция: вынести показатель степени множителем перед логарифмом. Граница: основание положительно и не равно единице.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc_odz&quot;,
+      &quot;name&quot;: &quot;Находить_ОДЗ_дробного_выражения&quot;,
+      &quot;description&quot;: &quot;Вход: дробь, знаменатель которой содержит логарифм или другое выражение. Операция: найти значения переменной, при которых выражения определены и знаменатель не равен нулю. Граница: только условия, следующие из записи выражения, без решения неравенства.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc_log_sign&quot;,
+      &quot;name&quot;: &quot;Определять_знак_логарифма&quot;,
+      &quot;description&quot;: &quot;Вход: логарифм с положительным основанием и аргументом. Операция: по основанию и аргументу определить, больше или меньше нуля значение логарифма. Граница: основание больше единицы; знак определяется сравнением аргумента с единицей.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc_power_substitution&quot;,
+      &quot;name&quot;: &quot;Заменять_степень_новой_переменной&quot;,
+      &quot;description&quot;: &quot;Вход: выражение, в котором степени записаны с разными основаниями, связанными кратностью. Операция: записать степень как степень с общим основанием и ввести новую переменную. Граница: новая переменная положительна, если исходная степень положительна.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc_factor_quadratic&quot;,
+      &quot;name&quot;: &quot;Раскладывать_квадратный_трёхчлен_на_множители&quot;,
+      &quot;description&quot;: &quot;Вход: приведённый квадратный трёхчлен, имеющий действительные корни. Операция: найти корни по теореме Виета и записать произведение линейных множителей. Граница: трёхчлен имеет действительные корни.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc_exp_sign&quot;,
+      &quot;name&quot;: &quot;Определять_знак_показательного_двучлена&quot;,
+      &quot;description&quot;: &quot;Вход: разность показательной функции с положительным основанием и постоянной. Операция: по монотонности показательной функции определить промежутки, где разность положительна или отрицательна. Граница: основание больше единицы, постоянная положительна.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc_sign_product_quotient&quot;,
+      &quot;name&quot;: &quot;Определять_знак_произведения_и_частного&quot;,
+      &quot;description&quot;: &quot;Вход: произведение или частное множителей, знаки которых известны на промежутках. Операция: по правилу знаков определить знак результата и точки, где он равен нулю. Граница: множители определены на рассматриваемом промежутке.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc_rational_ineq_interval&quot;,
+      &quot;name&quot;: &quot;Решать_дробное_неравенство_методом_интервалов&quot;,
+      &quot;description&quot;: &quot;Вход: дробь, сравниваемая с нулём, со знаками числителя и знаменателя на промежутках. Операция: выбрать промежутки, удовлетворяющие знаку неравенства, и решить, включать ли граничные точки. Граница: нули знаменателя всегда исключаются, нули числителя включаются при нестрогом неравенстве.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Замена переменной, разложение и метод интервалов&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;,
+        &quot;s5&quot;,
+        &quot;s6&quot;,
+        &quot;s7&quot;,
+        &quot;s8&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: [
+    &quot;Изображение условия низкого разрешения; прочитано как (9^x − 4·3^x + 3) / log_5(2^x) ≤ 0.&quot;
+  ]
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;41D348&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc_log_power&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Преобразовать знаменатель по свойству логарифма степени: log_5(2^x) = x·log_5 2.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;image:assets/e6fc07bbca0f96d1cdc6cca1.png&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+          &quot;reason&quot;: &quot;законы степени (степень степени, произведения, частного) относятся к степеням положительного основания; здесь преобразуется логарифм степени, а не сама степень&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_ad68659d5755&quot;,
+          &quot;reason&quot;: &quot;обратная операция: разность логарифмов в логарифм частного; показатель степени не выносится&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_872613285a26&quot;,
+          &quot;reason&quot;: &quot;переход к общему основанию логарифма; основание не меняется и показатель не выносится&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: показатель степени под логарифмом выносится множителем перед логарифмом. Объект: логарифм степени log_5(2^x) при основании 5 и аргументе 2^x. Условия: основание 5 положительно и не равно единице, основание степени 2 положительно (в шаге это не названо явно, предусловие здесь не приписываю). Подходящего узла в каталоге нет; действие наблюдаемо в s1 целиком.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Выносить_показатель_степени_из_логарифма&quot;,
+        &quot;definition&quot;: &quot;Вход: логарифм степени с положительным основанием и положительным аргументом. Операция: вынести показатель степени множителем перед логарифмом. Граница: основание логарифма положительно и не равно единице; основание степени положительно.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc_odz&quot;,
+      &quot;status&quot;: &quot;uncertain&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Найти ОДЗ и знак знаменателя: log_5 2 &gt; 0, поэтому знаменатель не равен нулю при x ≠ 0 и имеет знак x.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;x ≠ 0; знаменатель отрицателен при x &lt; 0 и положителен при x &gt; 0.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+          &quot;reason&quot;: &quot;наблюдаемая часть шага это нуль знаменателя x = 0 после преобразования, что совпадает с этим узлом; но узел не охватывает определённость логарифма, входящую в kc_odz&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_7baedb55a81a&quot;,
+          &quot;reason&quot;: &quot;область определения логарифма (положительность аргумента 2^x) нужна для полного ОДЗ, но в шаге не показана и не выведена, поэтому подтвердить не могу&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Подтверждено только условие знаменателя: x·log_5 2 не равно нулю при log_5 2 &gt; 0, откуда x ≠ 0. Определённость log_5(2^x) при всех x не названа и не выведена, а kc_odz по определению включает проверку определённости выражений. Полное соответствие не подтверждено; часть действия соответствует denominator_domain.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc_log_sign&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Найти ОДЗ и знак знаменателя: log_5 2 &gt; 0, поэтому знаменатель не равен нулю при x ≠ 0 и имеет знак x.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_eae4ca1f2f8b&quot;,
+          &quot;reason&quot;: &quot;решение логарифмического неравенства сравнением аргумента с учётом основания; здесь определяется знак значения логарифма без сравнения с аргументом&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_2443f08dda82&quot;,
+          &quot;reason&quot;: &quot;равенство логарифмов сводится к равенству аргументов; знак значения логарифма не определяется&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: по основанию 5 и аргументу 2 определить знак log_5 2; результат log_5 2 &gt; 0. Узла про знак значения логарифма в каталоге нет. Шаг утверждает результат без обоснования через основание и аргумент (основание больше единицы, аргумент больше единицы), поэтому полного соответствия определению не показано; см. i1.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Определять_знак_логарифма&quot;,
+        &quot;definition&quot;: &quot;Вход: логарифм с положительным основанием и положительным аргументом. Операция: по основанию и аргументу определить, больше или меньше нуля значение логарифма, сравнив аргумент с единицей. Граница: основание не равно единице; знак определяется сравнением аргумента с единицей с учётом того, больше ли основание единицы.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc_power_substitution&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;Заменить 9^x на (3^x)^2 и обозначить t = 3^x &gt; 0, получив квадратичный относительно t числитель.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;image:assets/e6fc07bbca0f96d1cdc6cca1.png&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a30e088aef8f&quot;,
+          &quot;reason&quot;: &quot;замена t = √x для корня; здесь переменная вводится для показательной функции с основанием 3&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_ab8a29be8367&quot;,
+          &quot;reason&quot;: &quot;замена u = x² для квадратичной связи; здесь переменная является показательной функцией, а не квадратом исходной переменной&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+          &quot;reason&quot;: &quot;запись 9^x = (3^x)^2 входит в шаг, но не является самой заменой; см. i2&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: степень 9^x записана как (3^x)^2 с общим основанием 3, введена t = 3^x; t &gt; 0 следует из положительности 3^x и указано в шаге. Это совпадает с определением exponential_substitution: t = b^x &gt; 0 при b &gt; 0, b ≠ 1, остальные степени согласованы с t (числитель 9^x − 4·3^x + 3 переходит в квадратичный относительно t). Обратный переход и решение неравенств отнесены к другим шагам.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i2&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc_factor_quadratic&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;Разложить t^2 − 4t + 3 на множители по корням 1 и 3 (их сумма равна 4, произведение равно 3).&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;Числитель равен (3^x − 1)(3^x − 3).&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_6241f0b09502&quot;,
+          &quot;reason&quot;: &quot;восстановление квадратной функции по нулям и точке; здесь раскладывается заданный трёхчлен, функция не восстанавливается&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_89adef4e8cee&quot;,
+          &quot;reason&quot;: &quot;факторизация трёхчлена с параметром; параметра здесь нет&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+          &quot;reason&quot;: &quot;корни через дискриминант; здесь корни найдены по теореме Виета, дискриминант не вычислялся&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: корни 1 и 3 найдены по теореме Виета (сумма 4, произведение 3), трёхчлен записан произведением линейных множителей (t − 1)(t − 3); соответствие коэффициентам проверено суммой и произведением корней. Узел literal_cab525070130 задаёт общую факторизацию многочлена с проверкой разложения для исследования знака, что совпадает с назначением шага s4. Объект: квадратный трёхчлен с действительными корнями, которые указаны явно.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc_exp_sign&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;exponential_inequality&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s5:action&quot;,
+          &quot;quote&quot;: &quot;Определить знаки множителей 3^x − 1 и 3^x − 3 по возрастанию показательной функции с основанием 3.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s5:result&quot;,
+          &quot;quote&quot;: &quot;3^x − 1 &gt; 0 при x &gt; 0 и &lt; 0 при x &lt; 0; 3^x − 3 &gt; 0 при x &gt; 1 и &lt; 0 при x &lt; 1; нули x = 0 и x = 1.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s4:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+          &quot;reason&quot;: &quot;приведение к равенству показателей; здесь определяется знак, а не решается равенство&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+          &quot;reason&quot;: &quot;введение переменной; здесь переменная уже введена в шаге s3&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_eae4ca1f2f8b&quot;,
+          &quot;reason&quot;: &quot;логарифмическое неравенство; здесь показательная функция&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: для двучленов 3^x − 1 и 3^x − 3 определены промежутки знака по монотонности функции с основанием 3 больше единицы. Это переход от сравнения 3^x с константой 1 или 3 к сравнению x с 0 или 1, что совпадает с операцией exponential_inequality при b &gt; 1. Основание больше единицы и постоянные положительны; нули 0 и 1 выписаны.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc_sign_product_quotient&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s6:action&quot;,
+          &quot;quote&quot;: &quot;Найти знак числителя как произведения знаков множителей на промежутках x &lt; 0, 0 &lt; x &lt; 1, x &gt; 1.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s7:action&quot;,
+          &quot;quote&quot;: &quot;Определить знак дроби как частного знаков числителя и знаменателя на тех же промежутках, исключив x = 0 по ОДЗ.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s5:result&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;rational_intervals&quot;,
+          &quot;reason&quot;: &quot;метод интервалов целиком, включает разбиение и выбор решений; знак произведения и частного в нём не выделен как отдельное действие&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_ef3f8c7287d4&quot;,
+          &quot;reason&quot;: &quot;знак дроби по знаку числителя при положительном знаменателе; здесь знаменатель меняет знак, условие не выполнено&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_f68eccc115c2&quot;,
+          &quot;reason&quot;: &quot;исключение строго положительного множителя; здесь множители знакопеременны&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: знак произведения множителей на промежутках (числитель) и знак частного числителя и знаменателя (дробь) по правилу знаков, плюс точки, где результат равен нулю. Отдельного узла в каталоге нет; ближайший rational_intervals описывает метод целиком, а не это действие. Определение предложено ниже.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Определять_знак_произведения_и_частного&quot;,
+        &quot;definition&quot;: &quot;Вход: произведение или частное множителей, знаки которых известны на промежутках. Операция: по правилу знаков определить знак результата на каждом промежутке и точки, где он равен нулю. Граница: множители определены на рассматриваемом промежутке; нули знаменателя исключаются из области частного.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc_rational_ineq_interval&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;rational_intervals&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s8:action&quot;,
+          &quot;quote&quot;: &quot;Выбрать решения неравенства ≤ 0: включить x = 1 (числитель равен нулю, знаменатель не равен нулю) и исключить x = 0.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s8:result&quot;,
+          &quot;quote&quot;: &quot;x ∈ (−∞; 0) ∪ (0; 1].&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s7:result&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+          &quot;reason&quot;: &quot;исключение нуля знаменателя x = 0; это часть шага, узел про сохранение нулей знаменателя&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_1b97db4e28e8&quot;,
+          &quot;reason&quot;: &quot;квадратное неравенство по знаку трёхчлена; здесь дробное неравенство&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a78667313aa3&quot;,
+          &quot;reason&quot;: &quot;рациональное неравенство с положительным знаменателем; здесь знаменатель знакопеременен, это условие не выполнено&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: из знаков дроби на промежутках выбран набор, удовлетворяющий неравенству ≤ 0: x = 1 включён (нуль числителя, знаменатель не равен нулю), x = 0 исключён (нуль знаменателя по ОДЗ), итог (−∞; 0) ∪ (0; 1]. Это совпадает с определением kc_rational_ineq_interval: выбор промежутков и решение о граничных точках. Разбиение нулями и знаки множителей выполнены в шагах s5–s7 и отнесены к другим KC.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;coverage&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s2:action&quot;
+      ],
+      &quot;description&quot;: &quot;В шаге s2 ОДЗ сведено к условию x ≠ 0 из знаменателя. Определённость log_5(2^x) (аргумент 2^x положителен при всех x) не названа и не выведена. Утверждение log_5 2 &gt; 0 дано без основания: не указано, что основание 5 больше единицы и аргумент 2 больше единицы. Для полного ОДЗ и обоснования знака логарифма в записи не хватает этих шагов.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc_odz&quot;,
+        &quot;kc_log_sign&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;i2&quot;,
+      &quot;kind&quot;: &quot;missing_annotation&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s3:action&quot;
+      ],
+      &quot;description&quot;: &quot;Шаг s3 использует 9^x = (3^x)^2, то есть закон степени степени при положительном основании (узел power_laws). В kc_ids шага s3 этот шаг не указан, отдельного локального кандидата для него нет. На итоговый ответ не влияет.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc_power_substitution&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;i3&quot;,
+      &quot;kind&quot;: &quot;input&quot;,
+      &quot;refs&quot;: [
+        &quot;image:assets/e6fc07bbca0f96d1cdc6cca1.png&quot;
+      ],
+      &quot;description&quot;: &quot;Рисунок условия (140×67) просмотрен: читается дробь (9^x − 4·3^x + 3) / log_5(2^x) ≤ 0, что совпадает с прочтением автора. Разночтений не обнаружено; предупреждение о низком разрешении учтено, мелкие символы читаются с меньшей уверенностью. Ответ x ∈ (−∞; 0) ∪ (0; 1] проверен по знакам множителей и верен.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: []
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>
