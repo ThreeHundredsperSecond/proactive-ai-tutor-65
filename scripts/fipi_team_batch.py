@@ -11,7 +11,7 @@ Commands (from the repository root):
   reserve        --run DIR --confirmed-by NAME --comment-url URL   (record coordinator's `reserved`)
   verify         --run DIR
   audit-request  --run DIR --task ID
-  exec-start     --run DIR --role author|auditor --task ID
+  exec-start     --run DIR --role author|auditor --task ID [--model ID]   (default: environment.json)
   attach         --run DIR --role author|auditor --task ID --agent-id X
   exec-finish    --run DIR --role author|auditor --task ID [--agent-id X] [--message TEXT]
   validate       --run DIR --role author|auditor --task ID
@@ -273,7 +273,7 @@ def exec_start(a):
     write(rec, {'role': a.role, 'task_id': a.task, 'spawn_message': msg, 'agent_id': None, 'start_utc': now(), 'end_utc': None,
                 'request': {'path': rel(req), 'sha256': fsha(req)},
                 'passed_image_paths': [{'path': rel(p), 'sha256': fsha(p)} for p in images],
-                'raw_path': rel(raw), 'fork': 'none', 'model': read(run / 'environment.json')['model_identifier'],
+                'raw_path': rel(raw), 'fork': 'none', 'model': a.model or read(run / 'environment.json')['model_identifier'],
                 'mechanism': 'Claude Code Agent tool; fresh subagent context'})
     print(msg)
 
