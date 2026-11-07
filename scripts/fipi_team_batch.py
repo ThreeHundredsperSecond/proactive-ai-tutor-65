@@ -12,6 +12,7 @@ Commands (from the repository root):
   verify         --run DIR
   audit-request  --run DIR --task ID
   exec-start     --run DIR --role author|auditor --task ID
+  attach         --run DIR --role author|auditor --task ID --agent-id X
   exec-finish    --run DIR --role author|auditor --task ID [--agent-id X] [--message TEXT]
   validate       --run DIR --role author|auditor --task ID
   status         --run DIR
@@ -277,6 +278,17 @@ def exec_start(a):
     print(msg)
 
 
+def attach(a):
+    """Record which launched agent took this execution (right after launching it)."""
+    run = run_dir(a.run)
+    rec = run / 'executions' / f'{a.role}-{a.task}.json'
+    d = read(rec)
+    assert d['agent_id'] in (None, a.agent_id), f'already attached to {d["agent_id"]}'
+    d.update(agent_id=a.agent_id, subagent_type=a.subagent_type, model_requested=a.model_requested)
+    write(rec, d)
+    print('attached', a.role, a.task)
+
+
 def exec_finish(a):
     run = run_dir(a.run)
     rec = run / 'executions' / f'{a.role}-{a.task}.json'
@@ -442,8 +454,9 @@ def health_finish(a):
 
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument('command', choices=['prepare', 'reserve', 'verify', 'audit-request', 'exec-start', 'exec-finish', 'validate', 'status',
-                                       'health-render', 'health-math', 'health-visual', 'health-finish'])
+    p.add_argument('command', choices=['prepare', 'reserve', 'verify', 'audit-request', 'exec-start', 'attach', 'exec-finish', 'validate',
+                                       'status', 'health-render', 'health-math', 'health-visual', 'health-finish'])
+    p.add_argument('--subagent-type', default='general-purpose'); p.add_argument('--model-requested', default='opus')
     p.add_argument('--batch', type=int); p.add_argument('--reviewer'); p.add_argument('--findings')
     p.add_argument('--run', required=True)
     p.add_argument('--issue'); p.add_argument('--owner'); p.add_argument('--model')
@@ -455,7 +468,7 @@ def main():
     if a.command == 'audit-request':
         print(rel(audit_request(run_dir(a.run), a.task)))
     else:
-        {'prepare': prepare, 'reserve': reserve, 'verify': verify, 'exec-start': exec_start,
+        {'prepare': prepare, 'reserve': reserve, 'verify': verify, 'exec-start': exec_start, 'attach': attach,
          'exec-finish': exec_finish, 'validate': validate, 'status': status,
          'health-render': health_render, 'health-math': health_math, 'health-visual': health_visual,
          'health-finish': health_finish}[a.command](a)
