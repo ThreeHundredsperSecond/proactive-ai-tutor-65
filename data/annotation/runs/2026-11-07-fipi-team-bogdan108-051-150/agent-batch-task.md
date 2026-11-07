@@ -121,6 +121,17 @@ git push
 
 Коммить только каталог партии. `.venv` и временные файлы не коммить.
 
+## Перезапуск партии 5 на Haiku (попытка `haiku`)
+
+Выполняй только если пользователь явно написал «Партия: 5 (haiku)». Ответы Opus в `raw/` не трогай: перезапуск делается именованной попыткой `haiku`.
+
+1. Если ещё нет `$RUN/attempts/haiku/attempt.json`, объяви попытку: `python3 -B scripts/fipi_team_batch.py attempt-init --run $RUN --attempt haiku --batch 5 --model claude-haiku-5-5 --reason "Single-model layer: re-run of batch 5; claude-opus-5-5 pilot kept in raw/"`.
+2. Предстартовые проверки как в разделе 1, кроме проверки авторов: `status --run $RUN --attempt haiku` должен показать для партии 5 `authors: 0` и `auditors: 0`.
+3. Разделы 2–3 без изменений, но в каждую команду `exec-start`, `attach` и `exec-finish` добавь `--attempt haiku`. Модель `exec-start` берёт из `attempt.json`. Путь сохранения `attempts/haiku/...` уже есть в сообщении для агента.
+4. Раздел 5: в каждую команду `health-*` добавь `--attempt haiku`. Скриншоты будут называться `checks/batch-05-haiku-<ID>.png`.
+5. После `health-finish` сделай попытку основной: `python3 -B scripts/fipi_team_batch.py activate --run $RUN --attempt haiku`.
+6. Сводку из раздела 6 считай по `attempts/haiku/author` и `attempts/haiku/auditor`. В README добавь строку «5 (Haiku)» и абзац, а также сравнение с Opus на тех же 15 задачах: совпадение ответов, статусы решений, решения аудиторов. Различия описывай как различия двух прогонов, не как ошибку одной из моделей, пока ответ не проверен.
+
 ## 8. Отчёт и остановка
 
 Кратко сообщи пользователю:

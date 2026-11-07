@@ -20,6 +20,13 @@ Commands (from the repository root):
   health-math    --run DIR --batch N
   health-visual  --run DIR --batch N --reviewer TEXT [--findings JSON]
   health-finish  --run DIR --batch N
+
+Re-running a finished batch (e.g. with another model) as a named attempt; raw/ stays unchanged:
+  attempt-init   --run DIR --attempt NAME --batch N --model ID --reason TEXT
+  exec-start / attach / exec-finish / validate / status / health-*  ... --attempt NAME
+                 answers -> attempts/NAME/{author,auditor}/ID.json, logs -> executions|validations/ROLE-ID-NAME.json,
+                 auditor requests -> requests/NAME/auditor-v1.1/, checks -> checks/batch-NN-NAME*.json
+  activate       --run DIR --attempt NAME   (after health-finish; points active-attempts.json at the attempt)
 """
 import argparse
 import hashlib
@@ -223,14 +230,75 @@ def active(run, tid, role):
     return run / overrides.get(tid, {}).get(role, f'raw/{role}/{tid}.json')
 
 
-def audit_request(run, tid):
-    dest = run / 'requests/auditor-v1.1' / (tid + '.txt')
-    freeze(dest, audit_packet(run, tid))
+def paths(run, role, tid, attempt=None):
+    """Answer, execution log and validation log of the original run (raw/) or of a named attempt."""
+    if attempt:
+        return (run / 'attempts' / attempt / role / (tid + '.json'),
+                run / 'executions' / f'{role}-{tid}-{attempt}.json',
+                run / 'validations' / f'{role}-{tid}-{attempt}.json')
+    return (run / 'raw' / role / (tid + '.json'),
+            run / 'executions' / f'{role}-{tid}.json',
+            run / 'validations' / f'{role}-{tid}.json')
+
+
+def answer(run, tid, role, attempt=None):
+    """A named attempt's answer, or the active one (raw/ unless active-attempts.json points elsewhere)."""
+    return paths(run, role, tid, attempt)[0] if attempt else active(run, tid, role)
+
+
+def sfx(attempt):
+    return f'-{attempt}' if attempt else ''
+
+
+def attempt_meta(run, attempt):
+    return read(run / 'attempts' / attempt / 'attempt.json')
+
+
+def attempt_init(a):
+    """Declare a separate re-run of one batch (e.g. another model). Originals in raw/ stay unchanged."""
+    run = run_dir(a.run)
+    assert a.attempt and a.model and a.batch and a.reason, '--attempt, --model, --batch and --reason are required'
+    assert a.attempt.isidentifier() and a.attempt != 'raw', 'attempt name: letters, digits, underscore'
+    meta = run / 'attempts' / a.attempt / 'attempt.json'
+    if meta.exists():
+        print('Attempt already declared:', rel(meta))
+        return
+    freeze(meta, {'attempt': a.attempt, 'model_identifier': a.model, 'batch': a.batch, 'task_ids': batch_ids(run, a.batch),
+                  'reason': a.reason, 'created_at': now(),
+                  'originals': 'raw/author and raw/auditor stay unchanged; activation only switches active-attempts.json'})
+    print(rel(meta))
+
+
+def activate(a):
+    """Make a finished attempt the active answers of its batch. Originals stay where they are."""
+    run = run_dir(a.run)
+    assert a.attempt, '--attempt is required'
+    meta = attempt_meta(run, a.attempt)
+    b, ids = meta['batch'], meta['task_ids']
+    health = read(run / 'checks' / f'batch-{b:02}{sfx(a.attempt)}.json')
+    act = read(run / 'active-attempts.json')
+    for t in ids:
+        for role in ['author', 'auditor']:
+            assert read(paths(run, role, t, a.attempt)[2])['result']['status'] == 'technical_pass', (role, t)
+        new = {r: paths(run, r, t, a.attempt)[0].relative_to(run).as_posix() for r in ['author', 'auditor']}
+        assert act.get(t) in (None, new), f'{t} already points to another attempt: {act.get(t)}'
+        act[t] = new
+    write(run / 'active-attempts.json', act)
+    freeze(run / 'attempts' / a.attempt / 'activation.json', {
+        'attempt': a.attempt, 'batch': b, 'model_identifier': meta['model_identifier'], 'activated_at': now(),
+        'health_status': health['status'], 'quarantined_ids': health['quarantined_ids'], 'task_ids': ids,
+        'previous_active': 'raw/ (kept unchanged)'})
+    print('Activated', a.attempt, 'for batch', b, '-', len(ids), 'tasks')
+
+
+def audit_request(run, tid, author=None, attempt=None):
+    dest = run / 'requests' / (f'{attempt}/auditor-v1.1' if attempt else 'auditor-v1.1') / (tid + '.txt')
+    freeze(dest, audit_packet(run, tid, author))
     return dest
 
 
-def audit_packet(run, tid):
-    author = active(run, tid, 'author')
+def audit_packet(run, tid, author=None):
+    author = author or active(run, tid, 'author')
     d = read(author); validate_one(d); assert d['task_id'] == tid
     inp = read(run / 'inputs/tasks' / (tid + '.json'))
     body = {'task_id': tid, **condition(inp), 'author_response': d,
@@ -244,13 +312,15 @@ def audit_packet(run, tid):
     return packet
 
 
-def check(run, role, tid):
-    raw = active(run, tid, role)
+def check(run, role, tid, attempt=None, exact=False):
+    """Validate an answer: a named attempt, the exact raw/ file (exact=True) or the active one."""
+    pick = (lambda r: paths(run, r, tid, attempt)[0]) if (attempt or exact) else (lambda r: active(run, tid, r))
+    raw = pick(role)
     if role == 'author':
         d = read(raw); validate_one(d); assert d['task_id'] == tid
         return {'task_id': tid, 'status': 'technical_pass', 'solution_status': d['solution_status']}
     fx.RUN = run  # historical validator reads inputs and catalog from RUN
-    return fx.validate_audit(tid, raw, author_path=rel(active(run, tid, 'author')))
+    return fx.validate_audit(tid, raw, author_path=rel(pick('author')))
 
 
 def exec_start(a):
@@ -258,10 +328,20 @@ def exec_start(a):
     res = read(run / 'reservation.json')
     assert res['status'] == 'reserved' and res.get('confirmation_url'), 'No coordinator `reserved` recorded: generation not authorized'
     assert a.task in res['task_ids'], 'task outside the reservation'
-    rec = run / 'executions' / f'{a.role}-{a.task}.json'
-    raw = run / 'raw' / a.role / (a.task + '.json')
-    assert not rec.exists() and not raw.exists(), 'already started; corrections go to attempts/'
-    req = run / 'requests/author' / (a.task + '.txt') if a.role == 'author' else audit_request(run, a.task)
+    if a.attempt:
+        meta = attempt_meta(run, a.attempt)
+        assert a.task in meta['task_ids'], 'task outside the declared attempt'
+        model = meta['model_identifier']
+    else:
+        model = a.model or read(run / 'environment.json')['model_identifier']
+    raw, rec, _ = paths(run, a.role, a.task, a.attempt)
+    assert not rec.exists() and not raw.exists(), 'already started; a re-run needs a new attempt name'
+    if a.role == 'author':
+        req = run / 'requests/author' / (a.task + '.txt')
+    else:
+        author_raw, _, author_val = paths(run, 'author', a.task, a.attempt)
+        assert author_val.exists() and read(author_val)['result']['status'] == 'technical_pass', 'author answer not validated'
+        req = audit_request(run, a.task, author_raw if a.attempt else active(run, a.task, 'author'), a.attempt)
     inp = read(run / 'inputs/tasks' / (a.task + '.json'))
     images = [run / 'inputs' / x['path'] for x in inp['assets']]
     msg = (f'Роль: {a.role}. Прочитай только запрос {req} и перечисленные в нём image_files; '
@@ -273,7 +353,7 @@ def exec_start(a):
     write(rec, {'role': a.role, 'task_id': a.task, 'spawn_message': msg, 'agent_id': None, 'start_utc': now(), 'end_utc': None,
                 'request': {'path': rel(req), 'sha256': fsha(req)},
                 'passed_image_paths': [{'path': rel(p), 'sha256': fsha(p)} for p in images],
-                'raw_path': rel(raw), 'fork': 'none', 'model': a.model or read(run / 'environment.json')['model_identifier'],
+                'raw_path': rel(raw), 'fork': 'none', 'model': model, 'attempt': a.attempt,
                 'mechanism': 'Claude Code Agent tool; fresh subagent context'})
     print(msg)
 
@@ -281,7 +361,7 @@ def exec_start(a):
 def attach(a):
     """Record which launched agent took this execution (right after launching it)."""
     run = run_dir(a.run)
-    rec = run / 'executions' / f'{a.role}-{a.task}.json'
+    rec = paths(run, a.role, a.task, a.attempt)[1]
     d = read(rec)
     assert d['agent_id'] in (None, a.agent_id), f'already attached to {d["agent_id"]}'
     d.update(agent_id=a.agent_id, subagent_type=a.subagent_type, model_requested=a.model_requested)
@@ -291,36 +371,42 @@ def attach(a):
 
 def exec_finish(a):
     run = run_dir(a.run)
-    rec = run / 'executions' / f'{a.role}-{a.task}.json'
+    raw, rec, val = paths(run, a.role, a.task, a.attempt)
     d = read(rec)
-    raw = run / 'raw' / a.role / (a.task + '.json')
     d.update(end_utc=now(), agent_id=a.agent_id or d['agent_id'], raw_sha256=fsha(raw) if raw.exists() else None,
              completion_message=a.message or '')
     write(rec, d)
     try:
-        result, code = check(run, a.role, a.task), 0
+        result, code = check(run, a.role, a.task, a.attempt, exact=True), 0
     except Exception as e:  # validation failure is data, not a crash
         result, code = {'task_id': a.task, 'status': 'technical_fail', 'error': repr(e)}, 1
-    write(run / 'validations' / f'{a.role}-{a.task}.json', {'result': result, 'at_utc': now()})
+    write(val, {'result': result, 'attempt': a.attempt, 'at_utc': now()})
     print(json.dumps(result, ensure_ascii=False))
     sys.exit(code)
 
 
 def validate(a):
-    print(json.dumps(check(run_dir(a.run), a.role, a.task), ensure_ascii=False))
+    print(json.dumps(check(run_dir(a.run), a.role, a.task, a.attempt), ensure_ascii=False))
 
 
 def status(a):
     run = run_dir(a.run)
     m = read(run / 'manifest.json')
     res = read(run / 'reservation.json')
+    batches = m['batches'].items()
+    if a.attempt:
+        meta = attempt_meta(run, a.attempt)
+        batches = [(str(meta['batch']), meta['task_ids'])]
     rows = []
-    for b, ids in m['batches'].items():
-        authors = sum((run / 'raw/author' / (t + '.json')).exists() for t in ids)
-        auditors = sum((run / 'raw/auditor' / (t + '.json')).exists() for t in ids)
-        health = (run / 'checks' / f'batch-{int(b):02}.json').exists()
+    for b, ids in batches:
+        authors = sum(paths(run, 'author', t, a.attempt)[0].exists() for t in ids)
+        auditors = sum(paths(run, 'auditor', t, a.attempt)[0].exists() for t in ids)
+        health = (run / 'checks' / f'batch-{int(b):02}{sfx(a.attempt)}.json').exists()
         rows.append({'batch': int(b), 'tasks': len(ids), 'authors': authors, 'auditors': auditors, 'health_check': health})
-    print(json.dumps({'reservation': res['status'], 'issue': res['issue_url'], 'batches': rows}, ensure_ascii=False, indent=1))
+    attempts = sorted(p.parent.name for p in (run / 'attempts').glob('*/attempt.json'))
+    print(json.dumps({'reservation': res['status'], 'issue': res['issue_url'], 'attempt': a.attempt or 'raw',
+                      'declared_attempts': attempts, 'active_overrides': len(read(run / 'active-attempts.json')),
+                      'batches': rows}, ensure_ascii=False, indent=1))
 
 
 CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
@@ -345,14 +431,16 @@ def health_render(a):
     from lxml import html as lhtml
     from PIL import Image
     import health_fipi_extension as hx
-    run = run_dir(a.run); b = a.batch
+    run = run_dir(a.run); b = a.batch; s = sfx(a.attempt)
     hx.RUN = run
+    if a.attempt:  # cards must show this attempt's answers, not the active ones
+        hx.active = lambda tid, role: paths(run, role, tid, a.attempt)[0]
     ids = batch_ids(run, b)
     plan = read(run / 'checks' / f'batch-{b:02}-sample-plan.json')
     assert set(plan['task_ids']) <= set(ids)
     results = []
     for label, group in [('all', ids)] + [(t, [t]) for t in plan['task_ids']]:
-        page = run / 'checks' / f'batch-{b:02}-{label}.html'
+        page = run / 'checks' / f'batch-{b:02}{s}-{label}.html'
         page.write_text(hx.document(''.join(hx.card(t) for t in group)), encoding='utf-8')
         png = page.with_suffix('.png')
         with tempfile.TemporaryDirectory() as profile:
@@ -370,8 +458,9 @@ def health_render(a):
             im.verify()
         results.append({'label': label, 'task_ids': group, 'browser': h,
                         'screenshot': {'path': rel(png), 'sha256': fsha(png)}, 'html': {'path': rel(page), 'sha256': fsha(page)}})
-    out = run / 'checks' / f'batch-{b:02}-render.json'
-    freeze(out, {'batch': b, 'status': 'technical_pass', 'browser': 'Google Chrome headless (macOS)', 'cards': results})
+    out = run / 'checks' / f'batch-{b:02}{s}-render.json'
+    freeze(out, {'batch': b, 'attempt': a.attempt, 'status': 'technical_pass', 'browser': 'Google Chrome headless (macOS)',
+                 'cards': results})
     print(rel(out))
 
 
@@ -389,7 +478,7 @@ def health_math(a):
     checks = []
     for t in plan['task_ids']:
         e = expected.get(t, {'status': 'not_checked', 'source': None})
-        ans = read(active(run, t, 'author'))['answer']
+        ans = read(answer(run, t, 'author', a.attempt))['answer']
         if e.get('status') == 'independent_expected_before_author':
             status = 'match' if norm_answer(e['expected_answer']) == norm_answer(ans) else 'mismatch'
         else:
@@ -398,9 +487,9 @@ def health_math(a):
                        'calculation': e.get('calculation'), 'expectation_source': e['source'],
                        'prepared_before_new_author_answers': e.get('prepared_before_new_author_answers', False),
                        'scope': 'Predeclared primary-assistant spot expectation from the 2026-11-02 run; not full expert proof'})
-    out = run / 'checks' / f'batch-{b:02}-math.json'
-    freeze(out, {'batch': b, 'checks': checks, 'systemic_unresolved': any(c['status'] == 'mismatch' for c in checks),
-                 'recorded_at': now()})
+    out = run / 'checks' / f'batch-{b:02}{sfx(a.attempt)}-math.json'
+    freeze(out, {'batch': b, 'attempt': a.attempt, 'checks': checks,
+                 'systemic_unresolved': any(c['status'] == 'mismatch' for c in checks), 'recorded_at': now()})
     print(json.dumps(checks, ensure_ascii=False, indent=1))
 
 
@@ -408,10 +497,10 @@ def health_visual(a):
     """Record an actual look at the rendered screenshots; reviewer and findings are given explicitly."""
     run = run_dir(a.run); b = a.batch
     plan = read(run / 'checks' / f'batch-{b:02}-sample-plan.json')
-    rendered = read(run / 'checks' / f'batch-{b:02}-render.json')
+    rendered = read(run / 'checks' / f'batch-{b:02}{sfx(a.attempt)}-render.json')
     findings = json.loads(a.findings) if a.findings else []
-    out = run / 'checks' / f'batch-{b:02}-visual.json'
-    freeze(out, {'batch': b, 'reviewed_ids': plan['task_ids'], 'reviewer': a.reviewer,
+    out = run / 'checks' / f'batch-{b:02}{sfx(a.attempt)}-visual.json'
+    freeze(out, {'batch': b, 'attempt': a.attempt, 'reviewed_ids': plan['task_ids'], 'reviewer': a.reviewer,
                  'scope': 'Source conditions, images and MathML in Chrome screenshots of the sample cards; not full solution expertise',
                  'findings': findings, 'systemic_unresolved': False, 'recorded_at': now(),
                  'screenshots': [c['screenshot'] for c in rendered['cards'] if c['label'] != 'all']})
@@ -419,43 +508,51 @@ def health_visual(a):
 
 
 def health_finish(a):
-    run = run_dir(a.run); b = a.batch; ids = batch_ids(run, b)
+    run = run_dir(a.run); b = a.batch; ids = batch_ids(run, b); att = a.attempt; s = sfx(att)
+    if att:
+        assert attempt_meta(run, att)['batch'] == b, 'attempt belongs to another batch'
     technical, flags = [], []
     for t in ids:
-        d = read(active(run, t, 'author')); validate_one(d); assert d['task_id'] == t
-        technical.append(check(run, 'auditor', t))
-        q = read(active(run, t, 'auditor'))
+        d = read(answer(run, t, 'author', att)); validate_one(d); assert d['task_id'] == t
+        technical.append(check(run, 'auditor', t, att))
+        q = read(answer(run, t, 'auditor', att))
         if d['solution_status'] != 'solved' or q['issues']:
             flags.append({'task_id': t, 'solution_status': d['solution_status'], 'issues': q['issues']})
-    rendered = read(run / 'checks' / f'batch-{b:02}-render.json')
-    visual = read(run / 'checks' / f'batch-{b:02}-visual.json')
-    math = read(run / 'checks' / f'batch-{b:02}-math.json')
+    rendered = read(run / 'checks' / f'batch-{b:02}{s}-render.json')
+    visual = read(run / 'checks' / f'batch-{b:02}{s}-visual.json')
+    math = read(run / 'checks' / f'batch-{b:02}{s}-math.json')
     plan = read(run / 'checks' / f'batch-{b:02}-sample-plan.json')
     assert set(visual['reviewed_ids']) >= set(plan['task_ids'])
     assert {x['task_id'] for x in math['checks']} >= set(plan['task_ids'])
     assert not visual.get('systemic_unresolved') and not math.get('systemic_unresolved')
-    quarantine = [t for t in ids if read(active(run, t, 'author'))['solution_status'] != 'solved'
-                  or any(i['blocking'] for i in read(active(run, t, 'auditor'))['issues'])]
+    quarantine = [t for t in ids if read(answer(run, t, 'author', att))['solution_status'] != 'solved'
+                  or any(i['blocking'] for i in read(answer(run, t, 'auditor', att))['issues'])]
     executions = []
     for t in ids:
         for role in ['author', 'auditor']:
-            v = read(run / 'validations' / f'{role}-{t}.json')
-            assert v['result']['status'] == 'technical_pass', (role, t)
-            e = run / 'executions' / f'{role}-{t}.json'
+            _, e, v = paths(run, role, t, att)
+            assert read(v)['result']['status'] == 'technical_pass', (role, t)
             executions.append({'path': rel(e), 'sha256': fsha(e), 'execution': read(e)})
-    freeze(run / f'batch-execution-{b:02}.json', {'batch': b, 'completed_at': now(), 'tasks': ids, 'executions': executions,
-           'active_attempts': {t: read(run / 'active-attempts.json')[t] for t in ids if t in read(run / 'active-attempts.json')},
+    if att:
+        answers = {t: {r: paths(run, r, t, att)[0].relative_to(run).as_posix() for r in ['author', 'auditor']} for t in ids}
+    else:
+        current = read(run / 'active-attempts.json')
+        answers = {t: current[t] for t in ids if t in current}
+    freeze(run / f'batch-execution-{b:02}{s}.json', {'batch': b, 'attempt': att, 'completed_at': now(), 'tasks': ids,
+           'executions': executions, 'active_attempts': answers,
            'technical_validation': 'passed', 'mathematical_correctness': 'not established by coordinator'})
-    freeze(run / 'checks' / f'batch-{b:02}.json', {'batch': b, 'status': 'quarantine' if quarantine else 'pass', 'task_ids': ids,
-           'systemic_unresolved': False, 'technical': technical, 'render': rendered, 'visual_review': visual,
+    freeze(run / 'checks' / f'batch-{b:02}{s}.json', {'batch': b, 'attempt': att, 'status': 'quarantine' if quarantine else 'pass',
+           'task_ids': ids, 'systemic_unresolved': False, 'technical': technical, 'render': rendered, 'visual_review': visual,
            'math_spot_checks': math, 'audit_flags': flags, 'quarantined_ids': quarantine})
-    print('Batch health complete:', b, 'quarantine:', quarantine)
+    print('Batch health complete:', b, 'attempt:', att or 'raw', 'quarantine:', quarantine)
 
 
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument('command', choices=['prepare', 'reserve', 'verify', 'audit-request', 'exec-start', 'attach', 'exec-finish', 'validate',
-                                       'status', 'health-render', 'health-math', 'health-visual', 'health-finish'])
+    p.add_argument('command', choices=['prepare', 'reserve', 'verify', 'audit-request', 'attempt-init', 'exec-start', 'attach',
+                                       'exec-finish', 'validate', 'status', 'health-render', 'health-math', 'health-visual',
+                                       'health-finish', 'activate'])
+    p.add_argument('--attempt'); p.add_argument('--reason')
     p.add_argument('--subagent-type', default='general-purpose'); p.add_argument('--model-requested', default='opus')
     p.add_argument('--batch', type=int); p.add_argument('--reviewer'); p.add_argument('--findings')
     p.add_argument('--run', required=True)
@@ -471,7 +568,7 @@ def main():
         {'prepare': prepare, 'reserve': reserve, 'verify': verify, 'exec-start': exec_start, 'attach': attach,
          'exec-finish': exec_finish, 'validate': validate, 'status': status,
          'health-render': health_render, 'health-math': health_math, 'health-visual': health_visual,
-         'health-finish': health_finish}[a.command](a)
+         'health-finish': health_finish, 'attempt-init': attempt_init, 'activate': activate}[a.command](a)
 
 
 if __name__ == '__main__':
