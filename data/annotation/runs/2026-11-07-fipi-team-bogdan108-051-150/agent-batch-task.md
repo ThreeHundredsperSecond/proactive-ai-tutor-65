@@ -83,7 +83,7 @@ $PY -B scripts/fipi_team_batch.py health-render --run $RUN --batch N
 - `health-render` открывает Chrome без окна и проверяет загрузку изображений и отрисовку MathML.
 - Сам открой инструментом Read скриншоты контрольных карточек `$RUN/checks/batch-NN-<ID>.png`; ID берутся из `checks/batch-NN-sample-plan.json`, NN — номер партии из двух цифр. Убедись, что условие, формулы и рисунок видны целиком и совпадают с тем, как их прочитали автор и аудитор.
 - Запиши просмотр: `$PY -B scripts/fipi_team_batch.py health-visual --run $RUN --batch N --reviewer "primary assistant (Claude Code) via Read of Chrome screenshots" --findings '<JSON>'`. Формат находки: `{"task_id": "...", "kind": "note|procedure|input", "systemic": false, "description": "..."}`. Если находок нет, передай `'[]'`.
-- `$PY -B scripts/fipi_team_batch.py health-finish --run $RUN --batch N` создаёт `checks/batch-NN.json` со статусом `pass` или `quarantine` (`quarantine`, если статус не `solved` или есть блокирующее замечание).
+- `$PY -B scripts/fipi_team_batch.py health-finish --run $RUN --batch N` создаёт `checks/batch-NN.json` со статусом `pass` или `quarantine` (`quarantine`, если статус не `solved` или есть блокирующее замечание). Задачу без блокирующих замечаний пользователь может принять после просмотра: решение записывается в `checks/batch-NN-quarantine-resolution.json`, прежняя сборка переименовывается в `*.v0-before-resolution.json`, `health-finish` запускается заново и отмечает задачу как `accepted_after_review`. Пример — 321FCD в партии 8.
 
 ## 6. Сводка и README
 

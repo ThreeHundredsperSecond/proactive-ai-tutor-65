@@ -540,6 +540,17 @@ def health_finish(a):
     assert not visual.get('systemic_unresolved') and not math.get('systemic_unresolved')
     quarantine = [t for t in ids if read(answer(run, t, 'author', att))['solution_status'] != 'solved'
                   or any(i['blocking'] for i in read(answer(run, t, 'auditor', att))['issues'])]
+    # A recorded decision may accept a non-`solved` task after review (no blocking audit issue allowed).
+    rp = run / 'checks' / f'batch-{b:02}{s}-quarantine-resolution.json'
+    accepted = []
+    if rp.exists():
+        r = read(rp)
+        t = r['task_id']
+        assert r['decision'] == 'accepted' and t in quarantine, 'resolution must accept a task that would be quarantined'
+        assert not any(i['blocking'] for i in read(answer(run, t, 'auditor', att))['issues']), 'blocking issue cannot be accepted'
+        assert r['basis']['author']['sha256'] == fsha(answer(run, t, 'author', att)), 'author answer changed after resolution'
+        quarantine.remove(t)
+        accepted.append({'task_id': t, 'resolution': rel(rp), 'sha256': fsha(rp)})
     executions = []
     for t in ids:
         for role in ['author', 'auditor']:
@@ -556,7 +567,8 @@ def health_finish(a):
            'technical_validation': 'passed', 'mathematical_correctness': 'not established by coordinator'})
     freeze(run / 'checks' / f'batch-{b:02}{s}.json', {'batch': b, 'attempt': att, 'status': 'quarantine' if quarantine else 'pass',
            'task_ids': ids, 'systemic_unresolved': False, 'technical': technical, 'render': rendered, 'visual_review': visual,
-           'math_spot_checks': math, 'audit_flags': flags, 'quarantined_ids': quarantine})
+           'math_spot_checks': math, 'audit_flags': flags, 'quarantined_ids': quarantine,
+           **({'accepted_after_review': accepted} if accepted else {})})
     print('Batch health complete:', b, 'attempt:', att or 'raw', 'quarantine:', quarantine)
 
 
