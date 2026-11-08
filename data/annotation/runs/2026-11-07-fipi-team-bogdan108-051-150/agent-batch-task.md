@@ -9,7 +9,7 @@
 | Каталог партии (`RUN`) | `data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150` |
 | Бронь | [Issue #2](https://github.com/ThreeHundredsperSecond/proactive-ai-tutor-65/issues/2), `reserved`, методика `fipi-extension-v1.1` |
 | Партии | 5–12 (15+15+15+5 и ещё раз 15+15+15+5); партия 5 выполнена |
-| Модель агентов | С партии 6: `claude-haiku-5-5` (в Agent — `model: haiku`). Партия 5 выполнена на `claude-opus-5-5`. Внутри партии модель не меняется |
+| Модель агентов | `claude-opus-5-5` для всех партий (в Agent — `model: opus`). Попытка `haiku` партии 5 — калибровка моделей, не активирована |
 
 ## Твоя роль
 
@@ -44,9 +44,9 @@ python3 -c "import json;print(' '.join(json.load(open('$RUN/manifest.json'))['ba
 
 Для каждого ID партии:
 
-1. `python3 -B scripts/fipi_team_batch.py exec-start --run $RUN --role author --task ID --model claude-haiku-5-5`. Команда печатает сообщение для агента и пишет журнал `executions/author-ID.json` с этой моделью.
-2. Запусти нового субагента: инструмент Agent, `subagent_type: general-purpose`, `model: haiku`. Промпт — напечатанное сообщение дословно, без добавлений: никакого контекста, подсказок или ожидаемых ответов. Одна задача — один агент. Авторов всей партии можно запускать параллельно.
-3. Сразу после запуска: `python3 -B scripts/fipi_team_batch.py attach --run $RUN --role author --task ID --agent-id <ID агента из результата Agent> --model-requested haiku`.
+1. `python3 -B scripts/fipi_team_batch.py exec-start --run $RUN --role author --task ID --model claude-opus-5-5`. Команда печатает сообщение для агента и пишет журнал `executions/author-ID.json` с этой моделью.
+2. Запусти нового субагента: инструмент Agent, `subagent_type: general-purpose`, `model: opus`. Промпт — напечатанное сообщение дословно, без добавлений: никакого контекста, подсказок или ожидаемых ответов. Одна задача — один агент. Авторов всей партии можно запускать параллельно.
+3. Сразу после запуска: `python3 -B scripts/fipi_team_batch.py attach --run $RUN --role author --task ID --agent-id <ID агента из результата Agent> --model-requested opus`.
 4. Дождись уведомления о завершении (файлы вывода агентов не читай и не опрашивай), затем: `python3 -B scripts/fipi_team_batch.py exec-finish --run $RUN --role author --task ID --message "<из отчёта агента: сохранённый путь, просмотренные image_files, любые отступления>"`.
    - `technical_pass` → запускай аудитора этой задачи (раздел 3).
    - `technical_fail` или ответа нет → аудитора не запускай и ничего не исправляй. Продолжи остальные задачи, в конце сообщи пользователю. Повтор допустим только отдельной попыткой в `attempts/` по решению пользователя; `exec-start` повторно не запустится, это защита.
@@ -55,9 +55,9 @@ python3 -c "import json;print(' '.join(json.load(open('$RUN/manifest.json'))['ba
 
 Только для задач, где автор получил `technical_pass`:
 
-1. `python3 -B scripts/fipi_team_batch.py exec-start --run $RUN --role auditor --task ID --model claude-haiku-5-5`. Команда сама соберёт `requests/auditor-v1.1/ID.txt`: условие, изображения, ответ автора, каталог и допустимые ссылки.
-2. Новый субагент: `general-purpose`, `model: haiku`, промпт — напечатанное сообщение дословно.
-3. `attach --role auditor ... --model-requested haiku` с ID агента.
+1. `python3 -B scripts/fipi_team_batch.py exec-start --run $RUN --role auditor --task ID --model claude-opus-5-5`. Команда сама соберёт `requests/auditor-v1.1/ID.txt`: условие, изображения, ответ автора, каталог и допустимые ссылки.
+2. Новый субагент: `general-purpose`, `model: opus`, промпт — напечатанное сообщение дословно.
+3. `attach --role auditor ... --model-requested opus` с ID агента.
 4. После завершения `exec-finish --role auditor ... --message "<из отчёта: путь, изображения, отступления>"`.
 
 ## 4. Чего не делать
@@ -121,16 +121,9 @@ git push
 
 Коммить только каталог партии. `.venv` и временные файлы не коммить.
 
-## Перезапуск партии 5 на Haiku (попытка `haiku`)
+## Попытка `haiku` партии 5
 
-Выполняй только если пользователь явно написал «Партия: 5 (haiku)». Ответы Opus в `raw/` не трогай: перезапуск делается именованной попыткой `haiku`.
-
-1. Если ещё нет `$RUN/attempts/haiku/attempt.json`, объяви попытку: `python3 -B scripts/fipi_team_batch.py attempt-init --run $RUN --attempt haiku --batch 5 --model claude-haiku-5-5 --reason "Single-model layer: re-run of batch 5; claude-opus-5-5 pilot kept in raw/"`.
-2. Предстартовые проверки как в разделе 1, кроме проверки авторов: `status --run $RUN --attempt haiku` должен показать для партии 5 `authors: 0` и `auditors: 0`.
-3. Разделы 2–3 без изменений, но в каждую команду `exec-start`, `attach` и `exec-finish` добавь `--attempt haiku`. Модель `exec-start` берёт из `attempt.json`. Путь сохранения `attempts/haiku/...` уже есть в сообщении для агента.
-4. Раздел 5: в каждую команду `health-*` добавь `--attempt haiku`. Скриншоты будут называться `checks/batch-05-haiku-<ID>.png`.
-5. После `health-finish` сделай попытку основной: `python3 -B scripts/fipi_team_batch.py activate --run $RUN --attempt haiku`.
-6. Сводку из раздела 6 считай по `attempts/haiku/author` и `attempts/haiku/auditor`. В README добавь строку «5 (Haiku)» и абзац, а также сравнение с Opus на тех же 15 задачах: совпадение ответов, статусы решений, решения аудиторов. Различия описывай как различия двух прогонов, не как ошибку одной из моделей, пока ответ не проверен.
+8 ноября партия 5 была прогнана ещё раз на `claude-haiku-5-5` как именованная попытка `haiku`. На 15 задачах Haiku допустил одну ошибку чтения рисунка (3F02c4), а два его аудита нарушили формат. Серия поэтому продолжается на Opus. Попытка сохранена в `attempts/haiku/` как калибровка моделей. Не продолжай и не активируй её без отдельного решения пользователя. Механизм попыток (`--attempt`, `activate`) описан в `--help` и в README каталога.
 
 ## 8. Отчёт и остановка
 
