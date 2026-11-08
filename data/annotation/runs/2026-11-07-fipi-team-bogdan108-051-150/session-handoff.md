@@ -54,7 +54,7 @@
 
 Каждый шаг с запуском агентов — только по явному слову пользователя, по одной партии.
 
-1. Партии 6–8 выполнены на Opus с `effort: low`, health check всех трёх — `pass`. 321FCD (статус автора `partial`, ответ совпал с ожиданием) принята решением `checks/batch-08-quarantine-resolution.json`; `health-finish` учитывает такие решения (`accepted_after_review`). Следующий шаг — EDA-150, затем партия 9.
+1. Партии 6–8 выполнены на Opus с `effort: low`, health check всех трёх — `pass`. 321FCD (статус автора `partial`, ответ совпал с ожиданием) принята решением `checks/batch-08-quarantine-resolution.json`; `health-finish` учитывает такие решения (`accepted_after_review`). Краткий EDA-150 собран: `data/annotation/analyses/2026-11-08-fipi-checkpoint-150-v1/` (скрипт `scripts/fipi_checkpoint150_brief.py`). Следующий шаг — партия 9.
 2. EDA-150 (сначала согласовать с пользователем план и формат).
 3. Партии 9–12, EDA-200, PR в `docs/full-ege-math-scope`, приёмка координатором.
 
