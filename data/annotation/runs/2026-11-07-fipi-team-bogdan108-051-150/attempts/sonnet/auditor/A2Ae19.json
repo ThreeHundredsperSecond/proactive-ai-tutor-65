@@ -1,0 +1,46 @@
+{
+  "task_id": "A2Ae19",
+  "catalog_version": "fipi50-editorial-v1-frozen",
+  "decisions": [
+    {
+      "local_kc_id": "kc1",
+      "status": "match",
+      "catalog_kc_id": "classical_probability",
+      "evidence": [
+        {"ref": "step:s1:action", "quote": "как отношение числа благоприятных исходов к общему числу равновозможных исходов (классическое определение вероятности): 56/80"},
+        {"ref": "step:s1:result", "quote": "P(A) = 56/80 = 0,7"}
+      ],
+      "context_refs": ["condition"],
+      "alternatives_checked": [
+        {"catalog_kc_id": "equiprobable_model", "reason": "Требует задать элементарные исходы и обосновать равновозможность; в решении выполнена только формула m/n, обоснование не показано."}
+      ],
+      "rationale": "В s1 вычислено m/n = 56/80 по числу благоприятных (56) и общему числу (80) билетов из условия; это ровно определение classical_probability. Равновозможность выбора билета принята неявно и в этот узел не входит.",
+      "proposal": null,
+      "blocking": false,
+      "issue_ids": []
+    },
+    {
+      "local_kc_id": "kc2",
+      "status": "new_candidate",
+      "catalog_kc_id": null,
+      "evidence": [
+        {"ref": "step:s2:action", "quote": "по формуле P(не A) = 1 − P(A)"},
+        {"ref": "step:s2:result", "quote": "P = 1 − 0,7 = 0,3"}
+      ],
+      "context_refs": ["condition", "step:s1:result"],
+      "alternatives_checked": [
+        {"catalog_kc_id": "classical_probability", "reason": "Вычисляет m/n по числу исходов; здесь используется формула 1 − P(A) по уже известной вероятности, а не подсчёт исходов."},
+        {"catalog_kc_id": "literal_9db22ef78d3a", "reason": "Касается произведения вероятностей независимых событий, а не противоположного события."}
+      ],
+      "rationale": "Действие: по известной вероятности события получить вероятность противоположного как 1 − P(A). В каталоге нет узла для вероятности противоположного события; близкие узлы относятся к другим операциям.",
+      "proposal": {
+        "name": "Находить вероятность противоположного события",
+        "definition": "По известной вероятности события A вычислить вероятность противоположного события как 1 − P(A); вычисление P(A) и распознавание противоположного события в условии отдельно."
+      },
+      "blocking": false,
+      "issue_ids": []
+    }
+  ],
+  "issues": [],
+  "review_scope": "KC mapping with incidental mathematical checks; not expert validation"
+}

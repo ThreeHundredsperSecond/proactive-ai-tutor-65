@@ -1,0 +1,288 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>41D348</h2><p>Дайте развернутый ответ.</p><div><section> <p class="Basis">Решите неравенство <span><img src="file:///Users/bogdanlukancuk/proactive-ai-tutor-65/data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/e6fc07bbca0f96d1cdc6cca1.png" alt="Рисунок ФИПИ"></span></p> </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;41D348&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;(-∞; 0) ∪ (0; 1]&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Преобразовать знаменатель log_5(2^x) = x·log_5 2 и найти ОДЗ: знаменатель не равен нулю, т.е. x ≠ 0; знак знаменателя совпадает со знаком x, так как log_5 2 &gt; 0.&quot;,
+      &quot;result&quot;: &quot;x ≠ 0; знаменатель имеет знак x.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Заменой t = 3^x (t &gt; 0) разложить числитель 9^x − 4·3^x + 3 на множители (t−1)(t−3) и найти знаки по x.&quot;,
+      &quot;result&quot;: &quot;Числитель = (3^x−1)(3^x−3); он равен нулю при x=0 и x=1, положителен при x&lt;0 и x&gt;1, отрицателен при 0&lt;x&lt;1.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;,
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Решить неравенство методом анализа знаков числителя и знаменателя по промежуткам x&lt;0 и x&gt;0 с учётом x ≠ 0.&quot;,
+      &quot;result&quot;: &quot;При x&lt;0: числитель &gt; 0, знаменатель &lt; 0, дробь &lt; 0 — подходит. При 0&lt;x≤1: числитель ≤ 0, знаменатель &gt; 0 — подходит. При x&gt;1: дробь &gt; 0 — не подходит.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Объединить найденные промежутки с учётом ОДЗ.&quot;,
+      &quot;result&quot;: &quot;x ∈ (−∞; 0) ∪ (0; 1].&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Находить ОДЗ дробного логарифмического выражения&quot;,
+      &quot;description&quot;: &quot;По выражению с логарифмом в знаменателе упростить логарифм степени и определить условия ненулевого знаменателя и знак знаменателя.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Сводить показательное выражение к квадратному заменой переменной&quot;,
+      &quot;description&quot;: &quot;Для выражения, квадратного относительно показательной функции с одним основанием, ввести новую положительную переменную и привести выражение к квадратному трёхчлену.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Раскладывать квадратный трёхчлен на множители и определять знак выражения&quot;,
+      &quot;description&quot;: &quot;По корням квадратного трёхчлена записать разложение и определить знаки множителей в зависимости от исходной переменной.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Решать дробное неравенство анализом знаков&quot;,
+      &quot;description&quot;: &quot;Для неравенства с дробью, знаки числителя и знаменателя которой известны, рассмотреть промежутки, определить знак дроби и объединить подходящие с учётом ОДЗ.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Анализ знаков числителя и знаменателя дробного неравенства&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;41D348&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Преобразовать знаменатель log_5(2^x) = x·log_5 2 и найти ОДЗ&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;x ≠ 0; знаменатель имеет знак x.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;image:assets/e6fc07bbca0f96d1cdc6cca1.png&quot;,
+          &quot;region_description&quot;: &quot;Знаменатель дроби: log_5(2^x); неравенство дроби с числителем 9^x - 4*3^x + 3 не больше 0.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+          &quot;reason&quot;: &quot;Покрывает только сохранение нуля знаменателя; не включает упрощение логарифма степени и вывод о знаке знаменателя.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_7baedb55a81a&quot;,
+          &quot;reason&quot;: &quot;Требует положительности аргументов и допустимости оснований; здесь аргумент 2^x&gt;0 тривиален, а суть шага в ненулевом знаменателе.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_872613285a26&quot;,
+          &quot;reason&quot;: &quot;Замена основания логарифма не выполняется.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат смешивает три действия: вынесение показателя из логарифма степени, условие ненулевого знаменателя и определение знака знаменателя. Только вторая часть соответствует denominator_domain; первая и третья в каталоге отдельных узлов не имеют.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;name&quot;: &quot;Выносить показатель из логарифма степени&quot;,
+            &quot;possible_catalog_kc_id&quot;: null
+          },
+          {
+            &quot;name&quot;: &quot;Сохранять ненулевой знаменатель&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;denominator_domain&quot;
+          },
+          {
+            &quot;name&quot;: &quot;Определять знак знаменателя по знаку переменной при положительном коэффициенте&quot;,
+            &quot;possible_catalog_kc_id&quot;: null
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Заменой t = 3^x (t &gt; 0)&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a30e088aef8f&quot;,
+          &quot;reason&quot;: &quot;Замена касается корня, а не показательной функции.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+          &quot;reason&quot;: &quot;Преобразование 9^x=(3^x)^2 входит как согласование степеней в подстановку, отдельного узла не требует.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Вводится t=3^x&gt;0 с основанием 3&gt;0, 3≠1, и 9^x согласуется с t (как t^2). Обратный переход отдельно, и дальше он используется только для знаков.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;разложить числитель 9^x − 4·3^x + 3 на множители (t−1)(t−3)&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;положителен при x&lt;0 и x&gt;1, отрицателен при 0&lt;x&lt;1&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:action&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+          &quot;reason&quot;: &quot;Подходит для факторизации и исследования знака, но проверка разложения явно не показана и определение не охватывает перевод знаков множителей 3^x-1, 3^x-3 в знаки по x.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_1b97db4e28e8&quot;,
+          &quot;reason&quot;: &quot;Решается не квадратное неравенство, а определяются знаки выражения.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_inequality&quot;,
+          &quot;reason&quot;: &quot;Сравнения 3^x с 1 и 3 по монотонности не оформлены как решение неравенства.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат составной: разложение трёхчлена по корням (близко к literal_cab525070130) и определение знаков множителей по x через монотонность 3^x. Второе в каталоге отдельного узла не имеет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;name&quot;: &quot;Раскладывать квадратный трёхчлен по корням&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;literal_cab525070130&quot;
+          },
+          {
+            &quot;name&quot;: &quot;Определять знак показательного множителя по x через сравнение 3^x с константой&quot;,
+            &quot;possible_catalog_kc_id&quot;: null
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;Решить неравенство методом анализа знаков числителя и знаменателя&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;При x&lt;0: числитель &gt; 0, знаменатель &lt; 0, дробь &lt; 0 — подходит.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;Объединить найденные промежутки с учётом ОДЗ.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;rational_intervals&quot;,
+          &quot;reason&quot;: &quot;Близко по методу, но определение для рационального неравенства с кратностями; здесь дробь показательно-логарифмическая со знаками, уже выведенными в s1 и s2.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_ef3f8c7287d4&quot;,
+          &quot;reason&quot;: &quot;Требует доказанно положительного знаменателя; здесь знаменатель меняет знак.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a78667313aa3&quot;,
+          &quot;reason&quot;: &quot;Аналогично, предполагает положительный знаменатель.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+          &quot;reason&quot;: &quot;Только заключительная часть (объединение с учётом x≠0).&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Рассмотрены промежутки x&lt;0, 0&lt;x&lt;=1, x&gt;1, определён знак дроби по известным знакам числителя и знаменателя и собран ответ с x≠0. Точного узла для такого анализа знаков частного с меняющимся знаком знаменателя вне рационального случая нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Для неравенства с дробью, знаки числителя и знаменателя которой известны по промежуткам, определить знак дроби на каждом, отобрать подходящие, включить нули числителя при нестрогом знаке и объединить с учётом исключённых нулей знаменателя.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;coverage&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s2:action&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;description&quot;: &quot;Обоснование знаков множителей (3^x&gt;1 при x&gt;0, 3^x&lt;3 при x&lt;1) явно не показано, дано только в результате.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc3&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>
