@@ -9,7 +9,7 @@
 | Каталог партии (`RUN`) | `data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150` |
 | Бронь | [Issue #2](https://github.com/ThreeHundredsperSecond/proactive-ai-tutor-65/issues/2), `reserved`, методика `fipi-extension-v1.1` |
 | Партии | 5–12 (15+15+15+5 и ещё раз 15+15+15+5); партия 5 выполнена |
-| Модель агентов | `claude-opus-5-5` для всех партий (в Agent — `model: opus`). Попытка `haiku` партии 5 — калибровка моделей, не активирована |
+| Модель агентов | `claude-opus-5-5` для всех партий. С партии 6 в Agent — `model: opus`, `effort: low` (минимальный уровень рассуждений; отключить их полностью нельзя). Попытки `haiku` и `sonnet` партии 5 — калибровка моделей, не активированы |
 
 ## Твоя роль
 
@@ -45,8 +45,8 @@ python3 -c "import json;print(' '.join(json.load(open('$RUN/manifest.json'))['ba
 Для каждого ID партии:
 
 1. `python3 -B scripts/fipi_team_batch.py exec-start --run $RUN --role author --task ID --model claude-opus-5-5`. Команда печатает сообщение для агента и пишет журнал `executions/author-ID.json` с этой моделью.
-2. Запусти нового субагента: инструмент Agent, `subagent_type: general-purpose`, `model: opus`. Промпт — напечатанное сообщение дословно, без добавлений: никакого контекста, подсказок или ожидаемых ответов. Одна задача — один агент. Авторов всей партии можно запускать параллельно.
-3. Сразу после запуска: `python3 -B scripts/fipi_team_batch.py attach --run $RUN --role author --task ID --agent-id <ID агента из результата Agent> --model-requested opus`.
+2. Запусти нового субагента: инструмент Agent, `subagent_type: general-purpose`, `model: opus`, `effort: low`. Промпт — напечатанное сообщение дословно, без добавлений: никакого контекста, подсказок или ожидаемых ответов. Одна задача — один агент. Авторов всей партии можно запускать параллельно.
+3. Сразу после запуска: `python3 -B scripts/fipi_team_batch.py attach --run $RUN --role author --task ID --agent-id <ID агента из результата Agent> --model-requested "opus; effort=low"`.
 4. Дождись уведомления о завершении (файлы вывода агентов не читай и не опрашивай), затем: `python3 -B scripts/fipi_team_batch.py exec-finish --run $RUN --role author --task ID --message "<из отчёта агента: сохранённый путь, просмотренные image_files, любые отступления>"`.
    - `technical_pass` → запускай аудитора этой задачи (раздел 3).
    - `technical_fail` или ответа нет → аудитора не запускай и ничего не исправляй. Продолжи остальные задачи, в конце сообщи пользователю. Повтор допустим только отдельной попыткой в `attempts/` по решению пользователя; `exec-start` повторно не запустится, это защита.
@@ -56,8 +56,8 @@ python3 -c "import json;print(' '.join(json.load(open('$RUN/manifest.json'))['ba
 Только для задач, где автор получил `technical_pass`:
 
 1. `python3 -B scripts/fipi_team_batch.py exec-start --run $RUN --role auditor --task ID --model claude-opus-5-5`. Команда сама соберёт `requests/auditor-v1.1/ID.txt`: условие, изображения, ответ автора, каталог и допустимые ссылки.
-2. Новый субагент: `general-purpose`, `model: opus`, промпт — напечатанное сообщение дословно.
-3. `attach --role auditor ... --model-requested opus` с ID агента.
+2. Новый субагент: `general-purpose`, `model: opus`, `effort: low`, промпт — напечатанное сообщение дословно.
+3. `attach --role auditor ... --model-requested "opus; effort=low"` с ID агента.
 4. После завершения `exec-finish --role auditor ... --message "<из отчёта: путь, изображения, отступления>"`.
 
 ## 4. Чего не делать
@@ -121,9 +121,9 @@ git push
 
 Коммить только каталог партии. `.venv` и временные файлы не коммить.
 
-## Попытка `haiku` партии 5
+## Попытки `haiku` и `sonnet` партии 5
 
-8 ноября партия 5 была прогнана ещё раз на `claude-haiku-5-5` как именованная попытка `haiku`. На 15 задачах Haiku допустил одну ошибку чтения рисунка (3F02c4), а два его аудита нарушили формат. Серия поэтому продолжается на Opus. Попытка сохранена в `attempts/haiku/` как калибровка моделей. Не продолжай и не активируй её без отдельного решения пользователя. Механизм попыток (`--attempt`, `activate`) описан в `--help` и в README каталога.
+8 ноября партия 5 была прогнана ещё раз на `claude-haiku-5-5` и `claude-sonnet-5-5` как именованные попытки `haiku` и `sonnet`. Обе модели ошиблись в чтении рисунка 3F02c4, а часть аудитов нарушила формат (2 и 6 из 15). Серия поэтому продолжается на Opus. Сводка — раздел «Вывод по моделям» в README каталога. Попытки сохранены в `attempts/` как калибровка моделей. Не продолжай и не активируй их без отдельного решения пользователя. Механизм попыток (`--attempt`, `activate`) описан в `--help` и в README каталога.
 
 ## 8. Отчёт и остановка
 
