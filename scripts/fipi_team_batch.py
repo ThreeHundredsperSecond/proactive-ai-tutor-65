@@ -420,6 +420,7 @@ def batch_ids(run, b):
 def norm_answer(s):
     s = str(s).lower().replace('−', '-').replace('∞', 'inf').replace('∪', 'u').replace('union', 'u')
     s = s.replace(';', ',').replace(' ', '').replace(' ', '')
+    s = s.replace('+inf', 'inf')            # "[4; +∞)" == "[4,inf)"
     s = re.sub(r'^[a-z](∈|=)', '', s)       # "x ∈ (...)", "x = 5"
     s = re.sub(r'[а-яё./]+$', '', s)        # trailing units: "км/ч", "рублей"
     try:
@@ -478,18 +479,27 @@ def health_math(a):
             for c in read(p)['checks']:
                 if c.get('status') == 'independent_expected_before_author' or c['task_id'] not in expected:
                     expected[c['task_id']] = {**c, 'source': 'checks/' + p.name}
+    # Optional post-hoc review of string mismatches (e.g. multi-part answers the normalizer cannot compare).
+    # Written after seeing the author answer, so it is recorded as such and never as a blind check.
+    rp = run / 'checks' / f'batch-{b:02}{sfx(a.attempt)}-math-review.json'
+    reviews = {r['task_id']: r for r in read(rp)['reviews']} if rp.exists() else {}
     checks = []
     for t in plan['task_ids']:
         e = expected.get(t, {'status': 'not_checked', 'source': None})
         ans = read(answer(run, t, 'author', a.attempt))['answer']
+        review = None
         if e.get('status') == 'independent_expected_before_author':
             status = 'match' if norm_answer(e['expected_answer']) == norm_answer(ans) else 'mismatch'
+            r = reviews.get(t)
+            if status == 'mismatch' and r and r.get('verdict') == 'equivalent' and r.get('author_answer') == ans:
+                status, review = 'match_after_review', {**r, 'source': 'checks/' + rp.name}
         else:
             status = 'not_checked'
         checks.append({'task_id': t, 'status': status, 'expected_answer': e.get('expected_answer'), 'author_answer': ans,
                        'calculation': e.get('calculation'), 'expectation_source': e['source'],
                        'prepared_before_new_author_answers': e.get('prepared_before_new_author_answers', False),
-                       'scope': 'Predeclared primary-assistant spot expectation from the 2026-11-02 run; not full expert proof'})
+                       'scope': 'Predeclared primary-assistant spot expectation from the 2026-11-02 run; not full expert proof',
+                       **({'post_hoc_review': review} if review else {})})
     out = run / 'checks' / f'batch-{b:02}{sfx(a.attempt)}-math.json'
     freeze(out, {'batch': b, 'attempt': a.attempt, 'checks': checks,
                  'systemic_unresolved': any(c['status'] == 'mismatch' for c in checks), 'recorded_at': now()})

@@ -79,6 +79,7 @@ $PY -B scripts/fipi_team_batch.py health-render --run $RUN --batch N
 ```
 
 - `health-math` сверяет ответы контрольных задач с ожиданиями, записанными до любых авторских ответов. При `mismatch` остановись: `health-finish` не запускай, ответы не исправляй, сообщи пользователю. Это повод разобрать задачу или отправить её в карантин. `not_checked` допустимо, укажи это в отчёте.
+- Если `mismatch` вызван только записью ответа (нормализация строки, ответ из нескольких пунктов), это решает пользователь. При его согласии прежняя сверка сохраняется как `checks/batch-NN-math.v0-<причина>.json`, а сравнение после просмотра ответа записывается в `checks/batch-NN-math-review.json` (`verdict: equivalent`, `after_seeing_answer: true`). Повторный `health-math` даёт статус `match_after_review`. Пример — партия 7.
 - `health-render` открывает Chrome без окна и проверяет загрузку изображений и отрисовку MathML.
 - Сам открой инструментом Read скриншоты контрольных карточек `$RUN/checks/batch-NN-<ID>.png`; ID берутся из `checks/batch-NN-sample-plan.json`, NN — номер партии из двух цифр. Убедись, что условие, формулы и рисунок видны целиком и совпадают с тем, как их прочитали автор и аудитор.
 - Запиши просмотр: `$PY -B scripts/fipi_team_batch.py health-visual --run $RUN --batch N --reviewer "primary assistant (Claude Code) via Read of Chrome screenshots" --findings '<JSON>'`. Формат находки: `{"task_id": "...", "kind": "note|procedure|input", "systemic": false, "description": "..."}`. Если находок нет, передай `'[]'`.
