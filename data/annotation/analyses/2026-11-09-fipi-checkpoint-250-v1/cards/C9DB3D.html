@@ -1,0 +1,167 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>C9DB3D</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>2. ФИПИ C9DB3D · бронь #4, партия 1</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal"><span>Для нагревательного элемента некоторого прибора экспериментально была получена зависимость температуры (в К) от времени работы:</span></p> <p class="MsoNormal" align="center"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>T</mi><mrow><mo>(</mo> <mi>t</mi> <mo>)</mo></mrow><mo>=</mo><msub> <mi>T</mi> <mn>0</mn> </msub> <mtext> </mtext><mo>+</mo><mi>b</mi><mtext> </mtext><mi>t</mi><mo>+</mo><mi>a</mi><mtext> </mtext><msup> <mi>t</mi> <mn>2</mn> </msup> <mtext>​</mtext><mo>,</mo> </mrow>  </semantics> </mstyle></math><span></span></p> <p class="MsoNormal"><span>где <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>t</mi>  </semantics> </mstyle></math> <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mo>—</mo>  </semantics> </mstyle></math> время (в мин.), <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <msub> <mi>T</mi> <mn>0</mn> </msub> <mtext> </mtext><mo>=</mo><mn>1380</mn><mtext> </mtext><mtext>К</mtext> </mrow>  </semantics> </mstyle></math>, <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>a</mi><mo>=</mo><mo>−</mo><mtext> </mtext><mn>15</mn><mtext> </mtext><mtext>К</mtext><mtext> </mtext><mo>/</mo><mtext> </mtext><msup> <mrow> <mtext>мин</mtext> </mrow> <mn>2</mn> </msup> <mtext>​</mtext><mo>,</mo> </mrow>  </semantics> </mstyle></math> <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>b</mi><mo>=</mo><mn>165</mn><mtext> </mtext><mtext>К</mtext><mtext> </mtext><mo>/</mo><mtext> </mtext><mtext>мин</mtext> </mrow>  </semantics> </mstyle></math>. Известно, что при температуре нагревательного элемента свыше 1800 К прибор может испортиться, поэтому его нужно отключить. Найдите, через какое наибольшее время после начала работы нужно отключить прибор. Ответ дайте в минутах.</span><span></span></p>  </section></div><p>КЭС: 2.5 Целые и дробно-рациональные неравенства</p><h2>Ответ</h2><p>4</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Подставить параметры в формулу и составить неравенство T(t) ≤ 1800</td><td>1380 + 165t − 15t^2 ≤ 1800</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Привести неравенство к стандартному квадратному виду</td><td>t^2 − 11t + 28 ≥ 0</td><td>kc2</td></tr><tr><td>s3 · s2</td><td>Найти корни квадратного трёхчлена и решить неравенство</td><td>t ≤ 4 или t ≥ 7 (корни 4 и 7)</td><td>kc3</td></tr><tr><td>s4 · s3, condition</td><td>Отобрать по смыслу задачи: с начала работы температура не превышает 1800 К на промежутке [0; 4], первый момент достижения порога — t = 4</td><td>4 мин</td><td>kc4</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Сведение прикладной задачи к квадратному неравенству&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Составить неравенство по прикладной формуле</h3><p>По формуле зависимости величины и пороговому ограничению из условия подставить известные параметры и записать неравенство относительно неизвестной переменной.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_cb48e5bc61de&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Подставить параметры в формулу и составить неравенство T(t) ≤ 1800&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;1380 + 165t − 15t^2 ≤ 1800&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+      &quot;reason&quot;: &quot;Покрывает только подстановку величин в формулу и получение числового соотношения, без перевода порогового ограничения в неравенство.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Подстановка T0, a, b в заданную зависимость и перевод условия о пороге 1800 К в неравенство относительно t соответствует определению. Физическая область t≥0 явно не записана в s1, но используется в s4 («с начала работы»), поэтому соответствие принимается с этой оговоркой.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc2"><h3>kc2 · Привести квадратное неравенство к стандартному виду</h3><p>Перенести члены в одну часть, сократить на общий множитель и при необходимости сменить знак, получив неравенство с приведённым квадратным трёхчленом.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Привести неравенство к стандартному квадратному виду&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;t^2 − 11t + 28 ≥ 0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_b9b755cc8462&quot;,
+      &quot;reason&quot;: &quot;Касается умножения на положительное выражение с сохранением знака; здесь деление на −15 со сменой знака.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0cf8af170957&quot;,
+      &quot;reason&quot;: &quot;Линейное неравенство; здесь квадратное.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_1b97db4e28e8&quot;,
+      &quot;reason&quot;: &quot;Решение неравенства по знаку трёхчлена, а не приведение к стандартному виду.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Перенос членов и деление на отрицательное число −15 со сменой знака неравенства — равносильное преобразование, для которого в каталоге нет определения. Проверка: −15t²+165t−420≤0 ⇔ t²−11t+28≥0, верно.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Равносильно преобразовывать неравенство делением на число&quot;,
+    &quot;definition&quot;: &quot;Перенести члены в одну часть и разделить обе части на ненулевое число, меняя знак неравенства при отрицательном делителе.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Решить квадратное неравенство</h3><p>Найти корни квадратного трёхчлена и по знаку старшего коэффициента определить промежутки, где выполнено неравенство.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_1b97db4e28e8&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Найти корни квадратного трёхчлена и решить неравенство&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;t ≤ 4 или t ≥ 7 (корни 4 и 7)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+      &quot;reason&quot;: &quot;Только нахождение корней; здесь ещё определение знака по промежуткам и учёт нестрогости.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cd64639b0b5a&quot;,
+      &quot;reason&quot;: &quot;Неравенство с параметром; здесь числовые коэффициенты.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Найдены корни 4 и 7, выбраны внешние промежутки при положительном старшем коэффициенте, концы включены для нестрогого ≥. Соответствует определению целиком; способ нахождения корней не показан, но результат верен.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Отобрать решение по смыслу прикладной задачи</h3><p>Из множества решений неравенства выбрать значение, соответствующее вопросу задачи с учётом непрерывности процесса от начального момента и физических ограничений переменной.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:action&quot;,
+      &quot;quote&quot;: &quot;с начала работы температура не превышает 1800 К на промежутке [0; 4], первый момент достижения порога — t = 4&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;4 мин&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s3:result&quot;,
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+      &quot;reason&quot;: &quot;Отбор корней по физическому смыслу близок, но определение говорит о проверке корней, а здесь выбирается связный промежуток от t=0 и первый момент достижения порога.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_a873d91378ab&quot;,
+      &quot;reason&quot;: &quot;Проверка достижения граничного ответа подстановкой в модель не выполнена явно.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+      &quot;reason&quot;: &quot;Отбор по заданной области определения/промежутку; здесь критерий — смысл вопроса о непрерывном процессе.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Действие — интерпретация множества решений t≤4 или t≥7 для непрерывного процесса с t≥0 и выбор первого выхода за порог. Ближайший literal_c840012ba3dd покрывает отбор по смыслу модели, но не явно выбор связной компоненты от начального момента; граница между этим узлом и literal_a873d91378ab неоднозначна.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;coverage&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s1:result&quot;,
+      &quot;step:s4:action&quot;
+    ],
+    &quot;description&quot;: &quot;Ограничение t≥0 не записано при построении модели в s1 и вводится лишь неявно в s4 («с начала работы»); промежуток t≥7 отброшен по смыслу без явной формулировки ограничения.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc1&quot;,
+      &quot;kc4&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/C9DB3D.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/C9DB3D.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

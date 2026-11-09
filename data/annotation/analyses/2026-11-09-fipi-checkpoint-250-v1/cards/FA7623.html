@@ -1,0 +1,94 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>FA7623</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>1. ФИПИ FA7623 · бронь #4, партия 1</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Найдите корень уравнения <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <msup> <mrow> <mrow><mo>(</mo> <mrow> <mfrac> <mn>1</mn> <mn>4</mn> </mfrac> </mrow> <mo>)</mo></mrow> </mrow> <mrow> <mi>x</mi><mtext> </mtext><mo>−</mo><mtext> </mtext><mn>5</mn> </mrow> </msup> <mtext> </mtext><mo>=</mo><mfrac> <mn>1</mn> <mrow> <mn>16</mn> </mrow> </mfrac> </mrow>  </semantics> </mstyle></math>.<span></span></p>  </section></div><p>КЭС: 2.4 Показательные и логарифмические уравнения</p><h2>Ответ</h2><p>7</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>S1 · condition</td><td>Представить правую часть как степень основания левой части: 1/16 = (1/4)^2</td><td>(1/4)^(x-5) = (1/4)^2</td><td>KC1</td></tr><tr><td>S2 · S1</td><td>Приравнять показатели степеней при одинаковом основании (основание положительно и не равно 1) и решить полученное линейное уравнение</td><td>x - 5 = 2, x = 7</td><td>KC2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;M1&quot;,
+    &quot;name&quot;: &quot;Приведение обеих частей показательного уравнения к одному основанию&quot;,
+    &quot;step_ids&quot;: [
+      &quot;S1&quot;,
+      &quot;S2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="KC1"><h3>KC1 · Представить число в виде степени заданного основания</h3><p>Вход: число и основание степени. Операция: найти показатель, при котором основание в этой степени равно числу. Граница: применяется, когда число является рациональной степенью основания.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S1:action&quot;,
+      &quot;quote&quot;: &quot;1/16 = (1/4)^2&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S1:result&quot;,
+      &quot;quote&quot;: &quot;(1/4)^(x-5) = (1/4)^2&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+      &quot;reason&quot;: &quot;Определение включает приведение к общему основанию, но вместе с приравниванием показателей; KC1 — только компонент этого составного действия.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+      &quot;reason&quot;: &quot;Законы степени степени, произведения и частного не применяются; распознаётся число как степень.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d66dd830e876&quot;,
+      &quot;reason&quot;: &quot;Нахождение показателя по смыслу близко, но узел описывает вычисление логарифма, логарифма в решении нет.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: распознать число 1/16 как вторую степень основания 1/4. Отдельного узла каталога для представления числа в виде степени заданного основания нет; ближайший exponential_equation шире и содержит его как часть.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;По числу и заданному положительному основанию, отличному от 1, найти показатель, при котором степень основания равна числу, и записать число в виде этой степени.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="KC2"><h3>KC2 · Перейти от равенства степеней с одинаковым основанием к равенству показателей</h3><p>Вход: уравнение вида a^f(x) = a^g(x). Операция: заменить его равносильным f(x) = g(x) и решить. Граница: основание a &gt; 0 и a ≠ 1.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC2&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S2:action&quot;,
+      &quot;quote&quot;: &quot;Приравнять показатели степеней при одинаковом основании (основание положительно и не равно 1) и решить полученное линейное уравнение&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S2:result&quot;,
+      &quot;quote&quot;: &quot;x - 5 = 2, x = 7&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:S1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+      &quot;reason&quot;: &quot;Покрывает приравнивание показателей (вместе с приведением к основанию из S1), но явно исключает решение последующего линейного уравнения.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;Покрывает только решение x - 5 = 2, не снятие степени.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет переход a^f=a^g -&gt; f=g при a=1/4&gt;0, a≠1, и решение линейного уравнения. Каталог разделяет эти действия; приведение к общему основанию выполнено в S1, поэтому часть 1 соответствует exponential_equation в связке с S1.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Приравнять показатели при одинаковом основании 1/4 (0&lt;a≠1)&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+        &quot;note&quot;: &quot;вместе с приведением к основанию в S1&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Решить x - 5 = 2&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;linear_equation&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/FA7623.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/FA7623.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

@@ -1,0 +1,218 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>6FA927</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>37. ФИПИ 6FA927 · бронь #4, партия 3</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">На рисунке изображены графики функций видов <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>f</mi><mrow><mo>(</mo> <mi>x</mi> <mo>)</mo></mrow><mo>=</mo><mfrac> <mi>k</mi> <mi>x</mi> </mfrac> </mrow> </semantics> </math> и <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>g</mi><mrow><mo>(</mo> <mi>x</mi> <mo>)</mo></mrow><mo>=</mo><mi>a</mi><mi>x</mi><mo>+</mo><mi>b</mi><mo>,</mo> </mrow> </semantics> </math> пересекающиеся в точках <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mi>A</mi> </semantics> </math> и <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>B</mi><mo>.</mo> </mrow> </semantics> </math> Найдите абсциссу точки <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>B</mi><mo>.</mo> </mrow> </semantics> </math></p> <p class="MsoNormal" align="center"><img src="../../../runs/2026-11-09-fipi-team-bogdan108-next-100/inputs/assets/e44f17a2d47039edd58b1f2d.png" alt="Рисунок ФИПИ"></p> <p class="MsoNormal"><span> </span></p>  </section></div><p>КЭС: 2.1 Целые и дробно-рациональные уравнения; 2.9 Системы и совокупности уравнений и неравенств; 3.1 Функция, способы задания функции. График функции. Взаимно обратные функции. Чётные и нечётные функции. Периодические функции</p><h2>Ответ</h2><p>8</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Считать с рисунка координаты точки пересечения A и точки пересечения прямой с осью Oy</td><td>A(-2; -4), прямая проходит через (0; -3)</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Найти коэффициенты линейной функции по двум точкам графика</td><td>b = -3, a = 1/2, g(x) = x/2 - 3</td><td>kc2</td></tr><tr><td>s3 · s1</td><td>Найти коэффициент обратной пропорциональности по точке графика</td><td>k = (-2)(-4) = 8, f(x) = 8/x</td><td>kc3</td></tr><tr><td>s4 · s2, s3</td><td>Составить уравнение для абсцисс точек пересечения и свести его к квадратному при x ≠ 0</td><td>8/x = x/2 - 3 ⇔ x^2 - 6x - 16 = 0, x ≠ 0</td><td>kc4</td></tr><tr><td>s5 · s4, s1</td><td>Решить квадратное уравнение и отбросить корень, соответствующий точке A</td><td>x = -2 (точка A) или x = 8; абсцисса B равна 8</td><td>kc5</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Восстановление формул функций по графику и решение уравнения пересечения&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;,
+      &quot;s5&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Считать координаты узловых точек графика</h3><p>По изображению графика на клетчатой сетке определить координаты точек, лежащих в узлах сетки (пересечения, точки на осях); применимо, если точка однозначно совпадает с узлом.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;graph_coordinates&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Считать с рисунка координаты точки пересечения A и точки пересечения прямой с осью Oy&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;A(-2; -4), прямая проходит через (0; -3)&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;image:assets/e44f17a2d47039edd58b1f2d.png&quot;,
+      &quot;region_description&quot;: &quot;Нижняя левая часть: отмеченная точка A в узле x=-2, y=-4 (подписи -2 и -4 на осях); прямая пересекает ось Oy в точке с подписью -3&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [],
+  &quot;rationale&quot;: &quot;Считывание отмеченной точки и явного пересечения с осью по клетчатой сетке; рисунок подтверждает значения. Восстановление формул выполнено отдельно.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Определить коэффициенты линейной функции по графику</h3><p>По двум известным точкам прямой найти угловой коэффициент как отношение приращений и свободный член; применимо к невертикальной прямой.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_f253b50b98a1&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Найти коэффициенты линейной функции по двум точкам графика&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;b = -3, a = 1/2, g(x) = x/2 - 3&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;direct_proportion&quot;,
+      &quot;reason&quot;: &quot;Касается y=kx по одной точке, здесь общий y=ax+b по двум точкам&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;По двум точкам с разными абсциссами (-2 и 0) найдены коэффициенты невертикальной прямой; a=(-3-(-4))/(0-(-2))=1/2 верно.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Определить коэффициент обратной пропорциональности по точке</h3><p>Для графика y = k/x по известной точке (x0; y0), x0 ≠ 0, найти k = x0·y0.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Найти коэффициент обратной пропорциональности по точке графика&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;k = (-2)(-4) = 8, f(x) = 8/x&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;direct_proportion&quot;,
+      &quot;reason&quot;: &quot;Для y=kx, k=y/x; здесь y=k/x и k=x·y&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_51a8c0abd718&quot;,
+      &quot;reason&quot;: &quot;Корневая функция y=a√x, другой класс функций&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_3ac0ecd3cd49&quot;,
+      &quot;reason&quot;: &quot;Основание показательной функции&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Действие — восстановление параметра k гиперболы y=k/x по точке с ненулевой абсциссой; в каталоге аналогичные узлы только для других классов функций.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Восстанавливать коэффициент обратной пропорциональности по точке&quot;,
+    &quot;definition&quot;: &quot;Для y=k/x по точке (x0; y0) графика с x0≠0 вычислить k=x0·y0.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Свести уравнение пересечения графиков к алгебраическому</h3><p>Приравнять выражения двух функций и умножением на знаменатель свести дробно-рациональное уравнение к многочлену, сохраняя условие ненулевого знаменателя.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:action&quot;,
+      &quot;quote&quot;: &quot;Составить уравнение для абсцисс точек пересечения и свести его к квадратному при x ≠ 0&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;8/x = x/2 - 3 ⇔ x^2 - 6x - 16 = 0, x ≠ 0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;,
+    &quot;step:s3:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;graph_intersection&quot;,
+      &quot;reason&quot;: &quot;Покрывает только составление f(x)=g(x), без преобразования&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9698b97fef22&quot;,
+      &quot;reason&quot;: &quot;Покрывает умножение на знаменатель с сохранением ограничений, без составления уравнения пересечения&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+      &quot;reason&quot;: &quot;Сохранение x≠0 входит в literal_9698b97fef22, отдельного действия нет&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет два действия каталога: составление уравнения пересечения и снятие знаменателя. Преобразование проверено: 16 = x^2 - 6x верно.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Приравнять 8/x и x/2 - 3 для абсцисс пересечения&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;graph_intersection&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Умножить на 2x при x≠0 и получить x^2 - 6x - 16 = 0&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_9698b97fef22&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc5"><h3>kc5 · Решить квадратное уравнение и отобрать корень</h3><p>Найти корни квадратного уравнения и выбрать удовлетворяющий дополнительному условию (ОДЗ, известная точка, требование задачи).</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc5&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s5:action&quot;,
+      &quot;quote&quot;: &quot;Решить квадратное уравнение и отбросить корень, соответствующий точке A&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s5:result&quot;,
+      &quot;quote&quot;: &quot;x = -2 (точка A) или x = 8; абсцисса B равна 8&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s4:result&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+      &quot;reason&quot;: &quot;Подходит к нахождению корней, но способ (дискриминант/Виет) в шаге не показан&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+      &quot;reason&quot;: &quot;Отбор корней по условию модели — близко к отбрасыванию абсциссы известной точки A&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+      &quot;reason&quot;: &quot;Отбор по области/промежутку, здесь критерий — известная точка&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Смешаны нахождение корней квадратного уравнения и отбор корня по условию задачи. Корни -2 и 8 верны.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Найти корни x^2 - 6x - 16 = 0&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+        &quot;note&quot;: &quot;метод нахождения корней не показан&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Отбросить x=-2 как абсциссу A, выбрать 8&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;coverage&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s5:result&quot;
+    ],
+    &quot;description&quot;: &quot;В s5 не показан способ нахождения корней квадратного уравнения (дискриминант или теорема Виета), поэтому соответствие части quadratic_discriminant предположительное.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc5&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/6FA927.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/6FA927.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>
