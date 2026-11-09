@@ -1,0 +1,245 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>BE8FE4</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>69. ФИПИ BE8FE4 · партия 6</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Две окружности касаются внутренним образом в точке <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>A</mi><mo>,</mo></mrow></mstyle></math></span> причём меньшая проходит через центр большей. Хорда <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>B</mi><mi>C</mi></mrow></mstyle></math></span> большей окружности касается меньшей в точке <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>P</mi><mo>.</mo></mrow></mstyle></math></span> Хорды <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>A</mi><mi>B</mi></mrow></mstyle></math></span> и <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>A</mi><mi>C</mi></mrow></mstyle></math></span> пересекают меньшую окружность <br> в точках <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>K</mi></mstyle></math></span> и <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>M</mi></mstyle></math></span> соответственно.</p> <p class="MsoNormal">а) Докажите, что прямые <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>K</mi><mi>M</mi></mrow></mstyle></math></span> и <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>B</mi><mi>C</mi></mrow></mstyle></math></span> параллельны.</p> <p class="MsoNormal">б) Пусть <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>L</mi></mstyle></math></span> — точка пересечения отрезков <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>K</mi><mi>M</mi></mrow></mstyle></math></span> и <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>A</mi><mi>P</mi><mo>.</mo></mrow></mstyle></math></span> Найдите длину отрезка <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>A</mi><mi>L</mi><mo>,</mo></mrow></mstyle></math></span> если радиус большей окружности равен 34, а <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>B</mi><mi>C</mi><mo>=</mo><mn>32.</mn></mrow></mstyle></math></span><span> </span></p>  </section></div><p>КЭС: 7.1 Фигуры на плоскости</p><h2>Ответ</h2><p>б) √34</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Рассмотреть гомотетию с центром A, переводящую большую окружность в меньшую; так как меньшая проходит через центр O большей и касается её в A, её диаметр AO = R, коэффициент 1/2</td><td>Гомотетия H(A, 1/2) переводит большую окружность в меньшую, центр меньшей O1 — середина AO, r = R/2</td><td>kc1</td></tr><tr><td>s2 · s1, condition</td><td>Применить гомотетию к точкам B и C: образы лежат на AB, AC и на меньшей окружности</td><td>K и M — середины AB и AC</td><td>kc1</td></tr><tr><td>s3 · s2</td><td>Применить свойство средней линии треугольника ABC</td><td>KM ∥ BC, KM — средняя линия; пункт а) доказан</td><td>kc2</td></tr><tr><td>s4 · s3, condition</td><td>Средняя линия KM делит пополам любой отрезок из A до прямой BC, в частности AP</td><td>L — середина AP, AL = AP/2</td><td>kc2</td></tr><tr><td>s5 · condition</td><td>Найти расстояние от центра большей окружности до хорды по теореме Пифагора</td><td>d(O, BC) = √(34² − 16²) = 30</td><td>kc3</td></tr><tr><td>s6 · s1, s5, condition</td><td>Ввести координаты: O=(0,0), BC: y=−30; центр O1 на расстоянии 17 от O и на расстоянии 17 от BC (касание) по ту же сторону, что O</td><td>O1 = (2√30, −13), A = 2·O1 = (4√30, −26), P = (2√30, −30) — проекция O1 на BC</td><td>kc4, kc5</td></tr><tr><td>s7 · s4, s6</td><td>Вычислить AP по формуле расстояния и найти AL</td><td>AP² = 120 + 16 = 136, AP = 2√34, AL = √34</td><td>kc4</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Гомотетия и средняя линия (пункт а)&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;m2&quot;,
+    &quot;name&quot;: &quot;Средняя линия и координатный расчёт AP (пункт б)&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s4&quot;,
+      &quot;s5&quot;,
+      &quot;s6&quot;,
+      &quot;s7&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Применять гомотетию касающихся окружностей</h3><p>Для двух окружностей, касающихся в точке, использовать гомотетию с центром в точке касания и коэффициентом отношения радиусов, чтобы находить образы точек и прямых</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;Гомотетия H(A, 1/2) переводит большую окружность в меньшую&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;K и M — середины AB и AC&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d5e287608dd5&quot;,
+      &quot;reason&quot;: &quot;подобие/параллельность для пропорции отрезков; не описывает гомотетию касающихся окружностей и нахождение образов точек&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;similarity_AA&quot;,
+      &quot;reason&quot;: &quot;доказательство подобия по углам, в решении не выполняется&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: выбрать гомотетию с центром в точке касания и коэффициентом отношения радиусов, применить к точкам B, C большей окружности. В каталоге нет узла о гомотетии.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Для окружностей, касающихся в точке, использовать гомотетию с центром в точке касания и коэффициентом отношения радиусов, чтобы находить образы точек одной окружности на другой.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Использовать свойства средней линии треугольника</h3><p>По серединам двух сторон треугольника заключать о параллельности третьей стороне, половинной длине и делении пополам отрезков из противоположной вершины к третьей стороне</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Применить свойство средней линии треугольника ABC&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:action&quot;,
+      &quot;quote&quot;: &quot;Средняя линия KM делит пополам любой отрезок из A до прямой BC, в частности AP&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d5e287608dd5&quot;,
+      &quot;reason&quot;: &quot;составление пропорции при подобии/параллельности; близко к s4, но не к выводу параллельности по серединам сторон&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_4af504d61511&quot;,
+      &quot;reason&quot;: &quot;координаты точки деления отрезка, координаты не используются&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Из того, что K, M — середины AB, AC, выводится KM ∥ BC (s3) и что KM делит пополам AP (s4). Оба вывода — следствия одной теоремы о средней линии; узла в каталоге нет. Возможное разделение на параллельность и деление пополам оставлено на редакцию.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;По серединам двух сторон треугольника заключать, что отрезок между ними параллелен третьей стороне, равен её половине и делит пополам отрезки от противоположной вершины до третьей стороны.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Находить расстояние от центра окружности до хорды</h3><p>По радиусу и длине хорды находить расстояние от центра до хорды по теореме Пифагора в треугольнике радиус–полухорда–перпендикуляр</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s5:action&quot;,
+      &quot;quote&quot;: &quot;Найти расстояние от центра большей окружности до хорды по теореме Пифагора&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s5:result&quot;,
+      &quot;quote&quot;: &quot;d(O, BC) = √(34² − 16²) = 30&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;pythagoras&quot;,
+      &quot;reason&quot;: &quot;покрывает только вычисление по прямоугольному треугольнику; установление того, что перпендикуляр из центра делит хорду пополам (полухорда 16), в узел не входит&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет свойство перпендикуляра из центра к хорде (делит её пополам, даёт прямой угол) и вычисление по теореме Пифагора. Первая часть в решении не записана явно, только использована (16 = 32/2).&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Использовать, что перпендикуляр из центра окружности к хорде делит её пополам&quot;,
+        &quot;catalog_kc_id&quot;: null
+      },
+      {
+        &quot;part&quot;: &quot;Вычислить катет по гипотенузе-радиусу и полухорде&quot;,
+        &quot;catalog_kc_id&quot;: &quot;pythagoras&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc4"><h3>kc4 · Вычислять длины через координаты</h3><p>Вводить удобную систему координат для геометрической конфигурации, находить координаты точек и длины отрезков по формуле расстояния</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s6:action&quot;,
+      &quot;quote&quot;: &quot;Ввести координаты: O=(0,0), BC: y=−30&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s7:action&quot;,
+      &quot;quote&quot;: &quot;Вычислить AP по формуле расстояния и найти AL&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s7:result&quot;,
+      &quot;quote&quot;: &quot;AP² = 120 + 16 = 136, AP = 2√34, AL = √34&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s4:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_a1cdbef72a14&quot;,
+      &quot;reason&quot;: &quot;задание пространственной фигуры координатами; здесь плоская конфигурация, близко по смыслу, но объект другой&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d4dd6695995d&quot;,
+      &quot;reason&quot;: &quot;длина вектора по координатам — соответствует части s7 (длина AP), но не выбору системы координат и нахождению точек&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат смешивает выбор системы координат, нахождение координат точек из метрических условий (пересечение двух окружностей-условий для O1) и вычисление длины по формуле расстояния.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Задавать плоскую конфигурацию декартовыми координатами&quot;,
+        &quot;catalog_kc_id&quot;: null
+      },
+      {
+        &quot;part&quot;: &quot;Находить координаты точки по расстояниям до заданных точки и прямой&quot;,
+        &quot;catalog_kc_id&quot;: null
+      },
+      {
+        &quot;part&quot;: &quot;Вычислять длину отрезка по координатам концов&quot;,
+        &quot;catalog_kc_id&quot;: &quot;literal_d4dd6695995d&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i2&quot;
+  ]
+}</pre></section><section id="kc5"><h3>kc5 · Использовать перпендикулярность радиуса касательной</h3><p>Касательная к окружности находится на расстоянии радиуса от центра, точка касания — проекция центра на касательную</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc5&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s6:action&quot;,
+      &quot;quote&quot;: &quot;на расстоянии 17 от BC (касание)&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s6:result&quot;,
+      &quot;quote&quot;: &quot;P = (2√30, −30) — проекция O1 на BC&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cdb2863ad1e6&quot;,
+      &quot;reason&quot;: &quot;сравнение углов через перпендикуляры, не касательная&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;diameter_angle&quot;,
+      &quot;reason&quot;: &quot;вписанный угол на диаметре, не касательная&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: из касания прямой и окружности заключить, что расстояние от центра до прямой равно радиусу и точка касания — основание перпендикуляра. Узла о касательной в каталоге нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Для касательной к окружности использовать перпендикулярность радиуса в точку касания: расстояние от центра до касательной равно радиусу, точка касания — проекция центра.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[
+  &quot;Выбор стороны O1 относительно BC (y=−13) обоснован тем, что |OO1|=17 исключает y=−47; знак абсциссы не влияет на длину.&quot;
+]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;missing_annotation&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s5:result&quot;
+    ],
+    &quot;description&quot;: &quot;Использование полухорды 16 опирается на свойство перпендикуляра из центра к хорде, которое не записано отдельным шагом.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc3&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;i2&quot;,
+    &quot;kind&quot;: &quot;missing_annotation&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s6:result&quot;
+    ],
+    &quot;description&quot;: &quot;A = 2·O1 получено из гомотетии/диаметра AO (s1), но kc1 к s6 не привязан; также нахождение O1 как решения системы x²+y²=289, y=−13 не выделено. Выкладки проверены: x²=120, AP²=120+16=136, AL=√34 — согласуется.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc1&quot;,
+      &quot;kc4&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/BE8FE4.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/BE8FE4.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

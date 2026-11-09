@@ -1,0 +1,273 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>EC9829</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">На доске написано несколько различных натуральных чисел, произведение любых двух из которых больше 40 и меньше 100.</p> <p class="MsoNormal">а) Может ли на доске быть 5 чисел?</p> <p class="MsoNormal">б) Может ли на доске быть 6 чисел?</p> <p class="MsoNormal">в) Какое наибольшее значение может принимать сумма чисел на доске, если их четыре?<span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;EC9829&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;а) да, например 6, 7, 8, 9, 10; б) нет; в) 35&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Предъявить пример пяти различных натуральных чисел и проверить, что наименьшее и наибольшее попарные произведения лежат в интервале (40;100)&quot;,
+      &quot;result&quot;: &quot;6,7,8,9,10: минимальное произведение 6·7=42&gt;40, максимальное 9·10=90&lt;100; ответ а) да&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Упорядочить числа по возрастанию и оценить второе по величине число из условия a1·a2&gt;40 при a1&lt;a2&quot;,
+      &quot;result&quot;: &quot;Если a2≤6, то a1≤5 и a1·a2≤30; значит a2≥7, и далее a_k≥k+5&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Для шести чисел оценить произведение двух наибольших и получить противоречие с условием&quot;,
+      &quot;result&quot;: &quot;a5≥10, a6≥11, a5·a6≥110&gt;100; ответ б) нет&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Для четырёх чисел a&lt;b&lt;c&lt;d оценить c и d: c≥8, cd&lt;100, c≥10 невозможно; перебрать допустимые пары (c,d) с максимальной суммой&quot;,
+      &quot;result&quot;: &quot;c=8: d≤12, c+d≤20; c=9: d≤11, c+d≤20&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;,
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s5&quot;,
+      &quot;action&quot;: &quot;Оценить a+b через c (a≤c−2, b≤c−1) и получить верхнюю оценку суммы&quot;,
+      &quot;result&quot;: &quot;c=8: сумма ≤6+7+8+12=33; c=9: сумма ≤7+8+9+11=35; значит сумма ≤35&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s4&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s6&quot;,
+      &quot;action&quot;: &quot;Проверить, что набор, достигающий оценки, удовлетворяет условию&quot;,
+      &quot;result&quot;: &quot;7,8,9,11: минимум 7·8=56&gt;40, максимум 9·11=99&lt;100; сумма 35; ответ в) 35&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s5&quot;,
+        &quot;condition&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Проверить пример набора на выполнение попарных ограничений&quot;,
+      &quot;description&quot;: &quot;Для конкретного набора чисел и условия на все пары проверить его через экстремальные пары (наименьшее и наибольшее значения), подтверждая существование или достижимость оценки&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Оценить члены упорядоченного набора различных натуральных чисел&quot;,
+      &quot;description&quot;: &quot;Упорядочив различные натуральные числа, получить нижние оценки через a_{k+1}≥a_k+1 и ограничение на пару, затем применить к другой паре для противоречия или ограничения&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Оценить сверху сумму при ограничениях на произведения&quot;,
+      &quot;description&quot;: &quot;По ограничениям на произведения и упорядоченность разобрать конечное число случаев для ключевого элемента и получить верхнюю оценку суммы в каждом случае&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Пример для существования&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;m2&quot;,
+      &quot;name&quot;: &quot;Оценка упорядоченного набора и противоречие&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;m3&quot;,
+      &quot;name&quot;: &quot;Оценка плюс пример для максимума&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s2&quot;,
+        &quot;s4&quot;,
+        &quot;s5&quot;,
+        &quot;s6&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;EC9829&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;6,7,8,9,10: минимальное произведение 6·7=42&gt;40, максимальное 9·10=90&lt;100; ответ а) да&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s6:result&quot;,
+          &quot;quote&quot;: &quot;7,8,9,11: минимум 7·8=56&gt;40, максимум 9·11=99&lt;100; сумма 35; ответ в) 35&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s5:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;integer_construction&quot;,
+          &quot;reason&quot;: &quot;Соответствует роли s1 (пример для существования), но не роли s6, где пример достигает ранее доказанной границы.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_f6b803c5f9c2&quot;,
+          &quot;reason&quot;: &quot;Соответствует роли s6 (достижимость доказанной границы максимума), но не s1.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;optimal_bound_attainment&quot;,
+          &quot;reason&quot;: &quot;Охватывает всё доказательство оптимальности (граница + пример), шире действия kc1.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;kc1 объединяет две разные роли проверки примера: доказательство существования (s1) и достижимость границы оптимума (s6). Сама проверка через экстремальные пары корректна, так как для положительных упорядоченных чисел min и max попарных произведений дают пары наименьших и наибольших.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;part&quot;: &quot;Предъявить и проверить пример существования набора (s1)&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;integer_construction&quot;
+          },
+          {
+            &quot;part&quot;: &quot;Проверить достижимость доказанной верхней оценки суммы примером (s6)&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;literal_f6b803c5f9c2&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;Если a2≤6, то a1≤5 и a1·a2≤30; значит a2≥7, и далее a_k≥k+5&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;a5≥10, a6≥11, a5·a6≥110&gt;100; ответ б) нет&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_af302473a16f&quot;,
+          &quot;reason&quot;: &quot;Нижняя оценка суммы различных кратных, а не оценка отдельных членов упорядоченного набора через ограничение на произведение.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_de250a7de0bb&quot;,
+          &quot;reason&quot;: &quot;Оценка суммы по классам остатков, другой объект и условие.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;finite_exhaustion&quot;,
+          &quot;reason&quot;: &quot;Не перебор случаев, а цепочка неравенств a_{k+1}≥a_k+1.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: упорядочить различные натуральные числа, из ограничения на произведение пары получить нижнюю оценку члена и распространить её через a_{k+1}≥a_k+1, затем вывести противоречие для другой пары. Подходящего узла в каталоге нет. В s4 kc2 применяется к четырём числам (c≥8, c≥10 невозможно) — то же действие.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Для упорядоченного набора различных натуральных чисел получить нижние оценки членов из ограничения на пару и неравенства a_{k+1}≥a_k+1, применить их к другой паре для противоречия или ограничения.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;c=8: d≤12, c+d≤20; c=9: d≤11, c+d≤20&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s5:result&quot;,
+          &quot;quote&quot;: &quot;c=8: сумма ≤6+7+8+12=33; c=9: сумма ≤7+8+9+11=35; значит сумма ≤35&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;finite_exhaustion&quot;,
+          &quot;reason&quot;: &quot;Конечный разбор c∈{8,9} является компонентом, но kc3 включает получение оценки суммы в каждом случае через упорядоченность; полного соответствия нет.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;optimal_bound_attainment&quot;,
+          &quot;reason&quot;: &quot;Касается сочетания границы и примера; сам способ получения границы размечается отдельно.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_b30ac76abcf2&quot;,
+          &quot;reason&quot;: &quot;Оценка линейной суммы через неравенство Коши при квадратичном ограничении — другой метод.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Действие: по ограничениям на произведения и порядок разобрать конечные случаи ключевого элемента c и оценить сверху сумму в каждом. Вычисления проверены: 8·12=96&lt;100, 9·11=99&lt;100, 6+7+8+12=33, 7+8+9+11=35. Каталог не содержит узла оценки суммы сверху по случаям при произведённых ограничениях.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Разобрать конечное число значений ключевого элемента упорядоченного набора, в каждом случае оценить остальные элементы из ограничений на произведения и порядок и получить верхнюю оценку суммы; итог — максимум оценок по случаям.&quot;,
+        &quot;components&quot;: [
+          &quot;finite_exhaustion&quot;
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;boundary&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s4:action&quot;,
+        &quot;step:s4:result&quot;
+      ],
+      &quot;description&quot;: &quot;s4 размечен kc2 и kc3 одновременно: нижняя оценка c≥8 и исключение c≥10 относятся к kc2, а перебор пар (c,d) — к kc3. Граница между кандидатами внутри шага не разделена; соответствия не блокирует.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc2&quot;,
+        &quot;kc3&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>

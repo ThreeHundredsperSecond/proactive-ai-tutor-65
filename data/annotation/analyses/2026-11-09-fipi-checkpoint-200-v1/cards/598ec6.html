@@ -1,0 +1,124 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>598ec6</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>91. ФИПИ 598ec6 · партия 7</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">В телевизоре ёмкость высоковольтного конденсатора <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>C</mi><mo>=</mo><mn>5</mn><mo>⋅</mo><msup><mrow><mn>10</mn></mrow><mrow><mo>−</mo><mtext> </mtext><mn>6</mn></mrow></msup><mtext> </mtext><mtext>Ф</mtext><mtext>.</mtext></mrow></mstyle></math></span> Параллельно с конденсатором подключён резистор с сопротивлением <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>R</mi><mo>=</mo><mn>3</mn><mo>⋅</mo><msup><mrow><mn>10</mn></mrow><mn>6</mn></msup><mtext> </mtext><mtext>Ом</mtext><mtext>.</mtext></mrow></mstyle></math></span> Во время работы телевизора напряжение на конденсаторе <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><msub><mi>U</mi><mn>0</mn></msub><mtext> </mtext><mo>=</mo><mn>32</mn><mtext> </mtext><mtext>кВ</mtext><mtext>.</mtext></mrow></mstyle></math></span> После выключения телевизора напряжение на конденсаторе убывает до значения <span><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/65dc58f81028aa8ab2ff618c.png" alt="Рисунок ФИПИ"></span> (в киловольтах) за время (в секундах), определяемое выражением <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>t</mi><mo>=</mo><mi>α</mi><mi>R</mi><mi>C</mi><msub><mrow><mi>log</mi></mrow><mn>2</mn></msub><mfrac><mrow><msub><mi>U</mi><mn>0</mn></msub></mrow><mi>U</mi></mfrac></mrow></mstyle></math></span>, где <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>α</mi><mo>=</mo><mn>1,5</mn></mrow></mstyle></math></span> — постоянная. Определите напряжение на конденсаторе, если после выключения телевизора прошло <br> 90 секунд. Ответ дайте в киловольтах.</p>  </section></div><p>КЭС: 2.4 Показательные и логарифмические уравнения</p><h2>Ответ</h2><p>2</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Подставить t=90, α, R, C в формулу и вычислить αRC</td><td>90 = 1,5·3·10^6·5·10^(-6)·log2(32/U) = 22,5·log2(32/U)</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Выразить логарифм из линейного уравнения</td><td>log2(32/U) = 4</td><td>kc2</td></tr><tr><td>s3 · s2</td><td>Перейти от логарифмического уравнения к показательному и найти U</td><td>32/U = 2^4 = 16, U = 2 (кВ), U&gt;0</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Подстановка в формулу и решение логарифмического уравнения&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Подставить известные величины в формулу прикладной задачи</h3><p>Вход: формула зависимости и численные значения параметров; операция: подстановка и упрощение числовых множителей, получение уравнения относительно неизвестной величины.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Подставить t=90, α, R, C в формулу и вычислить αRC&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;90 = 1,5·3·10^6·5·10^(-6)·log2(32/U) = 22,5·log2(32/U)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;image:assets/65dc58f81028aa8ab2ff618c.png&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cb48e5bc61de&quot;,
+      &quot;reason&quot;: &quot;строит неравенство, здесь получено уравнение&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+      &quot;reason&quot;: &quot;значение функции не вычисляется, получено уравнение относительно U&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Данные условия соотнесены с обозначениями заданной формулы t=αRC·log2(U0/U), получено числовое соотношение 90=22,5·log2(32/U); единицы согласованы (кВ, с). Рисунок содержит лишь обозначение U.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Решить линейное уравнение относительно выражения</h3><p>Вход: уравнение вида a·X = b с числовыми a≠0, b; операция: выразить X как b/a.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Выразить логарифм из линейного уравнения&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;log2(32/U) = 4&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9a635e89ccb3&quot;,
+      &quot;reason&quot;: &quot;снятие логарифма выполняется в s3, не здесь&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Уравнение 22,5·X=90 с числовыми коэффициентами относительно X=log2(32/U) решено делением; логарифм не снимается.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Решить простейшее логарифмическое уравнение</h3><p>Вход: уравнение log_a(f) = c при a&gt;0, a≠1; операция: перейти к f = a^c и найти неизвестную с учётом области определения (f&gt;0).</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_9a635e89ccb3&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Перейти от логарифмического уравнения к показательному и найти U&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;32/U = 2^4 = 16, U = 2 (кВ), U&gt;0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d66dd830e876&quot;,
+      &quot;reason&quot;: &quot;вычисляется не логарифм данного числа, а аргумент по значению логарифма&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_2443f08dda82&quot;,
+      &quot;reason&quot;: &quot;нет равенства двух логарифмов&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+      &quot;reason&quot;: &quot;показательное уравнение не решается&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;По определению логарифма при основании 2 и положительном аргументе log2(32/U)=4 переходит в 32/U=16; последующее нахождение U=2 из 32/U=16 — простая арифметика, отдельно не размечается.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s3:result&quot;
+    ],
+    &quot;description&quot;: &quot;Шаг s3 включает кроме снятия логарифма решение 32/U=16 (дробно-линейное); считается тривиальной арифметикой, соответствие не подрывает. Математически ответ U=2 кВ верен (1,5·3·10^6·5·10^-6=22,5; 90/22,5=4).&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc3&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/598ec6.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/598ec6.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

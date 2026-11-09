@@ -1,0 +1,120 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>0F9157</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>73. ФИПИ 0F9157 · партия 6</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">В коробке 12 синих, 6 красных и 7 зелёных фломастеров. Случайным образом выбирают два фломастера. Найдите вероятность того, что окажутся выбраны один синий и один красный фломастеры.<span></span></p>  </section></div><p>КЭС: 6.2 Вероятность</p><h2>Ответ</h2><p>0,24</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти общее число фломастеров и число равновозможных способов выбрать два из них: C(25,2)</td><td>25 фломастеров; C(25,2)=300 исходов</td><td>kc1</td></tr><tr><td>s2 · condition</td><td>Найти число благоприятных исходов как произведение числа способов выбрать один синий и один красный</td><td>12·6=72</td><td>kc2</td></tr><tr><td>s3 · s1, s2</td><td>Вычислить вероятность как отношение благоприятных исходов к общему числу</td><td>72/300=0,24</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Классическая вероятность через комбинаторный подсчёт&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Подсчитать число сочетаний</h3><p>По размеру множества и размеру неупорядоченной выборки без повторений вычислить число сочетаний C(n,k).</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;число равновозможных способов выбрать два из них: C(25,2)&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;C(25,2)=300 исходов&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_8e6b7abd8340&quot;,
+      &quot;reason&quot;: &quot;C(n,k) там применяется только к выбору позиций k успехов среди n испытаний Бернулли, а не к неупорядоченной выборке предметов из множества&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+      &quot;reason&quot;: &quot;узел задаёт элементарные исходы и обосновывает их равновозможность, но не включает вычисление их числа; в s1 обоснование равновозможности не выписано&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В s1 число неупорядоченных пар без повторений из 25 предметов вычислено как C(25,2)=300. В каталоге нет общего узла для подсчёта сочетаний: близкий узел ограничен схемой Бернулли.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;По размеру конечного множества n и размеру неупорядоченной выборки без повторений k вычислить C(n,k); выбор модели исходов и обоснование равновозможности сюда не входят.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Применить правило произведения</h3><p>Число способов составить выборку из независимых выборов из непересекающихся групп найти как произведение числа способов для каждой группы.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Найти число благоприятных исходов как произведение числа способов выбрать один синий и один красный&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;12·6=72&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+      &quot;reason&quot;: &quot;там перемножаются вероятности независимых событий, а здесь — числа способов&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_8e6b7abd8340&quot;,
+      &quot;reason&quot;: &quot;это сочетания для позиций успехов, а не правило произведения&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Число пар «один синий и один красный» найдено как произведение 12·6, то есть по правилу произведения для выборов из непересекающихся групп. Подходящего комбинаторного узла в каталоге нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Число способов составить выборку из последовательных или независимых выборов из непересекающихся групп найти как произведение числа вариантов каждого выбора, согласовав упорядоченность с моделью исходов.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Вычислить классическую вероятность</h3><p>При равновозможных исходах найти вероятность события как отношение числа благоприятных исходов к общему числу исходов.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Вычислить вероятность как отношение благоприятных исходов к общему числу&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;72/300=0,24&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+      &quot;reason&quot;: &quot;обоснование равновозможности в s3 не выполняется; узел отдельный&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В s3 вычислено m/n для конечной модели неупорядоченных пар; m и n взяты из s1 и s2. Это полностью соответствует определению узла. Вычисления верны: 72/300=0,24.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;missing_annotation&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s1:action&quot;
+    ],
+    &quot;description&quot;: &quot;Модель равновозможных неупорядоченных пар (equiprobable_model) использована неявно, но в разметке нет ни отдельного шага, ни KC для неё. На сопоставление kc1–kc3 это не влияет.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: []
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/0F9157.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/0F9157.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

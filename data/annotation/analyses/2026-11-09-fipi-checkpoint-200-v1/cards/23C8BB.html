@@ -1,0 +1,122 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>23C8BB</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>98. ФИПИ 23C8BB · партия 8</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Найдите значение выражения <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mn>4</mn><msqrt> <mn>2</mn> </msqrt> <mo>−</mo><mn>8</mn><msqrt> <mn>2</mn> </msqrt> <msup> <mrow> <mi>sin</mi> </mrow> <mn>2</mn> </msup> <mfrac> <mrow> <mtext>7π</mtext> </mrow> <mn>8</mn> </mfrac> </mrow>  </semantics> </mstyle></math>.<span></span></p>  </section></div><p>КЭС: 1.5 Синус, косинус и тангенс числового аргумента. Арксинус, арккосинус, арктангенс числового аргумента; 1.8 Преобразование выражений</p><h2>Ответ</h2><p>4</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Применить формулу понижения степени: sin^2(7π/8) = (1 − cos(7π/4))/2</td><td>sin^2(7π/8) = (1 − cos(7π/4))/2</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Вычислить значение косинуса угла 7π/4 по единичной окружности</td><td>cos(7π/4) = √2/2, sin^2(7π/8) = (2 − √2)/4</td><td>kc2</td></tr><tr><td>s3 · condition, s2</td><td>Подставить значение в выражение и упростить</td><td>4√2 − 8√2·(2 − √2)/4 = 4√2 − (4√2 − 4) = 4</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Понижение степени и вычисление через табличный угол&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Понижать степень квадрата синуса</h3><p>Вход: выражение sin^2 x. Операция: заменить на (1 − cos 2x)/2. Граница: тождество верно при любом x; применяется, когда cos 2x табличный или удобнее.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Применить формулу понижения степени: sin^2(7π/8) = (1 − cos(7π/4))/2&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;,
+      &quot;reason&quot;: &quot;Формулы приведения и двойного угла для сведения к функции одного аргумента; понижение степени заменяет квадрат синуса косинусом удвоенного аргумента, цель и формула иные.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_55d5a6d9eb3c&quot;,
+      &quot;reason&quot;: &quot;Аналогично: сведение к одной функции формулами приведения и двойного угла, без понижения степени.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_3d70ab3eb24a&quot;,
+      &quot;reason&quot;: &quot;Двойной угол для произведения sin·cos или sin 2x; здесь sin²x через cos 2x.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6d4854d97c9c&quot;,
+      &quot;reason&quot;: &quot;Основное тождество sin²+cos²=1 не применяется.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: замена sin²x на (1−cos2x)/2 при x=7π/8, переводящая нетабличный угол в табличный 7π/4. Узлы каталога описывают двойной угол/приведение с иной целью; полного соответствия нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Понижать степень квадрата синуса или косинуса&quot;,
+    &quot;definition&quot;: &quot;Заменить sin²x на (1−cos2x)/2 (cos²x на (1+cos2x)/2), чтобы перейти к первой степени функции удвоенного аргумента; тождество верно при всех x.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Вычислять тригонометрическую функцию табличного угла</h3><p>Вход: угол, кратный π/6 или π/4. Операция: найти значение через единичную окружность, знак по четверти. Граница: только для табличных углов.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Вычислить значение косинуса угла 7π/4 по единичной окружности&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;cos(7π/4) = √2/2&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_534413234aa8&quot;,
+      &quot;reason&quot;: &quot;Выбор знака по заданному диапазону при извлечении корня из квадрата функции; здесь вычисляется табличное значение, корень не извлекается.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+      &quot;reason&quot;: &quot;Подстановка аргумента в установленную формулу функции; не описывает нахождение табличного значения тригонометрической функции по окружности.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_be5764a81415&quot;,
+      &quot;reason&quot;: &quot;Отношение в прямоугольном треугольнике, не угол на единичной окружности вне (0, π/2).&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: найти cos 7π/4 по положению точки на единичной окружности (IV четверть, знак +). В каталоге нет узла вычисления табличных значений тригонометрических функций произвольного табличного угла. Подстановка в (1−cos)/2 в результате s2 — арифметика, отнесённая к тому же шагу.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Вычислять тригонометрическую функцию табличного угла&quot;,
+    &quot;definition&quot;: &quot;Для угла, сводимого к кратному π/6 или π/4, найти значение sin/cos/tg по единичной окружности с учётом знака четверти.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Упрощать числовое выражение с радикалами</h3><p>Вход: числовое выражение с квадратными корнями. Операция: раскрыть скобки, перемножить корни, привести подобные. Граница: числовые выражения без переменных.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;4√2 − 8√2·(2 − √2)/4 = 4√2 − (4√2 − 4) = 4&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+      &quot;reason&quot;: &quot;Законы степеней положительного основания явно не используются; произведение √2·√2=2 — частный арифметический факт.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+      &quot;reason&quot;: &quot;Нет формулы функции и аргумента; это упрощение числового выражения.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: подстановка найденного значения, раскрытие скобок с произведением корней (√2·√2=2) и приведение подобных. Подходящего узла нет; возможно, это рутинная арифметика, и вопрос о выделении отдельного KC остаётся за командой.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Упрощать числовое выражение с квадратными корнями&quot;,
+    &quot;definition&quot;: &quot;Раскрыть скобки, перемножить квадратные корни и привести подобные слагаемые в числовом выражении без переменных.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/23C8BB.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/23C8BB.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

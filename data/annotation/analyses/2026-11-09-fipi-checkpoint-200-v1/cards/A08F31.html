@@ -1,0 +1,182 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>A08F31</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>120. ФИПИ A08F31 · партия 10</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Решите неравенство <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mfrac> <mrow> <msup> <mn>3</mn> <mi>x</mi> </msup> <mo>+</mo><mn>9</mn> </mrow> <mrow> <msup> <mn>3</mn> <mi>x</mi> </msup> <mo>−</mo><mn>9</mn> </mrow> </mfrac> <mo>+</mo><mfrac> <mrow> <msup> <mn>3</mn> <mi>x</mi> </msup> <mo>−</mo><mn>9</mn> </mrow> <mrow> <msup> <mn>3</mn> <mi>x</mi> </msup> <mo>+</mo><mn>9</mn> </mrow> </mfrac> <mo>≥</mo><mfrac> <mrow> <mn>4</mn><mo>⋅</mo><msup> <mn>3</mn> <mrow> <mi>x</mi><mtext> </mtext><mo>+</mo><mtext> </mtext><mn>1</mn> </mrow> </msup> <mo>+</mo><mn>144</mn> </mrow> <mrow> <msup> <mn>9</mn> <mi>x</mi> </msup> <mo>−</mo><mn>81</mn> </mrow> </mfrac> <mo>.</mo> </mrow> </semantics> </math><span></span></p>  </section></div><p>КЭС: 2.5 Целые и дробно-рациональные неравенства; 2.7 Показательные и логарифмические неравенства</p><h2>Ответ</h2><p>x = 1; x &gt; 2 (т.е. {1} ∪ (2; +∞))</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Ввести замену t = 3^x (t &gt; 0), выразить 9^x = t^2 и 4·3^(x+1) = 12t; записать ограничение t ≠ 9 (знаменатели t−9, t+9, t^2−81 не равны нулю)</td><td>(t+9)/(t−9) + (t−9)/(t+9) ≥ (12t+144)/(t^2−81), t &gt; 0, t ≠ 9</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Перенести всё в одну часть и привести к общему знаменателю t^2−81, упростить числитель</td><td>((t+9)^2 + (t−9)^2 − 12t − 144)/(t^2−81) = (2t^2 − 12t + 18)/(t^2−81) = 2(t−3)^2/((t−9)(t+9)) ≥ 0</td><td>kc2</td></tr><tr><td>s3 · s2, s1</td><td>Решить рациональное неравенство методом интервалов с учётом t &gt; 0 (t+9 &gt; 0) и неотрицательного множителя (t−3)^2</td><td>t = 3 или t &gt; 9</td><td>kc3</td></tr><tr><td>s4 · s3</td><td>Вернуться к переменной x, решив простейшие показательные уравнение и неравенство с основанием больше 1</td><td>3^x = 3 ⇒ x = 1; 3^x &gt; 9 ⇒ x &gt; 2</td><td>kc4</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Замена показательного выражения и метод интервалов&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Ввести замену для показательного выражения</h3><p>Вход: уравнение или неравенство, где степени с родственными основаниями выражаются через одну a^x. Операция: обозначить t = a^x, выразить остальные степени через t, учесть t &gt; 0 и ограничения знаменателей. Граница: применимо, когда все вхождения переменной сводятся к одной степени.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Ввести замену t = 3^x (t &gt; 0), выразить 9^x = t^2 и 4·3^(x+1) = 12t&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;записать ограничение t ≠ 9 (знаменатели t−9, t+9, t^2−81 не равны нулю)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+      &quot;reason&quot;: &quot;Покрывает введение t=3^x&gt;0 и согласование 9^x, 3^(x+1) с t, но не фиксацию нулей знаменателей&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+      &quot;reason&quot;: &quot;Покрывает ограничение t≠9, но не саму замену&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+      &quot;reason&quot;: &quot;Преобразования 9^x=(3^x)^2 и 3^(x+1)=3·3^x — компонент согласования степеней внутри замены, не отдельное целое действие кандидата&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет показательную замену с согласованием степеней и выделение ограничений знаменателей; в каталоге это два разных узла.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Ввести t=3^x&gt;0 и выразить 9^x=t^2, 4·3^(x+1)=12t&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;exponential_substitution&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Зафиксировать t≠9 (нули знаменателей)&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;denominator_domain&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Привести рациональное неравенство к виду дробь против нуля</h3><p>Вход: неравенство с суммой рациональных дробей. Операция: перенести слагаемые в одну часть, привести к общему знаменателю, упростить и разложить числитель и знаменатель на множители. Граница: равносильно при сохранении ограничений на знаменатели.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Перенести всё в одну часть и привести к общему знаменателю t^2−81, упростить числитель&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;(2t^2 − 12t + 18)/(t^2−81) = 2(t−3)^2/((t−9)(t+9)) ≥ 0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_67caf017b566&quot;,
+      &quot;reason&quot;: &quot;Соответствует переносу и объединению дробей с общим знаменателем, но не разложению числителя в 2(t−3)^2&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+      &quot;reason&quot;: &quot;Соответствует факторизации числителя с учётом кратности, но не приведению к общей дроби&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9698b97fef22&quot;,
+      &quot;reason&quot;: &quot;Относится к уравнению с умножением на знаменатель; здесь неравенство без умножения&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Составной кандидат: приведение к общей дроби и факторизация числителя для исследования знака — разные узлы каталога.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Перенести в одну часть и привести к общему знаменателю t^2−81&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_67caf017b566&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Разложить числитель 2t^2−12t+18=2(t−3)^2 и знаменатель (t−9)(t+9)&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_cab525070130&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Решить рациональное неравенство методом интервалов</h3><p>Вход: неравенство вида P/Q ≥ 0 с разложенными множителями и дополнительными ограничениями на переменную. Операция: определить знаки множителей на промежутках, учесть кратные корни, включаемые нули числителя и исключённые нули знаменателя. Граница: множители должны быть разложены, область допустимых значений учтена.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;rational_intervals&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Решить рациональное неравенство методом интервалов с учётом t &gt; 0 (t+9 &gt; 0) и неотрицательного множителя (t−3)^2&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;t = 3 или t &gt; 9&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_f68eccc115c2&quot;,
+      &quot;reason&quot;: &quot;Удаление положительного t+9 — компонент, но учёт кратного нуля t=3 и полюса t=9 выходит за его границы&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+      &quot;reason&quot;: &quot;Пересечение с t&gt;0 — компонент, не всё действие&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдаемо решено неравенство 2(t−3)^2/((t−9)(t+9))≥0 при t&gt;0: учтены кратный нуль числителя (t=3 включён), исключённый полюс t=9; результат верен.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Решить простейшее показательное уравнение или неравенство</h3><p>Вход: a^x = c или a^x &gt; c при a &gt; 0, a ≠ 1, c &gt; 0. Операция: представить c как степень a и сравнить показатели, сохраняя знак при a &gt; 1 и меняя при 0 &lt; a &lt; 1. Граница: c должно быть положительным.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;3^x = 3 ⇒ x = 1&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;3^x &gt; 9 ⇒ x &gt; 2&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s3:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+      &quot;reason&quot;: &quot;Подходит к 3^x=3 ⇒ x=1, не к неравенству&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_inequality&quot;,
+      &quot;reason&quot;: &quot;Подходит к 3^x&gt;9 ⇒ x&gt;2 при основании 3&gt;1, не к уравнению&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет уравнение и неравенство, которые в каталоге — отдельные узлы; обе части наблюдаемы и верны.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;3^x=3 ⇒ x=1&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;exponential_equation&quot;
+      },
+      {
+        &quot;part&quot;: &quot;3^x&gt;9=3^2 ⇒ x&gt;2 по возрастанию при основании 3&gt;1&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;exponential_inequality&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/A08F31.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/A08F31.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

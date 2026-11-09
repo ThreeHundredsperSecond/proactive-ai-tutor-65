@@ -1,0 +1,116 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>6976e6</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>115. ФИПИ 6976e6 · партия 9</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Найдите корень уравнения <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msup> <mn>5</mn> <mrow> <mn>11</mn><mtext> </mtext><mo>−</mo><mtext> </mtext><mi>x</mi> </mrow> </msup> <mtext>​</mtext><mo>=</mo><mn>25.</mn> </mrow> </semantics> </math> <span></span></p>  </section></div><p>КЭС: 2.4 Показательные и логарифмические уравнения</p><h2>Ответ</h2><p>9</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Представить правую часть как степень основания 5: 25 = 5^2, получив уравнение 5^(11−x) = 5^2</td><td>5^(11−x) = 5^2</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Приравнять показатели степеней при одинаковом основании 5 &gt; 0, 5 ≠ 1</td><td>11 − x = 2</td><td>kc2</td></tr><tr><td>s3 · s2</td><td>Решить линейное уравнение относительно x</td><td>x = 9</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Приведение к одному основанию и приравнивание показателей&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Представить число в виде степени заданного основания</h3><p>Вход: число и основание степени. Операция: записать число как степень этого основания с целым или рациональным показателем. Применимо, когда число является точной степенью основания.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Представить правую часть как степень основания 5: 25 = 5^2&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+      &quot;reason&quot;: &quot;Определение охватывает приведение к общему основанию вместе с приравниванием показателей; kc1 — только компонент (запись числа как степени), без перехода к равенству показателей.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+      &quot;reason&quot;: &quot;Законы степени степени, произведения и частного здесь не применяются; число 25 лишь записывается как 5^2.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d66dd830e876&quot;,
+      &quot;reason&quot;: &quot;Вычисление логарифма по определению близко по сути (поиск показателя), но в решении логарифм не используется.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: запись числа 25 как точной степени основания 5. Отдельного узла для этого действия в каталоге нет; ближайший exponential_equation составной и включает следующий шаг s2.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Записать данное положительное число как степень заданного основания b&gt;0, b≠1 с точным показателем, когда число является точной степенью основания.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc2"><h3>kc2 · Приравнять показатели степеней с одинаковым основанием</h3><p>Вход: показательное уравнение вида a^f(x) = a^g(x) при a &gt; 0, a ≠ 1. Операция: перейти к равносильному уравнению f(x) = g(x).</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Приравнять показатели степеней при одинаковом основании 5 &gt; 0, 5 ≠ 1&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;11 − x = 2&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+      &quot;reason&quot;: &quot;Определение включает и приведение к общему основанию (s1/kc1), и приравнивание показателей (s2/kc2); kc2 покрывает лишь вторую часть.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Действие s2 — переход от 5^(11−x)=5^2 к 11−x=2 при основании 5&gt;0, 5≠1 — является компонентом узла exponential_equation. Узел целиком соответствует объединению kc1+kc2, поэтому полное соответствие одного kc2 не подтверждается; граница между гранулярностью автора и каталога неоднозначна.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc3"><h3>kc3 · Решить линейное уравнение с одной переменной</h3><p>Вход: линейное уравнение с числовыми коэффициентами. Операция: перенести слагаемые и разделить на коэффициент при переменной. Применимо при ненулевом коэффициенте.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Решить линейное уравнение относительно x&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;x = 9&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [],
+  &quot;rationale&quot;: &quot;Решение аффинного уравнения 11 − x = 2 с числовыми коэффициентами; снятие степени выполнено отдельно в s2, что соответствует оговорке узла. Проверка: 5^(11−9)=25 верно.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s1:action&quot;,
+      &quot;step:s2:action&quot;
+    ],
+    &quot;description&quot;: &quot;Узел exponential_equation объединяет действия s1 и s2, а автор разделил их на kc1 и kc2; ни один из локальных кандидатов не совпадает с узлом целиком.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc1&quot;,
+      &quot;kc2&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/6976e6.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/6976e6.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

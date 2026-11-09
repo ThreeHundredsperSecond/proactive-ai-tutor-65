@@ -1,0 +1,88 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>4CBD4E</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>145. ФИПИ 4CBD4E · партия 11</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Найдите корень уравнения <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <msup> <mrow> <mrow><mo>(</mo> <mrow> <mfrac> <mn>1</mn> <mn>7</mn> </mfrac> </mrow> <mo>)</mo></mrow> </mrow> <mrow> <mi>x</mi><mtext> </mtext><mo>+</mo><mtext> </mtext><mn>4</mn> </mrow> </msup> <mtext> </mtext><mo>=</mo><mn>49</mn> </mrow>  </semantics> </mstyle></math>.<span></span></p>  </section></div><p>КЭС: 2.1 Целые и дробно-рациональные уравнения; 2.4 Показательные и логарифмические уравнения</p><h2>Ответ</h2><p>-6</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Привести обе части уравнения к степеням с одинаковым основанием 7</td><td>7^(-(x+4)) = 7^2</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Приравнять показатели степеней с одинаковым основанием и решить полученное линейное уравнение</td><td>-(x+4)=2, x=-6</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Сведение к общему основанию и приравнивание показателей&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Привести части показательного уравнения к общему основанию</h3><p>Вход: показательное уравнение, где основания и числовые части являются степенями одного числа. Операция: записать их как степени общего основания, используя свойства степеней (включая отрицательный показатель для обратного числа). Граница: только когда общее основание существует.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Привести обе части уравнения к степеням с одинаковым основанием 7&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;7^(-(x+4)) = 7^2&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+      &quot;reason&quot;: &quot;Определение объединяет приведение к общему основанию и приравнивание показателей; kc1 — только первая часть, поэтому полного соответствия нет.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+      &quot;reason&quot;: &quot;Запись (1/7)^(x+4)=7^(-(x+4)) использует закон степени степени, но определение не упоминает отрицательный показатель для обратного числа и представление 49=7^2; цель приведения к основанию для уравнения шире.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдаемое действие — перезапись обеих частей показательного уравнения как степеней 7. Оно является компонентом exponential_equation и частично покрывается power_laws; два перекрывающихся узла без основания для выбора, ни один не совпадает целиком.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Приравнять показатели простейшего показательного уравнения</h3><p>Вход: равенство степеней с одинаковым положительным основанием, не равным 1. Операция: перейти к равенству показателей и решить полученное уравнение. Граница: основание положительно и отлично от 1.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Приравнять показатели степеней с одинаковым основанием и решить полученное линейное уравнение&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;-(x+4)=2, x=-6&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+      &quot;reason&quot;: &quot;Покрывает приравнивание показателей (вместе с приведением к основанию из s1), но явно исключает решение последующего линейного уравнения.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;Покрывает решение -(x+4)=2, но не переход от равенства степеней к равенству показателей.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет переход от 7^(-(x+4))=7^2 к -(x+4)=2 (основание 7&gt;0, ≠1) и решение линейного уравнения с числовыми коэффициентами. В каталоге эти действия разделены явно.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Приравнять показатели при равенстве степеней основания 7&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+        &quot;note&quot;: &quot;вместе с приведением из s1 образует полное действие узла&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Решить -(x+4)=2&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;linear_equation&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/4CBD4E.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/4CBD4E.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

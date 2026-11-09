@@ -1,0 +1,225 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>F438D2</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>122. ФИПИ F438D2 · партия 10</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">а) Решите уравнение</p> <p class="MsoNormal" align="center"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <msup> <mrow> <mn>16</mn> </mrow> <mrow> <mi>cos</mi><mi>x</mi> </mrow> </msup> <mtext>​</mtext><mo>+</mo><msup> <mrow> <mn>16</mn> </mrow> <mrow> <mi>cos</mi><mtext> </mtext><mrow><mo>(</mo> <mrow> <mtext>π</mtext><mtext> </mtext><mo>−</mo><mtext> </mtext><mi>x</mi> </mrow> <mo>)</mo></mrow> </mrow> </msup> <mo>=</mo><mfrac> <mrow> <mn>17</mn> </mrow> <mn>4</mn> </mfrac> </mrow>  </semantics> </mstyle></math>.</p> <p class="MsoNormal">б) Укажите корни этого уравнения, принадлежащие отрезку <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mrow><mo>[</mo> <mrow> <mtext>π</mtext><mtext> </mtext><mo>;</mo><mtext> </mtext><mfrac> <mrow> <mn>5</mn><mtext>π</mtext> </mrow> <mn>2</mn> </mfrac> </mrow> <mo>]</mo></mrow> </mrow>  </semantics> </mstyle></math>.<span></span></p>  </section></div><p>КЭС: 2.1 Целые и дробно-рациональные уравнения; 2.3 Тригонометрические уравнения; 2.4 Показательные и логарифмические уравнения; 2.9 Системы и совокупности уравнений и неравенств</p><h2>Ответ</h2><p>а) ±π/3+πk, k∈Z; б) 4π/3; 5π/3; 7π/3</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Применить формулу приведения cos(π−x)=−cos x и записать уравнение как 16^{cos x}+16^{−cos x}=17/4</td><td>16^{cos x}+1/16^{cos x}=17/4</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Ввести замену t=16^{cos x}, t&gt;0, и свести к квадратному уравнению</td><td>4t^2−17t+4=0, t&gt;0</td><td>kc2</td></tr><tr><td>s3 · s2</td><td>Решить квадратное уравнение и проверить условие t&gt;0</td><td>t=4 или t=1/4 (оба положительны)</td><td>kc3</td></tr><tr><td>s4 · s3</td><td>Вернуться к замене и решить показательные уравнения относительно cos x</td><td>cos x=1/2 или cos x=−1/2</td><td>kc4</td></tr><tr><td>s5 · s4</td><td>Решить простейшие тригонометрические уравнения и объединить серии</td><td>x=±π/3+πk, k∈Z</td><td>kc5</td></tr><tr><td>s6 · s5, condition</td><td>Отобрать корни на отрезке [π; 5π/2]</td><td>4π/3, 5π/3, 7π/3</td><td>kc6</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Формула приведения, замена показательной функции, возврат к тригонометрическому уравнению&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;,
+      &quot;s5&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;m2&quot;,
+    &quot;name&quot;: &quot;Отбор корней по сериям на отрезке&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s6&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Применить формулу приведения</h3><p>Вход: тригонометрическая функция от аргумента вида πn/2±x; операция: заменить на ± ту же или кофункцию от x по правилу приведения; граница: аргумент имеет указанный вид.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Применить формулу приведения cos(π−x)=−cos x&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;,
+      &quot;reason&quot;: &quot;Определение включает формулы приведения для сведения к функции одного аргумента — подходит, но дублируется следующим узлом&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_55d5a6d9eb3c&quot;,
+      &quot;reason&quot;: &quot;Практически идентичное определение (приведение и двойной угол для сведения к одной функции); основания выбрать один из двух нет&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_3d70ab3eb24a&quot;,
+      &quot;reason&quot;: &quot;Только формула двойного угла, приведения не включает&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдаемое действие — замена cos(π−x) на −cos x в показателе — соответствует формулам приведения. В каталоге два перекрывающихся почти одинаковых узла без основания выбора, поэтому uncertain. Переписывание 16^{−cos x} как 1/16^{cos x} в том же шаге относится к законам степеней (power_laws) и в kc1 не входит.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc2"><h3>kc2 · Свести показательное уравнение к алгебраическому заменой</h3><p>Вход: уравнение с a^{f} и a^{−f}; операция: ввести t=a^{f} с условием t&gt;0 и получить алгебраическое (квадратное) уравнение; граница: все показательные слагаемые выражаются через одну степень.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Ввести замену t=16^{cos x}, t&gt;0, и свести к квадратному уравнению&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;4t^2−17t+4=0, t&gt;0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+      &quot;reason&quot;: &quot;Приравнивание показателей, а не замена&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Введена положительная замена степени с основанием 16&gt;0, ≠1, и вторая степень 1/16^{cos x} согласована с t как 1/t. Показатель — cos x, а не x, что не меняет сути действия. Умножение на 4t (t&gt;0) для получения квадратного уравнения — рутинная часть согласования; обратный переход отдельно (s4).&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Решить квадратное уравнение с отбором по ограничению</h3><p>Вход: квадратное уравнение с числовыми коэффициентами и ограничение на переменную; операция: найти корни и отбросить не удовлетворяющие ограничению.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Решить квадратное уравнение и проверить условие t&gt;0&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;t=4 или t=1/4 (оба положительны)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+      &quot;reason&quot;: &quot;Покрывает нахождение корней, но не отбор по ограничению&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+      &quot;reason&quot;: &quot;Отбор корней по ОДЗ/условиям модели — покрывает проверку t&gt;0, но не решение уравнения&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+      &quot;reason&quot;: &quot;Проверка кандидатов на область — альтернатива для части отбора&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет решение квадратного уравнения и отбор корней по ограничению замены. Корни 4 и 1/4 верны (D=289−64=225). Способ решения (дискриминант) явно не показан, но результат соответствует.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Найти корни 4t^2−17t+4=0&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Проверить корни на условие t&gt;0&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_c840012ba3dd или literal_ae9adc80bc91 (граница неоднозначна)&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Решить простейшее показательное уравнение</h3><p>Вход: равенство a^{f}=b при b&gt;0, a&gt;0, a≠1; операция: представить b как степень a и приравнять показатели.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:action&quot;,
+      &quot;quote&quot;: &quot;Вернуться к замене и решить показательные уравнения относительно cos x&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;cos x=1/2 или cos x=−1/2&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s3:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+      &quot;reason&quot;: &quot;Узел явно исключает обратный переход&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d66dd830e876&quot;,
+      &quot;reason&quot;: &quot;Вычисление логарифма по определению — близко, но в решении речь о равенстве степеней&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;16^{cos x}=4 и 16^{cos x}=1/4 сводятся к равенству показателей при общем основании (4 или 16); получающиеся линейные относительно cos x равенства тривиальны. Промежуточные выкладки не показаны, только результат, который верен.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc5"><h3>kc5 · Решить простейшее тригонометрическое уравнение</h3><p>Вход: cos x=c при |c|≤1; операция: записать общие серии решений и при возможности объединить их.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc5&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;elementary_trig_equation&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s5:action&quot;,
+      &quot;quote&quot;: &quot;Решить простейшие тригонометрические уравнения и объединить серии&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s5:result&quot;,
+      &quot;quote&quot;: &quot;x=±π/3+πk, k∈Z&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s4:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [],
+  &quot;rationale&quot;: &quot;Решены cos x=±1/2 на всей прямой с полными сериями; объединение ±π/3+2πk и ±2π/3+2πk в ±π/3+πk верно. Объединение серий — часть записи полного множества, не отдельный узел каталога.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc6"><h3>kc6 · Отобрать корни тригонометрического уравнения на промежутке</h3><p>Вход: серии решений и отрезок; операция: найти значения параметра серий, при которых корень лежит в отрезке, и выписать корни.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc6&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;periodic_interval&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s6:action&quot;,
+      &quot;quote&quot;: &quot;Отобрать корни на отрезке [π; 5π/2]&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s6:result&quot;,
+      &quot;quote&quot;: &quot;4π/3, 5π/3, 7π/3&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s5:result&quot;,
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_8409c9003f48&quot;,
+      &quot;reason&quot;: &quot;Для конечного набора без периодического параметра&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Отбор из периодических серий на отрезке; результат проверен: π/3+πk даёт 4π/3, 7π/3; −π/3+πk даёт 5π/3 (8π/3&gt;5π/2). Способ отбора (подстановка параметра) явно не показан.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;missing_annotation&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s1:action&quot;,
+      &quot;step:s1:result&quot;
+    ],
+    &quot;description&quot;: &quot;В s1 также выполнено 16^{−cos x}=1/16^{cos x} (законы степеней, power_laws), но это действие не размечено отдельным кандидатом.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc1&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/F438D2.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/F438D2.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

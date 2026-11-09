@@ -1,0 +1,101 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>91C2AD</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>66. ФИПИ 91C2AD · партия 6</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">На рисунке изображён график функции вида <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>f</mi><mrow><mo>(</mo> <mi>x</mi> <mo>)</mo></mrow><mo>=</mo><msup> <mi>a</mi> <mi>x</mi> </msup> <mo>.</mo> </mrow> </semantics> </math> Найдите<br> значение <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>f</mi><mrow><mo>(</mo> <mrow> <mo>−</mo><mtext> </mtext><mn>3</mn> </mrow> <mo>)</mo></mrow><mo>.</mo> </mrow> </semantics> </math></p> <p class="MsoNormal" align="center"><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/fe8d4cef2bac3e1aa6fe7ae2.png" alt="Рисунок ФИПИ"></p> <p class="MsoNormal"><span> </span></p>  </section></div><p>КЭС: 2.1 Целые и дробно-рациональные уравнения; 3.1 Функция, способы задания функции. График функции. Взаимно обратные функции. Чётные и нечётные функции. Периодические функции; 3.5 Показательная и логарифмическая функции, их свойства и графики</p><h2>Ответ</h2><p>27</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Считать с графика координаты отмеченной точки, отличной от (0;1): f(-1)=3</td><td>f(-1)=3</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Подставить точку в f(x)=a^x и найти основание: a^{-1}=3</td><td>a=1/3</td><td>kc2</td></tr><tr><td>s3 · s2</td><td>Вычислить f(-3)=(1/3)^{-3}</td><td>27</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Восстановление формулы по точке графика и вычисление значения&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Считать координаты точки графика</h3><p>По изображению графика с сеткой определить координаты явно отмеченной точки с целыми координатами; применимо, когда точка однозначно читается по сетке.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;graph_coordinates&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Считать с графика координаты отмеченной точки, отличной от (0;1): f(-1)=3&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;image:assets/fe8d4cef2bac3e1aa6fe7ae2.png&quot;,
+      &quot;region_description&quot;: &quot;Левее оси y на графике отмечена жирная точка на пересечении линий сетки x=-1 и y=3 (подписи -1 на оси x и 3 на оси y); вторая отмеченная точка (0;1).&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9aee0783618d&quot;,
+      &quot;reason&quot;: &quot;касается знака производной, а не координат точки&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Чтение координат явно отмеченной точки по сетке с подписанными делениями; восстановление формулы выполнено отдельно в s2, что соответствует границе определения.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Найти параметр показательной функции по точке</h3><p>Подставить координаты известной точки графика в формулу f(x)=a^x и решить полученное уравнение относительно основания a (a&gt;0, a≠1).</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_3ac0ecd3cd49&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Подставить точку в f(x)=a^x и найти основание: a^{-1}=3&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;a=1/3&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+      &quot;reason&quot;: &quot;неизвестно основание, а не показатель; приравнивание показателей не выполняется&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;direct_proportion&quot;,
+      &quot;reason&quot;: &quot;другой класс функции y=kx&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Для y=a^x по точке (-1;3) с ненулевой абсциссой найдено основание a=1/3; полностью соответствует определению.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Вычислить степень с отрицательным показателем</h3><p>Вычислить значение a^n для рационального основания и целого отрицательного показателя, используя a^{-n}=(1/a)^n.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Вычислить f(-3)=(1/3)^{-3}&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;27&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+      &quot;reason&quot;: &quot;описывает преобразования степеней (степень степени, произведения, частного), а не вычисление значения при подстановке аргумента&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдаемое действие — подстановка x=-3 в установленную формулу (1/3)^x и вычисление значения 27; вычисление степени с отрицательным показателем — арифметическая часть этого действия, не дробится в отдельный KC.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/91C2AD.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/91C2AD.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

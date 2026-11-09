@@ -1,0 +1,191 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>B05656</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Найдите корень уравнения <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msup> <mrow> <mrow><mo>(</mo> <mrow> <mfrac> <mn>1</mn> <mn>6</mn> </mfrac> </mrow> <mo>)</mo></mrow> </mrow> <mrow> <mi>x</mi><mtext> </mtext><mo>−</mo><mtext> </mtext><mn>3</mn> </mrow> </msup> <mtext> </mtext><mo>=</mo><mfrac> <mn>1</mn> <mrow> <mn>36</mn> </mrow> </mfrac> <mo>.</mo> </mrow> </semantics> </math><span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;B05656&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;5&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Представить правую часть уравнения как степень с тем же основанием, что и левая: 1/36 = (1/6)^2.&quot;,
+      &quot;result&quot;: &quot;(1/6)^(x-3) = (1/6)^2&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Перейти от равенства степеней с одинаковым основанием, большим нуля и не равным единице, к равенству показателей.&quot;,
+      &quot;result&quot;: &quot;x - 3 = 2&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Решить линейное уравнение x - 3 = 2.&quot;,
+      &quot;result&quot;: &quot;x = 5&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Приводить числа к степеням с общим основанием&quot;,
+      &quot;description&quot;: &quot;Для показательного уравнения представить число в виде степени того же основания, что у другой части, чтобы обе части стали степенями одного основания.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Переходить от равенства степеней с одинаковым основанием к равенству показателей&quot;,
+      &quot;description&quot;: &quot;Для показательного уравнения вида a^f = a^g с основанием a &gt; 0, a ≠ 1 записать равносильное уравнение f = g.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Решать линейное уравнение с числовыми коэффициентами&quot;,
+      &quot;description&quot;: &quot;Для линейного уравнения с одной переменной найти значение переменной переносом слагаемых и приведением.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Приведение к общему основанию и приравнивание показателей&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;B05656&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;uncertain&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;1/36 = (1/6)^2&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;(1/6)^(x-3) = (1/6)^2&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+          &quot;reason&quot;: &quot;Определение включает и приведение к общему основанию, и приравнивание показателей; kc1 покрывает только первую часть, поэтому полного соответствия нет.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+          &quot;reason&quot;: &quot;Законы степени степени, произведения и частного здесь не применяются; выполняется лишь запись числа как степени.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдаемое действие: запись 1/36 как (1/6)^2 для общего основания 1/6 (положительное, не равное 1). Это компонент узла exponential_equation, но не его целиком: приравнивание показателей отнесено к kc2. Разделение авторской разметки на два шага не даёт основания для match с составным определением; отдельного узкого узла в каталоге нет.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;uncertain&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Перейти от равенства степеней с одинаковым основанием, большим нуля и не равным единице, к равенству показателей.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;x - 3 = 2&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+          &quot;reason&quot;: &quot;Определение составное (общее основание плюс приравнивание показателей); kc2 даёт только вторую часть, а первая выполнена в s1 и отнесена к kc1.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+          &quot;reason&quot;: &quot;Снятие степени явно исключено из этого узла.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдается переход от (1/6)^(x-3)=(1/6)^2 к x-3=2 при основании 1/6 из (0,1). Это компонент exponential_equation. Совместно kc1 и kc2 покрывают этот узел, но по отдельности полного определения не исчерпывают; выбор между объединением и разделением в каталоге остаётся за координатором.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;Решить линейное уравнение x - 3 = 2.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;x = 5&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+          &quot;reason&quot;: &quot;Определение прямо отделяет решение последующего линейного уравнения.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_0cf8af170957&quot;,
+          &quot;reason&quot;: &quot;Относится к неравенствам, а здесь уравнение.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Аффинное равенство одной переменной x-3=2 с числовыми коэффициентами сведено к x=5; степеней и построения модели в этом шаге нет, что соответствует определению linear_equation.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;boundary&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s1:action&quot;,
+        &quot;step:s2:action&quot;
+      ],
+      &quot;description&quot;: &quot;Авторские kc1 и kc2 вместе соответствуют одному составному узлу exponential_equation, а по отдельности каждый является только компонентом. Прямого match нет; нужна мета-решение о границе узла. Математических ошибок нет: (1/6)^(x-3)=1/36 даёт x-3=2, x=5.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc1&quot;,
+        &quot;kc2&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>

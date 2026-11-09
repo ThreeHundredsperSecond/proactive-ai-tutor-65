@@ -1,0 +1,162 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>44700A</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>64. ФИПИ 44700A · партия 5</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal"><a name="_GoBack"></a>Даны векторы <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mover accent="true"><mi>a</mi><mo>→</mo></mover><mrow><mo fence="true">(</mo><mrow><mn>2</mn><mo>;</mo><mtext> </mtext><mn>1</mn></mrow><mo fence="true">)</mo></mrow></mrow></mstyle></math></span> и <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mover accent="true"><mi>b</mi><mo stretchy="true">→</mo></mover><mrow><mo fence="true">(</mo><mrow><mn>2</mn><mo>;</mo><mtext> </mtext><mo>−</mo><mn>4</mn></mrow><mo fence="true">)</mo></mrow><mo>.</mo></mrow></mstyle></math></span> Найдите скалярное произведение векторов <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mover accent="true"><mi>a</mi><mo>→</mo></mover><mo>+</mo><mover accent="true"><mi>b</mi><mo stretchy="true">→</mo></mover></mrow></mstyle></math></span> и <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mn>7</mn><mover accent="true"><mi>a</mi><mo>→</mo></mover><mo>−</mo><mover accent="true"><mi>b</mi><mo stretchy="true">→</mo></mover><mo>.</mo></mrow></mstyle></math></span> </p>  </section></div><p>КЭС: 7.5 Координаты и векторы</p><h2>Ответ</h2><p>15</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти координаты вектора a+b, сложив соответствующие координаты векторов a(2; 1) и b(2; −4).</td><td>a+b = (4; −3)</td><td>kc1</td></tr><tr><td>s2 · condition</td><td>Найти координаты вектора 7a−b: умножить координаты a на 7 и вычесть соответствующие координаты b.</td><td>7a−b = (14−2; 7−(−4)) = (12; 11)</td><td>kc1</td></tr><tr><td>s3 · s1, s2</td><td>Вычислить скалярное произведение векторов (4; −3) и (12; 11) как сумму произведений соответствующих координат.</td><td>4·12 + (−3)·11 = 48 − 33 = 15</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Найти координаты векторов-комбинаций, затем скалярное произведение по координатам&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Вычислить координаты линейной комбинации векторов</h3><p>Вход: координаты векторов на плоскости и числовые коэффициенты линейной комбинации (сумма, разность, умножение на число). Операция: умножить каждую координату вектора на его коэффициент и сложить соответствующие координаты. Граница: векторы заданы координатами в одной прямоугольной системе координат; результат — координаты нового вектора.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;сложив соответствующие координаты векторов a(2; 1) и b(2; −4)&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;a+b = (4; −3)&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;умножить координаты a на 7 и вычесть соответствующие координаты b&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;7a−b = (14−2; 7−(−4)) = (12; 11)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_68de6fa84846&quot;,
+      &quot;reason&quot;: &quot;Определение «сложить соответствующие координаты векторов» полностью покрывает s1 (a+b), но не покрывает умножение вектора на число в s2; кандидат kc1 шире этого узла.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_59f2d9499ac1&quot;,
+      &quot;reason&quot;: &quot;Определение «умножить каждую координату вектора на один и тот же скаляр» покрывает только часть s2 (7a); сложение/вычитание координат в него не входит.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_4af504d61511&quot;,
+      &quot;reason&quot;: &quot;Аффинная комбинация концов отрезка во внутреннем отношении — другой объект (точка деления отрезка) и другая цель; к линейной комбинации заданных векторов не применяется.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;kc1 описан как составное действие «умножить каждую координату на коэффициент и сложить соответствующие координаты». В каталоге обе операции уже существуют отдельными узлами: умножение вектора на число по координатам (literal_59f2d9499ac1) и сложение векторов по координатам (literal_68de6fa84846). В s1 наблюдается только покоординатное сложение (2+2; 1+(−4)) с результатом (4; −3) — это целиком соответствует literal_68de6fa84846. В s2 наблюдаются две операции: умножение a на 7 (видно лишь неявно по числам 14 и 7 в записи результата, промежуточный вектор 7a отдельно не записан) и покоординатное вычитание b. Составной кандидат не получает match к одному узкому узлу только потому, что содержит его часть, а отдельного узла «линейная комбинация» в каталоге нет, поэтому предлагается разделение. Входные координаты a(2; 1) и b(2; −4) берутся из условия. Арифметика s1 и s2 проверена: (4; −3) и (12; 11) верны.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Покоординатное сложение векторов&quot;,
+        &quot;observed_in&quot;: [
+          &quot;step:s1:action&quot;,
+          &quot;step:s1:result&quot;
+        ],
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_68de6fa84846&quot;,
+        &quot;note&quot;: &quot;В s1 соответствие полное: сложены соответствующие координаты двух векторов на плоскости.&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Умножение вектора на число по координатам&quot;,
+        &quot;observed_in&quot;: [
+          &quot;step:s2:action&quot;,
+          &quot;step:s2:result&quot;
+        ],
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_59f2d9499ac1&quot;,
+        &quot;note&quot;: &quot;7a=(14; 7) явно не выписан; действие видно по формулировке action и по слагаемым 14 и 7 в result.&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Покоординатное вычитание векторов&quot;,
+        &quot;observed_in&quot;: [
+          &quot;step:s2:action&quot;,
+          &quot;step:s2:result&quot;
+        ],
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_68de6fa84846&quot;,
+        &quot;note&quot;: &quot;Граничный случай: определение узла говорит о сложении; вычитание соответствует ему только при трактовке разности как суммы с противоположным вектором (см. i1).&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc2"><h3>kc2 · Вычислить скалярное произведение векторов по координатам</h3><p>Вход: координаты двух векторов в прямоугольной системе координат. Операция: найти сумму произведений соответствующих координат. Граница: применимо, когда координаты обоих векторов известны в одном ортонормированном базисе; результат — число.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Вычислить скалярное произведение векторов (4; −3) и (12; 11) как сумму произведений соответствующих координат.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;4·12 + (−3)·11 = 48 − 33 = 15&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_164f29e3d306&quot;,
+      &quot;reason&quot;: &quot;Использует скалярное произведение направляющих векторов как компонент, но цель — угол между прямыми (деление на произведение длин, модуль, выбор меньшего угла); в s3 нужен только сам скалярный результат.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_aec2af1753c8&quot;,
+      &quot;reason&quot;: &quot;Угол между плоскостями по нормалям: скалярное произведение лишь часть формулы косинуса; объект и ожидаемый результат другие.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_609a9966f06a&quot;,
+      &quot;reason&quot;: &quot;Проверка параллельности прямой и плоскости через нулевое скалярное произведение с нормалью плюс исключение принадлежности; здесь нет прямой, плоскости и проверки на ноль.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d4dd6695995d&quot;,
+      &quot;reason&quot;: &quot;Длина вектора — корень из суммы квадратов координат одного вектора, а не сумма произведений координат двух разных векторов.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В s3 наблюдается вычисление скалярного произведения двух векторов, заданных координатами (полученными в s1 и s2), как суммы произведений соответствующих координат: 4·12 + (−3)·11 = 15. Результат — число, являющееся ответом. В каталоге скалярное произведение встречается только как компонент узлов про угол между прямыми, угол между плоскостями и параллельность прямой и плоскости; узла с самим вычислением скалярного произведения по координатам нет. Матчить kc2 к узлам угла/параллельности нельзя: их операция и результат шире и другие. Арифметика s3 проверена: 48 − 33 = 15, ответ 15 согласован. Предпосылка о прямоугольной системе координат не указана в условии явно (см. i2).&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Вычислять скалярное произведение векторов по координатам&quot;,
+    &quot;definition&quot;: &quot;Для двух векторов, координаты которых известны в одной прямоугольной (ортонормированной) системе координат, найти скалярное произведение как сумму произведений соответствующих координат; результат — число. Нахождение координат векторов-комбинаций, длин векторов и угла между ними — отдельные действия.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i2&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s2:action&quot;,
+      &quot;step:s2:result&quot;
+    ],
+    &quot;description&quot;: &quot;Узел literal_68de6fa84846 определён только как сложение соответствующих координат; покоординатное вычитание в s2 (7a−b) покрывается им лишь при трактовке разности как суммы с противоположным вектором. Граница каталога для вычитания не зафиксирована; это влияет только на отнесение части разделённого kc1, не на верность решения.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc1&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;i2&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;condition&quot;,
+      &quot;step:s3:action&quot;
+    ],
+    &quot;description&quot;: &quot;Формула скалярного произведения как суммы произведений координат верна в ортонормированном базисе. В условии векторы заданы координатами без явного указания системы; использована стандартная школьная конвенция прямоугольной системы координат. Предпосылка принята по конвенции, а не по тексту условия; соответствие не блокирует.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc2&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/44700A.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/44700A.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

@@ -1,0 +1,88 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>FC0337</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>111. ФИПИ FC0337 · партия 9</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal"><a name="_GoBack"></a>Аня и Таня, работая вместе, пропалывают грядку за 24 минуты, а одна Таня — за 36 минут. За сколько минут пропалывает эту грядку одна Аня?</p>  </section></div><p>КЭС: 2.1 Целые и дробно-рациональные уравнения</p><h2>Ответ</h2><p>72</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Выразить производительности: совместная 1/24 грядки в минуту, Тани 1/36 грядки в минуту</td><td>v_вместе=1/24, v_Т=1/36</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Найти производительность Ани как разность совместной производительности и производительности Тани</td><td>v_А=1/24-1/36=1/72</td><td>kc2</td></tr><tr><td>s3 · s2</td><td>Найти время работы Ани как величину, обратную её производительности</td><td>72 минуты</td><td>kc1</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Через производительности: работа как единица, сложение производительностей&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Связать время выполнения работы и производительность</h3><p>По времени выполнения всей работы найти производительность как обратную величину (долю работы в единицу времени), и наоборот; применимо при постоянной производительности и работе, принятой за 1.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Выразить производительности: совместная 1/24 грядки в минуту, Тани 1/36 грядки в минуту&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Найти время работы Ани как величину, обратную её производительности&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+      &quot;reason&quot;: &quot;Подстановка в заданную формулу; здесь формула не дана, а модель «работа=1, производительность=1/t» вводится самим решающим, что каталог явно исключает.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_63c80a69a122&quot;,
+      &quot;reason&quot;: &quot;Модель времени для движения по течению (v±c, s/v), иной объект.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+      &quot;reason&quot;: &quot;Процентная доля, а не доля работы в единицу времени.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — переход между временем выполнения всей работы (принятой за 1) и производительностью как обратной величиной при постоянном темпе; наблюдается в s1 (t→1/t) и s3 (1/72→72). Узла для модели совместной работы в каталоге нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Связывать время выполнения работы и производительность&quot;,
+    &quot;definition&quot;: &quot;При постоянной производительности и всей работе, принятой за 1, находить производительность как 1/t по времени и время как 1/v по производительности.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Сложить производительности при совместной работе</h3><p>Использовать, что при одновременной независимой работе производительности складываются, чтобы найти совместную или неизвестную индивидуальную производительность; применимо при постоянных производительностях.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Найти производительность Ани как разность совместной производительности и производительности Тани&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;v_А=1/24-1/36=1/72&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;Уравнение v_А+1/36=1/24 не составлено явно; ключевое действие — модельное утверждение аддитивности производительностей, а построение модели узлом исключено.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_63c80a69a122&quot;,
+      &quot;reason&quot;: &quot;Сложение скоростей лодки и течения в другой модели; не про совместную работу.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — использовать аддитивность производительностей при одновременной независимой работе, чтобы найти неизвестную индивидуальную производительность вычитанием; выполнено в s2. Арифметика 1/24-1/36=3/72-2/72=1/72 верна. Подходящего узла в каталоге нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Использовать аддитивность производительностей при совместной работе&quot;,
+    &quot;definition&quot;: &quot;При одновременной независимой работе с постоянными производительностями приравнять совместную производительность сумме индивидуальных и найти неизвестную составляющую.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/FC0337.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/FC0337.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

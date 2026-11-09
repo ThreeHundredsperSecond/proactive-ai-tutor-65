@@ -1,0 +1,236 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>92FD74</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>81. ФИПИ 92FD74 · партия 7</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal"><a name="_GoBack"></a>а) Решите уравнение</p> <p class="MsoNormal" align="center"><span><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/f2af1b241fc769bf10c81a03.png" alt="Рисунок ФИПИ"></span></p> <p class="MsoNormal">б) Укажите корни этого уравнения, принадлежащие отрезку <span><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/4562eb92c5943b965f9c5ca7.png" alt="Рисунок ФИПИ"></span></p>  </section></div><p>КЭС: 2.1 Целые и дробно-рациональные уравнения; 2.3 Тригонометрические уравнения; 2.4 Показательные и логарифмические уравнения; 2.9 Системы и совокупности уравнений и неравенств</p><h2>Ответ</h2><p>а) π/4+2πk, 3π/4+2πk, k∈Z; б) −7π/4, −5π/4</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>По определению логарифма перейти к равносильному уравнению 3^{2x}+5√2 sin x−6cos²x−2=9^x; аргумент равен 9^x&gt;0, поэтому ОДЗ выполняется автоматически</td><td>3^{2x}+5√2 sin x−6cos²x−2=9^x</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Сократить 3^{2x}=9^x в обеих частях</td><td>5√2 sin x−6cos²x−2=0</td><td>kc2</td></tr><tr><td>s3 · s2</td><td>Заменить cos²x=1−sin²x и привести к квадратному уравнению относительно t=sin x</td><td>6t²+5√2 t−8=0</td><td>kc3</td></tr><tr><td>s4 · s3</td><td>Решить квадратное уравнение и отобрать корни с |t|≤1</td><td>t=√2/2 (t=−4√2/3 отброшен, |t|&gt;1)</td><td>kc4</td></tr><tr><td>s5 · s4</td><td>Решить простейшее уравнение sin x=√2/2</td><td>x=π/4+2πk, x=3π/4+2πk, k∈Z</td><td>kc5</td></tr><tr><td>s6 · s5, condition</td><td>Отобрать корни серий, принадлежащие отрезку [−2π; −π/2]</td><td>−7π/4, −5π/4</td><td>kc6</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Переход к показательной форме, сокращение и сведение к квадратному по sin x с последующим отбором корней&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;,
+      &quot;s5&quot;,
+      &quot;s6&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Перейти от логарифмического уравнения к показательному</h3><p>Вход: уравнение log_a f(x)=g(x). Операция: записать f(x)=a^{g(x)}, учитывая условие f(x)&gt;0 (выполнено автоматически при a^{g}&gt;0). Граница: основание постоянное, положительное и не равное 1.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_9a635e89ccb3&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;По определению логарифма перейти к равносильному уравнению 3^{2x}+5√2 sin x−6cos²x−2=9^x&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;image:assets/f2af1b241fc769bf10c81a03.png&quot;,
+      &quot;region_description&quot;: &quot;Уравнение log_9(3^{2x}+5√2 sin x−6cos²x−2)=x: постоянное основание 9, правая часть x&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_2443f08dda82&quot;,
+      &quot;reason&quot;: &quot;Нет равенства двух логарифмов&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d66dd830e876&quot;,
+      &quot;reason&quot;: &quot;Вычисление числового логарифма, а не переход в уравнении&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Переход log_9 f=x к f=9^x по определению при допустимом основании; положительность аргумента обеспечена равенством 9^x&gt;0, что указано в шаге.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Упростить уравнение, сократив одинаковые слагаемые</h3><p>Вход: уравнение с одинаковыми выражениями в обеих частях после преобразования степеней. Операция: привести степени к одному основанию и сократить. Граница: равносильное преобразование без деления.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Сократить 3^{2x}=9^x в обеих частях&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+      &quot;reason&quot;: &quot;Покрывает только 3^{2x}=(3^2)^x=9^x, не сокращение&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+      &quot;reason&quot;: &quot;Показатели не приравниваются&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет преобразование степени к основанию 9 и тривиальное взаимное уничтожение равных слагаемых в обеих частях уравнения.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Представить 3^{2x} как 9^x&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;power_laws&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Вычесть одинаковое слагаемое из обеих частей&quot;,
+        &quot;possible_catalog_kc_id&quot;: null,
+        &quot;note&quot;: &quot;элементарная равносильная операция, вероятно не требует отдельного KC&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Свести тригонометрическое уравнение к квадратному заменой</h3><p>Вход: уравнение с sin x и cos²x. Операция: применить основное тригонометрическое тождество и ввести t=sin x. Граница: после замены остаётся многочлен от одной функции.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Заменить cos²x=1−sin²x и привести к квадратному уравнению относительно t=sin x&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;6t²+5√2 t−8=0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6d4854d97c9c&quot;,
+      &quot;reason&quot;: &quot;Только тождество sin²+cos²=1, без замены переменной&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;,
+      &quot;reason&quot;: &quot;Формулы приведения и двойного угла не используются&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+      &quot;reason&quot;: &quot;Замена для показательной, не тригонометрической функции&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Смешаны применение основного тригонометрического тождества и введение замены t=sin x с приведением к многочлену; для второй части узла в каталоге нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Выразить cos²x через sin²x&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_6d4854d97c9c&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Ввести t=sin x (с ограничением |t|≤1) и привести уравнение к алгебраическому по t&quot;,
+        &quot;possible_catalog_kc_id&quot;: null,
+        &quot;definition&quot;: &quot;Заменить тригонометрическую функцию одного аргумента переменной t с сохранением области значений и получить многочлен от t&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Решить квадратное уравнение с отбором по области значений</h3><p>Вход: квадратное уравнение относительно t=sin x или cos x. Операция: найти корни через дискриминант и отбросить те, что вне [−1;1].</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:action&quot;,
+      &quot;quote&quot;: &quot;Решить квадратное уравнение и отобрать корни с |t|≤1&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;t=√2/2 (t=−4√2/3 отброшен, |t|&gt;1)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s3:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+      &quot;reason&quot;: &quot;Покрывает только нахождение корней&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+      &quot;reason&quot;: &quot;Отбор по области определения/промежутку, а не по области значений синуса&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+      &quot;reason&quot;: &quot;Отбор по условиям модели, близко, но не про ограничение замены&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Нахождение корней (D=242, корни √2/2 и −4√2/3 — проверено) и отбор по |sin x|≤1 — разные действия.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Найти корни 6t²+5√2t−8=0&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Отбросить корни вне [−1;1] для t=sin x&quot;,
+        &quot;possible_catalog_kc_id&quot;: null,
+        &quot;definition&quot;: &quot;Проверить корни вспомогательной переменной на принадлежность области значений заменённой функции&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc5"><h3>kc5 · Решить простейшее уравнение sin x=a</h3><p>Вход: sin x=a, |a|≤1, табличное значение. Операция: записать общие серии решений с периодом 2π.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc5&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;elementary_trig_equation&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s5:action&quot;,
+      &quot;quote&quot;: &quot;Решить простейшее уравнение sin x=√2/2&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s5:result&quot;,
+      &quot;quote&quot;: &quot;x=π/4+2πk, x=3π/4+2πk, k∈Z&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s4:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [],
+  &quot;rationale&quot;: &quot;sin x=c на всей прямой, выписаны полные периодические серии.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc6"><h3>kc6 · Отобрать корни тригонометрических серий на отрезке</h3><p>Вход: серии решений и отрезок. Операция: подобрать целые k (неравенством или по окружности) и выписать корни внутри отрезка.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc6&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;periodic_interval&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s6:action&quot;,
+      &quot;quote&quot;: &quot;Отобрать корни серий, принадлежащие отрезку [−2π; −π/2]&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s6:result&quot;,
+      &quot;quote&quot;: &quot;−7π/4, −5π/4&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;image:assets/4562eb92c5943b965f9c5ca7.png&quot;,
+      &quot;region_description&quot;: &quot;Отрезок [−2π; −π/2]&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s5:result&quot;,
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_8409c9003f48&quot;,
+      &quot;reason&quot;: &quot;Для конечного набора без периодического параметра&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Отбор корней периодических серий на отрезке; результат −7π/4, −5π/4 верен. Способ определения k в шаге не детализирован.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/92FD74.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/92FD74.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

@@ -1,0 +1,238 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>03B44B</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>100. ФИПИ 03B44B · партия 8</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section> <p class="Basis">В правильной четырёхугольной пирамиде <span><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/f6c4f8723f2049278af13e01.png" alt="Рисунок ФИПИ"></span> сторона основания <span><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/5efb7dfb10166d0489e3056c.png" alt="Рисунок ФИПИ"></span> равна 8, а боковое ребро <span><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/a845fd171e3a357b67a6f320.png" alt="Рисунок ФИПИ"></span> равно 7. На рёбрах <span><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/ccbd8299593f7d8892f89ee4.png" alt="Рисунок ФИПИ"></span> и <span><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/85a811e8487007eb4068946b.png" alt="Рисунок ФИПИ"></span> отмечены точки <span><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/a91c9e3985fc494d77481cd9.png" alt="Рисунок ФИПИ"></span> и <span><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/3fea867bde52e383caf3f61a.png" alt="Рисунок ФИПИ"></span> соответственно, причём <span><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/d52bae610784036552e8f1f2.png" alt="Рисунок ФИПИ"></span>, <span><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/d8c14e9f8e622c5bc157b5dc.png" alt="Рисунок ФИПИ"></span>.</p>
+<p class="Basis">а) Докажите, что плоскость <span><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/6e64a5f08f1f3b030d38f0e9.png" alt="Рисунок ФИПИ"></span> перпендикулярна плоскости <span><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/55a2b46b31bc5206bef05f20.png" alt="Рисунок ФИПИ"></span>.</p>
+<p class="Basis">б) Найдите объём пирамиды <span><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/629cb4001561ef90313fc96d.png" alt="Рисунок ФИПИ"></span>.</p> </section></div><p>КЭС: 7.2 Прямые и плоскости в пространстве; 7.3 Многогранники</p><h2>Ответ</h2><p>а) доказано; б) 48√17/7</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти высоту пирамиды SO по теореме Пифагора из треугольника SOA, где OA — половина диагонали квадрата</td><td>OA=4√2, SO=√(49−32)=√17</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Провести через K прямую KH ∥ SO до пересечения с BD; по теореме о пропорциональных отрезках найти BH и KH</td><td>KH ⊥ ABC, BH/BO=KH/SO=KB/SB=6/7, KH=6√17/7, BH=(6/7)·4√2=24√2/7</td><td>kc2</td></tr><tr><td>s3 · condition, s2</td><td>Доказать, что H лежит на CM: найти точку пересечения CM с BD через подобие треугольников (MB ∥ DC) и сравнить с BH</td><td>CM ∩ BD = H&#x27;, BH&#x27;/H&#x27;D=MB/DC=6/8, BH&#x27;=(3/7)BD=(3/7)·8√2=24√2/7=BH, значит H ∈ CM</td><td>kc3</td></tr><tr><td>s4 · s2, s3</td><td>Применить признак перпендикулярности плоскостей: плоскость CKM содержит прямую KH, перпендикулярную ABC</td><td>(CKM) ⊥ (ABC)</td><td>kc4</td></tr><tr><td>s5 · condition, s2</td><td>Вычислить объём BCKM как треть произведения площади основания BCM на высоту KH</td><td>S(BCM)=½·6·8=24, V=⅓·24·6√17/7=48√17/7</td><td>kc5</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Доказательство перпендикулярности через перпендикуляр из точки ребра, лежащий в плоскости&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;m2&quot;,
+    &quot;name&quot;: &quot;Объём через основание в плоскости ABC и найденную высоту&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s5&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Найти высоту правильной пирамиды по боковому ребру и основанию</h3><p>Вход: сторона основания и боковое ребро правильной пирамиды; операция: найти радиус описанной окружности основания и применить теорему Пифагора; граница: правильная пирамида.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Найти высоту пирамиды SO по теореме Пифагора из треугольника SOA, где OA — половина диагонали квадрата&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;OA=4√2, SO=√(49−32)=√17&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;image:assets/f6c4f8723f2049278af13e01.png&quot;,
+    &quot;image:assets/a845fd171e3a357b67a6f320.png&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;pythagoras&quot;,
+      &quot;reason&quot;: &quot;Покрывает только вычисление SO в прямоугольном треугольнике SOA; нахождение OA как половины диагонали квадрата и обоснование, что O — проекция вершины правильной пирамиды, в определение не входят.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет (1) использование свойства правильной пирамиды (высота падает в центр квадрата) и нахождение половины диагонали квадрата OA=4√2 и (2) теорему Пифагора для SO. Вторая часть соответствует pythagoras, первая не имеет узла каталога.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;action&quot;: &quot;Найти положение основания высоты правильной пирамиды и расстояние от центра квадрата до вершины (половина диагонали)&quot;,
+        &quot;possible_catalog_kc_id&quot;: null
+      },
+      {
+        &quot;action&quot;: &quot;Найти SO по теореме Пифагора в треугольнике SOA&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;pythagoras&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Найти отрезок, параллельный высоте, по отношению на ребре</h3><p>Вход: точка на боковом ребре и высота; операция: провести параллель высоте, применить обобщённую теорему Фалеса/подобие для длины и положения проекции; граница: проекция точки ребра на плоскость основания.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Провести через K прямую KH ∥ SO до пересечения с BD; по теореме о пропорциональных отрезках найти BH и KH&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;KH ⊥ ABC, BH/BO=KH/SO=KB/SB=6/7&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;,
+    &quot;image:assets/d8c14e9f8e622c5bc157b5dc.png&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d5e287608dd5&quot;,
+      &quot;reason&quot;: &quot;Соответствует пропорции длин при параллельности KH ∥ SO, но не включает вывод KH ⊥ ABC из параллельности высоте.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_91697073f741&quot;,
+      &quot;reason&quot;: &quot;Касается проекции точки в перпендикулярных вертикальных плоскостях, здесь перпендикулярность плоскостей ещё не установлена.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В шаге два действия: вывод перпендикулярности KH плоскости основания (прямая, параллельная перпендикуляру) и пропорция отрезков BH, KH через параллельность. Вторая часть соответствует literal_d5e287608dd5; первая не имеет узла.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;action&quot;: &quot;Установить перпендикулярность прямой плоскости как параллельной известному перпендикуляру&quot;,
+        &quot;possible_catalog_kc_id&quot;: null
+      },
+      {
+        &quot;action&quot;: &quot;Найти BH и KH из пропорции при KH ∥ SO&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_d5e287608dd5&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Установить принадлежность точки прямой через отношение отрезков</h3><p>Вход: две прямые в плоском многоугольнике и известное положение точки; операция: найти отношение, в котором пересечение делит отрезок (подобие при параллельных сторонах), и сравнить; граница: плоские конфигурации с параллельными сторонами.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;найти точку пересечения CM с BD через подобие треугольников (MB ∥ DC) и сравнить с BH&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;BH&#x27;/H&#x27;D=MB/DC=6/8, BH&#x27;=(3/7)BD=(3/7)·8√2=24√2/7=BH, значит H ∈ CM&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s2:result&quot;,
+    &quot;image:assets/d52bae610784036552e8f1f2.png&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d5e287608dd5&quot;,
+      &quot;reason&quot;: &quot;Покрывает отношение BH&#x27;/H&#x27;D из подобия при MB ∥ DC, но не вывод о совпадении точек.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_a776d95ccb64&quot;,
+      &quot;reason&quot;: &quot;Переход от BH&#x27;/H&#x27;D=3/4 к BH&#x27;=(3/7)BD — компонент, не всё действие.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;similarity_AA&quot;,
+      &quot;reason&quot;: &quot;Подобие по углам явно не доказывается, лишь используется.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат смешивает пропорцию из подобия, переход от отношения частей к доле целого и вывод о совпадении точек на отрезке BD по равенству расстояний.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;action&quot;: &quot;Найти отношение BH&#x27;/H&#x27;D из подобия при MB ∥ DC&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_d5e287608dd5&quot;
+      },
+      {
+        &quot;action&quot;: &quot;Перейти от отношения частей к длине BH&#x27;&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_a776d95ccb64&quot;
+      },
+      {
+        &quot;action&quot;: &quot;Заключить о совпадении точек одного отрезка по равным расстояниям от конца&quot;,
+        &quot;possible_catalog_kc_id&quot;: null
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Применить признак перпендикулярности плоскостей</h3><p>Вход: прямая, лежащая в одной плоскости и перпендикулярная другой; операция: сделать вывод о перпендикулярности плоскостей; граница: требуется доказанная принадлежность прямой плоскости.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:action&quot;,
+      &quot;quote&quot;: &quot;Применить признак перпендикулярности плоскостей: плоскость CKM содержит прямую KH, перпендикулярную ABC&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;(CKM) ⊥ (ABC)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;,
+    &quot;step:s3:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_71811f9f6a63&quot;,
+      &quot;reason&quot;: &quot;Доказательство перпендикулярности прямой и плоскости, а не двух плоскостей.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_91697073f741&quot;,
+      &quot;reason&quot;: &quot;Использует уже данную перпендикулярность плоскостей, обратное направление.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_aec2af1753c8&quot;,
+      &quot;reason&quot;: &quot;Координатное вычисление угла через нормали, здесь не применяется.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Действие: из того, что плоскость содержит прямую, перпендикулярную другой плоскости, вывести перпендикулярность плоскостей. Узла с таким определением в каталоге нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Доказать перпендикулярность двух плоскостей, указав прямую, лежащую в одной из них и перпендикулярную другой; принадлежность прямой плоскости и её перпендикулярность должны быть обоснованы.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc5"><h3>kc5 · Вычислить объём пирамиды через площадь основания и высоту</h3><p>Вход: площадь основания и высота пирамиды; операция: V=Sh/3; граница: высота должна быть перпендикуляром к плоскости основания.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc5&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;pyramid_volume&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s5:action&quot;,
+      &quot;quote&quot;: &quot;Вычислить объём BCKM как треть произведения площади основания BCM на высоту KH&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s5:result&quot;,
+      &quot;quote&quot;: &quot;V=⅓·24·6√17/7=48√17/7&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [],
+  &quot;rationale&quot;: &quot;V=S·h/3 для тетраэдра BCKM с основанием BCM в плоскости ABC и высотой KH ⊥ ABC (из s2); тетраэдр — частный случай пирамиды по определению узла.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[
+  &quot;Обозначения прочитаны с изображений: M на AB, K на SB, AM=2, SK=1; вычисления проверены координатно.&quot;
+]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;missing_annotation&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s5:result&quot;
+    ],
+    &quot;description&quot;: &quot;Площадь S(BCM)=½·6·8=24 вычислена как площадь прямоугольного треугольника (угол B квадрата прямой, MB=6, BC=8); узел right_triangle_area не размечен в шаге.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc5&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/03B44B.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/03B44B.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

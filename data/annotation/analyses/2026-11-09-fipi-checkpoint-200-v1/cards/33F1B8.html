@@ -1,0 +1,146 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>33F1B8</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>101. ФИПИ 33F1B8 · партия 9</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Найдите точку максимума функции <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>y</mi><mo>=</mo><mn>4</mn><mo>+</mo><mn>9</mn><mi>x</mi><mo>−</mo><mi>x</mi><msqrt> <mi>x</mi> </msqrt> <mo>.</mo> </mrow> </semantics> </math><span></span></p>  </section></div><p>КЭС: 4.1 Производная функции. Производные элементарных функций; 4.2 Применение производной к исследованию функций на монотонность и экстремумы. Нахождение наибольшего и наименьшего значения функции на отрезке</p><h2>Ответ</h2><p>36</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти область определения функции: подкоренное выражение неотрицательно</td><td>x ≥ 0</td><td>kc1</td></tr><tr><td>s2 · condition</td><td>Записать x√x как степень и найти производную</td><td>y = 4 + 9x − x^{3/2}, y&#x27; = 9 − (3/2)√x</td><td>kc2</td></tr><tr><td>s3 · s1, s2</td><td>Приравнять производную к нулю и решить уравнение с корнем</td><td>√x = 6, x = 36 (входит в область x ≥ 0)</td><td>kc3</td></tr><tr><td>s4 · s2, s3</td><td>Определить знаки производной на промежутках и выбрать точку, где знак меняется с плюса на минус</td><td>y&#x27; &gt; 0 при 0 &lt; x &lt; 36, y&#x27; &lt; 0 при x &gt; 36; точка максимума x = 36</td><td>kc4</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Исследование функции на экстремум с помощью производной&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Найти область определения выражения с корнем</h3><p>По выражению с корнем чётной степени записать условие неотрицательности подкоренного выражения и получить допустимое множество.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_a5938e1a7fec&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;подкоренное выражение неотрицательно&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;x ≥ 0&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;входит в область x ≥ 0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_37584ab15732&quot;,
+      &quot;reason&quot;: &quot;требует совместной области логарифма и корня; логарифма в задаче нет&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+      &quot;reason&quot;: &quot;пересечения нескольких ограничений нет, одно условие радиканда&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: требование неотрицательности радиканда единственного квадратного корня с получением x ≥ 0; проверка кандидата x=36 по области видна в s3. Это соответствует определению сохранения области квадратных корней.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Дифференцировать степенную функцию с дробным показателем</h3><p>Представить произведение переменной и корня как степень с рациональным показателем и применить правило производной степени и суммы.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_0efedaf04823&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Записать x√x как степень и найти производную&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;y = 4 + 9x − x^{3/2}, y&#x27; = 9 − (3/2)√x&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_3a3e1295118b&quot;,
+      &quot;reason&quot;: &quot;функция не многочлен: показатель 3/2&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+      &quot;reason&quot;: &quot;запись x√x = x^{3/2} — лишь вспомогательный компонент, основное действие — дифференцирование&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Применены (x^p)′=p x^(p−1) для p=3/2 и линейность производной суммы на области x ≥ 0; совпадает с определением. Переход x√x → x^{3/2} — компонент-подготовка, не отдельное основание для разделения.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Найти критические точки функции</h3><p>Приравнять производную к нулю, решить полученное уравнение и оставить корни, принадлежащие области определения.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;stationary_point&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Приравнять производную к нулю и решить уравнение с корнем&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;√x = 6, x = 36 (входит в область x ≥ 0)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_a30e088aef8f&quot;,
+      &quot;reason&quot;: &quot;явной замены t=√x нет; √x=6 → x=36 входит в решение f′=0&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_10490f2275e0&quot;,
+      &quot;reason&quot;: &quot;возведение в квадрат не выделено как отдельное действие с условиями знака; правая часть 6&gt;0 тривиальна&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Решено f′=0 на области x ≥ 0 и отобрана точка 36; вывод о типе экстремума вынесен в s4, как требует граница определения.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Определить точку экстремума по смене знака производной</h3><p>По знакам производной на промежутках между критическими точками определить, где функция возрастает и убывает; точка смены знака с плюса на минус — максимум.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;local_extreme_sign&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:action&quot;,
+      &quot;quote&quot;: &quot;выбрать точку, где знак меняется с плюса на минус&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;y&#x27; &gt; 0 при 0 &lt; x &lt; 36, y&#x27; &lt; 0 при x &gt; 36; точка максимума x = 36&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;,
+    &quot;step:s3:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;,
+      &quot;reason&quot;: &quot;выводит монотонность, но не тип экстремума; здесь конечный вывод — точка максимума&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;global_interval_extreme&quot;,
+      &quot;reason&quot;: &quot;вопрос об абсциссе локального максимума, не о глобальном значении на отрезке&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Установлена смена знака производной +→− в x=36 и сделан вывод о локальном максимуме; соответствует определению целиком. Знаки на промежутках указаны без явной подстановки пробных точек, но следуют из убывания 9−(3/2)√x.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/33F1B8.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/33F1B8.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

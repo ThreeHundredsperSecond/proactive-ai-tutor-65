@@ -1,0 +1,167 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>3975C8</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>97. ФИПИ 3975C8 · партия 8</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section> <p class="Basis">Найдите точку минимума функции <sub><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/7fd6169cb69573a949070e7b.gif" alt="Рисунок ФИПИ"></sub>.</p> </section></div><p>КЭС: 4.1 Производная функции. Производные элементарных функций; 4.2 Применение производной к исследованию функций на монотонность и экстремумы. Нахождение наибольшего и наименьшего значения функции на отрезке</p><h2>Ответ</h2><p>144</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти область определения функции y = x^(3/2) − 18x + 29</td><td>x ≥ 0</td><td>kc1</td></tr><tr><td>s2 · condition</td><td>Найти производную функции</td><td>y&#x27; = (3/2)·√x − 18</td><td>kc2</td></tr><tr><td>s3 · s1, s2</td><td>Решить уравнение y&#x27; = 0 на области определения</td><td>√x = 12, x = 144</td><td>kc3</td></tr><tr><td>s4 · s2, s3</td><td>Определить знаки производной слева и справа от критической точки и выбрать точку минимума</td><td>y&#x27; &lt; 0 при 0 &lt; x &lt; 144, y&#x27; &gt; 0 при x &gt; 144; x = 144 — точка минимума</td><td>kc4</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Поиск точки экстремума через производную&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Найти область определения степенной функции с дробным показателем</h3><p>Вход: выражение со степенью с рациональным нецелым показателем; операция: выписать ограничение на основание; граница: только степени с дробными показателями.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Найти область определения функции y = x^(3/2) − 18x + 29&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;x ≥ 0&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;image:assets/7fd6169cb69573a949070e7b.gif&quot;,
+      &quot;region_description&quot;: &quot;Вся формула: y = x в степени 3/2 минус 18x плюс 29&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_a5938e1a7fec&quot;,
+      &quot;reason&quot;: &quot;Требует неотрицательности радикандов квадратных корней и проверки кандидатов; здесь объект — степень с дробным показателем, явного корня в записи нет, проверки кандидатов в шаге нет.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_37584ab15732&quot;,
+      &quot;reason&quot;: &quot;Совместная область логарифма и корня; логарифма нет.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+      &quot;reason&quot;: &quot;Преобразование степеней, а не установление области определения.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — установить область определения степенной функции с рациональным нецелым показателем (x^(3/2) определена при x ≥ 0). Близкий узел про квадратные корни требует явного радиканда; переход x^(3/2)=x√x не показан, поэтому полного соответствия нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Для степени x^(p/q) с нецелым рациональным показателем в школьной конвенции потребовать x ≥ 0 (x &gt; 0 при отрицательном показателе) и записать область определения функции.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Продифференцировать сумму степенных и линейных слагаемых</h3><p>Вход: функция — сумма степенных функций с рациональными показателями и линейных членов; операция: применить правило производной степени и линейность; граница: без правил произведения/сложной функции.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_0efedaf04823&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Найти производную функции&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;y&#x27; = (3/2)·√x − 18&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_3a3e1295118b&quot;,
+      &quot;reason&quot;: &quot;Только многочлены; x^(3/2) не многочлен.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Применено (x^p)&#x27;=p x^(p-1) к x^(3/2) и линейность к −18x+29; результат верен. Соответствует определению целиком.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Решить уравнение с корнем, приводимое к линейному относительно корня</h3><p>Вход: уравнение вида a·√x + b = 0; операция: выразить корень и возвести в квадрат с учётом неотрицательности; граница: один корень от переменной.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Решить уравнение y&#x27; = 0 на области определения&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;√x = 12, x = 144&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;stationary_point&quot;,
+      &quot;reason&quot;: &quot;Охватывает весь шаг s3 (решить f&#x27;=0 на области), но кандидат kc3 описан как алгебраическое действие над a·√x+b=0, а не как поиск стационарной точки.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;Покрывает только получение √x = 12 как линейного уравнения относительно √x, не снятие корня.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_10490f2275e0&quot;,
+      &quot;reason&quot;: &quot;Покрывает возведение в квадрат при неотрицательных сторонах (√x = 12 → x = 144), но не выражение корня.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_a30e088aef8f&quot;,
+      &quot;reason&quot;: &quot;Явной замены t=√x в решении нет.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет выражение корня из линейного уравнения (√x = 12) и снятие корня возведением в квадрат (x = 144). В контексте шага оба действия обслуживают нахождение стационарной точки.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Выразить √x из (3/2)√x − 18 = 0&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;linear_equation&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Перейти от √x = 12 к x = 144 при неотрицательных сторонах&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_10490f2275e0&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Шаг в целом как решение f&#x27;=0 на области&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;stationary_point&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Классифицировать критическую точку по смене знака производной</h3><p>Вход: производная и её нули на области определения; операция: определить знаки производной на интервалах и выбрать точку, где знак меняется с минуса на плюс (минимум); граница: непрерывная производная на интервалах.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;local_extreme_sign&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;y&#x27; &lt; 0 при 0 &lt; x &lt; 144, y&#x27; &gt; 0 при x &gt; 144; x = 144 — точка минимума&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;,
+    &quot;step:s3:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;,
+      &quot;reason&quot;: &quot;Вывод о монотонности явно не сделан; результат — классификация точки.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;global_interval_extreme&quot;,
+      &quot;reason&quot;: &quot;Вопрос о точке локального минимума, не о глобальном экстремуме на отрезке.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Установлена смена знака производной с минуса на плюс в x = 144 и сделан вывод о минимуме — определение выполнено целиком. Знаки верны (y&#x27; возрастает по x).&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/3975C8.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/3975C8.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

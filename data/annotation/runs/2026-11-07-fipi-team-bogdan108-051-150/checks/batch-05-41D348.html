@@ -1,0 +1,573 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>41D348</h2><p>Дайте развернутый ответ.</p><div><section> <p class="Basis">Решите неравенство <span><img src="file:///Users/bogdanlukancuk/proactive-ai-tutor-65/data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/e6fc07bbca0f96d1cdc6cca1.png" alt="Рисунок ФИПИ"></span></p> </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;41D348&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;(-∞; 0) ∪ (0; 1]&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;S1&quot;,
+      &quot;action&quot;: &quot;Найти ОДЗ неравенства (9^x − 4·3^x + 3)/log_5(2^x) ≤ 0: аргумент логарифма 2^x &gt; 0 при всех x, знаменатель log_5(2^x) ≠ 0 ⇔ 2^x ≠ 1.&quot;,
+      &quot;result&quot;: &quot;x ≠ 0&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;S2&quot;,
+      &quot;action&quot;: &quot;Преобразовать знаменатель по свойству логарифма степени и определить его знак: log_5(2^x) = x·log_5 2, где log_5 2 &gt; 0, так как 5 &gt; 1 и 2 &gt; 1.&quot;,
+      &quot;result&quot;: &quot;log_5(2^x) = x·log_5 2; знак знаменателя совпадает со знаком x&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC2&quot;,
+        &quot;KC3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;S3&quot;,
+      &quot;action&quot;: &quot;Заменой t = 3^x (t &gt; 0) свести числитель к квадратному трёхчлену t^2 − 4t + 3 и разложить его по корням t = 1, t = 3.&quot;,
+      &quot;result&quot;: &quot;9^x − 4·3^x + 3 = (3^x − 1)(3^x − 3)&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC4&quot;,
+        &quot;KC5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;S4&quot;,
+      &quot;action&quot;: &quot;Сравнить знаки множителя 3^x − 1 и знаменателя x·log_5 2: так как функция 3^x возрастает, 3^x − 1 имеет тот же знак, что и x; поэтому при x ≠ 0 дробь (3^x − 1)/(x·log_5 2) положительна и её можно отбросить, сохранив знак неравенства.&quot;,
+      &quot;result&quot;: &quot;Исходное неравенство на ОДЗ равносильно системе 3^x − 3 ≤ 0, x ≠ 0&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC6&quot;,
+        &quot;KC7&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;S1&quot;,
+        &quot;S2&quot;,
+        &quot;S3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;S5&quot;,
+      &quot;action&quot;: &quot;Решить показательное неравенство 3^x ≤ 3^1 с основанием больше 1.&quot;,
+      &quot;result&quot;: &quot;x ≤ 1&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC8&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;S4&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;S6&quot;,
+      &quot;action&quot;: &quot;Пересечь решение x ≤ 1 с ограничением ОДЗ x ≠ 0.&quot;,
+      &quot;result&quot;: &quot;x ∈ (−∞; 0) ∪ (0; 1]&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC9&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;S1&quot;,
+        &quot;S5&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;KC1&quot;,
+      &quot;name&quot;: &quot;Найти ОДЗ дроби с логарифмом в знаменателе&quot;,
+      &quot;description&quot;: &quot;Вход: дробно-рациональное выражение, знаменатель которого содержит логарифм. Операция: выписать условия положительности аргумента логарифма (и допустимости основания) и неравенства нулю знаменателя, решить их. Граница: только ограничения области определения, без решения самого неравенства.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;KC2&quot;,
+      &quot;name&quot;: &quot;Вынести показатель степени аргумента за знак логарифма&quot;,
+      &quot;description&quot;: &quot;Вход: логарифм вида log_a(b^k) с положительным b. Операция: заменить его на k·log_a b. Граница: применяется при положительном основании степени; для чётных степеней отрицательных выражений требуется модуль.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;KC3&quot;,
+      &quot;name&quot;: &quot;Определить знак логарифма числа&quot;,
+      &quot;description&quot;: &quot;Вход: числовой логарифм log_a b с допустимыми a и b. Операция: установить знак, сравнив основание и аргумент с 1 (положителен, если a и b по одну сторону от 1). Граница: числовые основание и аргумент, без вычисления точного значения.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;KC4&quot;,
+      &quot;name&quot;: &quot;Свести показательное выражение к квадратному трёхчлену заменой&quot;,
+      &quot;description&quot;: &quot;Вход: выражение, содержащее a^(2x) и a^x. Операция: ввести t = a^x с учётом t &gt; 0 и записать выражение как квадратный трёхчлен от t. Граница: выражения, где степени выражаются через одну и ту же a^x.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;KC5&quot;,
+      &quot;name&quot;: &quot;Разложить квадратный трёхчлен на множители по корням&quot;,
+      &quot;description&quot;: &quot;Вход: квадратный трёхчлен с найденными (или находимыми) действительными корнями. Операция: записать его как старший коэффициент, умноженный на произведение (t − t1)(t − t2). Граница: трёхчлен с неотрицательным дискриминантом.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;KC6&quot;,
+      &quot;name&quot;: &quot;Определить знак разности степеней по монотонности показательной функции&quot;,
+      &quot;description&quot;: &quot;Вход: множитель вида a^f − a^g с основанием a &gt; 0, a ≠ 1. Операция: установить, что его знак совпадает со знаком (a − 1)(f − g), используя монотонность показательной функции. Граница: используется для анализа знаков сомножителей в неравенствах, а не для нахождения значения.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;KC7&quot;,
+      &quot;name&quot;: &quot;Отбросить строго положительный множитель в неравенстве&quot;,
+      &quot;description&quot;: &quot;Вход: неравенство вида P·Q ≤ 0 (или дробь), где установлено, что множитель (или отношение множителей) строго положителен на рассматриваемом множестве. Операция: перейти к равносильному неравенству для оставшегося множителя, сохранив знак и записав сопутствующие ограничения. Граница: множитель должен быть строго положителен на всём рассматриваемом множестве.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;KC8&quot;,
+      &quot;name&quot;: &quot;Решить простейшее показательное неравенство&quot;,
+      &quot;description&quot;: &quot;Вход: неравенство a^f ≤ a^g (или со знаками &lt;, &gt;, ≥) с числовым основанием a &gt; 0, a ≠ 1. Операция: перейти к неравенству между показателями, сохранив знак при a &gt; 1 и сменив его при 0 &lt; a &lt; 1. Граница: обе части приведены к одному основанию.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;KC9&quot;,
+      &quot;name&quot;: &quot;Учесть ограничения ОДЗ в ответе&quot;,
+      &quot;description&quot;: &quot;Вход: множество решений преобразованного неравенства и найденные ограничения области определения. Операция: пересечь их и записать итоговое множество. Граница: финальное согласование решения с ограничениями, без новых преобразований.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;M1&quot;,
+      &quot;name&quot;: &quot;Анализ знаков множителей дроби с заменой знакосовпадающих множителей и сокращением положительной части&quot;,
+      &quot;step_ids&quot;: [
+        &quot;S1&quot;,
+        &quot;S2&quot;,
+        &quot;S3&quot;,
+        &quot;S4&quot;,
+        &quot;S5&quot;,
+        &quot;S6&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: [
+    &quot;Изображение условия мелкое (140×67); знаменатель прочитан как log_5(2^x) — показатель x у двойки.&quot;
+  ]
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;41D348&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;KC1&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S1:action&quot;,
+          &quot;quote&quot;: &quot;аргумент логарифма 2^x &gt; 0 при всех x&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S1:action&quot;,
+          &quot;quote&quot;: &quot;знаменатель log_5(2^x) ≠ 0 ⇔ 2^x ≠ 1&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S1:result&quot;,
+          &quot;quote&quot;: &quot;x ≠ 0&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;image:assets/e6fc07bbca0f96d1cdc6cca1.png&quot;,
+          &quot;region_description&quot;: &quot;Вся строка формулы: дробь с числителем 9^x − 4·3^x + 3 и знаменателем log с нижним индексом 5 от выражения в скобках (2 с показателем x), справа знак ≤ 0. Прочтение знаменателя автором как log_5(2^x) совпадает с изображением.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_7baedb55a81a&quot;,
+          &quot;reason&quot;: &quot;Покрывает положительность аргумента логарифма и допустимость основания (часть S1 про 2^x &gt; 0), но не ограничение ненулевого знаменателя и его решение.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+          &quot;reason&quot;: &quot;Покрывает выделение и сохранение нуля знаменателя log_5(2^x), но не условие на аргумент логарифма.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_0214fc221120&quot;,
+          &quot;reason&quot;: &quot;Область определения логарифмической функции с проверкой принадлежности промежутка; проверки промежутка в S1 нет, для части про аргумент ближе literal_7baedb55a81a.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_9a635e89ccb3&quot;,
+          &quot;reason&quot;: &quot;Переход log_5(2^x) = 0 ⇔ 2^x = 1 опирается на определение логарифма, но это лишь компонент решения ограничения, а не всё действие KC1.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+          &quot;reason&quot;: &quot;Переход 2^x ≠ 1 ⇒ x ≠ 0 (2^x = 2^0) явно не записан, отражён только в результате; это компонент.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_37584ab15732&quot;,
+          &quot;reason&quot;: &quot;Совместная область логарифма и квадратного корня; корня в задаче нет.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;KC1 по описанию объединяет разные ограничения области: положительность аргумента логарифма (здесь тривиально: 2^x &gt; 0 при всех x) и неравенство нулю знаменателя с решением log_5(2^x) ≠ 0 до x ≠ 0. В каталоге эти ограничения представлены разными узлами (literal_7baedb55a81a и denominator_domain), а решение условия log_5(2^x) = 0 дополнительно опирается на определение логарифма и равенство показателей. Ни один узел не покрывает кандидат целиком, а сопоставлять составной кандидат с одной его частью нельзя, поэтому needs_split. Результат S1 (x ≠ 0) математически верен.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;part&quot;: &quot;Потребовать положительность аргумента логарифма 2^x при допустимом основании 5&quot;,
+            &quot;evidence_ref&quot;: &quot;step:S1:action&quot;,
+            &quot;possible_catalog_kc_ids&quot;: [
+              &quot;literal_7baedb55a81a&quot;
+            ],
+            &quot;note&quot;: &quot;условие выполняется при всех x, ограничений не даёт&quot;
+          },
+          {
+            &quot;part&quot;: &quot;Выделить и сохранить ограничение ненулевого знаменателя log_5(2^x) ≠ 0&quot;,
+            &quot;evidence_ref&quot;: &quot;step:S1:action&quot;,
+            &quot;possible_catalog_kc_ids&quot;: [
+              &quot;denominator_domain&quot;
+            ],
+            &quot;note&quot;: &quot;ограничение x ≠ 0 далее используется в S4 и S6&quot;
+          },
+          {
+            &quot;part&quot;: &quot;Решить условие log_5(2^x) = 0: 2^x = 1, откуда x = 0 исключается&quot;,
+            &quot;evidence_ref&quot;: &quot;step:S1:result&quot;,
+            &quot;possible_catalog_kc_ids&quot;: [
+              &quot;literal_9a635e89ccb3&quot;,
+              &quot;exponential_equation&quot;
+            ],
+            &quot;note&quot;: &quot;компонент, частично неявный: переход 2^x ≠ 1 ⇒ x ≠ 0 не записан&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;KC2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S2:action&quot;,
+          &quot;quote&quot;: &quot;Преобразовать знаменатель по свойству логарифма степени&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S2:result&quot;,
+          &quot;quote&quot;: &quot;log_5(2^x) = x·log_5 2&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+          &quot;reason&quot;: &quot;Законы степеней положительного основания без логарифма; логарифм степени не охватывает.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_872613285a26&quot;,
+          &quot;reason&quot;: &quot;Переход к другому основанию log_b u = ln u/ln b; здесь основание не меняется, выносится показатель степени аргумента.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_ad68659d5755&quot;,
+          &quot;reason&quot;: &quot;Разность логарифмов в логарифм частного — другое свойство логарифма.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_d66dd830e876&quot;,
+          &quot;reason&quot;: &quot;Вычисление логарифма по определению; значение log_5 2 не вычисляется.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдаемое действие — тождественное преобразование log_5(2^x) = x·log_5 2 (логарифм степени с положительным основанием степени 2, верно при всех x). В каталоге есть узлы о законах степеней и о других свойствах логарифмов (смена основания, разность логарифмов), но нет узла для вынесения показателя степени аргумента за знак логарифма. Это предложение, а не утверждённый узел.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Выносить показатель степени аргумента за знак логарифма&quot;,
+        &quot;definition&quot;: &quot;При допустимом основании a (a &gt; 0, a ≠ 1) и положительном b заменить log_a(b^k) на k·log_a b; для чётной степени выражения произвольного знака использовать модуль. Определение знака коэффициента log_a b — отдельное действие.&quot;,
+        &quot;closest_catalog_kc_ids&quot;: [
+          &quot;literal_872613285a26&quot;,
+          &quot;literal_ad68659d5755&quot;,
+          &quot;power_laws&quot;
+        ],
+        &quot;differences&quot;: &quot;Ближайшие узлы описывают другие свойства логарифмов (смена основания, разность) или законы степеней без логарифма.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;KC3&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S2:action&quot;,
+          &quot;quote&quot;: &quot;где log_5 2 &gt; 0, так как 5 &gt; 1 и 2 &gt; 1&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S2:result&quot;,
+          &quot;quote&quot;: &quot;знак знаменателя совпадает со знаком x&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_eae4ca1f2f8b&quot;,
+          &quot;reason&quot;: &quot;Использует тот же механизм монотонности логарифма, но объект — логарифмическое неравенство с неизвестным, а результат — множество решений; здесь числовой логарифм без неизвестной и результат — знак константы.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_d66dd830e876&quot;,
+          &quot;reason&quot;: &quot;Вычисление точного значения логарифма по определению; значение log_5 2 не находится.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_872613285a26&quot;,
+          &quot;reason&quot;: &quot;Упоминает сохранение знака постоянных коэффициентов только при переходе к общему основанию; определения знака числового логарифма не задаёт.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;В S2 знак log_5 2 установлен сравнением основания 5 и аргумента 2 с единицей (оба больше 1, значит log_5 2 &gt; 0). Вывод в S2:result о совпадении знака знаменателя со знаком x объединяет этот знак с результатом KC2 (x·log_5 2) и отдельного действия не образует. Ближайший узел literal_eae4ca1f2f8b совпадает по механизму, но отличается объектом (числовой логарифм без неизвестной) и ожидаемым результатом (знак константы, а не множество решений). Редактор может счесть это частным применением монотонности логарифма (см. i2).&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Определять знак числового логарифма&quot;,
+        &quot;definition&quot;: &quot;Для числового log_a b с a &gt; 0, a ≠ 1, b &gt; 0 установить знак без вычисления значения: положителен, если a и b по одну сторону от 1; отрицателен, если по разные; равен нулю при b = 1.&quot;,
+        &quot;closest_catalog_kc_ids&quot;: [
+          &quot;literal_eae4ca1f2f8b&quot;
+        ],
+        &quot;differences&quot;: &quot;literal_eae4ca1f2f8b решает неравенство с неизвестным в аргументе и возвращает множество решений; предлагаемое действие относится к числовой константе и возвращает её знак.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i2&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;KC4&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S3:action&quot;,
+          &quot;quote&quot;: &quot;Заменой t = 3^x (t &gt; 0) свести числитель к квадратному трёхчлену t^2 − 4t + 3&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;image:assets/e6fc07bbca0f96d1cdc6cca1.png&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+          &quot;reason&quot;: &quot;Переход 9^x = (3^x)^2 = t^2 — неявный компонент; exponential_substitution прямо включает согласование остальных степеней с t.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a30e088aef8f&quot;,
+          &quot;reason&quot;: &quot;Неотрицательная замена квадратного корня; здесь замена показательной функции.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_ab8a29be8367&quot;,
+          &quot;reason&quot;: &quot;Замена u = x² с подсчётом прообразов; не применяется.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: введение t = 3^x с условием t &gt; 0 (основание 3 &gt; 0, 3 ≠ 1) и выражение 9^x через t, что даёт квадратный трёхчлен t^2 − 4t + 3 от числителя из условия. Это целиком соответствует определению exponential_substitution (ввести t = b^x &gt; 0 и согласовать остальные степени с t). Обратная запись через 3^x в S3:result относится к разложению (KC5), решение неравенств выполняется в следующих шагах, и в это соответствие они не включаются.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;KC5&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S3:action&quot;,
+          &quot;quote&quot;: &quot;разложить его по корням t = 1, t = 3&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S3:result&quot;,
+          &quot;quote&quot;: &quot;9^x − 4·3^x + 3 = (3^x − 1)(3^x − 3)&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_89adef4e8cee&quot;,
+          &quot;reason&quot;: &quot;Факторизация квадратного трёхчлена с параметром; параметра в трёхчлене t^2 − 4t + 3 нет.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+          &quot;reason&quot;: &quot;Нахождение корней через дискриминант в решении не показано: корни t = 1, t = 3 названы без вывода.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_1b97db4e28e8&quot;,
+          &quot;reason&quot;: &quot;Квадратное неравенство относительно t не решается; знак далее анализируется по множителям в S4.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+          &quot;reason&quot;: &quot;Уравнение через нулевое произведение не решается.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдаемое действие: квадратный трёхчлен t^2 − 4t + 3 представлен произведением (t − 1)(t − 3) и записан через 3^x; разложение затем используется для анализа знаков в S4. Это соответствует literal_cab525070130 (представить многочлен произведением для исследования знака; корни простые, кратность учитывать не требуется). Явная проверка раскрытием скобок не записана, но тождество верно (1·3 = 3, 1 + 3 = 4), что проверено попутно. Нахождение корней t = 1, t = 3 в решении не показано (см. i1) и в это соответствие не входит.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;KC6&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S4:action&quot;,
+          &quot;quote&quot;: &quot;так как функция 3^x возрастает, 3^x − 1 имеет тот же знак, что и x&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:S3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_inequality&quot;,
+          &quot;reason&quot;: &quot;Механизм тот же (возрастание 3^x, сравнение 3^x с 3^0), но узел описывает переход от одного ограничения на b^x к множеству значений x; здесь для всех x устанавливается знаковая равносильность множителя, чтобы использовать её в дроби, и ожидаемый результат — не множество решений.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_f68eccc115c2&quot;,
+          &quot;reason&quot;: &quot;Исключение положительного множителя — следующее действие (KC7), а не определение знака множителя.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;rational_intervals&quot;,
+          &quot;reason&quot;: &quot;Метод интервалов не применяется: знаки на промежутках не расставляются.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;В S4 по возрастанию 3^x установлено, что множитель 3^x − 1 (из разложения S3:result) имеет тот же знак, что и x, при всех x. Это знаковая равносильность множителя, применяемая для анализа знака дроби, а не решение отдельного показательного неравенства. exponential_inequality содержит лишь механизм монотонности как компонент; сопоставлять составной кандидат с ним по части нельзя. Подходящего узла в каталоге нет. Граница с exponential_inequality может быть пересмотрена редактором (см. i2). Математически утверждение верно.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Заменять разность степеней знакосовпадающим выражением&quot;,
+        &quot;definition&quot;: &quot;Для множителя a^f − a^g при a &gt; 0, a ≠ 1 на общей области f и g установить по монотонности показательной функции, что его знак совпадает со знаком (a − 1)(f − g), и использовать это при анализе знака произведения или дроби. Решение отдельного показательного неравенства и исключение множителей — отдельные действия.&quot;,
+        &quot;closest_catalog_kc_ids&quot;: [
+          &quot;exponential_inequality&quot;
+        ],
+        &quot;differences&quot;: &quot;exponential_inequality переводит одно ограничение на b^x в ограничение на x и даёт множество решений; предлагаемое действие даёт знаковую равносильность множителя на всей области для дальнейшего анализа знаков.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i2&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;KC7&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_f68eccc115c2&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S4:action&quot;,
+          &quot;quote&quot;: &quot;поэтому при x ≠ 0 дробь (3^x − 1)/(x·log_5 2) положительна и её можно отбросить, сохранив знак неравенства&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S4:result&quot;,
+          &quot;quote&quot;: &quot;Исходное неравенство на ОДЗ равносильно системе 3^x − 3 ≤ 0, x ≠ 0&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:S1:result&quot;,
+        &quot;step:S2:result&quot;,
+        &quot;step:S3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_ef3f8c7287d4&quot;,
+          &quot;reason&quot;: &quot;Сводит знак дроби к знаку числителя при положительном знаменателе; здесь знаменатель x·log_5 2 меняет знак, положительно лишь отношение (3^x − 1)/(x·log_5 2).&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a78667313aa3&quot;,
+          &quot;reason&quot;: &quot;Требует доказанной положительности знаменателя; здесь она не выполнена.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_b9b755cc8462&quot;,
+          &quot;reason&quot;: &quot;Умножение неравенства на положительное выражение алгебраически родственно, но literal_f68eccc115c2 прямо описывает исключение положительного множителя из знакового неравенства; это основание выбора.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_7570fa06d474&quot;,
+          &quot;reason&quot;: &quot;Общего множителя числителя и знаменателя нет; это не сокращение дроби.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: при x ≠ 0 доказана положительность отношения (3^x − 1)/(x·log_5 2) (знак 3^x − 1 совпадает со знаком x по первой части S4, знак знаменателя совпадает со знаком x по S2:result), и это отношение исключено из неравенства без смены знака; ограничение x ≠ 0 (S1:result) сохранено в системе. Это целиком соответствует literal_f68eccc115c2. Определение знака 3^x − 1 (KC6) служит входом и в это соответствие не переносится. Перегруппировка дроби в произведение (3^x − 3) на положительное отношение выполнена неявно. Равносильность верна.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;KC8&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;exponential_inequality&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S5:action&quot;,
+          &quot;quote&quot;: &quot;Решить показательное неравенство 3^x ≤ 3^1 с основанием больше 1.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S5:result&quot;,
+          &quot;quote&quot;: &quot;x ≤ 1&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:S4:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+          &quot;reason&quot;: &quot;Описывает уравнение (равенство показателей), а здесь неравенство с учётом монотонности.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_0cf8af170957&quot;,
+          &quot;reason&quot;: &quot;Линейное неравенство не решается: x ≤ 1 получается сразу.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Переход 3^x ≤ 3^1 ⇒ x ≤ 1 по возрастанию 3^x (основание 3 &gt; 1) с сохранением направления неравенства. Запись 3 = 3^1 из 3^x − 3 ≤ 0 (S4:result) тривиальна. Полное соответствие exponential_inequality.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;KC9&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S6:action&quot;,
+          &quot;quote&quot;: &quot;Пересечь решение x ≤ 1 с ограничением ОДЗ x ≠ 0.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S6:result&quot;,
+          &quot;quote&quot;: &quot;x ∈ (−∞; 0) ∪ (0; 1]&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:S1:result&quot;,
+        &quot;step:S5:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+          &quot;reason&quot;: &quot;Отбор конечного набора кандидатов по области; здесь пересечение промежутка с исключением точки.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+          &quot;reason&quot;: &quot;Выделение и сохранение ограничения выполнено раньше (S1, S4); здесь итоговое совмещение множеств.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+          &quot;reason&quot;: &quot;Отбор по условиям модели и физическому смыслу; не применимо.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Совмещены x ≤ 1 (S5:result) и x ≠ 0 (S1:result): точка 0 исключена, граница 1 включена (нестрогое неравенство, 1 ≠ 0). Полное соответствие set_intersection. Ответ сверен попутно: при x = 1 числитель равен 0, знаменатель log_5 2 &gt; 0, неравенство выполняется.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;coverage&quot;,
+      &quot;refs&quot;: [
+        &quot;step:S3:action&quot;
+      ],
+      &quot;description&quot;: &quot;Корни t = 1, t = 3 трёхчлена t^2 − 4t + 3 названы без вывода (дискриминант или теорема Виета не показаны), и нахождение корней не размечено отдельным кандидатом. Сами корни и разложение верны. Влияние: соответствие KC5 подтверждено только для записи разложения, а не для нахождения корней; не блокирует.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;KC5&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;i2&quot;,
+      &quot;kind&quot;: &quot;boundary&quot;,
+      &quot;refs&quot;: [
+        &quot;step:S2:action&quot;,
+        &quot;step:S4:action&quot;
+      ],
+      &quot;description&quot;: &quot;KC3 (знак log_5 2) и KC6 (знак 3^x − 1 совпадает со знаком x) используют монотонность логарифмической и показательной функций; в каталоге эта монотонность есть только в узлах решения неравенств (literal_eae4ca1f2f8b, exponential_inequality). Из-за различия объекта и ожидаемого результата оба кандидата помечены как new_candidate, но редактор может решить, что это частные применения существующих узлов. Не блокирует.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;KC3&quot;,
+        &quot;KC6&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>
