@@ -1,0 +1,172 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>659A4A</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>67. ФИПИ 659A4A · партия 6</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Найдите точку максимума функции <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>y</mi><mo>=</mo><mn>3,5</mn><msup> <mi>x</mi> <mn>2</mn> </msup> <mtext> </mtext><mo>−</mo><mn>29</mn><mi>x</mi><mo>+</mo><mn>30</mn><mo>⋅</mo><mi>ln</mi><mi>x</mi><mo>+</mo><mn>67.</mn> </mrow> </semantics> </math><span></span></p>  </section></div><p>КЭС: 4.1 Производная функции. Производные элементарных функций; 4.2 Применение производной к исследованию функций на монотонность и экстремумы. Нахождение наибольшего и наименьшего значения функции на отрезке</p><h2>Ответ</h2><p>2</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Записать область определения функции из-за ln x</td><td>x &gt; 0</td><td>kc1</td></tr><tr><td>s2 · condition</td><td>Найти производную функции</td><td>y&#x27; = 7x - 29 + 30/x = (7x^2 - 29x + 30)/x</td><td>kc2</td></tr><tr><td>s3 · s1, s2</td><td>Решить уравнение y&#x27; = 0 на области определения</td><td>7x^2 - 29x + 30 = 0, x = 2 или x = 15/7; оба корня положительны</td><td>kc3</td></tr><tr><td>s4 · s1, s2, s3</td><td>Определить знаки производной на интервалах области определения и выбрать точку смены знака с плюса на минус</td><td>y&#x27; &gt; 0 на (0;2), y&#x27; &lt; 0 на (2;15/7), y&#x27; &gt; 0 при x &gt; 15/7; точка максимума x = 2</td><td>kc4</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Исследование функции на экстремум с помощью производной&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Найти область определения функции</h3><p>По выражению функции определить ограничения на аргумент (логарифм, знаменатель, корень) и записать допустимое множество.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Записать область определения функции из-за ln x&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;x &gt; 0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0214fc221120&quot;,
+      &quot;reason&quot;: &quot;Положительность аргумента логарифма наблюдается; вторая часть определения (проверка принадлежности промежутка) не выполняется.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_7baedb55a81a&quot;,
+      &quot;reason&quot;: &quot;Перекрывающееся определение: положительность аргументов логарифма; основание e фиксировано. Нет основания выбрать одно из двух.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_37584ab15732&quot;,
+      &quot;reason&quot;: &quot;Корня в функции нет.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдаемое действие — требование x&gt;0 для ln x. Подходят два перекрывающихся узла каталога; кроме того, авторский кандидат шире (логарифм, знаменатель, корень), чем наблюдаемое действие.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Вычислить производную суммы элементарных функций</h3><p>По формуле функции, составленной из степенных и логарифмических слагаемых с коэффициентами, применить таблицу производных и правило линейности.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;y&#x27; = 7x - 29 + 30/x&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0efedaf04823&quot;,
+      &quot;reason&quot;: &quot;Покрывает степенные слагаемые и линейность, но не производную ln x.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_7e7fe72c8c10&quot;,
+      &quot;reason&quot;: &quot;Покрывает (ln u)′ при u=x и правило суммы, но не степенные слагаемые.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_3a3e1295118b&quot;,
+      &quot;reason&quot;: &quot;Функция не многочлен.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет дифференцирование степенных слагаемых и логарифма; в каталоге это два отдельных узла.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Дифференцирование 3,5x^2 - 29x + 67 по степенному правилу и линейности&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_0efedaf04823&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Дифференцирование 30·ln x&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_7e7fe72c8c10&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc3"><h3>kc3 · Найти критические точки функции</h3><p>Приравнять производную к нулю, свести к алгебраическому уравнению и отобрать корни, принадлежащие области определения.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;stationary_point&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Решить уравнение y&#x27; = 0 на области определения&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;x = 2 или x = 15/7; оба корня положительны&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+      &quot;reason&quot;: &quot;Компонент: решение 7x^2-29x+30=0 (D=1) входит в действие, но не охватывает отбор по области.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+      &quot;reason&quot;: &quot;Компонент отбора корней по области; уже входит в определение stationary_point.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Решение f′=0 на допустимой области x&gt;0 с отбором корней; тип экстремума не определяется — совпадает с определением целиком. Корни 2 и 15/7 проверены.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Определить точку экстремума по смене знака производной</h3><p>По критическим точкам и выражению производной найти знак производной на интервалах области определения; точка максимума — смена знака с плюса на минус, минимума — с минуса на плюс.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;local_extreme_sign&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;y&#x27; &gt; 0 на (0;2), y&#x27; &lt; 0 на (2;15/7)&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;точка максимума x = 2&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;,
+    &quot;step:s3:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;,
+      &quot;reason&quot;: &quot;Знаки установлены, но вывод о монотонности явно не делается; цель — тип экстремума.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;global_interval_extreme&quot;,
+      &quot;reason&quot;: &quot;Вопрос о локальном максимуме, не о глобальном на отрезке.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Смена знака производной +→- в x=2 даёт максимум; знаки согласуются с положительным старшим коэффициентом числителя и x&gt;0.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;missing_annotation&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s2:result&quot;
+    ],
+    &quot;description&quot;: &quot;Приведение производной к общей дроби (7x^2 - 29x + 30)/x не размечено отдельно (возможно literal_67caf017b566); не влияет на решения.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc2&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/659A4A.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/659A4A.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

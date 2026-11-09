@@ -1,0 +1,173 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>831474</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>106. ФИПИ 831474 · партия 9</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Найдите все значения <i><span>a</span></i>, при каждом из которых уравнение</p> <p class="MsoNormal" align="center"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mfrac> <mrow> <mn>9</mn><msup> <mi>x</mi> <mn>2</mn> </msup> <mo>−</mo><msup> <mi>a</mi> <mn>2</mn> </msup> </mrow> <mrow> <msup> <mi>x</mi> <mn>2</mn> </msup> <mo>+</mo><mn>8</mn><mi>x</mi><mo>+</mo><mn>16</mn><mo>−</mo><msup> <mi>a</mi> <mn>2</mn> </msup> </mrow> </mfrac> <mo>=</mo><mn>0</mn> </mrow>  </semantics> </mstyle></math></p> <p class="MsoNormal">имеет ровно два различных корня.<span></span></p>  </section></div><p>КЭС: 2.1 Целые и дробно-рациональные уравнения</p><h2>Ответ</h2><p>a ∈ (−∞; −6) ∪ (−6; −3) ∪ (−3; 0) ∪ (0; 3) ∪ (3; 6) ∪ (6; +∞)</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Свести уравнение-дробь к системе: числитель 9x^2−a^2=0 и знаменатель (x+4)^2−a^2≠0</td><td>9x^2=a^2, (x+4)^2≠a^2, т.е. x≠−4+a и x≠−4−a</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Решить уравнение числителя относительно x</td><td>x=a/3 или x=−a/3; при a=0 один корень x=0, при a≠0 два различных</td><td>kc2</td></tr><tr><td>s3 · s1, s2</td><td>Проверить случай a=0 на допустимость</td><td>x=0, знаменатель 16≠0, ровно один корень — a=0 не подходит</td><td>kc3</td></tr><tr><td>s4 · s1, s2</td><td>Найти значения a, при которых кандидат x=a/3 обращает знаменатель в нуль</td><td>a/3+4=a ⇒ a=6; a/3+4=−a ⇒ a=−3</td><td>kc3</td></tr><tr><td>s5 · s1, s2</td><td>Найти значения a, при которых кандидат x=−a/3 обращает знаменатель в нуль</td><td>−a/3+4=a ⇒ a=3; −a/3+4=−a ⇒ a=−6</td><td>kc3</td></tr><tr><td>s6 · s2, s3, s4, s5</td><td>Объединить условия: два различных кандидата и оба допустимы</td><td>a≠0, a≠±3, a≠±6</td><td>kc4</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Аналитический: корни числителя через параметр и исключение посторонних по знаменателю&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;,
+      &quot;s5&quot;,
+      &quot;s6&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Свести уравнение «дробь равна нулю» к системе</h3><p>Для уравнения вида P/Q=0 записать равносильную систему P=0, Q≠0; применимо к рациональным выражениям, в том числе с параметром.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Свести уравнение-дробь к системе: числитель 9x^2−a^2=0 и знаменатель (x+4)^2−a^2≠0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+      &quot;reason&quot;: &quot;Только сохранение нулей знаменателя; не включает переход P/Q=0 ⇔ P=0 при Q≠0.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9698b97fef22&quot;,
+      &quot;reason&quot;: &quot;Умножение на общий знаменатель, а не запись системы числитель=0, знаменатель≠0.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: равносильный переход от уравнения «дробь равна нулю» к системе. Ни одно определение каталога не описывает этот переход целиком.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Для уравнения P/Q=0 записать равносильную систему P=0, Q≠0 (в том числе с параметром).&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Решить неполное квадратное уравнение с параметром</h3><p>По уравнению вида kx^2=b(параметр)^2 найти корни, выраженные через параметр, и определить, при каких значениях параметра корни совпадают.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;x=a/3 или x=−a/3; при a=0 один корень x=0, при a≠0 два различных&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_57e72251d4a8&quot;,
+      &quot;reason&quot;: &quot;Покрывает нахождение обоих корней x²=c при c=a²/9≥0, но не анализ совпадения корней по параметру.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d93e50c17220&quot;,
+      &quot;reason&quot;: &quot;Учёт совпадений корней; покрывает только вторую часть.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет решение x²=c с параметрической правой частью и определение значения параметра, при котором корни совпадают.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Решить 9x²=a² как x²=c, c≥0&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_57e72251d4a8&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Определить, при каком a корни совпадают (a=0)&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_d93e50c17220&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Найти значения параметра, при которых корень выходит из ОДЗ</h3><p>Подставить корень, выраженный через параметр, в условие допустимости (знаменатель ≠ 0) и решить полученное уравнение относительно параметра, чтобы исключить эти значения.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;a/3+4=a ⇒ a=6; a/3+4=−a ⇒ a=−3&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s5:result&quot;,
+      &quot;quote&quot;: &quot;−a/3+4=a ⇒ a=3; −a/3+4=−a ⇒ a=−6&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+      &quot;reason&quot;: &quot;Проверка конкретных кандидатов на область, без решения уравнения относительно параметра.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+      &quot;reason&quot;: &quot;Отбор найденных корней по ОДЗ, без параметра.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+      &quot;reason&quot;: &quot;Сохранение нулей знаменателя, но не поиск значений параметра, при которых корень попадает в нуль.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Подстановка корня, выраженного через параметр, в условие знаменатель≠0 и решение полученных линейных уравнений по a. Каталог не содержит такого параметрического действия. Шаги s4, s5 вычислены верно.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Подставить корень, выраженный через параметр, в равенство «знаменатель = 0» и найти значения параметра, при которых корень посторонний.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc4"><h3>kc4 · Собрать ответ задачи с параметром из условий на число корней</h3><p>Объединить условия различности корней и их допустимости в итоговое множество значений параметра с исключением найденных точек.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s6:result&quot;,
+      &quot;quote&quot;: &quot;a≠0, a≠±3, a≠±6&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;,
+    &quot;step:s3:result&quot;,
+    &quot;step:s4:result&quot;,
+    &quot;step:s5:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_e41f0e408b87&quot;,
+      &quot;reason&quot;: &quot;Объединение случаев в множество параметров — близко.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+      &quot;reason&quot;: &quot;Пересечение/исключение установленных ограничений — также близко.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_05f53e4cc43a&quot;,
+      &quot;reason&quot;: &quot;Подсчёт различных решений с учётом допустимости; частично перекрывает обоснование «ровно два».&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Действие — исключение найденных точек и запись итогового множества. Подходят перекрывающиеся определения literal_e41f0e408b87 и set_intersection без основания выбрать одно. Обоснование, что при исключённых a остаётся ровно один корень (а не ноль), явно не записано.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s3:action&quot;,
+      &quot;step:s3:result&quot;
+    ],
+    &quot;description&quot;: &quot;Шаг s3 размечен kc3, но выполняет иное действие: проверку случая совпадения корней (a=0) и подсчёт их числа, без поиска значений параметра по знаменателю. Ближе к kc2/учёту совпадений.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc3&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/831474.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/831474.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

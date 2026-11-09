@@ -1,0 +1,143 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>B05656</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>54. ФИПИ B05656 · партия 5</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Найдите корень уравнения <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msup> <mrow> <mrow><mo>(</mo> <mrow> <mfrac> <mn>1</mn> <mn>6</mn> </mfrac> </mrow> <mo>)</mo></mrow> </mrow> <mrow> <mi>x</mi><mtext> </mtext><mo>−</mo><mtext> </mtext><mn>3</mn> </mrow> </msup> <mtext> </mtext><mo>=</mo><mfrac> <mn>1</mn> <mrow> <mn>36</mn> </mrow> </mfrac> <mo>.</mo> </mrow> </semantics> </math><span></span></p>  </section></div><p>КЭС: 2.4 Показательные и логарифмические уравнения</p><h2>Ответ</h2><p>5</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Представить правую часть 1/36 как степень основания 1/6, чтобы обе части уравнения имели одинаковое основание</td><td>(1/6)^(x−3) = (1/6)^2</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Перейти от равенства степеней с одинаковым основанием 1/6 (основание положительно и не равно 1) к равенству показателей</td><td>x − 3 = 2</td><td>kc2</td></tr><tr><td>s3 · s2</td><td>Решить полученное линейное уравнение</td><td>x = 5</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Приведение обеих частей показательного уравнения к одному основанию и переход к равенству показателей&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Представить число в виде степени заданного основания</h3><p>Вход: числовое значение и основание степени из уравнения. Операция: записать число как степень этого основания с целым или рациональным показателем, используя свойства степеней. Граница: применимо, когда число является точной степенью данного основания.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Представить правую часть 1/36 как степень основания 1/6&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;(1/6)^(x−3) = (1/6)^2&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+      &quot;reason&quot;: &quot;Определение составное: привести степени к общему основанию и приравнять показатели. Шаг s1 выполняет только первую часть (запись 1/36 как (1/6)^2); приравнивание показателей происходит в s2. Это действие-компонент, а не полное соответствие.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+      &quot;reason&quot;: &quot;Узел описывает применение законов степени степени, произведения и частного для преобразования степеней; в s1 применение такого закона не показано, действие состоит в распознавании числа как точной степени заданного основания.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d66dd830e876&quot;,
+      &quot;reason&quot;: &quot;Та же арифметическая основа (найти показатель, при котором основание даёт число), но объект — значение логарифма; в s1 логарифма нет, результат — переписанное уравнение, а не число.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_3ac0ecd3cd49&quot;,
+      &quot;reason&quot;: &quot;Восстанавливается неизвестное основание показательной функции по точке; здесь основание 1/6 задано, ищется показатель для числа 1/36.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: запись числовой константы 1/36 из правой части условия как степени основания 1/6, взятого из левой части условия, с показателем 2. Объект: число в показательном уравнении. Существенное условие: число является точной степенью данного положительного основания, отличного от 1. Результат: уравнение с одинаковыми основаниями в обеих частях. В каталоге это действие присутствует только как первая часть составного узла exponential_equation; самостоятельного узла нет, поэтому match невозможен. Арифметика шага верна: (1/6)^2 = 1/36.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Представлять число в виде степени заданного основания&quot;,
+    &quot;definition&quot;: &quot;Для положительного числа и заданного положительного основания, отличного от 1, найти показатель, при котором число является точной степенью этого основания, и записать число в этом виде. Последующее приравнивание показателей, решение уравнения и вычисление логарифма как отдельной величины не входят.&quot;,
+    &quot;relation_to_catalog&quot;: &quot;Возможный подузел первой части exponential_equation. Редакционная альтернатива: не вводить отдельный узел и размечать s1 и s2 совместно как exponential_equation.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc2"><h3>kc2 · Приравнять показатели степеней с одинаковым основанием</h3><p>Вход: показательное уравнение вида a^f(x) = a^g(x). Операция: перейти к равносильному уравнению f(x) = g(x). Граница: допустимо только при a &gt; 0 и a ≠ 1, когда обе части приведены к одному основанию.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Перейти от равенства степеней с одинаковым основанием 1/6 (основание положительно и не равно 1) к равенству показателей&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;x − 3 = 2&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+      &quot;reason&quot;: &quot;Название узла («Сводить показательное уравнение к равенству показателей») совпадает с результатом s2, и в s2 явно проверены условия основания (положительно, не равно 1). Но определение включает также приведение к общему основанию, которое выполнено в s1 (kc1), а не в s2. Засчитать match значило бы перенести действие s1 в текущий шаг.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_2443f08dda82&quot;,
+      &quot;reason&quot;: &quot;Аналогичный переход по инъективности, но для равенства логарифмов; здесь равенство степеней.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_inequality&quot;,
+      &quot;reason&quot;: &quot;Переход по монотонности для неравенства с учётом направления; здесь уравнение, вопрос о направлении знака не возникает.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: переход от (1/6)^(x−3) = (1/6)^2 (входное состояние из s1) к равенству показателей x − 3 = 2 при основании 1/6 &gt; 0, 1/6 ≠ 1. Переход математически корректен. Ближайший узел exponential_equation покрывает это действие лишь как завершающую часть составного определения, первая часть которого (приведение к общему основанию) выполнена в другом шаге и размечена отдельным кандидатом kc1. Отдельного узла для приравнивания показателей при уже общем основании в каталоге нет, а вводить его как новый кандидат значило бы почти дублировать exponential_equation. Граница гранулярности неоднозначна: подтвердить match для kc2 отдельно нельзя, решение зависит от того, размечать ли s1 и s2 совместно как exponential_equation.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc3"><h3>kc3 · Решить линейное уравнение с одной переменной</h3><p>Вход: уравнение вида kx + b = c с числовыми коэффициентами, k ≠ 0. Операция: перенести слагаемые и разделить на коэффициент при переменной, получив единственный корень. Граница: только линейные уравнения с ненулевым коэффициентом при переменной.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Решить полученное линейное уравнение&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;x = 5&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0cf8af170957&quot;,
+      &quot;reason&quot;: &quot;Узел для линейных неравенств; здесь равенство.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+      &quot;reason&quot;: &quot;Определение прямо исключает решение последующего линейного уравнения, что подтверждает отдельную разметку s3.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: решение аффинного уравнения x − 3 = 2 одной переменной с числовыми коэффициентами (входное состояние из s2) с получением единственного решения x = 5. Это полностью соответствует определению linear_equation; снятие степени выполнено ранее в s2 и в этот шаг не переносится. Промежуточный перенос слагаемого в шаге не записан, но определение охватывает решение линейного уравнения целиком. Проверка: 5 − 3 = 2, (1/6)^2 = 1/36; ответ 5 согласуется с условием.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s1:action&quot;,
+      &quot;step:s2:action&quot;
+    ],
+    &quot;description&quot;: &quot;Составной узел exponential_equation («привести степени к общему основанию и приравнять показатели») реализован в решении двумя шагами s1 и s2 и разбит автором на два локальных кандидата kc1 и kc2. Ни один локальный кандидат не покрывает узел целиком, поэтому ни kc1, ни kc2 не получает match к exponential_equation. Нужно редакционное решение о гранулярности: размечать s1 и s2 совместно как exponential_equation или ввести подузлы. Математических ошибок в шагах не обнаружено.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc1&quot;,
+      &quot;kc2&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/B05656.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/B05656.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

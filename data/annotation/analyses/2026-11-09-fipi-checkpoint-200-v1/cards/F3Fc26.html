@@ -1,0 +1,139 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>F3Fc26</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>135. ФИПИ F3Fc26 · партия 11</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0"> <tr> <td valign="top"> <p class="MsoNormal">Объём куба равен 144. Найдите объём треугольной призмы, отсекаемой <br> от куба плоскостью, проходящей через середины двух рёбер, выходящих <br> из одной вершины, и параллельной третьему ребру, выходящему из этой же вершины.</p> </td> <td valign="top"> <p class="MsoNormal" align="right"><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/2b88519241e224d0ae7dfbda.png" alt="Рисунок ФИПИ"></p> </td> </tr> </table> <p class="MsoNormal"><span> </span></p>  </section></div><p>КЭС: 7.3 Многогранники</p><h2>Ответ</h2><p>18</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Определить отсекаемую призму: основание — прямоугольный треугольник с катетами, равными половинам рёбер куба, высота — третье ребро куба (плоскость параллельна ему)</td><td>Основание — прямоугольный треугольник с катетами a/2, a/2; высота призмы a</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Выразить объём призмы через ребро куба: V = (1/2)(a/2)(a/2)·a = a³/8</td><td>V_призмы = V_куба/8</td><td>kc2</td></tr><tr><td>s3 · s2, condition</td><td>Подставить объём куба: 144/8</td><td>18</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Выражение объёма отсечённой призмы через ребро куба&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Определить форму и размеры сечения/отсекаемой части многогранника</h3><p>По описанию секущей плоскости (через заданные точки рёбер, параллельно ребру) установить вид отсекаемого тела и выразить его линейные элементы через рёбра исходного многогранника.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Определить отсекаемую призму: основание — прямоугольный треугольник с катетами, равными половинам рёбер куба, высота — третье ребро куба (плоскость параллельна ему)&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;Основание — прямоугольный треугольник с катетами a/2, a/2; высота призмы a&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;image:assets/2b88519241e224d0ae7dfbda.png&quot;,
+      &quot;region_description&quot;: &quot;Куб; у правой задней части проведены вертикальная линия на верхней грани и вертикальный след плоскости на правой грани, отсекающие узкую часть у вертикального ребра&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;image:assets/2b88519241e224d0ae7dfbda.png&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0cd75b4548b3&quot;,
+      &quot;reason&quot;: &quot;Покрывает только распознавание призмы (параллельные равные основания, боковые рёбра), но не нахождение катетов a/2 и высоты a&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6f2cb1731d16&quot;,
+      &quot;reason&quot;: &quot;Тип сечения по пересечённым рёбрам — близкая часть, но кандидат описывает отсекаемое тело и его размеры, а не только сечение&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_19971b364ca1&quot;,
+      &quot;reason&quot;: &quot;Вычисление объёма — следующий шаг&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет установление вида отсекаемого тела (призма с треугольным основанием), прямоугольности основания и выражение линейных элементов через ребро куба (середины рёбер → катеты a/2, параллельность ребру → высота a). Это несколько действий; одно узкое определение каталога их целиком не покрывает.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Распознать отсекаемое тело как прямую треугольную призму по плоскости, параллельной ребру&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_0cd75b4548b3&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Установить, какие рёбра пересекает плоскость и вид сечения/основания&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_6f2cb1731d16&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Выразить катеты основания и высоту через ребро куба по серединам рёбер и прямым углам куба&quot;,
+        &quot;possible_catalog_kc_id&quot;: null
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Вычислить объём призмы как произведение площади основания на высоту</h3><p>Для призмы с известными (или выраженными через параметр) основанием и высотой найти объём V=S·h, в том числе как долю объёма исходного тела.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;V = (1/2)(a/2)(a/2)·a = a³/8&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;V_призмы = V_куба/8&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Подставить объём куба: 144/8&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_19971b364ca1&quot;,
+      &quot;reason&quot;: &quot;Соответствует умножению площади основания на высоту a, но кандидат дополнительно включает площадь основания и переход к доле объёма куба&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;right_triangle_area&quot;,
+      &quot;reason&quot;: &quot;Множитель (1/2)(a/2)(a/2) — площадь прямоугольного треугольника, отдельный узел&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+      &quot;reason&quot;: &quot;Подстановка 144 в V_куба/8 — элементарная арифметика, не подстановка в физическую формулу&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В s2 выполнены два действия: площадь прямоугольного треугольника (1/2·катет·катет) и объём призмы S·h; затем выражение через V_куба=a³ и подстановка в s3. Кандидат размечен на s2 и s3, смешивая площадь основания, объём призмы и отношение объёмов.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Площадь основания (1/2)(a/2)(a/2)&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;right_triangle_area&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Объём призмы S·h с высотой a, перпендикулярной основанию&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_19971b364ca1&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Выразить объём как долю a³=V_куба и подставить 144 (арифметика, отдельный KC не обязателен)&quot;,
+        &quot;possible_catalog_kc_id&quot;: null
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;missing_annotation&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s2:result&quot;,
+      &quot;step:s3:action&quot;
+    ],
+    &quot;description&quot;: &quot;Использование V_куба=a³ (объём куба) применяется неявно и не выделено; ответ 18 математически верен (144/8).&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc2&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/F3Fc26.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/F3Fc26.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

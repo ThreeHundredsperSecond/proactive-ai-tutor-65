@@ -1,0 +1,384 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>517890</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>56. ФИПИ 517890 · партия 5</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Решите неравенство <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <msubsup> <mrow> <mi>log</mi> </mrow> <mn>2</mn> <mn>2</mn> </msubsup> <mrow><mo>(</mo> <mrow> <msup> <mi>x</mi> <mn>2</mn> </msup> <mo>−</mo><mn>9</mn> </mrow> <mo>)</mo></mrow><mo>−</mo><mn>9</mn><msub> <mrow> <mi>log</mi> </mrow> <mn>2</mn> </msub> <mrow><mo>(</mo> <mrow> <msup> <mi>x</mi> <mn>2</mn> </msup> <mo>−</mo><mn>9</mn> </mrow> <mo>)</mo></mrow><mo>+</mo><mn>20</mn><mo>≥</mo><mn>0</mn> </mrow>  </semantics> </mstyle></math>.<span></span></p>  </section></div><p>КЭС: 2.5 Целые и дробно-рациональные неравенства; 2.7 Показательные и логарифмические неравенства</p><h2>Ответ</h2><p>(−∞; −√41] ∪ [−5; −3) ∪ (3; 5] ∪ [√41; +∞)</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти ОДЗ: аргумент логарифма должен быть положителен, x^2 − 9 &gt; 0.</td><td>x ∈ (−∞; −3) ∪ (3; +∞)</td><td>kc1</td></tr><tr><td>s2 · condition</td><td>Ввести замену t = log_2(x^2 − 9) и записать неравенство относительно t.</td><td>t^2 − 9t + 20 ≥ 0</td><td>kc2</td></tr><tr><td>s3 · s2</td><td>Решить квадратное неравенство t^2 − 9t + 20 ≥ 0: корни t = 4 и t = 5, ветви параболы вверх.</td><td>t ≤ 4 или t ≥ 5</td><td>kc3</td></tr><tr><td>s4 · s1, s3</td><td>Вернуться к x и перейти от логарифмических неравенств к алгебраическим по возрастанию log_2 (основание 2 &gt; 1) с учётом положительности аргумента: log_2(x^2 − 9) ≤ 4 и log_2(x^2 − 9) ≥ 5.</td><td>0 &lt; x^2 − 9 ≤ 16, т.е. 9 &lt; x^2 ≤ 25; или x^2 − 9 ≥ 32, т.е. x^2 ≥ 41</td><td>kc4</td></tr><tr><td>s5 · s4</td><td>Решить двойное неравенство 9 &lt; x^2 ≤ 25 как 3 &lt; |x| ≤ 5.</td><td>x ∈ [−5; −3) ∪ (3; 5]</td><td>kc5</td></tr><tr><td>s6 · s4, s1</td><td>Решить неравенство x^2 ≥ 41 как |x| ≥ √41 и проверить соответствие ОДЗ (√41 &gt; 3).</td><td>x ∈ (−∞; −√41] ∪ [√41; +∞), все значения входят в ОДЗ</td><td>kc5</td></tr><tr><td>s7 · s5, s6</td><td>Объединить решения двух ветвей совокупности, упорядочив концы промежутков (5 &lt; √41).</td><td>x ∈ (−∞; −√41] ∪ [−5; −3) ∪ (3; 5] ∪ [√41; +∞)</td><td>kc6</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Замена логарифма со сведением к квадратному неравенству и обратным переходом по монотонности&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;,
+      &quot;s5&quot;,
+      &quot;s6&quot;,
+      &quot;s7&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Найти ОДЗ логарифмического выражения</h3><p>Вход: выражение, содержащее логарифм с постоянным допустимым основанием от функции f(x). Операция: записать условие f(x) &gt; 0 и решить его. Граница: применяется к аргументам логарифмов с числовым основанием; при переменном основании нужны дополнительные условия на основание.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;аргумент логарифма должен быть положителен, x^2 − 9 &gt; 0&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;x ∈ (−∞; −3) ∪ (3; +∞)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_7baedb55a81a&quot;,
+      &quot;reason&quot;: &quot;Требует положительности каждого аргумента логарифма и допустимости оснований с сохранением исключений; соответствует постановке условия x^2 − 9 &gt; 0 (основание 2 постоянно и допустимо), но не включает решение полученного нелинейного неравенства до множества x ∈ (−∞; −3) ∪ (3; +∞).&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0214fc221120&quot;,
+      &quot;reason&quot;: &quot;Также область определения логарифма, но дополнительно включает проверку принадлежности рассматриваемого промежутка области; заданного промежутка в задаче нет, поэтому менее точное соответствие даже для постановочной части.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_37584ab15732&quot;,
+      &quot;reason&quot;: &quot;Совместная область логарифма и квадратного корня; радикандов в условии нет.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_1b97db4e28e8&quot;,
+      &quot;reason&quot;: &quot;Могло бы покрыть решение x^2 − 9 &gt; 0 по знаку трёхчлена, но в s1 способ решения (корни ±3 и знаки) не показан; это часть, а не весь kc1.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cd64639b0b5a&quot;,
+      &quot;reason&quot;: &quot;Определение «из ограничения на квадрат получить обе ветви» близко к решению x^2 &gt; 9, но узел назван для неравенства с параметром, а способ решения в s1 не наблюдается; покрывает только часть kc1.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Описание kc1: «записать условие f(x) &gt; 0 и решить его». В s1 наблюдаются два действия: (а) постановка условия положительности аргумента логарифма с постоянным основанием 2 — x^2 − 9 &gt; 0; (б) решение этого неравенства, где x входит только через x^2, с результатом x ∈ (−∞; −3) ∪ (3; +∞). Узел каталога для области определения логарифмического выражения (literal_7baedb55a81a) покрывает только (а); (б) — отдельное действие решения неравенства того же типа, что и локальный kc5 в s5/s6. Составной кандидат не получает match к узлу, покрывающему лишь постановку условия. Математически результат s1 верен (x^2 &gt; 9 ⇔ |x| &gt; 3).&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Записать условие положительности аргумента логарифма с постоянным допустимым основанием: x^2 − 9 &gt; 0.&quot;,
+        &quot;refs&quot;: [
+          &quot;step:s1:action&quot;
+        ],
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;literal_7baedb55a81a&quot;
+        ],
+        &quot;note&quot;: &quot;Наиболее близкое определение; literal_0214fc221120 требует проверки заданного промежутка, которой здесь нет.&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Решить полученное неравенство x^2 − 9 &gt; 0 и записать множество x ∈ (−∞; −3) ∪ (3; +∞).&quot;,
+        &quot;refs&quot;: [
+          &quot;step:s1:result&quot;
+        ],
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;literal_1b97db4e28e8&quot;,
+          &quot;literal_cd64639b0b5a&quot;
+        ],
+        &quot;note&quot;: &quot;Способ решения в s1 не показан, поэтому однозначное соответствие не подтверждено; по типу действие совпадает с локальным kc5.&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc2"><h3>kc2 · Ввести замену логарифмического выражения</h3><p>Вход: неравенство или уравнение, являющееся многочленом от одного и того же выражения log_a f(x). Операция: обозначить это выражение новой переменной и переписать задачу как алгебраическую относительно неё. Граница: применимо, когда все вхождения переменной сводятся к одному логарифмическому выражению.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Ввести замену t = log_2(x^2 − 9) и записать неравенство относительно t.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;t^2 − 9t + 20 ≥ 0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+      &quot;reason&quot;: &quot;Замена t = b^x &gt; 0 для показательных выражений; объект другой (степень, а не логарифм), и ограничение t &gt; 0 для логарифмической замены не возникает: log_2(x^2 − 9) принимает любые действительные значения.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_a30e088aef8f&quot;,
+      &quot;reason&quot;: &quot;Неотрицательная замена t = √x с восстановлением x = t²; другой объект и другое ограничение на новую переменную.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ab8a29be8367&quot;,
+      &quot;reason&quot;: &quot;Замена u = x² и подсчёт прообразов; другой объект, и операция касается подсчёта решений, а не перезаписи логарифмического неравенства.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_872613285a26&quot;,
+      &quot;reason&quot;: &quot;Переход к общему основанию логарифмов; в s2 основание не меняется, выполняется обозначение повторяющегося выражения новой переменной.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В s2 повторяющееся выражение log_2(x^2 − 9) (в том числе в квадрате log_2^2) обозначено t, и исходное неравенство переписано как многочленное относительно t: t^2 − 9t + 20 ≥ 0. Коэффициенты перенесены верно. В каталоге нет узла логарифмической замены; ближайший exponential_substitution отличается объектом и условием на область значений новой переменной. Решение неравенства для t и обратный переход к x к этому действию не относятся.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Вводить замену логарифмического выражения&quot;,
+    &quot;definition&quot;: &quot;Если неизвестная входит в уравнение или неравенство только через одно выражение log_a f(x) с постоянным основанием a &gt; 0, a ≠ 1 (включая степени этого логарифма), обозначить t = log_a f(x) и переписать задачу как алгебраическую относительно t. Новая переменная принимает любые действительные значения; условие f(x) &gt; 0 сохраняется отдельно. Решение задачи для t и обратный переход к x — отдельные действия.&quot;,
+    &quot;differences_from_closest&quot;: &quot;От exponential_substitution: объект — логарифм, а не степень; нет ограничения t &gt; 0, но сохраняется отдельное условие на аргумент f(x) &gt; 0.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i2&quot;
+  ]
+}</pre></section><section id="kc3"><h3>kc3 · Решить квадратное неравенство через корни</h3><p>Вход: неравенство вида at^2 + bt + c ∨ 0 с числовыми коэффициентами. Операция: найти корни квадратного трёхчлена (по теореме Виета или через дискриминант) и по знаку старшего коэффициента выбрать промежутки, на которых выполняется знак неравенства. Граница: трёхчлен с числовыми коэффициентами; при отрицательном дискриминанте ответ определяется знаком старшего коэффициента.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_1b97db4e28e8&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;корни t = 4 и t = 5, ветви параболы вверх&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;t ≤ 4 или t ≥ 5&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+      &quot;reason&quot;: &quot;Покрывает только нахождение корней квадратного уравнения — компонент действия; выбор промежутков по знаку в него не входит.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;rational_intervals&quot;,
+      &quot;reason&quot;: &quot;Общий метод интервалов для рациональных неравенств с полюсами и кратностями; для квадратного трёхчлена без знаменателя есть более специфичный узел literal_1b97db4e28e8, это основание для выбора.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cd64639b0b5a&quot;,
+      &quot;reason&quot;: &quot;Ограничение на квадрат с параметром и получение двух ветвей; здесь полный трёхчлен с линейным членом без параметра.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_fe2b4673ac10&quot;,
+      &quot;reason&quot;: &quot;Решение квадратного уравнения выделением полного квадрата; в s3 выделение квадрата не применяется.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: найти корни трёхчлена t^2 − 9t + 20 (t = 4, t = 5), по направлению ветвей параболы (старший коэффициент положителен) определить знак на промежутках и с учётом нестрогости ≥ включить концы: t ≤ 4 или t ≥ 5. Это целиком соответствует определению literal_1b97db4e28e8: корни, знак по промежуткам, строгость. Попутная проверка: 4 + 5 = 9, 4 · 5 = 20 — корни верны.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Перейти от простейшего логарифмического неравенства к алгебраическому</h3><p>Вход: неравенство вида log_a f(x) ∨ c с числовым основанием a &gt; 0, a ≠ 1. Операция: заменить c на log_a(a^c) и сравнить f(x) с a^c, сохраняя знак неравенства при a &gt; 1 и меняя его при 0 &lt; a &lt; 1, с учётом условия f(x) &gt; 0. Граница: основание постоянно; при переменном основании требуется разбор случаев.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_eae4ca1f2f8b&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:action&quot;,
+      &quot;quote&quot;: &quot;по возрастанию log_2 (основание 2 &gt; 1) с учётом положительности аргумента: log_2(x^2 − 9) ≤ 4 и log_2(x^2 − 9) ≥ 5&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;0 &lt; x^2 − 9 ≤ 16&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;x^2 − 9 ≥ 32&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:action&quot;,
+    &quot;step:s3:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9a635e89ccb3&quot;,
+      &quot;reason&quot;: &quot;Простейшее логарифмическое уравнение по определению; здесь неравенства, нужен учёт направления знака.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_2443f08dda82&quot;,
+      &quot;reason&quot;: &quot;Равенство логарифмов с одинаковым основанием через инъективность; здесь сравнение (≤, ≥), а не равенство.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_inequality&quot;,
+      &quot;reason&quot;: &quot;Переход по монотонности для показательной функции; объект в s4 — логарифм.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d66dd830e876&quot;,
+      &quot;reason&quot;: &quot;Вычисление логарифма по определению; в s4 выполняется обратное — 2^4 = 16 и 2^5 = 32 как компонент перехода, а не отдельное вычисление логарифма.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: от неравенств log_2(x^2 − 9) ≤ 4 и log_2(x^2 − 9) ≥ 5 перейти к сравнению аргумента с 2^4 = 16 и 2^5 = 32, сохранив знак, так как основание 2 &gt; 1, и учтя положительность аргумента (0 &lt; x^2 − 9 в первой ветви; во второй x^2 − 9 ≥ 32 положительность обеспечивает). Это целиком соответствует literal_eae4ca1f2f8b: сравнение логарифма сведено к сравнению положительного аргумента с учётом основания. Входное состояние: t ≤ 4 или t ≥ 5 из s3 и смысл t из s2. Обратная подстановка t → log_2(x^2 − 9), упомянутая в s4, к этому узлу не относится (см. i2) и на соответствие не влияет. Попутная проверка: 9 + 16 = 25, 9 + 32 = 41 — верно.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i2&quot;
+  ]
+}</pre></section><section id="kc5"><h3>kc5 · Решить неравенство относительно квадрата переменной</h3><p>Вход: простое или двойное неравенство вида x^2 ∨ q или p &lt; x^2 ≤ q с неотрицательными границами. Операция: перейти к неравенству для |x| и записать соответствующие симметричные промежутки, при необходимости сверив их с ОДЗ. Граница: неравенства, где x входит только через x^2.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc5&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s5:action&quot;,
+      &quot;quote&quot;: &quot;Решить двойное неравенство 9 &lt; x^2 ≤ 25 как 3 &lt; |x| ≤ 5.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s5:result&quot;,
+      &quot;quote&quot;: &quot;x ∈ [−5; −3) ∪ (3; 5]&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s6:action&quot;,
+      &quot;quote&quot;: &quot;Решить неравенство x^2 ≥ 41 как |x| ≥ √41&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s6:action&quot;,
+      &quot;quote&quot;: &quot;проверить соответствие ОДЗ (√41 &gt; 3)&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s6:result&quot;,
+      &quot;quote&quot;: &quot;x ∈ (−∞; −√41] ∪ [√41; +∞), все значения входят в ОДЗ&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s4:result&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cd64639b0b5a&quot;,
+      &quot;reason&quot;: &quot;Определение «из ограничения на квадрат получить обе ветви и учесть дополнительные знаковые ограничения» близко к переходу x^2 ∨ q → симметричные промежутки, но узел предназначен для квадратного неравенства с параметром; параметра и дополнительных знаковых ограничений здесь нет, граница применимости неясна.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_1b97db4e28e8&quot;,
+      &quot;reason&quot;: &quot;Тот же объект (x^2 − 41 ≥ 0, система 9 &lt; x^2 ≤ 25) можно решить по знаку трёхчлена, но наблюдаемая операция — переход к |x|, а не корни и знаки по промежуткам.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ad66344767ba&quot;,
+      &quot;reason&quot;: &quot;Перевод ограничений на модуль (расстояние от точки) в объединение промежутков покрывает только подшаг 3 &lt; |x| ≤ 5 → [−5; −3) ∪ (3; 5] и |x| ≥ √41 → лучи, но не переход от x^2 к |x| и не сверку с ОДЗ.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_57e72251d4a8&quot;,
+      &quot;reason&quot;: &quot;Решение уравнения x² = c; здесь неравенства.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+      &quot;reason&quot;: &quot;Отбор алгебраических решений по заданной области соответствует сверке с ОДЗ в s6 — отдельной части, а не решению неравенства для x^2.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+      &quot;reason&quot;: &quot;Пересечение найденного множества с ОДЗ — альтернативное соответствие для части сверки с ОДЗ, не для всего kc5.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;kc5 объединяет (А) решение неравенства, где x входит только через x^2, переходом к |x| и записью симметричных промежутков (s5: 9 &lt; x^2 ≤ 25 → 3 &lt; |x| ≤ 5; s6: x^2 ≥ 41 → |x| ≥ √41) и (Б) сверку полученного множества с ОДЗ (s6: √41 &gt; 3, «все значения входят в ОДЗ»). (Б) — отдельное действие отбора по области. В s5 отдельной сверки нет: нижняя граница 9 &lt; x^2 перенесена из результата s4. Для (А) однозначного узла нет: literal_cd64639b0b5a подходит по определению, но его область применения (параметр) неясна, а literal_ad66344767ba покрывает только подшаг с модулем. Попутная проверка: 9 &lt; x^2 ≤ 25 ⇔ 3 &lt; |x| ≤ 5; x^2 ≥ 41 ⇔ |x| ≥ √41; √41 ≈ 6,40 &gt; 3 — верно.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Решить простое или двойное неравенство, где x входит только через x^2 с неотрицательными числовыми границами: перейти к неравенству для |x| и записать симметричные промежутки с правильными концами.&quot;,
+        &quot;refs&quot;: [
+          &quot;step:s5:action&quot;,
+          &quot;step:s5:result&quot;,
+          &quot;step:s6:action&quot;,
+          &quot;step:s6:result&quot;
+        ],
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;literal_cd64639b0b5a&quot;,
+          &quot;literal_ad66344767ba&quot;
+        ],
+        &quot;note&quot;: &quot;literal_cd64639b0b5a — по определению, если узел не ограничен параметрическим случаем; literal_ad66344767ba покрывает только подшаг |x| → промежутки. Если literal_cd64639b0b5a ограничен параметром, эта часть — кандидат в новый узел.&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Сверить полученные промежутки с ОДЗ (√41 &gt; 3, все значения допустимы).&quot;,
+        &quot;refs&quot;: [
+          &quot;step:s6:action&quot;,
+          &quot;step:s6:result&quot;
+        ],
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;literal_ae9adc80bc91&quot;,
+          &quot;set_intersection&quot;
+        ]
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc6"><h3>kc6 · Объединить решения совокупности неравенств</h3><p>Вход: множества решений отдельных ветвей совокупности. Операция: сравнить концы промежутков, упорядочить их на числовой прямой и записать объединение. Граница: применяется к совокупностям (логическое «или»); для систем требуется пересечение, а не объединение.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc6&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s7:action&quot;,
+      &quot;quote&quot;: &quot;Объединить решения двух ветвей совокупности, упорядочив концы промежутков (5 &lt; √41).&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s7:result&quot;,
+      &quot;quote&quot;: &quot;x ∈ (−∞; −√41] ∪ [−5; −3) ∪ (3; 5] ∪ [√41; +∞)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s5:result&quot;,
+    &quot;step:s6:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+      &quot;reason&quot;: &quot;Пересечение/исключение установленных ограничений (логика системы); для совокупности требуется объединение — противоположная операция над множествами.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_05f53e4cc43a&quot;,
+      &quot;reason&quot;: &quot;Подсчёт различных решений объединения ветвей с учётом совпадений; результат — количество дискретных решений, здесь же записывается множество-объединение промежутков без подсчёта.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_e41f0e408b87&quot;,
+      &quot;reason&quot;: &quot;Объединение найденных случаев для множества параметров с отдельной проверкой равенств на границах; объект — множество параметров и обязательна проверка граничных равенств, здесь — объединение промежутков по x с упорядочением концов.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_5dcd4a01af19&quot;,
+      &quot;reason&quot;: &quot;Подсчёт различных корней по ветвям и границам; дискретные корни, а не промежутки.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d93e50c17220&quot;,
+      &quot;reason&quot;: &quot;Аналогичный узел подсчёта различных корней; не про запись объединения промежутков.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В s7 множества решений двух ветвей совокупности (s5 и s6) объединены, концы упорядочены сравнением 5 &lt; √41, записано объединение четырёх непересекающихся промежутков. Ветви не пересекаются, так как √41 ≈ 6,40 &gt; 5. В каталоге есть пересечение множеств и подсчёт решений объединения ветвей, но нет узла записи объединения множеств-промежутков для совокупности. Действие лёгкое; редакционно возможно объединение с set_intersection в общий узел операций над множествами решений — это решение каталога, не аудита.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Объединять множества решений ветвей совокупности&quot;,
+    &quot;definition&quot;: &quot;Для совокупности (логическое «или») условий с уже найденными множествами решений сравнить концы промежутков, упорядочить их на числовой прямой и записать объединение, сохраняя включённость концов и сливая пересекающиеся промежутки. Для системы нужно пересечение (set_intersection); подсчёт числа решений — отдельное действие.&quot;,
+    &quot;differences_from_closest&quot;: &quot;От set_intersection — операция объединения, а не пересечения; от literal_05f53e4cc43a и literal_e41f0e408b87 — результатом является множество-промежуток по x без подсчёта количества и без проверки граничных равенств параметра.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;missing_annotation&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s1:action&quot;,
+      &quot;step:s1:result&quot;
+    ],
+    &quot;description&quot;: &quot;В s1 помимо постановки условия x^2 − 9 &gt; 0 выполнено решение этого неравенства (x ∈ (−∞; −3) ∪ (3; +∞)). Это действие того же типа, что и kc5 в s5/s6, но шаг помечен только kc1, описание которого объединяет постановку условия и его решение; способ решения в s1 не показан. Поэтому kc1 размечен как needs_split; на сопоставление kc5 влияет как на неполное покрытие его вхождений.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc1&quot;,
+      &quot;kc5&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;i2&quot;,
+    &quot;kind&quot;: &quot;coverage&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s4:action&quot;
+    ],
+    &quot;description&quot;: &quot;Обратная замена («Вернуться к x»: t ≤ 4 или t ≥ 5 → log_2(x^2 − 9) ≤ 4 или log_2(x^2 − 9) ≥ 5) выполнена в s4, но не покрыта ни kc2 (только прямая замена), ни kc4 (переход от логарифмического неравенства к алгебраическому). Действие тривиальное и на соответствие kc4 не влияет; в каталоге для показательной замены обратный переход отмечен как отдельное действие, поэтому пропуск стоит учесть при разметке.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc2&quot;,
+      &quot;kc4&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/517890.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/517890.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

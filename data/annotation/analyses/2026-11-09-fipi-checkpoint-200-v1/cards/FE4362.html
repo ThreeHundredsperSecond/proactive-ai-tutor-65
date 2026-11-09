@@ -1,0 +1,145 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>FE4362</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>132. ФИПИ FE4362 · партия 11</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal"><a name="_GoBack"></a>Мотоциклист, движущийся по городу со скоростью <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><msub><mi>v</mi><mn>0</mn></msub><mo>=</mo><mn>70</mn><mtext> </mtext><mtext>км/ч</mtext><mtext>,</mtext></mrow></mstyle></math></span> выезжает из него и сразу после выезда начинает разгоняться с постоянным ускорением <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>a</mi><mo>=</mo><mn>16</mn><mtext> </mtext><msup><mrow><mtext>км/ч</mtext></mrow><mn>2</mn></msup><mtext>​</mtext><mo>.</mo></mrow></mstyle></math></span> Расстояние (в км) от мотоциклиста до города вычисляется по формуле <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>S</mi><mo>=</mo><msub><mi>v</mi><mn>0</mn></msub><mi>t</mi><mo>+</mo><mfrac><mrow><mi>a</mi><msup><mi>t</mi><mn>2</mn></msup></mrow><mn>2</mn></mfrac><mo>,</mo></mrow></mstyle></math></span> где <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>t</mi></mstyle></math></span> — время в часах, прошедшее после выезда из города. Определите время, прошедшее после выезда мотоциклиста из города, если известно, что за это время он удалился от города на 123 км. Ответ дайте в минутах.</p>  </section></div><p>КЭС: 2.1 Целые и дробно-рациональные уравнения</p><h2>Ответ</h2><p>90</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Подставить известные значения в формулу и составить уравнение относительно t</td><td>70t + 8t^2 = 123, т.е. 8t^2 + 70t - 123 = 0</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Решить квадратное уравнение через дискриминант</td><td>D = 8836 = 94^2; t = 1,5 или t = -20,5/2 (t = -10,25)</td><td>kc2</td></tr><tr><td>s3 · s2, condition</td><td>Отобрать корень по смыслу задачи (t &gt; 0)</td><td>t = 1,5 ч</td><td>kc3</td></tr><tr><td>s4 · s3, condition</td><td>Перевести время из часов в минуты</td><td>1,5 ч = 90 мин</td><td>kc4</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Подстановка в формулу и решение квадратного уравнения с отбором корня&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Составить уравнение подстановкой данных в формулу</h3><p>Вход: формула прикладной зависимости и значения части величин; операция: подставить значения и получить уравнение относительно неизвестной величины; граница: формула задана в условии.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Подставить известные значения в формулу и составить уравнение относительно t&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;70t + 8t^2 = 123&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cb48e5bc61de&quot;,
+      &quot;reason&quot;: &quot;строит неравенство по ограничению, а здесь равенство S=123&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+      &quot;reason&quot;: &quot;вычисление значения функции по известному аргументу, а здесь аргумент t неизвестен и получается уравнение&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Данные v0=70, a=16 и S=123 соотнесены с обозначениями заданной формулы S=v0 t + a t^2/2, единицы согласованы (км, ч), получено числовое соотношение относительно t. Вывод модели не требуется: формула дана в условии. Определение узла покрыто целиком.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Решить квадратное уравнение</h3><p>Вход: квадратное уравнение с числовыми коэффициентами; операция: найти корни через дискриминант; граница: действительные корни.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Решить квадратное уравнение через дискриминант&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;D = 8836 = 94^2; t = 1,5 или t = -20,5/2 (t = -10,25)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_fe2b4673ac10&quot;,
+      &quot;reason&quot;: &quot;выделение полного квадрата не используется&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+      &quot;reason&quot;: &quot;факторизация не выполняется&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Для 8t^2+70t-123=0 со старшим коэффициентом 8≠0 вычислен D=4900+3936=8836=94^2 и получены оба действительных корня 1,5 и -10,25; проверка арифметики подтверждает.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Отобрать корни по физическому смыслу</h3><p>Вход: корни уравнения и ограничения величины из условия; операция: отбросить корни, не удовлетворяющие ограничениям (например, неотрицательность времени); граница: прикладные задачи.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Отобрать корень по смыслу задачи (t &gt; 0)&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;t = 1,5 ч&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;,
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+      &quot;reason&quot;: &quot;отбор по области определения и заданному промежутку, а не по физическому смыслу величины&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_8409c9003f48&quot;,
+      &quot;reason&quot;: &quot;сравнение с границами явно заданного промежутка, которого в условии нет&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Корни модели проверены на физический смысл: время после выезда неотрицательно, поэтому -10,25 отброшен. Узел описывает проверку корней по условиям модели; ОДЗ и исходное соотношение здесь не дают дополнительных ограничений, поэтому наблюдаемое действие соответствует определению для данной задачи.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Перевести величину в требуемые единицы измерения</h3><p>Вход: значение величины в одних единицах и требуемые единицы ответа; операция: умножить на коэффициент перевода; граница: линейные переводы единиц.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:action&quot;,
+      &quot;quote&quot;: &quot;Перевести время из часов в минуты&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;1,5 ч = 90 мин&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s3:result&quot;,
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+      &quot;reason&quot;: &quot;согласование единиц входит в подстановку данных в формулу, а здесь перевод найденного результата в единицы ответа после решения&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_89184e5e6ac9&quot;,
+      &quot;reason&quot;: &quot;речь о вычислении функции от введённого вспомогательного параметра, а не о линейном переводе единиц той же величины&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В каталоге нет узла о переводе значения величины в требуемые единицы ответа. Действие наблюдаемо и простое (умножение на 60), но отлично от подстановки в формулу.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Переводить значение величины в требуемые единицы ответа&quot;,
+    &quot;definition&quot;: &quot;По найденному значению величины в одних единицах и единицам, указанным в вопросе, умножить на коэффициент перевода (линейные переводы) и записать ответ в требуемых единицах.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/FE4362.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/FE4362.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

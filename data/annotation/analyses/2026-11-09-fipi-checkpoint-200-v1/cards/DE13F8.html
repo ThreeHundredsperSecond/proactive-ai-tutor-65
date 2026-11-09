@@ -1,0 +1,168 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>DE13F8</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>136. ФИПИ DE13F8 · партия 11</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p><span>Найдите наименьшее значение функции</span></p> <p align="center"><span class="apple-converted-space"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>y</mi><mo>=</mo><mn>9</mn><mi>x</mi><mo>−</mo><mi>ln</mi><msup> <mrow> <mrow><mo>(</mo> <mrow> <mi>x</mi><mo>+</mo><mn>5</mn> </mrow> <mo>)</mo></mrow> </mrow> <mn>9</mn> </msup> </mrow>  </semantics> </mstyle></math></span><span class="apple-converted-space"><span></span></span></p> <p class="MsoNormal"><span class="apple-converted-space"><span>на отрезке <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mrow><mo>[</mo> <mrow> <mo>−</mo><mtext> </mtext><mn>4,5</mn><mo>;</mo><mtext> </mtext><mn>0</mn> </mrow> <mo>]</mo></mrow> </mrow>  </semantics> </mstyle></math></span></span><span>.</span><span></span></p>  </section></div><p>КЭС: 4.1 Производная функции. Производные элементарных функций; 4.2 Применение производной к исследованию функций на монотонность и экстремумы. Нахождение наибольшего и наименьшего значения функции на отрезке</p><h2>Ответ</h2><p>-36</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Преобразовать логарифм степени: ln((x+5)^9)=9ln(x+5) при x+5&gt;0 (на отрезке x≥-4,5 условие выполнено)</td><td>y=9x-9ln(x+5), область определения x&gt;-5 содержит отрезок</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Найти производную функции</td><td>y&#x27;=9-9/(x+5)=9(x+4)/(x+5)</td><td>kc2</td></tr><tr><td>s3 · s2, condition</td><td>Найти критические точки на отрезке и определить знаки производной</td><td>y&#x27;=0 при x=-4 ∈ [-4,5;0]; y&#x27;&lt;0 на [-4,5;-4), y&#x27;&gt;0 на (-4;0], x=-4 — точка минимума</td><td>kc3</td></tr><tr><td>s4 · s1, s3</td><td>Вычислить значение функции в точке минимума как наименьшее на отрезке</td><td>y(-4)=-36-9ln1=-36</td><td>kc4</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Наименьшее значение на отрезке через производную и монотонность&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Вынести показатель степени аргумента логарифма</h3><p>Вход: логарифм степени выражения; операция: ln(a^n)=n·ln a с учётом условия a&gt;0 на рассматриваемом множестве; граница: при чётной степени и возможном a&lt;0 требуется модуль.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;ln((x+5)^9)=9ln(x+5) при x+5&gt;0&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;y=9x-9ln(x+5)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+      &quot;reason&quot;: &quot;Законы степеней положительного основания, а не логарифм степени.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ad68659d5755&quot;,
+      &quot;reason&quot;: &quot;Разность логарифмов в логарифм частного — другое свойство логарифма.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0214fc221120&quot;,
+      &quot;reason&quot;: &quot;Область определения логарифмической функции — сопутствующая проверка, не само вынесение показателя.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция ln(a^n)=n·ln a при a&gt;0 на рассматриваемом множестве; в каталоге нет узла для свойства логарифма степени.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Выносить показатель степени аргумента логарифма&quot;,
+    &quot;definition&quot;: &quot;При положительном основании степени на рассматриваемом множестве заменить log_b(a^n) на n·log_b a; при чётном n и возможном a&lt;0 использовать n·log_b|a|.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Дифференцировать сумму линейной и логарифмической функций</h3><p>Вход: функция с линейными слагаемыми и ln линейного выражения; операция: применить правила производной суммы, константы и ln(kx+b).</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_7e7fe72c8c10&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Найти производную функции&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;y&#x27;=9-9/(x+5)=9(x+4)/(x+5)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0efedaf04823&quot;,
+      &quot;reason&quot;: &quot;Степенная функция; здесь основная часть — производная ln(x+5).&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_3a3e1295118b&quot;,
+      &quot;reason&quot;: &quot;Функция не многочлен.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Дифференцирование 9x-9ln(x+5) по (ln u)&#x27;=u&#x27;/u и правилу суммы при x+5&gt;0 целиком соответствует определению; приведение к общей дроби — вспомогательная арифметика.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Исследовать знак производной для нахождения точек экстремума на отрезке</h3><p>Вход: производная в виде дроби/произведения и отрезок; операция: найти нули производной внутри отрезка и определить смену знака; граница: только точки области определения.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;y&#x27;=0 при x=-4 ∈ [-4,5;0]&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;y&#x27;&lt;0 на [-4,5;-4), y&#x27;&gt;0 на (-4;0], x=-4 — точка минимума&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;,
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;stationary_point&quot;,
+      &quot;reason&quot;: &quot;Покрывает только нахождение нуля производной и отбор по отрезку; тип экстремума отдельно.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;,
+      &quot;reason&quot;: &quot;Покрывает знак производной по промежуткам и монотонность.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;local_extreme_sign&quot;,
+      &quot;reason&quot;: &quot;Покрывает вывод о минимуме по смене знака -→+.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет нахождение стационарной точки с отбором по отрезку и исследование знака производной с выводом о типе экстремума; каталог разделяет эти действия.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Решить y&#x27;=0 и отобрать x=-4 на отрезке&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;stationary_point&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Определить знак y&#x27; на [-4,5;-4) и (-4;0]&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Вывести минимум в x=-4 по смене знака -→+&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;local_extreme_sign&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Выбрать наименьшее значение функции на отрезке по единственному минимуму</h3><p>Вход: непрерывная функция на отрезке с единственной внутренней точкой экстремума-минимума; операция: вычислить значение в этой точке как наименьшее.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;global_interval_extreme&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:action&quot;,
+      &quot;quote&quot;: &quot;Вычислить значение функции в точке минимума как наименьшее на отрезке&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;y(-4)=-36-9ln1=-36&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s3:result&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+      &quot;reason&quot;: &quot;Подстановка значения — лишь компонент; кандидат включает вывод о глобальном наименьшем значении.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;local_extreme_sign&quot;,
+      &quot;reason&quot;: &quot;Локальный тип экстремума установлен в s3; здесь вывод о глобальном наименьшем значении.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;По монотонности (убывание, затем возрастание, из s3) установлено, что минимум в x=-4 глобален на отрезке, и найдено его значение -36; соответствует определению глобального экстремума на отрезке.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/DE13F8.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/DE13F8.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

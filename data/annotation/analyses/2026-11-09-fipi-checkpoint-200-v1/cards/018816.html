@@ -1,0 +1,117 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>018816</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>103. ФИПИ 018816 · партия 9</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0"> <tr> <td valign="top"> <p class="MsoNormal">Острый угол <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mi>B</mi> </semantics> </math> прямоугольного треугольника <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mi>C</mi> </mrow> </semantics> </math> равен <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mn>9</mn><mi>°</mi> </mrow> </semantics> </math>. Найдите величину угла между высотой <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>C</mi><mi>H</mi> </mrow> </semantics> </math> и медианой <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>C</mi><mi>M</mi><mtext>​</mtext><mo>,</mo> </mrow> </semantics> </math> проведёнными из вершины прямого угла <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>C</mi><mo>.</mo> </mrow> </semantics> </math> Ответ дайте в градусах.</p> </td> <td valign="top"> <p class="MsoNormal" align="right"><span><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/a7beab0725f2db77ca74dda8.png" alt="Рисунок ФИПИ"></span></p> </td> </tr> </table> <p class="MsoNormal"><span> </span></p>  </section></div><p>КЭС: 7.1 Фигуры на плоскости</p><h2>Ответ</h2><p>72</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Медиана CM к гипотенузе равна половине гипотенузы, поэтому CM=MB и треугольник CMB равнобедренный; угол MCB равен углу B</td><td>∠MCB = 9°</td><td>kc1</td></tr><tr><td>s2 · condition</td><td>В прямоугольном треугольнике CHB (CH ⟂ AB) найти угол HCB как дополнение угла B до 90°</td><td>∠HCB = 81°</td><td>kc2</td></tr><tr><td>s3 · s1, s2</td><td>Так как H лежит между A и M (угол B острый меньше 45°), найти угол HCM как разность углов HCB и MCB</td><td>∠HCM = 81° − 9° = 72°</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Найти угол между высотой и медианой через равнобедренный треугольник и разность углов&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Применить свойство медианы к гипотенузе</h3><p>Вход: прямоугольный треугольник и медиана из вершины прямого угла. Операция: использовать равенство медианы половине гипотенузы, получить равнобедренные треугольники и равенство углов при основании. Граница: только медиана к гипотенузе прямоугольного треугольника.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Медиана CM к гипотенузе равна половине гипотенузы, поэтому CM=MB и треугольник CMB равнобедренный; угол MCB равен углу B&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;∠MCB = 9°&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;image:assets/a7beab0725f2db77ca74dda8.png&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_5140d12e0e85&quot;,
+      &quot;reason&quot;: &quot;Покрывает только равенство медианы половине гипотенузы (CM=MB), но не вывод равенства углов.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;isosceles_angles&quot;,
+      &quot;reason&quot;: &quot;Покрывает переход от CM=MB к равенству углов при основании, но не свойство медианы.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет два действия: свойство медианы к гипотенузе (CM=MB) и равенство углов равнобедренного треугольника CMB (∠MCB=∠B). Каждое имеет отдельный узел каталога.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;action&quot;: &quot;Установить CM=MB по свойству медианы к гипотенузе&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_5140d12e0e85&quot;
+      },
+      {
+        &quot;action&quot;: &quot;Из CM=MB получить ∠MCB=∠B&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;isosceles_angles&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Найти острый угол прямоугольного треугольника по другому острому</h3><p>Вход: прямоугольный треугольник с известным острым углом. Операция: вычесть известный угол из 90°. Граница: треугольник с прямым углом.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_f5a787e19d0e&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;В прямоугольном треугольнике CHB (CH ⟂ AB) найти угол HCB как дополнение угла B до 90°&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;∠HCB = 81°&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_adbf18f11761&quot;,
+      &quot;reason&quot;: &quot;Разность углов с общей стороной, а не сумма углов треугольника.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Угол HCB найден по сумме углов треугольника CHB с прямым углом при H: 180°−90°−9°=81°; это частный случай определения узла о сумме углов треугольника.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Выразить угол как разность углов с общей стороной</h3><p>Вход: два угла с общей вершиной и общей стороной, известно взаимное расположение лучей. Операция: вычесть меньший угол из большего. Граница: требуется установить, что один луч лежит внутри другого угла.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_adbf18f11761&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Так как H лежит между A и M (угол B острый меньше 45°), найти угол HCM как разность углов HCB и MCB&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;∠HCM = 81° − 9° = 72°&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;image:assets/a7beab0725f2db77ca74dda8.png&quot;,
+      &quot;region_description&quot;: &quot;На основании AB точки в порядке A, H, M, B; лучи CH и CM исходят из C, CM лежит между CH и CB&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_f5a787e19d0e&quot;,
+      &quot;reason&quot;: &quot;Узел о сумме углов треугольника и смежности, здесь же вычитание углов с общей стороной CB.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Установлено взаимное расположение лучей CH, CM, CB и угол HCM получен вычитанием углов с общей стороной CB — полное соответствие определению.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/018816.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/018816.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

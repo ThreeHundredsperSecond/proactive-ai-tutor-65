@@ -1,0 +1,178 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>483E44</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>83. ФИПИ 483E44 · партия 7</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Решите неравенство <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mfrac> <mn>2</mn> <mrow> <msup> <mn>3</mn> <mi>x</mi> </msup> <mo>+</mo><mn>27</mn> </mrow> </mfrac> <mo>≥</mo><mfrac> <mn>1</mn> <mrow> <msup> <mn>3</mn> <mi>x</mi> </msup> <mo>−</mo><mn>27</mn> </mrow> </mfrac> </mrow> </semantics> </math>.</p> <p class="MsoNormal"><span> </span></p>  </section></div><p>КЭС: 2.5 Целые и дробно-рациональные неравенства; 2.7 Показательные и логарифмические неравенства</p><h2>Ответ</h2><p>(-∞; 3) ∪ [4; +∞)</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Ввести замену t = 3^x с условием t &gt; 0 и записать неравенство 2/(t+27) ≥ 1/(t−27), t ≠ 27</td><td>2/(t+27) ≥ 1/(t−27), t &gt; 0, t ≠ 27</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Перенести всё в одну часть и привести к общему знаменателю</td><td>(t−81)/((t+27)(t−27)) ≥ 0</td><td>kc2</td></tr><tr><td>s3 · s1, s2</td><td>Учитывая t+27 &gt; 0 при t &gt; 0, решить рациональное неравенство методом интервалов</td><td>0 &lt; t &lt; 27 или t ≥ 81</td><td>kc3</td></tr><tr><td>s4 · s3</td><td>Вернуться к x, решая простейшие показательные неравенства с основанием больше 1</td><td>x &lt; 3 или x ≥ 4</td><td>kc4</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Замена показательного выражения и метод интервалов для рационального неравенства&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Ввести замену показательного выражения новой переменной</h3><p>Вход: неравенство, где переменная входит только через a^x. Операция: заменить a^x на t, зафиксировать t &gt; 0 и ограничения знаменателей. Граница: применимо, когда после замены выражение становится алгебраическим относительно t.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Ввести замену t = 3^x с условием t &gt; 0&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;t &gt; 0, t ≠ 27&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+      &quot;reason&quot;: &quot;покрывает введение t=3^x&gt;0, но не фиксацию нулей знаменателей&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+      &quot;reason&quot;: &quot;покрывает ограничение t ≠ 27, но не замену&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет замену показательного выражения с t&gt;0 и фиксацию ограничений знаменателей (t≠27); в каталоге это два отдельных узла.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Замена t=3^x с условием t&gt;0&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;exponential_substitution&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Сохранение ограничения знаменателя t≠27&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;denominator_domain&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Привести дробно-рациональное неравенство к виду дробь против нуля</h3><p>Вход: неравенство с дробями в обеих частях. Операция: перенести всё в одну часть, привести к общему знаменателю и упростить числитель, не умножая на выражения неизвестного знака.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_67caf017b566&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Перенести всё в одну часть и привести к общему знаменателю&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;(t−81)/((t+27)(t−27)) ≥ 0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9698b97fef22&quot;,
+      &quot;reason&quot;: &quot;относится к уравнению с умножением на знаменатель, здесь неравенство без умножения&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Объединение дробей с общим знаменателем при сохранённой области (ограничения из s1); числитель 2(t−27)−(t+27)=t−81 проверен.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Решить рациональное неравенство методом интервалов</h3><p>Вход: неравенство вида P(t)/Q(t) ≥ 0 с разложенными множителями и ограничениями на t. Операция: отбросить множители постоянного знака, расставить нули числителя (включаемые) и знаменателя (выколотые), определить знаки на интервалах и пересечь с ограничениями.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Учитывая t+27 &gt; 0 при t &gt; 0, решить рациональное неравенство методом интервалов&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;0 &lt; t &lt; 27 или t ≥ 81&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;rational_intervals&quot;,
+      &quot;reason&quot;: &quot;покрывает знаковый анализ по нулям и полюсам, но не отбрасывание положительного множителя&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_f68eccc115c2&quot;,
+      &quot;reason&quot;: &quot;покрывает исключение t+27&gt;0, но не метод интервалов&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+      &quot;reason&quot;: &quot;пересечение с t&gt;0 — возможная третья часть, явно не выделено&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат по определению включает отбрасывание множителя постоянного знака, метод интервалов и пересечение с ограничениями; это составное действие. Результат математически верен.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Исключить положительный множитель t+27 при t&gt;0&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_f68eccc115c2&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Метод интервалов для (t−81)/(t−27)≥0&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;rational_intervals&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Пересечение с t&gt;0&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;set_intersection&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Решить простейшее показательное неравенство</h3><p>Вход: неравенство a^x сравнивается с числом, представимым как степень a. Операция: записать число как степень основания и сравнить показатели с учётом монотонности (сохранение знака при a &gt; 1, смена при 0 &lt; a &lt; 1).</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;exponential_inequality&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:action&quot;,
+      &quot;quote&quot;: &quot;Вернуться к x, решая простейшие показательные неравенства с основанием больше 1&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;x &lt; 3 или x ≥ 4&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s3:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+      &quot;reason&quot;: &quot;касается уравнений, не неравенств&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Переход от 3^x&lt;27 и 3^x≥81 к x по монотонности при основании 3&gt;1; представление 27=3^3, 81=3^4 явно не записано, но результат верен.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;coverage&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s4:action&quot;
+    ],
+    &quot;description&quot;: &quot;Представление 27 и 81 как степеней 3 и условие 3^x&gt;0 (автоматически выполненное) не записаны явно; на соответствие не влияет.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc4&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/483E44.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/483E44.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

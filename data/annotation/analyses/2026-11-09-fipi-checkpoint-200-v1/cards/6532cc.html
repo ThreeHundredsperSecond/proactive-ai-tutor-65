@@ -1,0 +1,99 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>6532cc</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>118. ФИПИ 6532cc · партия 10</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Стрелок стреляет по одному разу по каждой из четырёх мишеней. Вероятность попадания в мишень при каждом отдельном выстреле равна 0,4. Найдите вероятность того, что стрелок попадёт в первую мишень и не попадёт в три последние.</p>  </section></div><p>КЭС: 6.2 Вероятность</p><h2>Ответ</h2><p>0,0864</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти вероятность промаха при одном выстреле как вероятность противоположного события</td><td>P(промах) = 1 − 0,4 = 0,6</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Найти вероятность совместного наступления независимых событий (попадание в первую мишень, промахи по трём остальным) как произведение вероятностей</td><td>0,4 · 0,6³ = 0,4 · 0,216 = 0,0864</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Произведение вероятностей независимых исходов с переходом к противоположным событиям&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Вычислить вероятность противоположного события</h3><p>Вход: вероятность события A. Операция: P(не A) = 1 − P(A). Применимо к событию и его дополнению в одном испытании.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Найти вероятность промаха при одном выстреле как вероятность противоположного события&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;P(промах) = 1 − 0,4 = 0,6&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;reason&quot;: &quot;m/n в равновозможной модели; здесь переход к дополнению без подсчёта исходов&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;bernoulli_model&quot;,
+      &quot;reason&quot;: &quot;задание модели испытаний, а не вычисление P(не A)=1−P(A)&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+      &quot;reason&quot;: &quot;произведение вероятностей независимых событий, не дополнение&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция P(не A)=1−P(A) для исхода одного выстрела выполнена в s1; в каталоге нет узла о вероятности противоположного события.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;По вероятности события A вычислить вероятность противоположного события как 1−P(A); A и не A — дополнение в одном испытании.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Перемножить вероятности независимых событий</h3><p>Вход: вероятности нескольких событий, независимость которых следует из условия. Операция: вероятность их одновременного наступления равна произведению вероятностей. Неприменимо к зависимым событиям без условных вероятностей.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Найти вероятность совместного наступления независимых событий (попадание в первую мишень, промахи по трём остальным) как произведение вероятностей&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;0,4 · 0,6³ = 0,4 · 0,216 = 0,0864&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;bernoulli_model&quot;,
+      &quot;reason&quot;: &quot;моделирование серии испытаний; число успехов/размещения не считаются, используется только перемножение для конкретной последовательности&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_8e6b7abd8340&quot;,
+      &quot;reason&quot;: &quot;C(n,k) не применяется: позиции попаданий фиксированы&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Вероятности четырёх событий отдельных выстрелов перемножены для их одновременного наступления; это совпадает с определением узла. Независимость выстрелов в условии явно не сформулирована, а принята стандартно (вероятность «при каждом отдельном выстреле»), см. i1.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;condition&quot;,
+      &quot;step:s2:action&quot;
+    ],
+    &quot;description&quot;: &quot;Независимость выстрелов не сформулирована в условии явно и принята в s2 без отдельного обоснования; явное принятие модели независимых испытаний (bernoulli_model) не размечено. Арифметика 0,4·0,216=0,0864 верна.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc2&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/6532cc.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/6532cc.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

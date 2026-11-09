@@ -1,0 +1,245 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>617B18</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>149. ФИПИ 617B18 · партия 12</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="10">а) Решите уравнение <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mn>8</mn><mo>⋅</mo><msup> <mrow> <mn>16</mn> </mrow> <mrow> <msup> <mrow> <mi>sin</mi> </mrow> <mn>2</mn> </msup> <mi>x</mi> </mrow> </msup> <mo>−</mo><mn>2</mn><mo>⋅</mo><msup> <mn>4</mn> <mrow> <mi>cos</mi><mn>2</mn><mi>x</mi> </mrow> </msup> <mo>=</mo><mn>63</mn> </mrow>  </semantics> </mstyle></math>.</p> <p class="MsoNormal">б) Найдите все корни этого уравнения, принадлежащие отрезку <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mrow><mo>[</mo> <mrow> <mfrac> <mrow> <mn>7</mn><mtext>π</mtext> </mrow> <mn>2</mn> </mfrac> <mo>;</mo><mtext> </mtext><mtext> </mtext><mn>5</mn><mtext>π</mtext> </mrow> <mo>]</mo></mrow> </mrow>  </semantics> </mstyle></math>.<span></span></p>  </section></div><p>КЭС: 2.3 Тригонометрические уравнения; 2.4 Показательные и логарифмические уравнения</p><h2>Ответ</h2><p>а) ±π/3+πk, k∈Z; б) 11π/3; 13π/3; 14π/3</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Выразить обе степени через t=4^{2sin²x}: 16^{sin²x}=t, по формуле cos2x=1−2sin²x получить 4^{cos2x}=4/t</td><td>8t−8/t=63, t&gt;0</td><td>kc1, kc2</td></tr><tr><td>s2 · s1</td><td>Свести к квадратному уравнению и решить его с учётом t&gt;0</td><td>8t²−63t−8=0; t=8 или t=−1/8; подходит t=8</td><td>kc3</td></tr><tr><td>s3 · s2</td><td>Решить показательное уравнение 4^{2sin²x}=8, приведя к основанию 2</td><td>sin²x=3/4</td><td>kc4</td></tr><tr><td>s4 · s3</td><td>Решить тригонометрическое уравнение sin²x=3/4 (через cos2x=−1/2)</td><td>x=±π/3+πk, k∈Z</td><td>kc2, kc5</td></tr><tr><td>s5 · s4, condition</td><td>Отобрать корни серий на отрезке [7π/2; 5π] через двойные неравенства для k</td><td>11π/3, 13π/3, 14π/3</td><td>kc6</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Замена показательной функции, сведение к квадратному и простейшему тригонометрическому уравнению&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;m2&quot;,
+    &quot;name&quot;: &quot;Отбор корней серии на отрезке через неравенства для параметра&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s5&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Ввести замену для показательного выражения</h3><p>Привести степени с разными основаниями и показателями к одной переменной-степени, получив алгебраическое уравнение и условие положительности новой переменной</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Выразить обе степени через t=4^{2sin²x}&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;8t−8/t=63, t&gt;0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+      &quot;reason&quot;: &quot;Переписывание 16^{sin²x}=4^{2sin²x} — компонент, но главная операция — введение t&gt;0 и согласование всех степеней с t&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_a30e088aef8f&quot;,
+      &quot;reason&quot;: &quot;Замена квадратного корня, не степени&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Введена переменная t=b^{f(x)}&gt;0 при b=4 и обе степени выражены через t; обратный переход выполнен отдельно в s3. Применение формулы cos2x внутри s1 относится к kc2, а не к этому KC.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Применить формулу косинуса двойного угла</h3><p>Выразить cos2x через sin²x (или обратно) для преобразования выражения или уравнения</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;по формуле cos2x=1−2sin²x получить 4^{cos2x}=4/t&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:action&quot;,
+      &quot;quote&quot;: &quot;(через cos2x=−1/2)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;,
+      &quot;reason&quot;: &quot;Формулы приведения и двойного угла для сведения к одной функции одного аргумента — подходит&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_55d5a6d9eb3c&quot;,
+      &quot;reason&quot;: &quot;Практически совпадающее определение (двойной угол для сведения к одной функции) — подходит одинаково&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_3d70ab3eb24a&quot;,
+      &quot;reason&quot;: &quot;Касается sin2x и произведения sinx·cosx, а здесь cos2x через sin²x&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Действие — применение cos2x=1−2sin²x (в s1 в показателе, в s4 в обратную сторону). Два перекрывающихся узла каталога одинаково подходят, основания выбрать один нет.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc3"><h3>kc3 · Решить квадратное уравнение с отбором по ограничению</h3><p>Найти корни квадратного уравнения и отбросить не удовлетворяющие условию на вспомогательную переменную</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;8t²−63t−8=0; t=8 или t=−1/8; подходит t=8&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;решить его с учётом t&gt;0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+      &quot;reason&quot;: &quot;Покрывает только нахождение корней&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+      &quot;reason&quot;: &quot;Покрывает только отбор по ОДЗ/условиям&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+      &quot;reason&quot;: &quot;Отбор по заданной области — близко ко второй части&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9698b97fef22&quot;,
+      &quot;reason&quot;: &quot;Умножение на знаменатель t при сведении к квадратному — неразмеченный компонент&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет приведение к квадратному (умножение на t≠0), решение квадратного уравнения и отбор корня по t&gt;0.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;action&quot;: &quot;Умножить 8t−8/t=63 на t&gt;0 и получить квадратное уравнение&quot;,
+        &quot;possible_kc&quot;: &quot;literal_9698b97fef22&quot;
+      },
+      {
+        &quot;action&quot;: &quot;Найти корни 8t²−63t−8=0&quot;,
+        &quot;possible_kc&quot;: &quot;quadratic_discriminant&quot;
+      },
+      {
+        &quot;action&quot;: &quot;Отбросить t=−1/8 по условию t&gt;0&quot;,
+        &quot;possible_kc&quot;: &quot;literal_c840012ba3dd или literal_ae9adc80bc91&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Решить простейшее показательное уравнение</h3><p>Привести обе части к одному основанию и приравнять показатели</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Решить показательное уравнение 4^{2sin²x}=8, приведя к основанию 2&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;sin²x=3/4&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+      &quot;reason&quot;: &quot;Переход 4^{a}=2^{2a}, 8=2^3 — компонент приведения к основанию&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;Решение 4sin²x=3 относительно sin²x — тривиальное последующее действие, отдельно не размечено&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Обе части приведены к основанию 2 и приравнены показатели; соответствует определению. Нахождение sin²x из 4sin²x=3 формально отдельно, но тривиально.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc5"><h3>kc5 · Решить простейшее тригонометрическое уравнение</h3><p>Записать общую серию решений уравнения вида cos y=a или sin y=a с учётом периодичности</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc5&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;elementary_trig_equation&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:action&quot;,
+      &quot;quote&quot;: &quot;(через cos2x=−1/2)&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;x=±π/3+πk, k∈Z&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s3:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_57e72251d4a8&quot;,
+      &quot;reason&quot;: &quot;Альтернативный путь sinx=±√3/2 через x²=c не использован&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Решено cos2x=−1/2 на всей прямой с полной периодической серией и переходом к x. Сведение sin²x к cos2x относится к kc2.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc6"><h3>kc6 · Отобрать корни тригонометрической серии на промежутке</h3><p>Для серии с целым параметром найти значения параметра, при которых корень принадлежит заданному отрезку, и выписать соответствующие корни</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc6&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;periodic_interval&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s5:action&quot;,
+      &quot;quote&quot;: &quot;Отобрать корни серий на отрезке [7π/2; 5π] через двойные неравенства для k&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s5:result&quot;,
+      &quot;quote&quot;: &quot;11π/3, 13π/3, 14π/3&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s4:result&quot;,
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_8409c9003f48&quot;,
+      &quot;reason&quot;: &quot;Для конечного набора без периодического параметра&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Серии с целым k подставлены в границы отрезка, найдены все k; результат проверен: 11π/3, 13π/3, 14π/3 верны.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s1:action&quot;,
+      &quot;step:s4:action&quot;
+    ],
+    &quot;description&quot;: &quot;В каталоге два практически совпадающих узла двойного угла (literal_cc7d68a38f29, literal_55d5a6d9eb3c), что не позволяет однозначно выбрать match для kc2.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc2&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/617B18.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/617B18.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

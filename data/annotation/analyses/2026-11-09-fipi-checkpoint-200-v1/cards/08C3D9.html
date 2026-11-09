@@ -1,0 +1,107 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>08C3D9</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>72. ФИПИ 08C3D9 · партия 6</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">На рисунке изображён график функции вида <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>f</mi><mrow><mo>(</mo> <mi>x</mi> <mo>)</mo></mrow><mo>=</mo><mfrac> <mi>k</mi> <mi>x</mi> </mfrac> </mrow> </semantics> </math>. Найдите<br> значение <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>f</mi><mrow><mo>(</mo> <mrow> <mn>10</mn> </mrow> <mo>)</mo></mrow> </mrow> </semantics> </math>.</p> <p class="MsoNormal" align="center"><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/5c779c249fa426580d1a39ca.png" alt="Рисунок ФИПИ"></p> <p class="MsoNormal"><span> </span></p>  </section></div><p>КЭС: 3.1 Функция, способы задания функции. График функции. Взаимно обратные функции. Чётные и нечётные функции. Периодические функции</p><h2>Ответ</h2><p>0,2</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Считать с графика координаты отмеченной точки с целыми координатами, принадлежащей графику</td><td>Точка (2; 1) лежит на графике</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Подставить координаты точки в формулу f(x)=k/x и найти k</td><td>1 = k/2, k = 2</td><td>kc2</td></tr><tr><td>s3 · s2</td><td>Вычислить значение функции f(x)=2/x при x=10</td><td>f(10) = 0,2</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Восстановление формулы по точке графика и вычисление значения&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Определить координаты точки графика по клетчатой сетке</h3><p>Вход: график функции на координатной сетке. Операция: найти точку графика с целочисленными координатами (отмеченную или проходящую через узел сетки) и считать её координаты. Граница: только точки, координаты которых однозначно читаются по рисунку.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;graph_coordinates&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;Точка (2; 1) лежит на графике&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;image:assets/5c779c249fa426580d1a39ca.png&quot;,
+      &quot;region_description&quot;: &quot;Правая ветвь гиперболы в первой четверти; отмеченная жирной точкой точка графика на пересечении линии x=2 (подпись 2 на оси x) и уровня y=1 (подпись 1 на оси y)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [],
+  &quot;rationale&quot;: &quot;Считывание координат явно отмеченной точки графика по клетчатой сетке с подписанным масштабом; восстановление формулы выполнено отдельно в s2, что соответствует границе определения.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Найти параметр формулы функции по точке графика</h3><p>Вход: формула функции заданного вида с неизвестным параметром и координаты точки графика. Операция: подставить координаты в формулу и решить полученное уравнение относительно параметра. Граница: число неизвестных параметров не превышает числа использованных точек.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;1 = k/2, k = 2&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;direct_proportion&quot;,
+      &quot;reason&quot;: &quot;Определение для y=kx; здесь обратная пропорциональность f(x)=k/x, k=xy, а не y/x.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_51a8c0abd718&quot;,
+      &quot;reason&quot;: &quot;Только для y=a√x.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_3ac0ecd3cd49&quot;,
+      &quot;reason&quot;: &quot;Только для показательной функции y=a^x.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_f253b50b98a1&quot;,
+      &quot;reason&quot;: &quot;Линейная функция по двум точкам.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6241f0b09502&quot;,
+      &quot;reason&quot;: &quot;Квадратная функция по нулям и точке.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Подстановка точки (2;1) в f(x)=k/x и нахождение k=2. В каталоге есть только узлы восстановления коэффициента для конкретных классов функций (y=kx, y=a√x, y=a^x), обратной пропорциональности нет. Авторский кандидат общий («формула заданного вида»), но наблюдаемое действие — частный случай k/x.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Восстанавливать коэффициент обратной пропорциональности по точке&quot;,
+    &quot;definition&quot;: &quot;Для y=k/x по точке графика с ненулевой абсциссой (x0;y0) найти k=x0·y0.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Вычислить значение функции по формуле</h3><p>Вход: полностью заданная формула функции и значение аргумента из области определения. Операция: подставить аргумент и вычислить значение.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Вычислить значение функции f(x)=2/x при x=10&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;f(10) = 0,2&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+      &quot;reason&quot;: &quot;Касается соотнесения прикладных величин и единиц с обозначениями формулы, а не значения функции.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Подстановка x=10 в установленную формулу f(x)=2/x (из s2), x=10 в области определения; 2/10=0,2 верно.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/08C3D9.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/08C3D9.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

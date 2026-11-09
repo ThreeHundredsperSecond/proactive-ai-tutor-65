@@ -1,0 +1,168 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>0448F1</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>131. ФИПИ 0448F1 · партия 11</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">а) Решите уравнение</p> <p class="MsoNormal" align="center"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>cos</mi><mn>2</mn><mi>x</mi><mo>+</mo><mi>cos</mi><mrow><mo>(</mo> <mrow> <mo>−</mo><mi>x</mi> </mrow> <mo>)</mo></mrow><mo>=</mo><mn>0.</mn> </mrow> </semantics> </math></p> <p class="MsoNormal">б) Укажите корни этого уравнения, принадлежащие отрезку <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mrow><mo>[</mo> <mrow> <mo>−</mo><mtext> </mtext><mfrac> <mrow> <mtext>7π</mtext> </mrow> <mn>2</mn> </mfrac> <mo>;</mo><mtext> </mtext><mo>−</mo><mtext> </mtext><mtext>2π</mtext> </mrow> <mo>]</mo></mrow><mo>.</mo> </mrow> </semantics> </math></p> <p class="MsoNormal"><span> </span></p>  </section></div><p>КЭС: 1.5 Синус, косинус и тангенс числового аргумента. Арксинус, арккосинус, арктангенс числового аргумента; 2.1 Целые и дробно-рациональные уравнения; 2.3 Тригонометрические уравнения; 2.9 Системы и совокупности уравнений и неравенств</p><h2>Ответ</h2><p>а) π+2πk, ±π/3+2πk, k∈Z; б) −3π, −7π/3</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Применить чётность косинуса и формулу двойного угла: cos(−x)=cos x, cos2x=2cos²x−1; получить квадратное уравнение относительно cos x</td><td>2cos²x+cos x−1=0</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Решить квадратное уравнение относительно t=cos x с учётом |t|≤1</td><td>cos x=−1 или cos x=1/2</td><td>kc2</td></tr><tr><td>s3 · s2</td><td>Решить простейшие уравнения cos x=−1 и cos x=1/2</td><td>x=π+2πk; x=±π/3+2πk, k∈Z</td><td>kc3</td></tr><tr><td>s4 · s3, condition</td><td>Отобрать корни серий, принадлежащие отрезку [−7π/2; −2π]</td><td>x=−3π, x=−7π/3</td><td>kc4</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Сведение к квадратному уравнению относительно cos x с последующим отбором корней&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Привести тригонометрическое уравнение к одной функции</h3><p>По уравнению с функциями разных аргументов применить свойства чётности и формулы кратных углов, чтобы получить алгебраическое уравнение относительно одной тригонометрической функции.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Применить чётность косинуса и формулу двойного угла: cos(−x)=cos x, cos2x=2cos²x−1; получить квадратное уравнение относительно cos x&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;2cos²x+cos x−1=0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;,
+      &quot;reason&quot;: &quot;Формулы приведения и двойного угла для сведения к одной функции одного аргумента; по смыслу подходит (чётность вместо приведения), но определение дублируется узлом literal_55d5a6d9eb3c&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_55d5a6d9eb3c&quot;,
+      &quot;reason&quot;: &quot;Практически идентичное определение; нет основания выбрать один из двух&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_3d70ab3eb24a&quot;,
+      &quot;reason&quot;: &quot;Двойной угол только для sin2x/произведения sin·cos, здесь cos2x через cos²x&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдаемое действие — тождественное преобразование cos2x и cos(−x) к одной функции cos x. Соответствует двум перекрывающимся узлам каталога (cc7d68a38f29 и 55d5a6d9eb3c) без основания выбрать один, поэтому uncertain. Чётность косинуса явно не названа ни в одном определении.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc2"><h3>kc2 · Решить квадратное уравнение заменой с ограничением</h3><p>Ввести замену t=тригонометрическая функция, решить квадратное уравнение и отбросить корни вне области значений функции.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Решить квадратное уравнение относительно t=cos x с учётом |t|≤1&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;cos x=−1 или cos x=1/2&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+      &quot;reason&quot;: &quot;Покрывает только нахождение корней 2t²+t−1=0, не замену и не проверку |t|≤1&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+      &quot;reason&quot;: &quot;Замена для показательной функции, не тригонометрической&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ab8a29be8367&quot;,
+      &quot;reason&quot;: &quot;Замена u=x², другой объект&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет замену t=cos x с ограничением области значений, решение квадратного уравнения и отбор корней по |t|≤1. Составной кандидат не получает match к узкому quadratic_discriminant.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Ввести замену t=cos x с ограничением |t|≤1&quot;,
+        &quot;possible_match&quot;: null,
+        &quot;note&quot;: &quot;подходящего узла нет; возможный new_candidate&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Решить 2t²+t−1=0&quot;,
+        &quot;possible_match&quot;: &quot;quadratic_discriminant&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Отбросить корни вне [−1;1]&quot;,
+        &quot;possible_match&quot;: null,
+        &quot;note&quot;: &quot;в данной задаче оба корня допустимы, отбор не наблюдается&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Записать решения простейшего тригонометрического уравнения</h3><p>По уравнению вида cos x=a записать общую серию решений с целым параметром, включая частные случаи.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;elementary_trig_equation&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Решить простейшие уравнения cos x=−1 и cos x=1/2&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;x=π+2πk; x=±π/3+2πk, k∈Z&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [],
+  &quot;rationale&quot;: &quot;Решены уравнения cos x=c на всей прямой с выписыванием полных периодических серий — полностью соответствует определению.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Отобрать корни серий на отрезке</h3><p>Для серий решений с целым параметром найти значения параметра, при которых корень лежит в заданном промежутке (неравенством, окружностью или перебором).</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;periodic_interval&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:action&quot;,
+      &quot;quote&quot;: &quot;Отобрать корни серий, принадлежащие отрезку [−7π/2; −2π]&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;x=−3π, x=−7π/3&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s3:result&quot;,
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_8409c9003f48&quot;,
+      &quot;reason&quot;: &quot;Для конечного набора корней без параметра&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Отбор корней периодических серий на отрезке; результат проверен: −3π и −7π/3 лежат в [−7π/2;−2π], другие члены серий нет. Способ определения параметров в шаге не показан, но результат верен.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s1:action&quot;
+    ],
+    &quot;description&quot;: &quot;В каталоге два узла с практически одинаковым определением (literal_cc7d68a38f29, literal_55d5a6d9eb3c); чётность косинуса явно не покрыта ни одним определением.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc1&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/0448F1.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/0448F1.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

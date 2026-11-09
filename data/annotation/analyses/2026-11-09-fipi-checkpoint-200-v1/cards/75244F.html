@@ -1,0 +1,86 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>75244F</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>99. ФИПИ 75244F · партия 8</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal"><span>Фабрика выпускает сумки. В среднем 4 сумки из 50 имеют скрытый дефект. Найдите вероятность того, что купленная сумка окажется без скрытого дефекта.</span><span></span></p> <p class="MsoNormal"><span> </span></p>  </section></div><p>КЭС: 6.2 Вероятность</p><h2>Ответ</h2><p>0,92</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти вероятность наличия скрытого дефекта как отношение числа дефектных сумок к общему числу</td><td>P(дефект) = 4/50 = 0,08</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Найти вероятность противоположного события (без дефекта)</td><td>P = 1 − 0,08 = 0,92</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Через вероятность противоположного события&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Вычислить вероятность события как относительную частоту</h3><p>Вход: среднее число исходов с признаком из заданного общего числа; операция: деление числа благоприятных на общее; применимо, когда частота задана как оценка вероятности.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Найти вероятность наличия скрытого дефекта как отношение числа дефектных сумок к общему числу&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;P(дефект) = 4/50 = 0,08&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;reason&quot;: &quot;Определение требует конечной равновозможной модели и m/n по числу исходов; в задаче дана средняя частота («в среднем 4 из 50»), которая принимается как оценка вероятности, а не подсчёт равновозможных исходов.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+      &quot;reason&quot;: &quot;Элементарные исходы и их равновозможность в решении не задаются.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+      &quot;reason&quot;: &quot;Речь о процентной доле и связи части с целым в уравнении, а не о вероятности.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — деление числа объектов с признаком на общее число при интерпретации средней частоты как вероятности. Объект и условие (статистическая частота вместо равновозможной модели) отличаются от classical_probability; численно действие то же m/n, поэтому граница спорная, но определение каталога её явно ограничивает равновозможной моделью.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Принимать среднюю относительную частоту за вероятность&quot;,
+    &quot;definition&quot;: &quot;По данным вида «в среднем m из n» вычислить вероятность события как m/n, явно принимая относительную частоту за оценку вероятности; построение равновозможной модели не требуется.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Найти вероятность противоположного события</h3><p>Вход: вероятность события; операция: вычитание из единицы; применимо, когда искомое событие — дополнение известного.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Найти вероятность противоположного события (без дефекта)&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;P = 1 − 0,08 = 0,92&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+      &quot;reason&quot;: &quot;Умножение вероятностей независимых событий, а не дополнение.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;reason&quot;: &quot;Вычисление m/n, а не перехода к противоположному событию.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — вычитание вероятности события из единицы для дополнения; в каталоге нет узла о противоположном событии. Действие наблюдаемо в s2 и корректно.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Находить вероятность противоположного события&quot;,
+    &quot;definition&quot;: &quot;Для события A с известной вероятностью вычислить P(не A)=1−P(A), установив, что искомое событие является дополнением A.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/75244F.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/75244F.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>
