@@ -1,0 +1,309 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>04FEB6</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><a href="../index.html">Сводка</a><h1>04FEB6</h1><p>sol50</p><p>Предварительные разборы, внешнего эталона нет.</p><h2>Условие</h2>Дайте развернутый ответ.<div><section>  <p class="MsoNormal">Найдите все значения <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>a</mi><mo>,</mo> </mrow> </semantics> </math> при каждом из которых система уравнений</p> <p class="MsoNormal" align="center"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mrow><mo>{</mo> <mtable columnalign="left"> <mtr> <mtd> <mrow><mo>(</mo> <mrow> <msup> <mi>x</mi> <mn>2</mn> </msup> <mo>−</mo><mn>5</mn><mi>x</mi><mo>−</mo><mi>y</mi><mo>+</mo><mn>3</mn> </mrow> <mo>)</mo></mrow><mo>⋅</mo><msqrt> <mrow> <mi>x</mi><mo>−</mo><mi>y</mi><mo>+</mo><mn>3</mn> </mrow> </msqrt> <mo>=</mo><mn>0,</mn> </mtd> </mtr> <mtr> <mtd> <mi>y</mi><mo>=</mo><mn>3</mn><mi>x</mi><mo>+</mo><mi>a</mi> </mtd> </mtr> </mtable> </mrow> </mrow> </semantics> </math></p> <p class="MsoNormal">имеет ровно два различных решения.<span></span></p>  </section></div><h2>Состав и исключения</h2><pre>{
+  &quot;complete&quot;: true,
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;author_mode&quot;: &quot;standalone_initial&quot;,
+  &quot;author_path&quot;: &quot;raw\\author\\04FEB6.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\04FEB6.json&quot;,
+  &quot;feedback_ref&quot;: null,
+  &quot;source_run&quot;: &quot;data/annotation/runs/2026-11-08-fipi-team-ThreeHundredsperSecond-50&quot;
+}</pre><h2>Буквальный сохранённый разбор: ответ, шаги, KC, методы</h2><pre>{
+  &quot;task_id&quot;: &quot;04FEB6&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;a ∈ {-13} ∪ [-9; 3).&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Разложить первое уравнение на ветви с учётом ОДЗ и подставить прямую.&quot;,
+      &quot;result&quot;: &quot;ОДЗ: x−y+3≥0. После подстановки y=3x+a получаем x≤b=(3−a)/2 и совокупность x=b либо x²−8x−a+3=0. Каждому допустимому x соответствует ровно одна пара (x,3x+a).&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Найти корни квадратной ветви и условия их допустимости.&quot;,
+      &quot;result&quot;: &quot;При a&lt;−13 квадратных корней нет, всего одно решение x=b. При a≥−13 введём s=√(a+13)≥0. Тогда x₋=4−s, x₊=4+s, b=8−s²/2. Условие x₋≤b равносильно (s−4)(s+2)≤0, то есть 0≤s≤4. Условие x₊≤b равносильно (s−2)(s+4)≤0, то есть 0≤s≤2.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k2&quot;,
+        &quot;k3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Посчитать различные решения с учётом совпадений и перевести условия обратно к исходному параметру.&quot;,
+      &quot;result&quot;: &quot;При s=0 двойной корень x=4 отличается от b=8: два решения. При 0&lt;s&lt;2 оба квадратных корня допустимы и отличаются от b: три решения. При s=2 корень x₊=b, а x₋≠b: два решения. При 2&lt;s&lt;4 допустим только x₋≠b: два решения. При s=4 допустим лишь x₋=b: одно решение. При s&gt;4 квадратных допустимых корней нет: одно решение. Поэтому требуется s=0 или 2≤s&lt;4, что даёт a=−13 или −9≤a&lt;3.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;k1&quot;,
+      &quot;name&quot;: &quot;Свести систему с произведением и корнем к ограниченным алгебраическим ветвям&quot;,
+      &quot;description&quot;: &quot;Для произведения множителя на квадратный корень учесть неотрицательность подкоренного выражения, применить условие нулевого произведения и подставить линейную связь переменных с сохранением ограничения.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k2&quot;,
+      &quot;name&quot;: &quot;Найти действительные корни квадратного уравнения с параметром&quot;,
+      &quot;description&quot;: &quot;Определить область параметра существования действительных корней квадратного уравнения и выразить корни, учитывая их возможное совпадение.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k3&quot;,
+      &quot;name&quot;: &quot;Определить допустимость параметрических корней&quot;,
+      &quot;description&quot;: &quot;Подставить выражения корней в ограничение на переменную и решить полученные неравенства относительно параметра или его неотрицательной замены.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k4&quot;,
+      &quot;name&quot;: &quot;Посчитать различные решения объединённых ветвей по параметру&quot;,
+      &quot;description&quot;: &quot;Разбить область параметра по границам существования и допустимости корней, учесть совпадения внутри ветвей и между ними и выбрать значения с заданным числом различных решений.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Разбиение на алгебраические ветви и подсчёт допустимых корней&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: [
+    &quot;Предварительная предметная интерпретация, не экспертный эталон и не оценка ученика.&quot;
+  ]
+}</pre><h2>Буквальный независимый аудит</h2><pre>{
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;task_id&quot;: &quot;04FEB6&quot;,
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;issue_ids&quot;: [],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;reason&quot;: &quot;Только сохранение области радикала.&quot;,
+          &quot;catalog_kc_id&quot;: &quot;literal_a5938e1a7fec&quot;
+        },
+        {
+          &quot;reason&quot;: &quot;Только нули множителей и объединение допустимых корней; здесь ветви пока получены, но квадратная ещё не решена.&quot;,
+          &quot;catalog_kc_id&quot;: &quot;zero_product&quot;
+        },
+        {
+          &quot;reason&quot;: &quot;Только подстановка из линейной связи.&quot;,
+          &quot;catalog_kc_id&quot;: &quot;literal_0a4ebc8382b5&quot;
+        },
+        {
+          &quot;reason&quot;: &quot;Ограничен y=mx, здесь свободный член a.&quot;,
+          &quot;catalog_kc_id&quot;: &quot;literal_48d7fd02cfd9&quot;
+        }
+      ],
+      &quot;local_kc_id&quot;: &quot;k1&quot;,
+      &quot;rationale&quot;: &quot;Кандидат объединяет область квадратного корня, нулевое произведение и исключение переменной. Ни один узел не покрывает совокупность; в s1 квадратная ветвь пока не решена.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;definition&quot;: &quot;Сохранить неотрицательность радикала.&quot;,
+            &quot;possible_catalog_kc_ids&quot;: [
+              &quot;literal_a5938e1a7fec&quot;
+            ]
+          },
+          {
+            &quot;definition&quot;: &quot;Выделить ветви нулевого произведения; решение ветвей завершается позднее.&quot;,
+            &quot;possible_catalog_kc_ids&quot;: [
+              &quot;zero_product&quot;
+            ]
+          },
+          {
+            &quot;definition&quot;: &quot;Исключить переменную подстановкой аффинной связи.&quot;,
+            &quot;possible_catalog_kc_ids&quot;: [
+              &quot;literal_0a4ebc8382b5&quot;
+            ]
+          }
+        ]
+      },
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;ОДЗ: x−y+3≥0. После подстановки y=3x+a получаем x≤b=(3−a)/2 и совокупность x=b либо x²−8x−a+3=0. Каждому допустимому x соответствует ровно одна пара (x,3x+a).&quot;
+        }
+      ],
+      &quot;catalog_kc_id&quot;: null
+    },
+    {
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;issue_ids&quot;: [],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;reason&quot;: &quot;Подходящий результат, но действие вычисления дискриминанта не наблюдается.&quot;,
+          &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;
+        },
+        {
+          &quot;reason&quot;: &quot;Те же корни можно получить выделением квадрата, но оно не записано.&quot;,
+          &quot;catalog_kc_id&quot;: &quot;literal_fe2b4673ac10&quot;
+        },
+        {
+          &quot;reason&quot;: &quot;Требует двух различных положительных корней, здесь все действительные, включая кратный.&quot;,
+          &quot;catalog_kc_id&quot;: &quot;literal_7a3b2e2d0b3a&quot;
+        }
+      ],
+      &quot;local_kc_id&quot;: &quot;k2&quot;,
+      &quot;rationale&quot;: &quot;Корни и порог действительности согласованы с квадратной ветвью. Каталог различает способ через дискриминант и через полный квадрат, но ни вычисление дискриминанта, ни выделение квадрата не показаны. Для назначения конкретного узла нужен промежуточный расчёт либо определение без привязки к способу.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;proposal&quot;: null,
+      &quot;status&quot;: &quot;uncertain&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;При a&lt;−13 квадратных корней нет, всего одно решение x=b. При a≥−13 введём s=√(a+13)≥0. Тогда x₋=4−s, x₊=4+s, b=8−s²/2. Условие x₋≤b равносильно (s−4)(s+2)≤0, то есть 0≤s≤4. Условие x₊≤b равносильно (s−2)(s+4)≤0, то есть 0≤s≤2.&quot;
+        }
+      ],
+      &quot;catalog_kc_id&quot;: null
+    },
+    {
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;issue_ids&quot;: [],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;reason&quot;: &quot;Охватывает отбор по области, но не весь вывод и решение параметрических неравенств.&quot;,
+          &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;
+        },
+        {
+          &quot;reason&quot;: &quot;Охватывает решение квадратного неравенства, но не получение его подстановкой корня.&quot;,
+          &quot;catalog_kc_id&quot;: &quot;literal_1b97db4e28e8&quot;
+        },
+        {
+          &quot;reason&quot;: &quot;Охватывает совмещение с s≥0, но не получение границ.&quot;,
+          &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;
+        },
+        {
+          &quot;reason&quot;: &quot;Определён через ограничение на квадрат и обе ветви; здесь явно даны произведения линейных множителей.&quot;,
+          &quot;catalog_kc_id&quot;: &quot;literal_cd64639b0b5a&quot;
+        }
+      ],
+      &quot;local_kc_id&quot;: &quot;k3&quot;,
+      &quot;rationale&quot;: &quot;Кандидат объединяет подстановку параметрических корней в ограничение, решение полученных квадратных неравенств и совмещение с s≥0. Узкий отбор по области не охватывает всё действие.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;definition&quot;: &quot;Получить параметрические ограничения подстановкой корней в область.&quot;,
+            &quot;possible_catalog_kc_ids&quot;: [
+              &quot;literal_ae9adc80bc91&quot;
+            ]
+          },
+          {
+            &quot;definition&quot;: &quot;Решить квадратные неравенства.&quot;,
+            &quot;possible_catalog_kc_ids&quot;: [
+              &quot;literal_1b97db4e28e8&quot;
+            ]
+          },
+          {
+            &quot;definition&quot;: &quot;Совместить результаты с неотрицательностью s.&quot;,
+            &quot;possible_catalog_kc_ids&quot;: [
+              &quot;set_intersection&quot;
+            ]
+          }
+        ]
+      },
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;При a&lt;−13 квадратных корней нет, всего одно решение x=b. При a≥−13 введём s=√(a+13)≥0. Тогда x₋=4−s, x₊=4+s, b=8−s²/2. Условие x₋≤b равносильно (s−4)(s+2)≤0, то есть 0≤s≤4. Условие x₊≤b равносильно (s−2)(s+4)≤0, то есть 0≤s≤2.&quot;
+        }
+      ],
+      &quot;catalog_kc_id&quot;: null
+    },
+    {
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;issue_ids&quot;: [],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;reason&quot;: &quot;Подходит части подсчёта, но перекрывается с соседними узлами и не охватывает обратный переход.&quot;,
+          &quot;catalog_kc_id&quot;: &quot;literal_5dcd4a01af19&quot;
+        },
+        {
+          &quot;reason&quot;: &quot;Также охватывает допустимость, совпадения и границы.&quot;,
+          &quot;catalog_kc_id&quot;: &quot;literal_d93e50c17220&quot;
+        },
+        {
+          &quot;reason&quot;: &quot;Также охватывает подсчёт объединения ветвей с пересечениями.&quot;,
+          &quot;catalog_kc_id&quot;: &quot;literal_05f53e4cc43a&quot;
+        },
+        {
+          &quot;reason&quot;: &quot;Только объединение случаев с проверкой границ.&quot;,
+          &quot;catalog_kc_id&quot;: &quot;literal_e41f0e408b87&quot;
+        },
+        {
+          &quot;reason&quot;: &quot;Только восстановление исходной величины из вспомогательного параметра.&quot;,
+          &quot;catalog_kc_id&quot;: &quot;literal_89184e5e6ac9&quot;
+        },
+        {
+          &quot;reason&quot;: &quot;Здесь замена параметра, а не квадрат переменной с двумя прообразами.&quot;,
+          &quot;catalog_kc_id&quot;: &quot;literal_ab8a29be8367&quot;
+        }
+      ],
+      &quot;local_kc_id&quot;: &quot;k4&quot;,
+      &quot;rationale&quot;: &quot;Кандидат объединяет подсчёт и выбор параметрических случаев; шаг также восстанавливает a из s. Три определения подсчёта перекрываются без основания выбрать одно, поэтому соответствие этой части остаётся uncertain. Обратный переход отдельный.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;definition&quot;: &quot;Подсчитать различные допустимые решения с учётом кратного корня и совпадений; выбор узла uncertain из-за перекрытия.&quot;,
+            &quot;possible_catalog_kc_ids&quot;: [
+              &quot;literal_5dcd4a01af19&quot;,
+              &quot;literal_d93e50c17220&quot;,
+              &quot;literal_05f53e4cc43a&quot;
+            ]
+          },
+          {
+            &quot;definition&quot;: &quot;Выбрать и объединить случаи с заданным количеством решений и проверить границы.&quot;,
+            &quot;possible_catalog_kc_ids&quot;: [
+              &quot;literal_e41f0e408b87&quot;
+            ]
+          },
+          {
+            &quot;definition&quot;: &quot;Восстановить множество a=s²−13 из неотрицательного s.&quot;,
+            &quot;possible_catalog_kc_ids&quot;: [
+              &quot;literal_89184e5e6ac9&quot;
+            ]
+          }
+        ]
+      },
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;При s=0 двойной корень x=4 отличается от b=8: два решения. При 0&lt;s&lt;2 оба квадратных корня допустимы и отличаются от b: три решения. При s=2 корень x₊=b, а x₋≠b: два решения. При 2&lt;s&lt;4 допустим только x₋≠b: два решения. При s=4 допустим лишь x₋=b: одно решение. При s&gt;4 квадратных допустимых корней нет: одно решение. Поэтому требуется s=0 или 2≤s&lt;4, что даёт a=−13 или −9≤a&lt;3.&quot;
+        }
+      ],
+      &quot;catalog_kc_id&quot;: null
+    }
+  ]
+}</pre><h2>Исторические редакторские назначения</h2><pre>[]</pre></html>

@@ -1,0 +1,198 @@
+{
+  "catalog_version": "fipi50-editorial-v1-frozen",
+  "review_scope": "KC mapping with incidental mathematical checks; not expert validation",
+  "task_id": "C04710",
+  "decisions": [
+    {
+      "local_kc_id": "k1",
+      "context_refs": [
+        "condition"
+      ],
+      "alternatives_checked": [
+        {
+          "catalog_kc_id": "literal_7baedb55a81a",
+          "reason": "Покрывает положительность аргументов, но не самостоятельное исключение нулей знаменателя."
+        },
+        {
+          "catalog_kc_id": "denominator_domain",
+          "reason": "Покрывает знаменатель, но не положительность аргументов."
+        }
+      ],
+      "rationale": "В s1 одновременно устанавливаются положительность аргументов и ненулевость знаменателя. Ни один узел не покрывает оба источника ОДЗ целиком.",
+      "evidence": [
+        {
+          "quote": "Для логарифма log₂ x необходимо x > 0; тогда 4x² > 0. Знаменатель не равен нулю: (log₂ x)² ≠ 36, то есть x ≠ 1/64 и x ≠ 64.",
+          "ref": "step:s1:result"
+        }
+      ],
+      "proposal": {
+        "parts": [
+          {
+            "definition": "Установить положительность аргументов логарифмов.",
+            "possible_catalog_kc_ids": [
+              "literal_7baedb55a81a"
+            ]
+          },
+          {
+            "definition": "Исключить нули исходного знаменателя.",
+            "possible_catalog_kc_ids": [
+              "denominator_domain"
+            ]
+          }
+        ]
+      },
+      "blocking": false,
+      "issue_ids": [],
+      "status": "needs_split",
+      "catalog_kc_id": null
+    },
+    {
+      "local_kc_id": "k2",
+      "context_refs": [
+        "step:s1:result"
+      ],
+      "alternatives_checked": [
+        {
+          "catalog_kc_id": "exponential_substitution",
+          "reason": "Вводит t=b^x>0, а здесь t=log₂ x с действительным диапазоном."
+        },
+        {
+          "catalog_kc_id": "literal_872613285a26",
+          "reason": "Основание здесь не меняется."
+        },
+        {
+          "catalog_kc_id": "literal_ad68659d5755",
+          "reason": "Разность логарифмов здесь не преобразуется."
+        },
+        {
+          "catalog_kc_id": "power_laws",
+          "reason": "Законы степеней не охватывают логарифмическую замену."
+        }
+      ],
+      "rationale": "Преобразование логарифма произведения и степени согласовано с логарифмической заменой и её диапазоном; полного определения в 144 узлах нет.",
+      "evidence": [
+        {
+          "quote": "Пусть t = log₂ x, t ∈ ℝ, t ≠ ±6. При x > 0 имеем log₂(4x²) = 2 + 2t. Поэтому (2t + 37)/(t² − 36) ≥ −1 равносильно (t² + 2t + 1)/(t² − 36) ≥ 0, то есть (t + 1)²/((t − 6)(t + 6)) ≥ 0.",
+          "ref": "step:s2:result"
+        }
+      ],
+      "proposal": {
+        "definition": "При допустимом фиксированном основании и положительных аргументах выразить логарифмы произведений и степеней через одну логарифмическую переменную, сохранив диапазон и исключения."
+      },
+      "blocking": false,
+      "issue_ids": [],
+      "status": "new_candidate",
+      "catalog_kc_id": null
+    },
+    {
+      "local_kc_id": "k3",
+      "context_refs": [],
+      "alternatives_checked": [
+        {
+          "catalog_kc_id": "literal_67caf017b566",
+          "reason": "Общая дробь не охватывает всю факторизацию числителя."
+        },
+        {
+          "catalog_kc_id": "literal_cab525070130",
+          "reason": "Факторизация не охватывает перенос слагаемого и общую дробь."
+        },
+        {
+          "catalog_kc_id": "rational_intervals",
+          "reason": "Исследование знаков выполнено позже в s3."
+        }
+      ],
+      "rationale": "Кандидат совмещает приведение к общей дроби со сравнением с нулём и факторизацию многочленов. Исключения t ≠ ±6 сохранены в начале s2; умножения на знаменатель неизвестного знака нет.",
+      "evidence": [
+        {
+          "quote": "Пусть t = log₂ x, t ∈ ℝ, t ≠ ±6. При x > 0 имеем log₂(4x²) = 2 + 2t. Поэтому (2t + 37)/(t² − 36) ≥ −1 равносильно (t² + 2t + 1)/(t² − 36) ≥ 0, то есть (t + 1)²/((t − 6)(t + 6)) ≥ 0.",
+          "ref": "step:s2:result"
+        }
+      ],
+      "proposal": {
+        "parts": [
+          {
+            "definition": "Перенести слагаемое и привести рациональное сравнение к общей дроби с нулём, сохраняя область.",
+            "possible_catalog_kc_ids": [
+              "literal_67caf017b566"
+            ]
+          },
+          {
+            "definition": "Представить многочлены множителями с учётом кратности для исследования знака.",
+            "possible_catalog_kc_ids": [
+              "literal_cab525070130"
+            ]
+          }
+        ]
+      },
+      "blocking": false,
+      "issue_ids": [],
+      "status": "needs_split",
+      "catalog_kc_id": null
+    },
+    {
+      "local_kc_id": "k4",
+      "context_refs": [
+        "step:s2:result"
+      ],
+      "alternatives_checked": [
+        {
+          "catalog_kc_id": "literal_1b97db4e28e8",
+          "reason": "Исследуется дробь с полюсами, а не только трёхчлен."
+        },
+        {
+          "catalog_kc_id": "literal_ef3f8c7287d4",
+          "reason": "Знаменатель меняет знак."
+        }
+      ],
+      "rationale": "В s3 область разделена нулями и полюсами, определены знаки, учтён нуль чётной кратности и исключены полюса. Полное соответствие методу интервалов.",
+      "evidence": [
+        {
+          "quote": "Числитель (t + 1)² положителен при t ≠ −1 и равен нулю при t = −1. Знаменатель положителен при t < −6 или t > 6 и отрицателен при −6 < t < 6. Точки ±6 исключены; t = −1 удовлетворяет неравенству. Получаем t ∈ (−∞; −6) ∪ {−1} ∪ (6; +∞).",
+          "ref": "step:s3:result"
+        }
+      ],
+      "proposal": null,
+      "blocking": false,
+      "issue_ids": [],
+      "status": "match",
+      "catalog_kc_id": "rational_intervals"
+    },
+    {
+      "local_kc_id": "k5",
+      "context_refs": [
+        "step:s1:result",
+        "step:s2:result",
+        "step:s3:result"
+      ],
+      "alternatives_checked": [
+        {
+          "catalog_kc_id": "literal_eae4ca1f2f8b",
+          "reason": "Покрывает сравнение логарифма и аргумента, но не весь обратный переход множества после замены, включая отдельное значение."
+        },
+        {
+          "catalog_kc_id": "exponential_inequality",
+          "reason": "Направлен от ограничения b^x к показателю; здесь показатели отображаются в исходную переменную."
+        },
+        {
+          "catalog_kc_id": "literal_89184e5e6ac9",
+          "reason": "Общее вычисление функции от параметра не задаёт преобразование множества с монотонностью и ОДЗ."
+        }
+      ],
+      "rationale": "Восстанавливается всё множество исходных значений после логарифмической замены: промежутки и отдельная точка, с монотонностью и ОДЗ. Близкие определения покрывают части действия.",
+      "evidence": [
+        {
+          "quote": "Поскольку x = 2ᵗ и функция 2ᵗ строго возрастает, t < −6 даёт 0 < x < 1/64, t = −1 даёт x = 1/2, t > 6 даёт x > 64. Все полученные значения удовлетворяют ОДЗ. Ответ: (0; 1/64) ∪ {1/2} ∪ (64; +∞).",
+          "ref": "step:s4:result"
+        }
+      ],
+      "proposal": {
+        "definition": "После t=log_b x восстановить множество x=b^t из найденных промежутков и отдельных значений t, учитывая монотонность показательной функции и исходную ОДЗ."
+      },
+      "blocking": false,
+      "issue_ids": [],
+      "status": "new_candidate",
+      "catalog_kc_id": null
+    }
+  ],
+  "issues": []
+}

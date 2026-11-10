@@ -1,0 +1,112 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>2D920F</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>23. ФИПИ 2D920F</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Найдите корень уравнения <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <msup> <mrow> <mrow><mo>(</mo> <mrow> <mfrac> <mn>1</mn> <mn>6</mn> </mfrac> </mrow> <mo>)</mo></mrow> </mrow> <mrow> <mi>x</mi><mtext> </mtext><mo>−</mo><mtext> </mtext><mn>2</mn> </mrow> </msup> <mtext> </mtext><mo>=</mo><msup> <mn>6</mn> <mi>x</mi> </msup> </mrow>  </semantics> </mstyle></math>.<span></span></p>  </section></div><p>КЭС: 2.1 Целые и дробно-рациональные уравнения; 2.4 Показательные и логарифмические уравнения</p><h2>Ответ</h2><p>1</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Привести обе части показательного уравнения к основанию 6.</td><td>Поскольку 1/6 = 6^(-1), исходное уравнение равносильно 6^(2-x) = 6^x.</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Приравнять показатели степеней с одинаковым положительным основанием, отличным от единицы.</td><td>Так как 6 &gt; 0 и 6 ≠ 1, функция 6^t инъективна; уравнение равносильно 2-x = x.</td><td>kc2</td></tr><tr><td>s3 · s2</td><td>Решить полученное линейное уравнение.</td><td>2-x = x даёт x = 1. Все преобразования равносильны на множестве действительных чисел, поэтому это единственный корень исходного уравнения.</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Приведение к общему основанию и приравнивание показателей&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Приводить степени с взаимно обратными основаниями к общему основанию</h3><p>Для степеней с положительными взаимно обратными основаниями представить одно основание как обратную степень другого и применить правило возведения степени в степень; показатели могут быть действительными.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;Поскольку 1/6 = 6^(-1), исходное уравнение равносильно 6^(2-x) = 6^x.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+      &quot;reason&quot;: &quot;Включает также приравнивание показателей, которого в s1 ещё нет; локальный кандидат соответствует только компоненту этого определения.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдается преобразование степени положительного основания: после записи 1/6 как 6^(-1) закон степени степени даёт показатель -(x-2)=2-x. Именно законы степеней образуют действие кандидата; приравнивание показателей сюда не переносится. Основания положительны по условию.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Переходить от равенства степеней к равенству показателей</h3><p>Для равенства степеней с одним положительным основанием, отличным от единицы, использовать инъективность показательной функции и получить равносильное равенство показателей.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;Так как 6 &gt; 0 и 6 ≠ 1, функция 6^t инъективна; уравнение равносильно 2-x = x.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+      &quot;reason&quot;: &quot;Определение объединяет приведение к общему основанию и приравнивание показателей. Здесь общее основание уже получено в s1; кандидат kc2 описывает только второй компонент, поэтому полное соответствие этому составному определению не подтверждается.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+      &quot;reason&quot;: &quot;Законы преобразования степеней не заменяют инъективность показательной функции: результатом s2 является равенство показателей, а не преобразованная степень.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_2443f08dda82&quot;,
+      &quot;reason&quot;: &quot;Использует инъективность логарифма для равенства аргументов; здесь объектом служат степени и снимается показательная функция.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;После полного просмотра каталога отдельного определения для наблюдаемого перехода от уже приведённых степеней к равенству показателей нет. Объект — равенство 6^(2-x)=6^x, условия 6&gt;0 и 6≠1 явно проверены в s2, результат — равносильное линейное равенство. Более широкий exponential_equation содержит это действие как компонент, но включает отдельное действие s1.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Переходить от равенства степеней к равенству показателей&quot;,
+    &quot;definition&quot;: &quot;Для равенства a^u=a^v с уже установленным общим основанием a&gt;0, a≠1 использовать инъективность показательной функции и получить равносильное равенство u=v. Приведение к общему основанию и решение полученного уравнения учитываются отдельно.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc3"><h3>kc3 · Решать линейное уравнение с числовыми коэффициентами</h3><p>Для линейного уравнения с числовыми коэффициентами собрать члены с неизвестной и свободные члены и определить множество решений с учётом коэффициента при неизвестной.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;2-x = x даёт x = 1.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+      &quot;reason&quot;: &quot;Снятие показательной функции выполнено в s2, а решение последующего линейного уравнения прямо исключено из определения этого KC.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдается решение аффинного равенства одной переменной с числовыми коэффициентами 2-x=x и получение единственного решения x=1. Модель не составляется, степень в этом шаге не снимается; действие целиком соответствует linear_equation.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s1:result&quot;,
+      &quot;step:s2:result&quot;
+    ],
+    &quot;description&quot;: &quot;Каталожный exponential_equation объединяет два действия, которые автор разделил на kc1 и kc2. Совместное выполнение s1–s2 не превращает каждый из этих локальных кандидатов в полное соответствие составному узлу; для kc2 предложено отдельное предварительное определение.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc2&quot;
+    ]
+  }
+]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;source_path&quot;: &quot;data/fipi/2026-10-31-profile/tasks/2D920F.json&quot;,
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\2D920F.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\2D920F.json&quot;
+}</pre></html>

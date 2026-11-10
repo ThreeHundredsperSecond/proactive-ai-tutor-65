@@ -1,0 +1,152 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>B4B4EA</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>10. ФИПИ B4B4EA</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p><span>Найдите наименьшее значение функции</span></p> <p align="center"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>y</mi><mo>=</mo><mn>3</mn><mi>cos</mi><mi>x</mi><mo>−</mo><mn>5</mn><mi>x</mi><mo>+</mo><mn>5</mn> </mrow> </semantics> </math><span></span></p> <p class="MsoNormal"><span>на отрезке</span><span class="apple-converted-space"><span> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mrow><mo>[</mo> <mrow> <mo>−</mo><mtext> </mtext><mfrac> <mrow> <mn>3</mn><mtext>π</mtext> </mrow> <mn>2</mn> </mfrac> <mo>;</mo><mtext> </mtext><mn>0</mn> </mrow> <mo>]</mo></mrow> </mrow> </semantics> </math></span></span><span>.</span></p>  </section></div><p>КЭС: 4.2 Применение производной к исследованию функций на монотонность и экстремумы. Нахождение наибольшего и наименьшего значения функции на отрезке</p><h2>Ответ</h2><p>8</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти производную функции.</td><td>y′(x) = −3 sin x − 5.</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Оценить знак производной через ограниченность синуса и установить монотонность функции на заданном отрезке.</td><td>Так как −1 ≤ sin x ≤ 1, то −8 ≤ −3 sin x − 5 ≤ −2 &lt; 0. Функция непрерывна на [−3π/2; 0] и дифференцируема внутри него, поэтому строго убывает на всём отрезке.</td><td>kc2, kc3</td></tr><tr><td>s3 · condition, s2</td><td>Найти минимум убывающей функции на отрезке, вычислив значение в правом конце.</td><td>Минимум достигается при x = 0: y(0) = 3 cos 0 − 5·0 + 5 = 8.</td><td>kc4</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Определение минимума через знак производной и монотонность&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Дифференцировать сумму тригонометрического и линейного выражений</h3><p>Для суммы слагаемых с косинусом линейного аргумента, линейной функцией и константой применить правила дифференцирования и получить производную.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Найти производную функции.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;y′(x) = −3 sin x − 5.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_3a3e1295118b&quot;,
+      &quot;reason&quot;: &quot;Дифференцирование многочлена охватывает линейное слагаемое и константу, но не косинус.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0efedaf04823&quot;,
+      &quot;reason&quot;: &quot;Степенное правило и линейность не включают производную косинуса.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_7e7fe72c8c10&quot;,
+      &quot;reason&quot;: &quot;Определение относится к логарифму линейного аргумента, а не к косинусу.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В s1 дифференцируется вся сумма с косинусом, линейным слагаемым и константой. В полном каталоге нет определения, охватывающего тригонометрическую составляющую; совпадение по линейности недостаточно. Производная вычислена верно. Наблюдается аргумент x; применение цепного правила к нетривиальному линейному аргументу здесь не проверяется.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Дифференцировать сумму с косинусом и линейными слагаемыми&quot;,
+    &quot;definition&quot;: &quot;Использовать производную косинуса, производную линейной функции и линейность производной для получения производной суммы a cos x + bx + c.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Оценивать знак выражения по границам тригонометрической функции</h3><p>Для выражения, линейного относительно синуса или косинуса, использовать диапазон значений тригонометрической функции, чтобы получить границы выражения и установить его знак.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;Так как −1 ≤ sin x ≤ 1, то −8 ≤ −3 sin x − 5 ≤ −2 &lt; 0.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_534413234aa8&quot;,
+      &quot;reason&quot;: &quot;Требует выбора знака по четверти при извлечении корня; здесь оценивается аффинное выражение через глобальный диапазон синуса.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0cf8af170957&quot;,
+      &quot;reason&quot;: &quot;Решение линейного неравенства даёт допустимые значения переменной, тогда как здесь из диапазона функции выводятся границы другого выражения.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_f68eccc115c2&quot;,
+      &quot;reason&quot;: &quot;Не исключается положительный множитель; знак суммы устанавливается двусторонней оценкой.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Из диапазона синуса получены границы аффинного выражения с отрицательным коэффициентом и его строгая отрицательность. Это наблюдаемое корректное действие; определения для такого переноса границ в полном каталоге нет. Вывод о монотонности относится к kc3.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Оценивать знак аффинного тригонометрического выражения по диапазону&quot;,
+    &quot;definition&quot;: &quot;Из диапазона синуса или косинуса получить границы выражения a sin x+b либо a cos x+b, учитывая знак коэффициента, и установить знак выражения, если границы позволяют.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Устанавливать монотонность функции по знаку производной</h3><p>Для функции, непрерывной на отрезке и дифференцируемой внутри него, по постоянному строгому знаку производной определить направление строгой монотонности.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;−8 ≤ −3 sin x − 5 ≤ −2 &lt; 0.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;Функция непрерывна на [−3π/2; 0] и дифференцируема внутри него, поэтому строго убывает на всём отрезке.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;local_extreme_sign&quot;,
+      &quot;reason&quot;: &quot;Нет смены знака и вывода о локальном экстремуме; производная строго отрицательна на всём отрезке.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9aee0783618d&quot;,
+      &quot;reason&quot;: &quot;Знак получен аналитической оценкой, без графика производной.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В s2 явно установлен отрицательный знак производной и на его основании сделан вывод о строгом убывании исходной функции на заданном отрезке. Непрерывность и дифференцируемость названы и согласуются с формулой из условия; это полное действие определения.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Находить минимум монотонной функции на отрезке</h3><p>Для функции с установленной монотонностью на замкнутом отрезке выбрать соответствующий конец отрезка и вычислить в нём минимальное значение.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;global_interval_extreme&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Найти минимум убывающей функции на отрезке, вычислив значение в правом конце.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;Минимум достигается при x = 0: y(0) = 3 cos 0 − 5·0 + 5 = 8.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+      &quot;reason&quot;: &quot;Подстановка и вычисление значения являются компонентом, но не охватывают выбор точки глобального минимума по монотонности.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;local_extreme_sign&quot;,
+      &quot;reason&quot;: &quot;Ищется глобальное минимальное значение на отрезке, а не локальный экстремум по смене знака.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Используя установленное ранее убывание, s3 выбирает правый конец заданного замкнутого отрезка и получает минимальное значение 8. Определение global_interval_extreme прямо включает путь через монотонность и значение экстремума, поэтому составной в бытовом смысле выбор и вычисление не требуют разделения этого кандидата.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;source_path&quot;: &quot;data/fipi/2026-10-31-profile/tasks/B4B4EA.json&quot;,
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\B4B4EA.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\B4B4EA.json&quot;
+}</pre></html>

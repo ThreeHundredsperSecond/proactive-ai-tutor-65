@@ -1,0 +1,266 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>E87882</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>41. ФИПИ E87882 · бронь #4, партия 3</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Биссектрисы углов <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>B</mi><mi>A</mi><mi>D</mi> </mrow> </semantics> </math> и <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>B</mi><mi>C</mi><mi>D</mi> </mrow> </semantics> </math> равнобедренной трапеции <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mi>C</mi><mi>D</mi> </mrow> </semantics> </math> пересекаются в точке <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>O</mi><mo>.</mo> </mrow> </semantics> </math> Через точку <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mi>O</mi> </semantics> </math> провели прямую, параллельную основаниям <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>B</mi><mi>C</mi> </mrow> </semantics> </math> и <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>D</mi><mo>.</mo> </mrow> </semantics> </math></p> <p class="MsoNormal">а) Докажите, что отрезок этой прямой внутри трапеции равен её боковой стороне.</p> <p class="MsoNormal">б) Найдите отношение длин оснований трапеции, если <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>O</mi><mo>=</mo><mi>C</mi><mi>O</mi> </mrow> </semantics> </math> и данная прямая делит сторону <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>B</mi> </mrow> </semantics> </math> в отношении <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>M</mi><mo>:</mo><mi>M</mi><mi>B</mi><mo>=</mo><mn>1</mn><mo>:</mo><mn>2.</mn> </mrow> </semantics> </math><span></span></p>  </section></div><p>КЭС: 7.1 Фигуры на плоскости</p><h2>Ответ</h2><p>а) доказано; б) AD:BC = 7:1</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Обозначить точки пересечения прямой с AB и CD как M и N; из MN∥AD и биссектрисы AO получить равенство накрест лежащих углов MOA=OAD=MAO, откуда треугольник AMO равнобедренный.</td><td>MO = AM</td><td>kc1</td></tr><tr><td>s2 · condition</td><td>Аналогично из MN∥BC и биссектрисы CO получить равнобедренный треугольник CNO.</td><td>NO = CN</td><td>kc1</td></tr><tr><td>s3 · condition</td><td>Из равенства боковых сторон равнобедренной трапеции и параллельности MN основаниям (теорема о пропорциональных отрезках) получить равенство отрезков боковых сторон.</td><td>BM = CN, AM = DN</td><td>kc2</td></tr><tr><td>s4 · s1, s2, s3</td><td>Сложить отрезки: MN = MO + ON = AM + MB.</td><td>MN = AB, пункт а доказан</td><td>kc3</td></tr><tr><td>s5 · condition, s1, s4</td><td>Принять AB=CD=3, AM=1, MB=2; ввести координаты с осью симметрии x=0: A(-a/2,0), D(a/2,0), B(-b/2,H), C(b/2,H), где a=AD, b=BC; выразить M, MN и O.</td><td>M=((-2a-b)/6, H/3), MN=(2a+b)/3=3, т.е. 2a+b=9; O=(-1/2, H/3) так как MO=AM=1</td><td>kc4</td></tr><tr><td>s6 · condition, s5</td><td>Записать условия AO=CO и AB=3 через координаты.</td><td>(a-1)^2-(b+1)^2 = 4H^2/3; ((a-b)/2)^2+H^2=9</td><td>kc5</td></tr><tr><td>s7 · s5, s6</td><td>Подставить b=9-2a и H^2=9-9(a-3)^2/4, привести к линейному уравнению.</td><td>(3a-11)(9-a)=12-3(a-3)^2 ⇒ 20a=84</td><td>kc6</td></tr><tr><td>s8 · s7</td><td>Решить линейное уравнение, найти b, H и проверить допустимость (H&gt;0, O внутри трапеции).</td><td>a=4.2, b=0.6, H=2.4; AD:BC=7</td><td>kc6</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Пункт а: равнобедренные треугольники из биссектрис и параллельности, сложение отрезков&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;m2&quot;,
+    &quot;name&quot;: &quot;Пункт б: метод координат с использованием результата пункта а&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s5&quot;,
+      &quot;s6&quot;,
+      &quot;s7&quot;,
+      &quot;s8&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Выявить равнобедренный треугольник из биссектрисы и параллельной прямой</h3><p>Вход: биссектриса угла и прямая, параллельная одной из его сторон. Операция: равенство накрест лежащих углов даёт равнобедренный треугольник и равенство отрезков. Граница: требуется параллельность.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;из MN∥AD и биссектрисы AO получить равенство накрест лежащих углов MOA=OAD=MAO, откуда треугольник AMO равнобедренный&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Аналогично из MN∥BC и биссектрисы CO получить равнобедренный треугольник CNO.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_57221556b432&quot;,
+      &quot;reason&quot;: &quot;Определение биссектрисы — только компонент; не включает накрест лежащие углы и вывод о равенстве сторон.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;isosceles_angles&quot;,
+      &quot;reason&quot;: &quot;Обратное направление: от равенства сторон к углам, а здесь от равных углов к равным сторонам.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Составное действие: биссектриса + параллельная прямая -&gt; накрест лежащие углы -&gt; равнобедренный треугольник и равные отрезки. В каталоге целиком нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Из биссектрисы угла и прямой, параллельной одной из его сторон, через равенство накрест лежащих углов установить равнобедренный треугольник и равенство отрезков.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Применить теорему о пропорциональных отрезках к сторонам угла или боковым сторонам трапеции</h3><p>Вход: параллельные прямые, пересекающие две стороны. Операция: отношения отсекаемых отрезков равны; при равных боковых сторонах отрезки равны.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Из равенства боковых сторон равнобедренной трапеции и параллельности MN основаниям (теорема о пропорциональных отрезках) получить равенство отрезков боковых сторон.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d5e287608dd5&quot;,
+      &quot;reason&quot;: &quot;Содержит пропорцию длин при параллельности, но сформулирован через подобие/отрезки и высоты; граница с теоремой Фалеса/пропорциональных отрезков неясна.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_b58390338050&quot;,
+      &quot;reason&quot;: &quot;Требует установленного подобия, здесь его нет.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Действие — теорема о пропорциональных отрезках на боковых сторонах; ближайший узел частично перекрывается, однозначно подтвердить match нельзя.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Сложить отрезки для доказательства равенства длин</h3><p>Вход: отрезки, лежащие на одной прямой, и известные равенства частей. Операция: замена частей равными и суммирование.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:action&quot;,
+      &quot;quote&quot;: &quot;Сложить отрезки: MN = MO + ON = AM + MB.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;step:s2:result&quot;,
+    &quot;step:s3:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_adbf18f11761&quot;,
+      &quot;reason&quot;: &quot;Сложение углов с общей стороной, а не отрезков.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Замена частей отрезка равными и суммирование по аддитивности длины; узла для отрезков в каталоге нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Для точки, лежащей на отрезке, представить его длину суммой частей и заменить части доказанными равными отрезками.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc4"><h3>kc4 · Ввести систему координат для симметричной фигуры</h3><p>Вход: фигура с осью симметрии и параметрами длин. Операция: выбрать оси вдоль симметрии и выразить координаты точек через параметры, включая точки деления отрезков.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s5:action&quot;,
+      &quot;quote&quot;: &quot;ввести координаты с осью симметрии x=0: A(-a/2,0), D(a/2,0), B(-b/2,H), C(b/2,H), где a=AD, b=BC; выразить M, MN и O.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s5:result&quot;,
+      &quot;quote&quot;: &quot;M=((-2a-b)/6, H/3), MN=(2a+b)/3=3, т.е. 2a+b=9; O=(-1/2, H/3) так как MO=AM=1&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s4:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_a1cdbef72a14&quot;,
+      &quot;reason&quot;: &quot;Выбор координат для пространственной фигуры; здесь плоская трапеция — близко, но объект другой.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_4af504d61511&quot;,
+      &quot;reason&quot;: &quot;Покрывает только вычисление M как точки деления AB в отношении 1:2.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Смешаны: задание плоской фигуры координатами с учётом симметрии; точка деления отрезка; использование результата а (MN=AB) для уравнения 2a+b=9; нахождение O по MO=AM.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Задание плоской симметричной фигуры координатами&quot;,
+        &quot;possible_catalog_kc_id&quot;: null
+      },
+      {
+        &quot;part&quot;: &quot;Координаты точки деления M в отношении 1:2&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_4af504d61511&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Составление уравнения MN=AB через координаты и нахождение O&quot;,
+        &quot;possible_catalog_kc_id&quot;: null
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc5"><h3>kc5 · Записать равенство расстояний через координаты</h3><p>Вход: координаты точек. Операция: формула расстояния, равенство квадратов расстояний.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc5&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s6:action&quot;,
+      &quot;quote&quot;: &quot;Записать условия AO=CO и AB=3 через координаты.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s6:result&quot;,
+      &quot;quote&quot;: &quot;(a-1)^2-(b+1)^2 = 4H^2/3; ((a-b)/2)^2+H^2=9&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s5:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d4dd6695995d&quot;,
+      &quot;reason&quot;: &quot;Длина вектора по координатам — компонент; составление уравнения из равенства расстояний не входит.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_fe8297102f74&quot;,
+      &quot;reason&quot;: &quot;ГМТ равноудалённых точек не используется.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Перевод условий на длины в уравнения через формулу расстояния между точками плоскости; в каталоге отдельного узла нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;По координатам точек записать квадрат расстояния и составить уравнение из заданного равенства или значения длин.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc6"><h3>kc6 · Решить систему алгебраических уравнений подстановкой</h3><p>Вход: система уравнений с параметрами. Операция: выразить переменные, подставить, свести к линейному уравнению, решить и проверить допустимость корня.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc6&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s7:action&quot;,
+      &quot;quote&quot;: &quot;Подставить b=9-2a и H^2=9-9(a-3)^2/4, привести к линейному уравнению.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s8:action&quot;,
+      &quot;quote&quot;: &quot;Решить линейное уравнение, найти b, H и проверить допустимость (H&gt;0, O внутри трапеции).&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s5:result&quot;,
+    &quot;step:s6:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0a4ebc8382b5&quot;,
+      &quot;reason&quot;: &quot;Подстановка из линейной связи b=9-2a — часть; H^2 исключается из нелинейного уравнения.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;Решение 20a=84 — часть.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+      &quot;reason&quot;: &quot;Проверка допустимости — часть.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет исключение переменных, упрощение нелинейного уравнения до линейного, решение линейного уравнения и отбор по условиям модели.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Исключение b подстановкой из линейной связи&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_0a4ebc8382b5&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Исключение H^2 и приведение нелинейного уравнения к линейному&quot;,
+        &quot;possible_catalog_kc_id&quot;: null
+      },
+      {
+        &quot;part&quot;: &quot;Решение 20a=84&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;linear_equation&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Проверка H&gt;0 и положения O&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[
+  &quot;Предполагается, что O лежит внутри отрезка MN (подтверждается в пункте б: O=(-1/2,H/3)).&quot;,
+  &quot;Ответ б выражен как AD:BC=7; если основания обозначены иначе, отношение 1:7.&quot;
+]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;coverage&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s4:action&quot;
+    ],
+    &quot;description&quot;: &quot;В пункте а не обосновано, что O лежит на отрезке MN между M и N (автор отмечает это в warnings); равенство MN=MO+ON использует это без доказательства. Числовая проверка б (a=4.2, b=0.6, H=2.4, AO^2=CO^2=3.2) согласована.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc3&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/E87882.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/E87882.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

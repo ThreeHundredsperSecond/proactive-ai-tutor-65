@@ -1,0 +1,257 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>30EEA9</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>3. ФИПИ 30EEA9 · бронь #4, партия 1</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">а) Решите уравнение</p> <p class="MsoNormal" align="center"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mn>2</mn><msqrt> <mn>3</mn> </msqrt> <msup> <mrow> <mi>sin</mi> </mrow> <mn>2</mn> </msup> <mtext>​</mtext><mrow><mo>(</mo> <mrow> <mi>x</mi><mo>+</mo><mfrac> <mrow> <mtext>3π</mtext> </mrow> <mn>2</mn> </mfrac> </mrow> <mo>)</mo></mrow><mo>+</mo><mi>sin</mi><mn>2</mn><mi>x</mi><mo>=</mo><mn>0</mn> </mrow>  </semantics> </math>.</p> <p class="MsoNormal">б) Укажите корни этого уравнения, принадлежащие отрезку <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mrow><mo>[</mo> <mrow> <mo>−</mo><mtext> </mtext><mn>4</mn><mtext>π</mtext><mtext> </mtext><mo>;</mo><mtext> </mtext><mo>−</mo><mfrac> <mrow> <mtext>5π</mtext> </mrow> <mn>2</mn> </mfrac> </mrow> <mo>]</mo></mrow> </mrow>  </semantics> </math>.<span></span></p>  </section></div><p>КЭС: 1.5 Синус, косинус и тангенс числового аргумента. Арксинус, арккосинус, арктангенс числового аргумента; 2.1 Целые и дробно-рациональные уравнения; 2.3 Тригонометрические уравнения; 2.9 Системы и совокупности уравнений и неравенств</p><h2>Ответ</h2><p>а) x = π/2 + πk, x = −π/3 + πk, k ∈ Z; б) −7π/2; −10π/3; −5π/2</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Применить формулу приведения: sin(x+3π/2) = −cos x, поэтому sin²(x+3π/2) = cos²x; sin 2x = 2 sin x cos x</td><td>2√3 cos²x + 2 sin x cos x = 0</td><td>kc1, kc2</td></tr><tr><td>s2 · s1</td><td>Вынести общий множитель и разложить на множители</td><td>2 cos x (√3 cos x + sin x) = 0</td><td>kc3</td></tr><tr><td>s3 · s2</td><td>Решить уравнение cos x = 0</td><td>x = π/2 + πk, k ∈ Z</td><td>kc4</td></tr><tr><td>s4 · s2</td><td>Свести однородное уравнение √3 cos x + sin x = 0 к tg x = −√3 делением на cos x ≠ 0 (cos x = 0 не является его решением)</td><td>tg x = −√3</td><td>kc5</td></tr><tr><td>s5 · s4</td><td>Решить уравнение tg x = −√3</td><td>x = −π/3 + πk, k ∈ Z</td><td>kc4</td></tr><tr><td>s6 · s3, s5, condition</td><td>Отобрать корни обеих серий на отрезке [−4π; −5π/2] с помощью двойного неравенства по k</td><td>−7π/2, −10π/3, −5π/2</td><td>kc6</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Приведение к одному аргументу, разложение на множители и решение простейших уравнений&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;,
+      &quot;s5&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;m2&quot;,
+    &quot;name&quot;: &quot;Отбор корней двойным неравенством&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s6&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Применить формулу приведения</h3><p>Вход: тригонометрическая функция от аргумента вида x + nπ/2. Операция: заменить на ± ту же или кофункцию от x по правилу приведения. Граница: аргумент со сдвигом, кратным π/2.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Применить формулу приведения: sin(x+3π/2) = −cos x, поэтому sin²(x+3π/2) = cos²x&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;,
+      &quot;reason&quot;: &quot;Составной узел: формулы приведения и двойного угла вместе для сведения к одной функции; kc1 — только приведение, т.е. компонент.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_55d5a6d9eb3c&quot;,
+      &quot;reason&quot;: &quot;Дублирует literal_cc7d68a38f29 по смыслу; тоже составной; нет основания выбрать один из двух.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_3d70ab3eb24a&quot;,
+      &quot;reason&quot;: &quot;Только двойной угол, приведение не охватывает.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдаемое действие — формула приведения для sin(x+3π/2) с возведением в квадрат. Отдельного узла только для приведения нет; два перекрывающихся составных узла включают его как часть, поэтому полное соответствие не подтверждено.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc2"><h3>kc2 · Применить формулу синуса двойного угла</h3><p>Вход: выражение sin 2x. Операция: заменить на 2 sin x cos x. Граница: аргумент вдвое больше общего аргумента остальных слагаемых.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_3d70ab3eb24a&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;sin 2x = 2 sin x cos x&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;,
+      &quot;reason&quot;: &quot;Требует также формулу приведения; kc2 — только двойной угол.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_55d5a6d9eb3c&quot;,
+      &quot;reason&quot;: &quot;То же: составной узел.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Замена синуса удвоенного аргумента на 2 sin x cos x полностью соответствует определению literal_3d70ab3eb24a.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Разложить тригонометрическое выражение на множители вынесением общего множителя</h3><p>Вход: уравнение вида сумма = 0 с общим тригонометрическим множителем. Операция: вынести множитель и перейти к совокупности уравнений-множителей. Граница: все множители определены на области уравнения.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Вынести общий множитель и разложить на множители&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;2 cos x (√3 cos x + sin x) = 0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+      &quot;reason&quot;: &quot;Охватывает получение нулей множителей и объединение корней; в определении сказано, что факторизация без решения не приравнивается ко всему действию.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+      &quot;reason&quot;: &quot;Факторизация многочлена для исследования знака, не тригонометрического выражения в уравнении.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет вынесение тригонометрического множителя и переход к совокупности уравнений-множителей. В шаге s2 наблюдается только факторизация; переход к совокупности и объединение корней распределены по s3–s5 и неявны.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Вынести общий тригонометрический множитель cos x&quot;,
+        &quot;possible_match&quot;: null,
+        &quot;note&quot;: &quot;узла в каталоге нет; возможный новый кандидат&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Перейти от произведения, равного нулю, к совокупности и объединить серии&quot;,
+        &quot;possible_match&quot;: &quot;zero_product&quot;,
+        &quot;note&quot;: &quot;объединение серий в разметке явно не выписано&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i2&quot;
+  ]
+}</pre></section><section id="kc4"><h3>kc4 · Решить простейшее тригонометрическое уравнение</h3><p>Вход: уравнение вида f(x) = a для sin, cos или tg. Операция: записать общую серию решений с целым параметром. Граница: значение a допустимо для функции.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Решить уравнение cos x = 0&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s5:action&quot;,
+      &quot;quote&quot;: &quot;Решить уравнение tg x = −√3&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;,
+    &quot;step:s4:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;elementary_trig_equation&quot;,
+      &quot;reason&quot;: &quot;Определение называет только sin x=c и cos x=c; s3 подходит, но s5 (tg) выходит за границу определения.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат kc4 включает tg и применён к s3 и s5. Для cos x = 0 соответствие elementary_trig_equation полное, для tg x = −√3 каталог не покрывает тангенс; единого решения для кандидата нет.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i3&quot;
+  ]
+}</pre></section><section id="kc5"><h3>kc5 · Свести однородное тригонометрическое уравнение первой степени к уравнению с тангенсом</h3><p>Вход: уравнение a sin x + b cos x = 0. Операция: обосновать cos x ≠ 0 и разделить на cos x. Граница: a ≠ 0, однородность по sin и cos.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc5&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:action&quot;,
+      &quot;quote&quot;: &quot;Свести однородное уравнение √3 cos x + sin x = 0 к tg x = −√3 делением на cos x ≠ 0 (cos x = 0 не является его решением)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_695d7a370e3b&quot;,
+      &quot;reason&quot;: &quot;Вычисление значения тангенса через синус и косинус, а не преобразование уравнения.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_7570fa06d474&quot;,
+      &quot;reason&quot;: &quot;Сокращение дроби, не деление однородного уравнения с обоснованием cos x ≠ 0.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Деление однородного уравнения первой степени на cos x с обоснованием, что cos x = 0 не даёт решений, в каталоге не представлено.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Для уравнения a sin x + b cos x = 0 при a ≠ 0 показать, что cos x = 0 не является решением, и разделить на cos x, получив tg x = −b/a.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc6"><h3>kc6 · Отобрать корни серии на заданном отрезке</h3><p>Вход: серии решений с целым параметром и отрезок. Операция: решить двойное неравенство относительно параметра и выписать корни. Граница: учитывать включение концов отрезка.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc6&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;periodic_interval&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s6:action&quot;,
+      &quot;quote&quot;: &quot;Отобрать корни обеих серий на отрезке [−4π; −5π/2] с помощью двойного неравенства по k&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s6:result&quot;,
+      &quot;quote&quot;: &quot;−7π/2, −10π/3, −5π/2&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s3:result&quot;,
+    &quot;step:s5:result&quot;,
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_8409c9003f48&quot;,
+      &quot;reason&quot;: &quot;Для конечного набора корней без параметра.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Подстановка серий в границы отрезка и определение целых k соответствует periodic_interval. Проверка: π/2+πk даёт −7π/2 (k=−4), −5π/2 (k=−3); −π/3+πk даёт −10π/3 (k=−3); результат верен.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s1:action&quot;
+    ],
+    &quot;description&quot;: &quot;В каталоге два дублирующих составных узла (literal_cc7d68a38f29, literal_55d5a6d9eb3c) для приведения и двойного угла и отдельный узел только для двойного угла; узла только для формулы приведения нет. Это мешает однозначно сопоставить kc1.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc1&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;i2&quot;,
+    &quot;kind&quot;: &quot;missing_annotation&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s2:result&quot;,
+      &quot;step:s3:result&quot;,
+      &quot;step:s5:result&quot;
+    ],
+    &quot;description&quot;: &quot;Переход к совокупности cos x = 0 или √3 cos x + sin x = 0 и объединение двух серий в ответ п. а) не выделены отдельным шагом.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc3&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;i3&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s5:action&quot;
+    ],
+    &quot;description&quot;: &quot;Кандидат kc4 объединяет уравнения для cos и tg; каталожный elementary_trig_equation ограничен sin и cos.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc4&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/30EEA9.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/30EEA9.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

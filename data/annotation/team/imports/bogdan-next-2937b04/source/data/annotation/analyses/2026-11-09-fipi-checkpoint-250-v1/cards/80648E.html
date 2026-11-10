@@ -1,0 +1,232 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>80648E</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>40. ФИПИ 80648E · бронь #4, партия 3</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Решите неравенство <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mfrac> <mrow> <msub> <mrow> <mi>log</mi> </mrow> <mn>4</mn> </msub> <mrow><mo>(</mo> <mrow> <mn>64</mn><mi>x</mi> </mrow> <mo>)</mo></mrow> </mrow> <mrow> <msub> <mrow> <mi>log</mi> </mrow> <mn>4</mn> </msub> <mi>x</mi><mo>−</mo><mn>3</mn> </mrow> </mfrac> <mo>+</mo><mfrac> <mrow> <msub> <mrow> <mi>log</mi> </mrow> <mn>4</mn> </msub> <mi>x</mi><mo>−</mo><mn>3</mn> </mrow> <mrow> <msub> <mrow> <mi>log</mi> </mrow> <mn>4</mn> </msub> <mrow><mo>(</mo> <mrow> <mn>64</mn><mi>x</mi> </mrow> <mo>)</mo></mrow> </mrow> </mfrac> <mo>≥</mo><mfrac> <mrow> <msub> <mrow> <mi>log</mi> </mrow> <mn>4</mn> </msub> <msup> <mi>x</mi> <mn>4</mn> </msup> <mo>+</mo><mn>16</mn> </mrow> <mrow> <msubsup> <mrow> <mi>log</mi> </mrow> <mn>4</mn> <mn>2</mn> </msubsup> <mi>x</mi><mo>−</mo><mn>9</mn> </mrow> </mfrac> </mrow>  </semantics> </mstyle></math>.<span></span></p>  </section></div><p>КЭС: 2.5 Целые и дробно-рациональные неравенства; 2.7 Показательные и логарифмические неравенства</p><h2>Ответ</h2><p>(0; 1/64) ∪ {4} ∪ (64; +∞)</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Записать ОДЗ: x&gt;0, log_4 x ≠ 3, log_4(64x) ≠ 0 (т.е. log_4 x ≠ -3), log_4^2 x ≠ 9.</td><td>x&gt;0, x≠64, x≠1/64</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Преобразовать логарифмы через t=log_4 x: log_4(64x)=t+3, log_4 x^4=4t (при x&gt;0).</td><td>(t+3)/(t-3)+(t-3)/(t+3) ≥ (4t+16)/(t^2-9)</td><td>kc2, kc3</td></tr><tr><td>s3 · s2</td><td>Привести к общему знаменателю t^2-9 и упростить числитель.</td><td>2(t-1)^2/((t-3)(t+3)) ≥ 0</td><td>kc4</td></tr><tr><td>s4 · s3</td><td>Решить рациональное неравенство методом интервалов с учётом нуля чётной кратности.</td><td>t&lt;-3, или t=1, или t&gt;3</td><td>kc5</td></tr><tr><td>s5 · s4, s1</td><td>Вернуться к x, решив простейшие логарифмические неравенства и уравнение с основанием 4&gt;1, и сверить с ОДЗ.</td><td>0&lt;x&lt;1/64, x=4, x&gt;64</td><td>kc6</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Замена логарифма и метод интервалов&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;,
+      &quot;s5&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Найти ОДЗ логарифмического выражения с дробями</h3><p>По выражению с логарифмами в знаменателях выписать условия положительности аргументов и неравенства знаменателей нулю.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Записать ОДЗ: x&gt;0, log_4 x ≠ 3, log_4(64x) ≠ 0 (т.е. log_4 x ≠ -3), log_4^2 x ≠ 9.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_7baedb55a81a&quot;,
+      &quot;reason&quot;: &quot;покрывает только положительность аргументов логарифмов, не ненулевость знаменателей&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+      &quot;reason&quot;: &quot;покрывает только нули знаменателей&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0214fc221120&quot;,
+      &quot;reason&quot;: &quot;область одной логарифмической функции, без знаменателей&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет два действия: положительность аргумента логарифма (x&gt;0) и исключение нулей знаменателей (x≠64, x≠1/64); для каждого есть отдельный узел.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;положительность аргументов логарифмов: x&gt;0&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_7baedb55a81a&quot;
+      },
+      {
+        &quot;part&quot;: &quot;исключение нулей знаменателей log_4 x−3, log_4(64x), log_4^2 x−9&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;denominator_domain&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Применить свойства логарифмов</h3><p>Преобразовать логарифм произведения и степени в сумму/произведение логарифмов при положительных аргументах.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;log_4(64x)=t+3, log_4 x^4=4t (при x&gt;0)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ad68659d5755&quot;,
+      &quot;reason&quot;: &quot;только разность логарифмов в логарифм частного, а здесь произведение и степень&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d66dd830e876&quot;,
+      &quot;reason&quot;: &quot;вычисление log_4 64=3 — лишь компонент действия&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_872613285a26&quot;,
+      &quot;reason&quot;: &quot;переход к другому основанию не выполняется&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Логарифм произведения переписывается как сумма, логарифм степени — как произведение, при x&gt;0. В каталоге нет такого узла.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;При положительных аргументах и допустимом основании переписывать log_b(uv)=log_b u+log_b v и log_b u^p=p·log_b u; при чётной степени сохранять условие на знак u.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Ввести замену переменной</h3><p>Заменить повторяющееся выражение новой переменной, сводя задачу к рациональной относительно неё.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Преобразовать логарифмы через t=log_4 x&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;(t+3)/(t-3)+(t-3)/(t+3) ≥ (4t+16)/(t^2-9)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+      &quot;reason&quot;: &quot;замена t=b^x&gt;0 для показательных выражений; здесь логарифмическая замена, у t нет знакового ограничения&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_a30e088aef8f&quot;,
+      &quot;reason&quot;: &quot;замена корня, t≥0&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ab8a29be8367&quot;,
+      &quot;reason&quot;: &quot;замена u=x²&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Логарифмическое выражение заменяется новой переменной, и неравенство становится рациональным относительно t; подходящего узла в каталоге нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Ввести t=log_b x (x&gt;0, b&gt;0, b≠1), выразить через t все логарифмы задачи и получить рациональную задачу относительно t; обратный переход выполнять отдельно.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Привести рациональные дроби к общему знаменателю</h3><p>Сложить/вычесть дроби, перенести всё в одну часть и разложить числитель и знаменатель на множители.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_67caf017b566&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Привести к общему знаменателю t^2-9 и упростить числитель.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;2(t-1)^2/((t-3)(t+3)) ≥ 0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9698b97fef22&quot;,
+      &quot;reason&quot;: &quot;относится к уравнению, обе части умножаются на знаменатель; здесь неравенство и дроби объединяются&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+      &quot;reason&quot;: &quot;разложение числителя 2(t-1)^2 здесь только часть действия&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Рациональные дроби объединяются над общим разложенным знаменателем (t-3)(t+3), знаменатель сохраняется. Это соответствует определению узла. Проверка: 2t^2+18-4t-16=2(t-1)^2, верно.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc5"><h3>kc5 · Решить рациональное неравенство методом интервалов</h3><p>По разложенной на множители дроби определить знаки на промежутках, учитывая кратность корней, нестрогость и выколотые точки знаменателя.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc5&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;rational_intervals&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:action&quot;,
+      &quot;quote&quot;: &quot;Решить рациональное неравенство методом интервалов с учётом нуля чётной кратности.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;t&lt;-3, или t=1, или t&gt;3&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s3:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_1b97db4e28e8&quot;,
+      &quot;reason&quot;: &quot;квадратное неравенство, а не дробь с полюсами&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Числовая ось делится нулём t=1 чётной кратности и полюсами ±3. Нестрогое неравенство включает t=1 и исключает полюсы. Результат верен.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc6"><h3>kc6 · Решить простейшее логарифмическое неравенство</h3><p>Перейти от сравнения логарифма с числом к сравнению аргумента со степенью основания с учётом монотонности и области определения.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc6&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_eae4ca1f2f8b&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s5:action&quot;,
+      &quot;quote&quot;: &quot;решив простейшие логарифмические неравенства и уравнение с основанием 4&gt;1&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s5:result&quot;,
+      &quot;quote&quot;: &quot;0&lt;x&lt;1/64, x=4, x&gt;64&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s4:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9a635e89ccb3&quot;,
+      &quot;reason&quot;: &quot;покрывает уравнение log_4 x=1, а не неравенства кандидата&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_inequality&quot;,
+      &quot;reason&quot;: &quot;показательное, не логарифмическое&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Неравенства log_4 x&lt;-3 и log_4 x&gt;3 сводятся к сравнению положительного x со степенями 4 при основании больше 1, как в определении узла. Кандидат описывает только неравенство; случай уравнения в шаге не размечен (см. i1).&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;missing_annotation&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s5:action&quot;,
+      &quot;step:s5:result&quot;
+    ],
+    &quot;description&quot;: &quot;В s5 также решается уравнение log_4 x=1 (literal_9a635e89ccb3) и выполняется сверка с ОДЗ (set_intersection), но в шаге для этого отдельные KC не размечены.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc6&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/80648E.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/80648E.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

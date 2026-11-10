@@ -1,0 +1,78 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>7FA4FB</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>22. ФИПИ 7FA4FB</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <table class="MsoTableGrid" border="0" cellspacing="0" cellpadding="0"> <tr> <td valign="top"> <p class="MsoNormal">В треугольнике <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mi>C</mi> </mrow>  </semantics> </mstyle></math> угол <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>C</mi>  </semantics> </mstyle></math> равен <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mn>90</mn><mi>°</mi> </mrow>  </semantics> </mstyle></math>, <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mo>=</mo><mn>10</mn> </mrow>  </semantics> </mstyle></math>, <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>C</mi><mo>=</mo><msqrt> <mrow> <mn>51</mn> </mrow> </msqrt> </mrow>  </semantics> </mstyle></math>. Найдите <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>sin</mi><mi>A</mi> </mrow>  </semantics> </mstyle></math>.</p> </td> <td valign="top"> <p class="MsoNormal" align="right"><img src="../../../inputs/assets/3a8b560d1ad0ae4557d9d42f.png" alt="Рисунок ФИПИ"></p> </td> </tr> </table> <p class="MsoNormal"><span> </span></p>  </section></div><p>КЭС: 7.1 Фигуры на плоскости</p><h2>Ответ</h2><p>0,7</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти противолежащий углу A катет по теореме Пифагора.</td><td>Так как ∠C = 90°, AB — гипотенуза. BC = √(AB² − AC²) = √(100 − 51) = 7; берётся положительный корень, поскольку BC — длина стороны.</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Вычислить синус острого угла как отношение противолежащего катета к гипотенузе.</td><td>sin A = BC/AB = 7/10 = 0,7.</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Найти недостающий катет по теореме Пифагора и применить определение синуса&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Находить катет по гипотенузе и другому катету</h3><p>По длинам гипотенузы и одного катета прямоугольного треугольника вычислить второй катет как положительный квадратный корень из разности квадратов; гипотенуза должна быть больше данного катета.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;pythagoras&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;Так как ∠C = 90°, AB — гипотенуза. BC = √(AB² − AC²) = √(100 − 51) = 7; берётся положительный корень, поскольку BC — длина стороны.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_57e72251d4a8&quot;,
+      &quot;reason&quot;: &quot;Определение требует обоих корней алгебраического уравнения x²=c, тогда как здесь восстанавливается положительная геометрическая длина по теореме Пифагора.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;cosine_law&quot;,
+      &quot;reason&quot;: &quot;В решении не применяется связь сторон с косинусом угла; явно используется прямоугольность и разность квадратов.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Прямой угол задан в условии и явно установлен в s1; гипотенуза выбрана правильно. Наблюдается полное действие каталога: связь квадратов сторон прямоугольного треугольника и восстановление второго катета положительным корнем. Числа 10 и √51 дают положительную разность 49.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Вычислять синус острого угла прямоугольного треугольника</h3><p>По длинам противолежащего выбранному острому углу катета и гипотенузы найти синус угла как отношение этих длин.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_be5764a81415&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Вычислить синус острого угла как отношение противолежащего катета к гипотенузе.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;sin A = BC/AB = 7/10 = 0,7.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_38dfd2a1aa18&quot;,
+      &quot;reason&quot;: &quot;Требует известного острого угла и нахождения стороны; здесь известны стороны и вычисляется синус.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_db53e3ae2119&quot;,
+      &quot;reason&quot;: &quot;Определение требует использования известного угла; угол A численно не задан, вычисляется его тригонометрическое отношение.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_79a8fac1b83f&quot;,
+      &quot;reason&quot;: &quot;Использует синус и косинус известного угла с гипотенузой для нахождения сторон, чего в s2 нет.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В установленном прямоугольном треугольнике относительно A правильно выбраны противолежащий катет BC и гипотенуза AB; это именно операция определения каталога. Выбор реализован в отношении BC/AB для синуса. Подстановка уже найденной длины 7 и вычисление 7/10 завершают это действие и не требуют отдельного дробления арифметики. Получение BC относится к s1 и не приписывается s2.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;source_path&quot;: &quot;data/fipi/2026-10-31-profile/tasks/7FA4FB.json&quot;,
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\7FA4FB.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\7FA4FB.json&quot;
+}</pre></html>

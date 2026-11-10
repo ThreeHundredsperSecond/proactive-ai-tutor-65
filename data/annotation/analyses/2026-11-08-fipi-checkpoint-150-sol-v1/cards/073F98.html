@@ -1,0 +1,164 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>073F98</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><a href="../index.html">Сводка</a><h1>073F98</h1><p>historical_editorial50</p><p>Предварительные разборы, внешнего эталона нет.</p><h2>Условие</h2>Дайте развернутый ответ.<div><section>  <p class="MsoNormal">Найдите все значения <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mi>a</mi> </semantics> </math>, при каждом из которых уравнение</p> <p class="MsoNormal" align="center"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msup> <mi>a</mi> <mn>2</mn> </msup> <mo>−</mo><mi>a</mi><mi>x</mi><mo>−</mo><mn>2</mn><msup> <mi>x</mi> <mn>2</mn> </msup> <mo>−</mo><mn>6</mn><mi>a</mi><mo>+</mo><mn>3</mn><mi>x</mi><mo>+</mo><mn>9</mn><mrow><mo>|</mo> <mi>x</mi> <mo>|</mo></mrow><mo>=</mo><mn>0</mn> </mrow> </semantics> </math></p> <p class="MsoNormal">имеет четыре различных корня.</p> <p class="MsoNormal"><span> </span></p>  </section></div><h2>Состав и исключения</h2><pre>{
+  &quot;complete&quot;: true,
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;author_mode&quot;: &quot;historical_shared_context&quot;,
+  &quot;author_path&quot;: null,
+  &quot;auditor_path&quot;: null,
+  &quot;feedback_ref&quot;: null,
+  &quot;source_run&quot;: &quot;data/annotation/runs/2026-10-31-fipi-50x1&quot;
+}</pre><h2>Буквальный сохранённый разбор: ответ, шаги, KC, методы</h2><pre>{
+  &quot;task_id&quot;: &quot;073F98&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;a∈(0;6)\\{2;4}&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Разделить уравнение по знаку x&quot;,
+      &quot;result&quot;: &quot;При x≥0: 2x²+(a-12)x+a(6-a)=0. При x&lt;0: 2x²+(a+6)x+a(6-a)=0. Нулевой корень возможен лишь при a=0 или 6.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Разложить квадратные уравнения на множители&quot;,
+      &quot;result&quot;: &quot;В первой ветви корни x=a/2 и x=6-a; во второй x=-a и x=a/2-3. Это следует из 2(x-a/2)(x+a-6) и 2(x+a)(x-a/2+3).&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Потребовать по два допустимых корня в каждой ветви&quot;,
+      &quot;result&quot;: &quot;Для четырёх различных корней нуль исключён, иначе объединение ветвей имеет не более трёх корней. Два положительных и два отрицательных корня требуют 0&lt;a&lt;6.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Исключить совпадения внутри ветвей и проверить достаточность&quot;,
+      &quot;result&quot;: &quot;a/2=6-a только при a=4; -a=a/2-3 только при a=2. Положительные и отрицательные корни между собой не совпадут. Ответ (0;6) без 2 и 4.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k3&quot;,
+        &quot;k4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;k1&quot;,
+      &quot;name&quot;: &quot;Раскрывать модуль разбиением области по знаку&quot;,
+      &quot;description&quot;: &quot;Заменить |x| выражениями x и -x на соответствующих полуосях, явно распределив граничную точку.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k2&quot;,
+      &quot;name&quot;: &quot;Факторизовать квадратный трёхчлен с параметром&quot;,
+      &quot;description&quot;: &quot;Найти множители параметрического квадратного трёхчлена и проверить тождество раскрытием скобок.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k3&quot;,
+      &quot;name&quot;: &quot;Считать различные корни с учётом ветвей и границ&quot;,
+      &quot;description&quot;: &quot;Проверить принадлежность каждого кандидата своей области, исключить совпадения и правильно учесть общий граничный корень.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k4&quot;,
+      &quot;name&quot;: &quot;Пересекать множества допустимых значений&quot;,
+      &quot;description&quot;: &quot;Совместить несколько необходимых ограничений и правильно включить или исключить граничные точки.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Разбить по знаку, факторизовать ветви и посчитать допустимые корни&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h2>Буквальный независимый аудит</h2><pre>null</pre><h2>Исторические редакторские назначения</h2><pre>[
+  {
+    &quot;task_id&quot;: &quot;073F98&quot;,
+    &quot;local_id&quot;: &quot;k1&quot;,
+    &quot;canonical_id&quot;: &quot;literal_b0359174295e&quot;,
+    &quot;decision_basis&quot;: &quot;identical_name_and_description_only&quot;,
+    &quot;source_name&quot;: &quot;Раскрывать модуль разбиением области по знаку&quot;,
+    &quot;source_description&quot;: &quot;Заменить |x| выражениями x и -x на соответствующих полуосях, явно распределив граничную точку.&quot;,
+    &quot;evidence&quot;: [
+      {
+        &quot;step_id&quot;: &quot;s1&quot;,
+        &quot;action&quot;: &quot;Разделить уравнение по знаку x&quot;,
+        &quot;result&quot;: &quot;При x≥0: 2x²+(a-12)x+a(6-a)=0. При x&lt;0: 2x²+(a+6)x+a(6-a)=0. Нулевой корень возможен лишь при a=0 или 6.&quot;
+      }
+    ]
+  },
+  {
+    &quot;task_id&quot;: &quot;073F98&quot;,
+    &quot;local_id&quot;: &quot;k2&quot;,
+    &quot;canonical_id&quot;: &quot;literal_89adef4e8cee&quot;,
+    &quot;decision_basis&quot;: &quot;identical_name_and_description_only&quot;,
+    &quot;source_name&quot;: &quot;Факторизовать квадратный трёхчлен с параметром&quot;,
+    &quot;source_description&quot;: &quot;Найти множители параметрического квадратного трёхчлена и проверить тождество раскрытием скобок.&quot;,
+    &quot;evidence&quot;: [
+      {
+        &quot;step_id&quot;: &quot;s2&quot;,
+        &quot;action&quot;: &quot;Разложить квадратные уравнения на множители&quot;,
+        &quot;result&quot;: &quot;В первой ветви корни x=a/2 и x=6-a; во второй x=-a и x=a/2-3. Это следует из 2(x-a/2)(x+a-6) и 2(x+a)(x-a/2+3).&quot;
+      }
+    ]
+  },
+  {
+    &quot;task_id&quot;: &quot;073F98&quot;,
+    &quot;local_id&quot;: &quot;k3&quot;,
+    &quot;canonical_id&quot;: &quot;literal_5dcd4a01af19&quot;,
+    &quot;decision_basis&quot;: &quot;identical_name_and_description_only&quot;,
+    &quot;source_name&quot;: &quot;Считать различные корни с учётом ветвей и границ&quot;,
+    &quot;source_description&quot;: &quot;Проверить принадлежность каждого кандидата своей области, исключить совпадения и правильно учесть общий граничный корень.&quot;,
+    &quot;evidence&quot;: [
+      {
+        &quot;step_id&quot;: &quot;s3&quot;,
+        &quot;action&quot;: &quot;Потребовать по два допустимых корня в каждой ветви&quot;,
+        &quot;result&quot;: &quot;Для четырёх различных корней нуль исключён, иначе объединение ветвей имеет не более трёх корней. Два положительных и два отрицательных корня требуют 0&lt;a&lt;6.&quot;
+      },
+      {
+        &quot;step_id&quot;: &quot;s4&quot;,
+        &quot;action&quot;: &quot;Исключить совпадения внутри ветвей и проверить достаточность&quot;,
+        &quot;result&quot;: &quot;a/2=6-a только при a=4; -a=a/2-3 только при a=2. Положительные и отрицательные корни между собой не совпадут. Ответ (0;6) без 2 и 4.&quot;
+      }
+    ]
+  },
+  {
+    &quot;task_id&quot;: &quot;073F98&quot;,
+    &quot;local_id&quot;: &quot;k4&quot;,
+    &quot;canonical_id&quot;: &quot;set_intersection&quot;,
+    &quot;decision_basis&quot;: &quot;explicit_editorial_operation_group&quot;,
+    &quot;source_name&quot;: &quot;Пересекать множества допустимых значений&quot;,
+    &quot;source_description&quot;: &quot;Совместить несколько необходимых ограничений и правильно включить или исключить граничные точки.&quot;,
+    &quot;evidence&quot;: [
+      {
+        &quot;step_id&quot;: &quot;s4&quot;,
+        &quot;action&quot;: &quot;Исключить совпадения внутри ветвей и проверить достаточность&quot;,
+        &quot;result&quot;: &quot;a/2=6-a только при a=4; -a=a/2-3 только при a=2. Положительные и отрицательные корни между собой не совпадут. Ответ (0;6) без 2 и 4.&quot;
+      }
+    ]
+  }
+]</pre></html>

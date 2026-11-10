@@ -1,0 +1,175 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>1cce7c</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>25. ФИПИ 1cce7c · бронь #4, партия 2</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Найдите все значения <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>a</mi><mo>,</mo> </mrow> </semantics> </math> при каждом из которых уравнение</p> <p class="MsoNormal" align="center"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msup> <mrow> <mrow><mo>(</mo> <mrow> <mn>4</mn><mi>x</mi><mo>+</mo><mrow><mo>|</mo> <mrow> <mi>x</mi><mo>−</mo><mi>a</mi> </mrow> <mo>|</mo></mrow><mo>−</mo><mrow><mo>|</mo> <mrow> <mn>3</mn><mi>x</mi><mo>+</mo><mn>1</mn> </mrow> <mo>|</mo></mrow> </mrow> <mo>)</mo></mrow> </mrow> <mn>2</mn> </msup> <mo>−</mo><mrow><mo>(</mo> <mrow> <mi>a</mi><mo>+</mo><mn>1</mn> </mrow> <mo>)</mo></mrow><mrow><mo>(</mo> <mrow> <mn>4</mn><mi>x</mi><mo>+</mo><mrow><mo>|</mo> <mrow> <mi>x</mi><mo>−</mo><mi>a</mi> </mrow> <mo>|</mo></mrow><mo>−</mo><mrow><mo>|</mo> <mrow> <mn>3</mn><mi>x</mi><mo>+</mo><mn>1</mn> </mrow> <mo>|</mo></mrow> </mrow> <mo>)</mo></mrow><mo>+</mo><mn>1</mn><mo>=</mo><mn>0</mn> </mrow> </semantics> </math></p> <p class="MsoNormal">имеет ровно два различных корня.<span></span></p>  </section></div><p>КЭС: 2.10 Уравнения, неравенства и системы с параметрами</p><h2>Ответ</h2><p>a ∈ (−∞; −3) ∪ (1; 3/2) ∪ (3/2; +∞)</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Ввести замену t = 4x + |x−a| − |3x+1| и свести уравнение к квадратному относительно t</td><td>t^2 − (a+1)t + 1 = 0</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Исследовать монотонность и множество значений кусочно-линейной функции f(x)=4x+|x−a|−|3x+1| по наклонам на промежутках</td><td>Наклоны 0, 2, 6, 8; f неубывающая, область значений R; при a &gt; −1/3 f постоянна на [−1/3; a] и равна a−1, иначе строго возрастает; значит, каждое значение t ≠ a−1 даёт ровно один x, а t = a−1 (при a &gt; −1/3) — бесконечно много</td><td>kc2</td></tr><tr><td>s3 · s1, s2</td><td>Найти условие двух различных корней квадратного уравнения по дискриминанту</td><td>(a+1)^2 − 4 &gt; 0 ⇔ a &lt; −3 или a &gt; 1; при a = 1 и a = −3 один корень t, т.е. один x</td><td>kc3</td></tr><tr><td>s4 · s2, s3</td><td>Исключить значения a, при которых корень квадратного уравнения совпадает со значением t = a−1 на участке постоянства (при a &gt; −1/3)</td><td>Подстановка t = a−1: −2(a−1)+1 = 0 ⇒ a = 3/2 (&gt; −1/3) — исключить; при a &lt; −3 участка постоянства нет</td><td>kc4</td></tr><tr><td>s5 · s3, s4</td><td>Объединить условия и записать множество значений параметра</td><td>a &lt; −3, 1 &lt; a &lt; 3/2, a &gt; 3/2</td><td>kc4</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Замена и анализ числа прообразов монотонной кусочно-линейной функции&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;,
+      &quot;s5&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Ввести замену повторяющегося выражения</h3><p>Вход: уравнение, где одно выражение с переменной входит несколько раз. Операция: обозначить его новой переменной и получить более простое (например, квадратное) уравнение. Граница: требует последующего учёта числа прообразов каждого значения новой переменной.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Ввести замену t = 4x + |x−a| − |3x+1| и свести уравнение к квадратному относительно t&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;t^2 − (a+1)t + 1 = 0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+      &quot;reason&quot;: &quot;только замена t=b^x&gt;0 для показательных выражений&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_a30e088aef8f&quot;,
+      &quot;reason&quot;: &quot;только неотрицательная замена квадратного корня&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ab8a29be8367&quot;,
+      &quot;reason&quot;: &quot;подсчёт решений после замены u=x², а не введение замены произвольного повторяющегося выражения&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — обозначение повторяющегося выражения с модулями новой переменной и получение квадратного уравнения относительно неё. В каталоге есть только частные замены (показательная, корень, квадрат); общей замены повторяющегося выражения нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Обозначить повторяющееся в уравнении выражение новой переменной и переписать уравнение относительно неё; множество значений и число прообразов замены исследуются отдельно.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Исследовать кусочно-линейную функцию с модулями по наклонам</h3><p>Вход: сумма линейных функций и модулей линейных выражений. Операция: найти возможные угловые коэффициенты на промежутках, сделать вывод о монотонности, участках постоянства и множестве значений. Граница: для кусочно-линейных непрерывных функций.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Исследовать монотонность и множество значений кусочно-линейной функции f(x)=4x+|x−a|−|3x+1| по наклонам на промежутках&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;Наклоны 0, 2, 6, 8; f неубывающая, область значений R&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:action&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;,
+      &quot;reason&quot;: &quot;монотонность выводится по знаку производной, здесь — по угловым коэффициентам без дифференцирования&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_b0359174295e&quot;,
+      &quot;reason&quot;: &quot;раскрытие модуля по знаку — лишь компонент; вывод о монотонности, участке постоянства и множестве значений не входит&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Действие: по возможным наклонам непрерывной кусочно-линейной функции с параметром определить монотонность, участок постоянства (значение a−1 на [−1/3; a]) и множество значений. Проверено: наклоны 4±1±3 дают 0,2,6,8; значение на участке постоянства a−1 верно. Подходящего узла нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Для непрерывной кусочно-линейной функции с модулями линейных выражений найти угловые коэффициенты на промежутках и вывести монотонность, участки постоянства с их значением и множество значений.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Определить число корней квадратного уравнения с параметром по дискриминанту</h3><p>Вход: квадратное уравнение с параметром в коэффициентах. Операция: составить и решить неравенство или уравнение для дискриминанта. Граница: старший коэффициент не равен нулю.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;(a+1)^2 − 4 &gt; 0 ⇔ a &lt; −3 или a &gt; 1&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+      &quot;reason&quot;: &quot;нахождение корней при конкретных коэффициентах; подсчёт корней с параметром определение явно выносит отдельно&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_7a3b2e2d0b3a&quot;,
+      &quot;reason&quot;: &quot;дополнительно требует положительность корней, здесь её нет&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_1b97db4e28e8&quot;,
+      &quot;reason&quot;: &quot;решение неравенства (a+1)^2&gt;4 — компонент, а не составление условия на число корней&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — составить условие D&gt;0 для квадратного уравнения с параметром (старший коэффициент 1) и решить его относительно параметра. Каталог покрывает лишь соседние узлы.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Для квадратного уравнения с параметром при ненулевом старшем коэффициенте составить условие на дискриминант (D&gt;0, D=0, D&lt;0) по требуемому числу различных корней и решить его относительно параметра.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Подсчитать число решений исходного уравнения через корни вспомогательного</h3><p>Вход: корни вспомогательного уравнения и число прообразов каждого значения у функции замены. Операция: просуммировать количества прообразов, исключить значения параметра, при которых корень попадает в особое значение, и объединить условия. Граница: метод замены с известной структурой прообразов.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;Подстановка t = a−1: −2(a−1)+1 = 0 ⇒ a = 3/2 (&gt; −1/3) — исключить&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s5:action&quot;,
+      &quot;quote&quot;: &quot;Объединить условия и записать множество значений параметра&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s5:result&quot;,
+      &quot;quote&quot;: &quot;a &lt; −3, 1 &lt; a &lt; 3/2, a &gt; 3/2&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;,
+    &quot;step:s3:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ab8a29be8367&quot;,
+      &quot;reason&quot;: &quot;подсчёт прообразов только для u=x²&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_e41f0e408b87&quot;,
+      &quot;reason&quot;: &quot;соответствует только объединению случаев в s5&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+      &quot;reason&quot;: &quot;исключение значения 3/2 из найденного множества — компонент; перекрывается с literal_e41f0e408b87&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет (1) подсчёт решений исходного уравнения по числу прообразов корней вспомогательного, (2) нахождение параметра, при котором корень попадает в особое значение t=a−1 (подстановкой), (3) объединение/исключение для записи ответа. Части размечены на разных шагах s4 и s5. Расчёт a=3/2 проверен: (a−1)^2−(a+1)(a−1)+1=−2(a−1)+1.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Подсчитать число решений исходного уравнения как сумму числа прообразов корней вспомогательного&quot;,
+        &quot;possible_catalog_kc_id&quot;: null
+      },
+      {
+        &quot;part&quot;: &quot;Найти значения параметра, при которых корень вспомогательного уравнения равен особому значению (подстановкой)&quot;,
+        &quot;possible_catalog_kc_id&quot;: null
+      },
+      {
+        &quot;part&quot;: &quot;Объединить случаи и исключить значения параметра в записи ответа&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_e41f0e408b87 или set_intersection (неоднозначно)&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/1cce7c.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/1cce7c.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

@@ -1,0 +1,284 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>DBAF65</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><a href="../index.html">Сводка</a><h1>DBAF65</h1><p>sol50</p><p>Предварительные разборы, внешнего эталона нет.</p><h2>Условие</h2>Дайте развернутый ответ.<div><section>  <p class="MsoNormal">Пенсионный фонд владеет ценными бумагами, которые стоят <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <msup> <mi>t</mi> <mn>2</mn> </msup> </mrow>  </semantics> </mstyle></math> тыс. рублей в конце года <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>t</mi>  </semantics> </mstyle></math> ( <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>t</mi><mo>=</mo><mn>1</mn><mo>;</mo><mtext> </mtext><mn>2</mn><mo>;</mo><mtext> </mtext><mo>…</mo> </mrow>  </semantics> </mstyle></math> ). В конце любого года пенсионный фонд может продать ценные бумаги и положить деньги на счёт в банке, при этом в конце каждого следующего года сумма на счёте будет увеличиваться в <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mn>1</mn><mo>+</mo><mi>r</mi> </mrow>  </semantics> </mstyle></math> раз. Пенсионный фонд хочет продать ценные бумаги в конце такого года, чтобы <br> в конце двадцатого года сумма на его счёте была наибольшей. Расчёты показали, что для этого ценные бумаги нужно продавать строго в конце девятого года. При каких положительных значениях <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>r</mi>  </semantics> </mstyle></math> это возможно?<span></span></p>  </section></div><h2>Состав и исключения</h2><pre>{
+  &quot;complete&quot;: true,
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;author_mode&quot;: &quot;standalone_initial&quot;,
+  &quot;author_path&quot;: &quot;raw\\author\\DBAF65.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\DBAF65.json&quot;,
+  &quot;feedback_ref&quot;: null,
+  &quot;source_run&quot;: &quot;data/annotation/runs/2026-11-08-fipi-team-ThreeHundredsperSecond-50&quot;
+}</pre><h2>Буквальный сохранённый разбор: ответ, шаги, KC, методы</h2><pre>{
+  &quot;task_id&quot;: &quot;DBAF65&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;19/81 &lt; r &lt; 17/64&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Выразить итоговую сумму через год продажи.&quot;,
+      &quot;result&quot;: &quot;При продаже в конце целого года t, 1 ≤ t ≤ 20, сумма в конце двадцатого года равна S_t = t²(1+r)^(20−t) тыс. рублей; r &gt; 0.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Вычислить и исследовать отношение соседних итоговых сумм.&quot;,
+      &quot;result&quot;: &quot;Для t = 1,…,19 имеем S_(t+1)/S_t = (1+1/t)²/(1+r). Все суммы положительны. Отношение строго убывает по t, поскольку 1+1/t строго убывает и положительно.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Обосновать необходимые и достаточные условия единственного максимума в девятом году.&quot;,
+      &quot;result&quot;: &quot;Нужны S_9/S_8 &gt; 1 и S_10/S_9 &lt; 1. Они достаточны: из убывания отношений следует, что все отношения с t ≤ 8 больше 1, а с t ≥ 9 меньше 1. Поэтому суммы строго возрастают до девятого года и строго убывают после него.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;,
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Решить систему неравенств для ставки и проверить границы.&quot;,
+      &quot;result&quot;: &quot;Имеем (9/8)²/(1+r) &gt; 1 и (10/9)²/(1+r) &lt; 1. Так как 1+r &gt; 0, получаем 100/81 &lt; 1+r &lt; 81/64, то есть 19/81 &lt; r &lt; 17/64. Интервал непуст и положителен. При нижней границе S_9 = S_10, при верхней S_8 = S_9, поэтому границы исключены.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Выразить капитал при выборе момента вложения&quot;,
+      &quot;description&quot;: &quot;По стоимости актива в момент продажи, постоянному годовому множителю и конечному сроку выразить итоговую сумму как выручку, умноженную на степень множителя; показатель равен числу начислений после продажи.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Исследовать отношение соседних членов положительной последовательности&quot;,
+      &quot;description&quot;: &quot;По формуле положительной последовательности вычислить отношение следующего члена к предыдущему и установить его изменение по целочисленному индексу.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Обосновать единственный максимум через соседние отношения&quot;,
+      &quot;description&quot;: &quot;Для положительной последовательности со строго убывающими соседними отношениями установить единственный максимум во внутреннем члене по условиям: отношение к предыдущему больше единицы, а отношение следующего к нему меньше единицы.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Решить систему строгих рациональных неравенств&quot;,
+      &quot;description&quot;: &quot;При известной положительности знаменателя преобразовать рациональные неравенства в ограничения на параметр, пересечь интервалы с исходными условиями и проверить границы.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Оптимизация срока продажи по убывающим отношениям соседних сумм&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h2>Буквальный независимый аудит</h2><pre>{
+  &quot;task_id&quot;: &quot;DBAF65&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;При продаже в конце целого года t, 1 ≤ t ≤ 20, сумма в конце двадцатого года равна S_t = t²(1+r)^(20−t) тыс. рублей; r &gt; 0.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+          &quot;reason&quot;: &quot;Преобразование степеней не включает построение модели накопления и подсчёт начислений.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+          &quot;reason&quot;: &quot;Формула выводится из условия, а не дана для числовой подстановки.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_33060533660f&quot;,
+          &quot;reason&quot;: &quot;Нет затрат, выпуска и окупаемости; моделируется капитал после продажи актива.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;В s1 построена единая модель: стоимость продажи умножена на годовой множитель в степени числа оставшихся начислений. Полного соответствия в каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;По стоимости актива при продаже, постоянному годовому множителю и конечному сроку выразить итоговый капитал как выручку, умноженную на степень множителя, определив число начислений после продажи.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;Для t = 1,…,19 имеем S_(t+1)/S_t = (1+1/t)²/(1+r). Все суммы положительны. Отношение строго убывает по t, поскольку 1+1/t строго убывает и положительно.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+          &quot;reason&quot;: &quot;Описывает компонент вычисления отношения, но не доказательство его убывания.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_7570fa06d474&quot;,
+          &quot;reason&quot;: &quot;Сокращение общего ненулевого множителя является лишь компонентом вычисления отношения.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;,
+          &quot;reason&quot;: &quot;В решении нет производной: исследуется дискретный индекс.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Вычисление отношения и доказательство его строгого убывания являются разными действиями; один узкий алгебраический KC не покрывает весь кандидат.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;definition&quot;: &quot;Вычислить и упростить отношение соседних членов положительной последовательности.&quot;,
+            &quot;possible_catalog_kc_ids&quot;: [
+              &quot;power_laws&quot;,
+              &quot;literal_7570fa06d474&quot;
+            ]
+          },
+          {
+            &quot;definition&quot;: &quot;Доказать убывание отношения по целочисленному индексу через убывание положительного выражения, сохранение порядка при возведении в квадрат и делении на положительную постоянную.&quot;,
+            &quot;possible_catalog_kc_ids&quot;: []
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;Нужны S_9/S_8 &gt; 1 и S_10/S_9 &lt; 1. Они достаточны: из убывания отношений следует, что все отношения с t ≤ 8 больше 1, а с t ≥ 9 меньше 1. Поэтому суммы строго возрастают до девятого года и строго убывают после него.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;,
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;global_interval_extreme&quot;,
+          &quot;reason&quot;: &quot;Определение требует установить экстремум и его значение на отрезке; здесь выводится критерий единственности максимального члена дискретной последовательности через соседние отношения.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;local_extreme_sign&quot;,
+          &quot;reason&quot;: &quot;Требует смены знака производной; здесь сравниваются соседние отношения с единицей.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;optimal_bound_attainment&quot;,
+          &quot;reason&quot;: &quot;Не выводится общая числовая граница с достигающим её объектом.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Два соседних сравнения распространены на весь диапазон индексов благодаря строгому убыванию отношений из s2. Полного определения такого необходимого и достаточного критерия в каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Для положительной последовательности со строго убывающими соседними отношениями доказать, что внутренний член является единственным максимумом тогда и только тогда, когда отношение к предыдущему больше единицы, а отношение следующего к нему меньше единицы.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;Имеем (9/8)²/(1+r) &gt; 1 и (10/9)²/(1+r) &lt; 1. Так как 1+r &gt; 0, получаем 100/81 &lt; 1+r &lt; 81/64, то есть 19/81 &lt; r &lt; 17/64. Интервал непуст и положителен. При нижней границе S_9 = S_10, при верхней S_8 = S_9, поэтому границы исключены.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s2:result&quot;,
+        &quot;step:s3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a78667313aa3&quot;,
+          &quot;reason&quot;: &quot;Покрывает решение каждого рационального неравенства при положительном знаменателе, но не пересечение системы и проверку границ в модели.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+          &quot;reason&quot;: &quot;Покрывает совмещение ограничений, но не их вывод.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a873d91378ab&quot;,
+          &quot;reason&quot;: &quot;Покрывает граничные проверки, но не решение системы.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_e41f0e408b87&quot;,
+          &quot;reason&quot;: &quot;Сборка множества параметров с границами не включает преобразование исходных рациональных неравенств.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат объединяет решение неравенств с положительным знаменателем, пересечение ограничений с r&gt;0 и проверку граничных ставок на единственность максимума.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;definition&quot;: &quot;Решить каждое рациональное неравенство умножением на положительный знаменатель 1+r.&quot;,
+            &quot;possible_catalog_kc_ids&quot;: [
+              &quot;literal_a78667313aa3&quot;
+            ]
+          },
+          {
+            &quot;definition&quot;: &quot;Пересечь ограничения на ставку с исходным условием r&gt;0.&quot;,
+            &quot;possible_catalog_kc_ids&quot;: [
+              &quot;set_intersection&quot;
+            ]
+          },
+          {
+            &quot;definition&quot;: &quot;Проверить граничные ставки в модели и исключить их из-за равенства соседних сумм.&quot;,
+            &quot;possible_catalog_kc_ids&quot;: [
+              &quot;literal_a873d91378ab&quot;
+            ]
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre><h2>Исторические редакторские назначения</h2><pre>[]</pre><p><a href="../../../runs/2026-11-08-fipi-team-ThreeHundredsperSecond-50/raw/author/DBAF65.json">author raw</a> · <a href="../../../runs/2026-11-08-fipi-team-ThreeHundredsperSecond-50/raw/auditor/DBAF65.json">auditor raw</a></p><pre>{
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;source_policy_included&quot;: true,
+  &quot;source_policy_exclusion_reasons&quot;: []
+}</pre></html>

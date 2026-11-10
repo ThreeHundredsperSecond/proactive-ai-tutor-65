@@ -843,13 +843,15 @@ table([{'ID':c['task_id'],'Контекст задачи':c['context_label'],
     assert len(toc)==10
     cells[0].source=cells[0].source.split('### Содержание')[0]+'### Содержание\n\n'+'\n'.join(toc)
 
-    return cells
+    from checkpoint2_current import update_cells
+    return update_cells(cells)
 
 
 def build():
     import nbformat as nb
     from nbclient import NotebookClient
     notebook=nb.v4.new_notebook(cells=consolidated_cells(),metadata={
+        'analysis_population':{'selected':315,'included':312},
         'kernelspec':{'display_name':'Python 3','language':'python','name':'python3'},'language_info':{'name':'python'}})
     DEST.mkdir(parents=True,exist_ok=True)
     oldpath=os.environ.get('PATH','');os.environ['PATH']=str(Path(sys.executable).parent)+os.pathsep+oldpath

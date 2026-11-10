@@ -1,0 +1,282 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>CFEFEF</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>16. ФИПИ CFEFEF</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Из набора цифр 0, 1, 2, 3, 5, 7 и 9 составляют пару чисел, используя каждую цифру ровно один раз. Оказалось, что одно из этих чисел четырёхзначное, другое <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> трёхзначное и оба кратны 45.</p> <p class="MsoNormal">а) Может ли сумма такой пары чисел равняться 2205?</p> <p class="MsoNormal">б) Может ли сумма такой пары чисел равняться 3435?</p> <p class="MsoNormal">в) Какое наибольшее значение может принимать сумма чисел в такой паре?<span></span></p>  </section></div><p>КЭС: 1.1 Натуральные и целые числа. Признаки делимости целых чисел</p><h2>Ответ</h2><p>а) Да: 1935 + 270 = 2205. б) Нет. в) 10035.</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Вывести ограничения из кратности 45.</td><td>45 = 5·9, множители взаимно просты. Каждое число оканчивается на 0 или 5 и имеет сумму цифр, кратную 9. Из-за однократного использования цифр окончания двух чисел — 0 и 5 в некотором порядке.</td><td>k1</td></tr><tr><td>s2 · condition, s1</td><td>Построить и проверить пару с суммой 2205.</td><td>1935 + 270 = 2205. Все заданные цифры использованы ровно один раз, числа четырёхзначное и трёхзначное. Суммы цифр равны 18 и 9, окончания — 5 и 0; оба числа кратны 45. Ответ на пункт а: да.</td><td>k2</td></tr><tr><td>s3 · condition, s1</td><td>Проверить необходимое условие делимости суммы 3435.</td><td>Сумма двух кратных 45 чисел кратна 9. Сумма цифр числа 3435 равна 15, поэтому оно не кратно 9. Ответ на пункт б: нет.</td><td>k3</td></tr><tr><td>s4 · condition, s1</td><td>Получить достижимую оценку и ограничить первую цифру четырёхзначного числа.</td><td>Пара 9720 и 315 использует все заданные цифры по одному разу; суммы цифр 18 и 9, окончания 0 и 5 обеспечивают кратность 45. Сумма равна 10035. Если первая цифра четырёхзначного числа меньше 9, она не больше 7. Тогда четырёхзначное число меньше 8000, трёхзначное меньше 1000, сумма меньше 9000. Следовательно, в максимальной паре четырёхзначное число начинается с 9.</td><td>k2, k4</td></tr><tr><td>s5 · condition, s1, s4</td><td>Максимизировать сумму при окончании четырёхзначного числа на 0.</td><td>Число имеет вид 9ab0, цифры a и b различны и выбраны из 1, 2, 3, 7. Кратность 9 требует, чтобы a+b делилось на 9. Среди пар этих цифр подходит только 2 и 7. Для трёхзначного числа остаются 1, 3, 5 с обязательным окончанием 5 и суммой цифр 9. Максимальные числа при независимом выборе порядка свободных цифр — 9720 и 315, сумма 10035.</td><td>k5, k6</td></tr><tr><td>s6 · condition, s1, s4, s5</td><td>Максимизировать сумму при окончании четырёхзначного числа на 5 и объединить случаи.</td><td>Число имеет вид 9ab5, цифры a и b различны и выбраны из 1, 2, 3, 7. Кратность 9 требует a+b ≡ 4 (mod 9). Возможны суммы 4 или 13; из заданных различных цифр подходит только пара 1 и 3 с суммой 4. Оставшиеся цифры трёхзначного числа — 2, 7, 0, сумма цифр равна 9. Наибольшие числа — 9315 и 720; сумма 10035. Оба возможных окончания рассмотрены, меньшие первые цифры исключены оценкой; общий максимум равен 10035.</td><td>k5, k6</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Проверка существования конструктивным примером&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;m2&quot;,
+    &quot;name&quot;: &quot;Исключение суммы по делимости&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s3&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;m3&quot;,
+    &quot;name&quot;: &quot;Оценка первой цифры и перебор окончаний&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s4&quot;,
+      &quot;s5&quot;,
+      &quot;s6&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="k1"><h3>k1 · Применить признаки делимости на взаимно простые множители</h3><p>Для требования кратности произведению взаимно простых множителей заменить его совместными требованиями кратности каждому множителю и выразить их через признаки делимости десятичной записи.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k1&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;45 = 5·9, множители взаимно просты. Каждое число оканчивается на 0 или 5 и имеет сумму цифр, кратную 9.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;Из-за однократного использования цифр окончания двух чисел — 0 и 5 в некотором порядке.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_e3fb5cdd2965&quot;,
+      &quot;reason&quot;: &quot;Определение относится к остаткам слагаемых и их количеству, а не к критерию делимости на произведение и признакам десятичной записи.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+      &quot;reason&quot;: &quot;Совмещение ограничений не охватывает вывод самих признаков делимости.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат соединяет переход от кратности произведению к двум кратностям и применение двух признаков делимости; дополнительно в шаге выведено распределение последних цифр между числами. Одного определения каталога на весь комплекс нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;definition&quot;: &quot;Заменить делимость на произведение взаимно простых целых множителей совместной делимостью на каждый множитель.&quot;,
+        &quot;catalog_kc_id&quot;: null
+      },
+      {
+        &quot;definition&quot;: &quot;Выразить делимость десятичного числа на 5 и на 9 через последнюю цифру и сумму цифр соответственно.&quot;,
+        &quot;catalog_kc_id&quot;: null
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="k2"><h3>k2 · Подтвердить существование пары явным примером</h3><p>Для заданного набора цифр и ограничений построить конкретную пару чисел и проверить использование цифр, разрядность, делимость и её сумму.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;integer_construction&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;1935 + 270 = 2205. Все заданные цифры использованы ровно один раз, числа четырёхзначное и трёхзначное. Суммы цифр равны 18 и 9, окончания — 5 и 0; оба числа кратны 45.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;Пара 9720 и 315 использует все заданные цифры по одному разу; суммы цифр 18 и 9, окончания 0 и 5 обеспечивают кратность 45. Сумма равна 10035.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_f6b803c5f9c2&quot;,
+      &quot;reason&quot;: &quot;Здесь проверяется существование пары, а в s4 ещё не доказана общая максимальная граница; требование этого узла о границе для максимума не выполнено.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;optimal_bound_attainment&quot;,
+      &quot;reason&quot;: &quot;Предъявление примера само по себе не содержит общей верхней границы.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Явно предъявлены целые числа и проверены все ограничения на цифры, разрядность, кратность и сумму. Это полностью соответствует построению целочисленного примера; оптимальность данному кандидату не приписывается.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="k3"><h3>k3 · Исключить сумму по необходимому условию делимости</h3><p>Из кратности обоих слагаемых общему делителю вывести кратность суммы и исключить предложенное значение, нарушающее это условие.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k3&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;Сумма двух кратных 45 чисел кратна 9. Сумма цифр числа 3435 равна 15, поэтому оно не кратно 9. Ответ на пункт б: нет.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_e3fb5cdd2965&quot;,
+      &quot;reason&quot;: &quot;Покрывает получение необходимого ограничения по модулю для двух слагаемых с остатками 0, но не проверку десятичного числа признаком делимости и весь составной кандидат.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_29920cf036ec&quot;,
+      &quot;reason&quot;: &quot;Не предъявляется контрпример к импликации: доказывается невозможность предложенной суммы.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдаются два связанных действия: вывод кратности суммы и проверка нарушения условия конкретным числом по сумме цифр. Узел про сравнения покрывает только первый компонент.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;definition&quot;: &quot;Из нулевых остатков обоих слагаемых по модулю 9 получить нулевой остаток суммы как необходимое условие.&quot;,
+        &quot;catalog_kc_id&quot;: &quot;literal_e3fb5cdd2965&quot;
+      },
+      {
+        &quot;definition&quot;: &quot;Проверить делимость десятичного числа на 9 по сумме цифр и отвергнуть значение, нарушающее необходимое условие.&quot;,
+        &quot;catalog_kc_id&quot;: null
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="k4"><h3>k4 · Ограничить старшую цифру достижимой оценкой</h3><p>Имея допустимую пару с известной суммой, оценить сверху суммы при меньших старших цифрах и исключить значения, не достигающие известной суммы.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k4&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;Если первая цифра четырёхзначного числа меньше 9, она не больше 7. Тогда четырёхзначное число меньше 8000, трёхзначное меньше 1000, сумма меньше 9000. Следовательно, в максимальной паре четырёхзначное число начинается с 9.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s4:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;optimal_bound_attainment&quot;,
+      &quot;reason&quot;: &quot;Верхняя оценка относится только к исключаемому подклассу с меньшей первой цифрой; общая оптимальная граница здесь ещё не доказана.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;finite_exhaustion&quot;,
+      &quot;reason&quot;: &quot;Меньшие цифры исключаются общей разрядной оценкой, а не рассмотрением каждого целочисленного случая.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_159daa67ec43&quot;,
+      &quot;reason&quot;: &quot;Узел требует проверки вершины функции относительно области; здесь нет ни вершины, ни такого исследования границы.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Использованы допустимый пример с суммой 10035 и разрядные верхние оценки сумм при первой цифре не выше 7. Каталог не содержит определения исключения подкласса оптимизационной задачи через сравнение его оценки с уже достижимым значением.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Имея допустимый объект с известным значением целевой функции, получить верхнюю оценку для выделенного подкласса объектов и исключить этот подкласс из поиска максимума, если оценка меньше достижимого значения.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="k5"><h3>k5 · Отобрать наборы цифр по условию на их сумму</h3><p>При фиксированных отдельных разрядах перевести признак делимости в условие на сумму оставшихся цифр и отобрать удовлетворяющие ему наборы без повторений из конечного списка.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k5&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s5:result&quot;,
+      &quot;quote&quot;: &quot;Кратность 9 требует, чтобы a+b делилось на 9. Среди пар этих цифр подходит только 2 и 7.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s6:result&quot;,
+      &quot;quote&quot;: &quot;Кратность 9 требует a+b ≡ 4 (mod 9). Возможны суммы 4 или 13; из заданных различных цифр подходит только пара 1 и 3 с суммой 4.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;,
+    &quot;step:s4:result&quot;,
+    &quot;step:s5:result&quot;,
+    &quot;step:s6:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;finite_exhaustion&quot;,
+      &quot;reason&quot;: &quot;Покрывает отбор из конечного набора пар, но не перевод десятичного признака делимости в условие на сумму свободных цифр.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_e3fb5cdd2965&quot;,
+      &quot;reason&quot;: &quot;Связан с модульным ограничением на сумму, но не описывает признак делимости десятичной записи и отбор пар без повторений целиком.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Сначала из фиксированных разрядов выводятся ограничения на a+b, затем проверяются конечные пары различных цифр. Это разные действия; конечный отбор не покрывает получение ограничения.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;definition&quot;: &quot;При фиксированных цифрах десятичного числа преобразовать условие кратности 9 в условие на сумму свободных цифр.&quot;,
+        &quot;catalog_kc_id&quot;: null
+      },
+      {
+        &quot;definition&quot;: &quot;Перебрать пары различных цифр из заданного конечного набора и оставить все удовлетворяющие установленному условию на сумму.&quot;,
+        &quot;catalog_kc_id&quot;: &quot;finite_exhaustion&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="k6"><h3>k6 · Максимизировать числа перестановкой свободных цифр</h3><p>Для фиксированного набора цифр и обязательных разрядов расположить свободные цифры по убыванию разрядного веса; при независимых перестановках в двух числах сложить отдельные максимумы и сравнить исчерпывающие случаи.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k6&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s5:result&quot;,
+      &quot;quote&quot;: &quot;Максимальные числа при независимом выборе порядка свободных цифр — 9720 и 315, сумма 10035.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s6:result&quot;,
+      &quot;quote&quot;: &quot;Наибольшие числа — 9315 и 720; сумма 10035. Оба возможных окончания рассмотрены, меньшие первые цифры исключены оценкой; общий максимум равен 10035.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;,
+    &quot;step:s4:result&quot;,
+    &quot;step:s5:result&quot;,
+    &quot;step:s6:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;finite_exhaustion&quot;,
+      &quot;reason&quot;: &quot;Охватывает завершение разбора двух окончаний, но не максимизацию перестановкой цифр.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;optimal_bound_attainment&quot;,
+      &quot;reason&quot;: &quot;Подходит к итоговому доказательному компоненту с учётом s4–s6, но не к способу получения максимумов через разрядные веса.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;global_interval_extreme&quot;,
+      &quot;reason&quot;: &quot;Узел относится к функции на отрезке и её критическим точкам; здесь конечные перестановки цифр.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет максимизацию десятичной записи перестановкой свободных цифр, сложение независимых максимумов и доказательство глобальности по исчерпывающим случаям. Ни один узел не охватывает весь комплекс.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;definition&quot;: &quot;При фиксированных наборах цифр и закреплённых разрядах максимизировать десятичные числа размещением больших свободных цифр в разрядах большего веса; при независимом выборе перестановок сложить максимумы.&quot;,
+        &quot;catalog_kc_id&quot;: null
+      },
+      {
+        &quot;definition&quot;: &quot;Рассмотреть оба допустимых окончания после исключения меньших первых цифр и сопоставить максимумы случаев.&quot;,
+        &quot;catalog_kc_id&quot;: &quot;finite_exhaustion&quot;
+      },
+      {
+        &quot;definition&quot;: &quot;Заключить об общей верхней границе суммы и её достижимости допустимой парой.&quot;,
+        &quot;catalog_kc_id&quot;: &quot;optimal_bound_attainment&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[
+  &quot;Предварительная предметная интерпретация, не экспертный эталон и не оценка ученика.&quot;
+]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;source_path&quot;: &quot;data/fipi/2026-10-31-profile/tasks/CFEFEF.json&quot;,
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\CFEFEF.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\CFEFEF.json&quot;
+}</pre></html>

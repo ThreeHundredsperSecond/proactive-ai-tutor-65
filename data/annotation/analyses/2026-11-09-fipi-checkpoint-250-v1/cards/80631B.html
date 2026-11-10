@@ -1,0 +1,268 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>80631B</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><a href="../index.html">Сводка</a><h1>80631B</h1><p>Opus100</p><p>Предварительные разборы, внешнего эталона нет.</p><h2>Условие</h2>Впишите правильный ответ.<div><section>  <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0"> <tr> <td valign="top"> <p class="MsoNormal">Конус вписан в шар. Радиус основания конуса равен радиусу шара. Объём шара равен 60. Найдите объём конуса.</p> </td> <td valign="top"> <p class="MsoNormal" align="right"><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/d6bf582bdab4b07d32f77c40.png" alt="Рисунок ФИПИ"></p> </td> </tr> </table> <p class="MsoNormal"><span> </span></p>  </section></div><h2>Состав и исключения</h2><pre>{
+  &quot;complete&quot;: true,
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;author_mode&quot;: &quot;standalone_initial&quot;,
+  &quot;author_path&quot;: &quot;data\\annotation\\runs\\2026-11-07-fipi-team-bogdan108-051-150\\raw\\author\\80631B.json&quot;,
+  &quot;auditor_path&quot;: &quot;data\\annotation\\runs\\2026-11-07-fipi-team-bogdan108-051-150\\raw\\auditor\\80631B.json&quot;,
+  &quot;feedback_ref&quot;: null,
+  &quot;source_run&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150&quot;
+}</pre><h2>Буквальный сохранённый разбор: ответ, шаги, KC, методы</h2><pre>{
+  &quot;task_id&quot;: &quot;80631B&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;15&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Используя то, что окружность основания и вершина вписанного конуса лежат на сфере, а радиус основания равен радиусу шара R, установить, что основание — большой круг с центром в центре шара, а вершина лежит на сфере на перпендикулярной к основанию оси через центр; отсюда высота конуса h = R.&quot;,
+      &quot;result&quot;: &quot;r = R, h = R&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Выразить объёмы через R: V_шара = (4/3)πR³, V_конуса = (1/3)πr²h = (1/3)πR³; найти отношение V_конуса : V_шара = 1/4 и по известному объёму шара вычислить объём конуса.&quot;,
+      &quot;result&quot;: &quot;V_конуса = 60/4 = 15&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;,
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Определить размеры конуса, вписанного в шар, по соотношению его радиуса основания с радиусом шара&quot;,
+      &quot;description&quot;: &quot;Вход: конус, вписанный в шар (окружность основания и вершина на сфере), и заданное соотношение радиуса основания и радиуса шара. Операция: по расстоянию от центра шара до плоскости основания (через теорему Пифагора для сечения) и положению вершины на оси найти высоту конуса; при равенстве радиусов основание проходит через центр шара и высота равна радиусу. Граница: только комбинации вписанного конуса и шара с осевой симметрией.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Выразить объёмы шара и конуса через общие линейные параметры&quot;,
+      &quot;description&quot;: &quot;Вход: линейные размеры шара и конуса, выраженные через общий параметр. Операция: подставить их в формулы V = (4/3)πR³ для шара и V = (1/3)πr²h для конуса. Граница: тела, размеры которых уже связаны между собой; не включает нахождение этих связей.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Найти неизвестный объём через отношение объёмов с общим параметром&quot;,
+      &quot;description&quot;: &quot;Вход: два выражения объёмов через один и тот же параметр и числовое значение одного из объёмов. Операция: составить отношение выражений, в котором параметр сокращается, и умножить известный объём на это отношение. Граница: применимо, когда оба выражения пропорциональны одной и той же степени параметра.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Связать размеры вписанного конуса с радиусом шара, выразить оба объёма через радиус и найти объём конуса через отношение объёмов&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: [
+    &quot;Рисунок согласуется с условием: основание конуса изображено как большой круг шара с отмеченным центром, вершина — на сфере над центром; числовых данных на рисунке нет.&quot;
+  ]
+}</pre><h2>Буквальный независимый аудит</h2><pre>{
+  &quot;task_id&quot;: &quot;80631B&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;установить, что основание — большой круг с центром в центре шара&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;отсюда высота конуса h = R&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;r = R, h = R&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;image:assets/d6bf582bdab4b07d32f77c40.png&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_1c069a073c08&quot;,
+          &quot;reason&quot;: &quot;Связывает радиус, высоту и образующую внутри одного конуса через осевое сечение; здесь же действие — вывести размеры конуса из его положения относительно шара (вписанность), образующая не используется.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;pythagoras&quot;,
+          &quot;reason&quot;: &quot;Теорема Пифагора для расстояния от центра шара до плоскости основания в шаге s1 не выполнена: вывод о большом круге сделан без вычисления; приписывать это действие без наблюдения нельзя.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fe8297102f74&quot;,
+          &quot;reason&quot;: &quot;Касается серединного перпендикуляра к отрезку на плоскости; равноудалённость точек сферы от центра здесь следует из определения шара/сферы, а не из этого ГМТ.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a1cdbef72a14&quot;,
+          &quot;reason&quot;: &quot;Координатное задание фигуры в решении не используется.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: по условию вписанности конуса в шар (окружность основания и вершина на сфере) и равенству r = R из условия установить, что плоскость основания проходит через центр шара (основание — большой круг), а вершина на оси через центр, и получить h = R. Объект — комбинация тел конус–шар. В каталоге нет узла о размерах тел в комбинации «вписанный конус — шар»; ближайшие узлы относятся к параметрам одного конуса или к общим планиметрическим фактам. Наблюдается только частный случай r = R; общая часть описания кандидата (Пифагор для расстояния до плоскости основания) в этой задаче не выполнена, поэтому предложение сужено до наблюдаемого действия. Рисунок согласуется: вершина изображена над отмеченным центром, основание — эллипс большого круга. Математически вывод h = R верен.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Определять размеры прямого кругового конуса, вписанного в шар, по соотношению радиуса основания и радиуса шара&quot;,
+        &quot;definition&quot;: &quot;Для прямого кругового конуса, окружность основания и вершина которого лежат на сфере радиуса R, по заданному соотношению радиуса основания r и R установить положение плоскости основания относительно центра шара и положение вершины на оси, затем найти высоту конуса. В частном случае r = R основание — большой круг и h = R. Вычисление расстояния до плоскости основания по теореме Пифагора при r &lt; R размечается отдельно (pythagoras) и в данной задаче не наблюдается.&quot;,
+        &quot;observed_in&quot;: [
+          &quot;step:s1:action&quot;,
+          &quot;step:s1:result&quot;
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;,
+        &quot;i2&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;V_шара = (4/3)πR³&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;V_конуса = (1/3)πr²h = (1/3)πR³&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;pyramid_volume&quot;,
+          &quot;reason&quot;: &quot;Определение ограничено пирамидой (включая тетраэдр); конус в нём не упомянут, а формула объёма шара к нему не относится.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_19971b364ca1&quot;,
+          &quot;reason&quot;: &quot;Объём призмы — другое тело и другая формула.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_e97bf0e03da7&quot;,
+          &quot;reason&quot;: &quot;Площадь боковой поверхности конуса, а не объём.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+          &quot;reason&quot;: &quot;Узел про подстановку данных в формулу, заданную в условии; здесь формулы объёмов не даны в условии, а вспоминаются решателем, подстановка символьная (r = R, h = R).&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат объединяет два самостоятельных действия — применение формулы объёма шара и формулы объёма конуса для разных тел; гранулярность каталога (отдельные узлы pyramid_volume, literal_19971b364ca1) — по одной формуле на тело. Подстановка r = R, h = R опирается на результат s1 (входное состояние, не переносится в этот кандидат). Ни для одной из частей в каталоге нет подходящего узла: pyramid_volume близок по структуре V = Sh/3, но определён только для пирамиды. Вычисления верны: (1/3)πR²·R = (1/3)πR³.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;part_id&quot;: &quot;kc2.a&quot;,
+            &quot;action&quot;: &quot;Выразить объём шара через его радиус: V = (4/3)πR³.&quot;,
+            &quot;evidence_ref&quot;: &quot;step:s2:action&quot;,
+            &quot;possible_catalog_kc_id&quot;: null,
+            &quot;note&quot;: &quot;Подходящего узла нет; кандидат на новый узел «Вычислять объём шара».&quot;
+          },
+          {
+            &quot;part_id&quot;: &quot;kc2.b&quot;,
+            &quot;action&quot;: &quot;Выразить объём кругового конуса через радиус основания и высоту: V = (1/3)πr²h, с подстановкой ранее установленных r = R, h = R.&quot;,
+            &quot;evidence_ref&quot;: &quot;step:s2:action&quot;,
+            &quot;possible_catalog_kc_id&quot;: null,
+            &quot;note&quot;: &quot;Ближайший pyramid_volume определён только для пирамиды; кандидат на новый узел «Вычислять объём конуса» или на редакционное расширение pyramid_volume — решение за каталогом.&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;найти отношение V_конуса : V_шара = 1/4 и по известному объёму шара вычислить объём конуса&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;V_конуса = 60/4 = 15&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;similar_area&quot;,
+          &quot;reason&quot;: &quot;Отношение площадей подобных фигур через квадрат коэффициента подобия; конус и шар не подобны, отношение получено делением выражений объёмов, а не через коэффициент подобия.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_89184e5e6ac9&quot;,
+          &quot;reason&quot;: &quot;Предполагает вычисление вспомогательного параметра и затем искомой величины; здесь параметр R (или πR³) не находится, а исключается сокращением в отношении.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+          &quot;reason&quot;: &quot;Уравнение относительно неизвестной в шаге не составлено и не решается; выполняется умножение известного объёма на отношение.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+          &quot;reason&quot;: &quot;Нет заданной в условии формулы, в которую подставляются данные.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: составить отношение двух выражений объёмов, зависящих от R в одной и той же степени (R³), сократить параметр, получить 1/4 и умножить известный объём шара 60 (из условия) на это отношение. Объект — пара выражений с общим параметром и одно числовое значение. В каталоге нет узла об исключении общего параметра через отношение; ближайшие узлы требуют подобия или явного нахождения параметра. Это небольшое действие, близкое к пропорциональному рассуждению; самостоятельность узла — редакционный вопрос, поэтому это лишь предложение. Арифметика верна: (1/3)/(4/3) = 1/4, 60/4 = 15.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Находить неизвестную величину через отношение выражений с общим параметром&quot;,
+        &quot;definition&quot;: &quot;Для двух величин, выраженных через один и тот же параметр в одной и той же степени, при известном значении одной из них составить отношение выражений, сократить параметр (без его нахождения) и умножить известное значение на полученное отношение. Не включает вывод самих выражений и подобие фигур.&quot;,
+        &quot;observed_in&quot;: [
+          &quot;step:s2:action&quot;,
+          &quot;step:s2:result&quot;
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;boundary&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s1:action&quot;
+      ],
+      &quot;description&quot;: &quot;Описание кандидата kc1 включает общий случай с вычислением расстояния от центра шара до плоскости основания по теореме Пифагора, но в s1 наблюдается только частный случай r = R: вывод «основание — большой круг» сформулирован без явного вычисления (неявно d = √(R² − r²) = 0). Пифагор в этой задаче не должен считаться наблюдаемым; предложение по kc1 сужено.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;i2&quot;,
+      &quot;kind&quot;: &quot;boundary&quot;,
+      &quot;refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:action&quot;,
+        &quot;image:assets/d6bf582bdab4b07d32f77c40.png&quot;
+      ],
+      &quot;description&quot;: &quot;s1 использует, что вершина лежит на оси, перпендикулярной основанию и проходящей через его центр; это верно для прямого кругового конуса (школьное соглашение), в условии слово «прямой» явно не указано. Рисунок согласуется: вершина изображена на сфере над отмеченным центром основания. На ответ не влияет: обе точки оси на сфере дают h = R.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc1&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre><h2>Исторические редакторские назначения</h2><pre>[]</pre><p><a href="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/80631B.json">author raw</a> · <a href="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/80631B.json">auditor raw</a></p><pre>{
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;source_policy_included&quot;: true,
+  &quot;source_policy_exclusion_reasons&quot;: []
+}</pre></html>

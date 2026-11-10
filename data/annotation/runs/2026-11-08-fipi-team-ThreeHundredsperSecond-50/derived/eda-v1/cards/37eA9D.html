@@ -1,0 +1,73 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>37eA9D</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>33. ФИПИ 37eA9D</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Найдите корень уравнения <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msup> <mn>3</mn> <mrow> <mi>x</mi><mtext> </mtext><mo>−</mo><mtext> </mtext><mn>5</mn> </mrow> </msup> <mtext> </mtext><mo>=</mo><mfrac> <mn>1</mn> <mrow> <mn>27</mn> </mrow> </mfrac> </mrow> </semantics> </math>.<span></span></p>  </section></div><p>КЭС: 2.4 Показательные и логарифмические уравнения</p><h2>Ответ</h2><p>2</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Представить правую часть степенью с основанием 3 и приравнять показатели.</td><td>1/27 = 3^(-3). Поскольку функция 3^t строго возрастает на всей числовой прямой, уравнение равносильно x - 5 = -3; ограничений на действительный x нет.</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Решить линейное уравнение относительно неизвестного.</td><td>Из x - 5 = -3 получаем единственный корень x = 2.</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Приведение степеней к общему основанию и решение равенства показателей&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Свести показательное уравнение к равенству показателей</h3><p>Для равенства степеней привести обе части к общему положительному основанию, отличному от единицы, и использовать инъективность показательной функции для получения равносильного равенства показателей.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;1/27 = 3^(-3). Поскольку функция 3^t строго возрастает на всей числовой прямой, уравнение равносильно x - 5 = -3; ограничений на действительный x нет.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+      &quot;reason&quot;: &quot;Преобразование правой части в степень является компонентом; определение не охватывает переход от равенства степеней к равенству показателей.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+      &quot;reason&quot;: &quot;Новая переменная t=b^x не вводится; используется инъективность при общем основании.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;Линейное равенство только получено; его решение вынесено в s2 и исключено из границ этого кандидата.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В s1 правая часть представлена как степень основания 3&gt;0, 3≠1; левая степень задана условием. Строгая монотонность обосновывает равносильное приравнивание показателей на всей действительной прямой. Это полностью совпадает с определением exponential_equation, без включения последующего решения линейного уравнения.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Решить линейное уравнение с числовыми коэффициентами</h3><p>Для уравнения первой степени с числовыми коэффициентами выполнить равносильные преобразования и найти значение неизвестного при ненулевом коэффициенте при нём.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;Из x - 5 = -3 получаем единственный корень x = 2.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+      &quot;reason&quot;: &quot;Снятие показательной зависимости выполнено в s1; s2 решает уже полученное аффинное равенство.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0cf8af170957&quot;,
+      &quot;reason&quot;: &quot;Этот узел определён для линейного неравенства, тогда как здесь решается равенство.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Входом служит полученное в s1 равенство x - 5 = -3 с числовыми коэффициентами и ненулевым коэффициентом при x. В s2 найдено полное множество решений — единственное значение 2. Составление модели и снятие степени в это действие не переносятся.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;source_path&quot;: &quot;data/fipi/2026-10-31-profile/tasks/37eA9D.json&quot;,
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\37eA9D.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\37eA9D.json&quot;
+}</pre></html>

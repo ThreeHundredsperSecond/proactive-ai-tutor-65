@@ -1,0 +1,156 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>891127</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>38. ФИПИ 891127</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">На рисунке изображён график <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>y</mi><mo>=</mo><mi>f</mi><mo>'</mo><mrow><mo>(</mo> <mi>x</mi> <mo>)</mo></mrow> </mrow> </semantics> </math> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> производной функции <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>f</mi><mrow><mo>(</mo> <mi>x</mi> <mo>)</mo></mrow><mo>,</mo> </mrow> </semantics> </math> определённой на интервале <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mrow><mo>(</mo> <mrow> <mo>−</mo><mtext> </mtext><mn>20</mn><mo>;</mo><mtext> </mtext><mn>4</mn> </mrow> <mo>)</mo></mrow><mo>.</mo> </mrow> </semantics> </math> Найдите количество точек экстремума функции <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>f</mi><mrow><mo>(</mo> <mi>x</mi> <mo>)</mo></mrow><mo>,</mo> </mrow> </semantics> </math> принадлежащих отрезку <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mrow><mo>[</mo> <mrow> <mo>−</mo><mtext> </mtext><mn>16</mn><mo>;</mo><mtext> </mtext><mn>1</mn> </mrow> <mo>]</mo></mrow><mo>.</mo> </mrow> </semantics> </math></p> <p class="MsoNormal" align="center"><img src="../../../inputs/assets/8a6064bd46269787e9ae684b.png" alt="Рисунок ФИПИ"><span></span></p>  </section></div><p>КЭС: 4.2 Применение производной к исследованию функций на монотонность и экстремумы. Нахождение наибольшего и наименьшего значения функции на отрезке</p><h2>Ответ</h2><p>5</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Выделить на графике производной нули, принадлежащие заданному отрезку, и определить знаки по сторонам от них.</td><td>На отрезке [-16; 1] график f′ пересекает ось абсцисс в пяти точках: x = -14, -12, -9, -4, -2. При движении слева направо знаки производной последовательно равны −, +, −, +, −, +. На концах отрезка производная ненулевая.</td><td>k1</td></tr><tr><td>s2 · condition, s1</td><td>Применить признак экстремума по смене знака производной и подсчитать подходящие точки.</td><td>В каждой из пяти найденных точек производная меняет знак, поэтому все они являются точками экстремума f. Других нулей производной на отрезке нет; количество точек экстремума равно 5.</td><td>k2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Подсчёт смен знака производной по графику на заданном отрезке&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="k1"><h3>k1 · Определять нули и знаки функции по графику на заданном промежутке</h3><p>По графику функции и границам промежутка находить пересечения с осью абсцисс и устанавливать знак функции между ними; учитывать включение граничных точек. Применимо, когда положение графика относительно оси различимо.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k1&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Выделить на графике производной нули, принадлежащие заданному отрезку, и определить знаки по сторонам от них.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;На отрезке [-16; 1] график f′ пересекает ось абсцисс в пяти точках: x = -14, -12, -9, -4, -2.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;При движении слева направо знаки производной последовательно равны −, +, −, +, −, +.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;image:assets/8a6064bd46269787e9ae684b.png&quot;,
+      &quot;region_description&quot;: &quot;На координатной сетке между вертикалями x=-16 и x=1 кривая y=f′(x) пересекает горизонтальную ось в пяти местах: -14, -12, -9, -4, -2; участки кривой чередуются ниже и выше оси. На вертикалях концов указанного отрезка кривая не лежит на оси.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;graph_coordinates&quot;,
+      &quot;reason&quot;: &quot;Покрывает чтение абсцисс явно заданных пересечений по сетке, но не определение знаков между ними и отбор по промежутку.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;stationary_point&quot;,
+      &quot;reason&quot;: &quot;Покрывает поиск нулей производной на допустимой области и отбор на промежутке, но не чтение знаков; пересекается с графическим чтением нулей, не покрывая всего кандидата.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9aee0783618d&quot;,
+      &quot;reason&quot;: &quot;Соответствует чтению знаков и направлений смены знака производной, но не всему составному действию с точными координатами и границами.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_8409c9003f48&quot;,
+      &quot;reason&quot;: &quot;Покрывает отбор конечного набора нулей по границам, а не их графическое нахождение и знаки.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6ad8f502588e&quot;,
+      &quot;reason&quot;: &quot;Также применим к отбору точек по промежутку; эта часть перекрывается с отбором конечного набора корней, но не покрывает кандидата целиком.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет чтение нулей по графику, проверку принадлежности отрезку и чтение знаков. Все три операции видны в s1, однако ни одно определение каталога не охватывает их вместе. График позволяет проверить указанные пересечения и знаки; оснований блокировать разбиение из-за математической ошибки нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;definition&quot;: &quot;По координатной сетке считывать абсциссы пересечений графика производной с осью абсцисс.&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;graph_coordinates&quot;,
+          &quot;stationary_point&quot;
+        ],
+        &quot;note&quot;: &quot;Первый узел описывает графическое чтение, второй — поиск нулей именно производной вместе с отбором; при окончательном выборе требуется уточнить границу этих определений.&quot;
+      },
+      {
+        &quot;definition&quot;: &quot;Проверять принадлежность найденных нулей заданному отрезку с учётом его концов.&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;literal_8409c9003f48&quot;,
+          &quot;literal_6ad8f502588e&quot;
+        ],
+        &quot;note&quot;: &quot;Перекрывающиеся определения; не назначаются одновременно как независимые свидетельства.&quot;
+      },
+      {
+        &quot;definition&quot;: &quot;Считывать положение графика производной относительно оси и направления смены знака в нулях.&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;literal_9aee0783618d&quot;
+        ]
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="k2"><h3>k2 · Находить точки экстремума по смене знака производной</h3><p>По нулям и знакам производной дифференцируемой функции устанавливать точки локального максимума при смене плюса на минус и минимума при смене минуса на плюс. Отбирать точки в заданном промежутке и подсчитывать их.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k2&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Применить признак экстремума по смене знака производной и подсчитать подходящие точки.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;В каждой из пяти найденных точек производная меняет знак, поэтому все они являются точками экстремума f.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;Других нулей производной на отрезке нет; количество точек экстремума равно 5.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;local_extreme_sign&quot;,
+      &quot;reason&quot;: &quot;Покрывает переход от смены знака производной к локальному экстремуму. Направления смены даны в предыдущем шаге. Отбор и подсчёт точек в заданном промежутке в определение не входят.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6ad8f502588e&quot;,
+      &quot;reason&quot;: &quot;Покрывает подсчёт допустимых точек с учётом отбора, выполненного в s1, но не обоснование их экстремальности.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9aee0783618d&quot;,
+      &quot;reason&quot;: &quot;Чтение знаков уже выполнено в s1; s2 использует результат, а не заново читает график.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;stationary_point&quot;,
+      &quot;reason&quot;: &quot;Нахождение нулей само по себе не устанавливает экстремум; нули получены в предыдущем шаге.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;global_interval_extreme&quot;,
+      &quot;reason&quot;: &quot;Требуется количество локальных экстремумов, а не глобальное наибольшее или наименьшее значение на отрезке.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Описание k2 явно соединяет признак локального экстремума с отбором и подсчётом на промежутке. В s2 наблюдаются применение признака к пяти сменам знака и подсчёт; принадлежность отрезку установлена в s1 и используется как входное состояние. local_extreme_sign покрывает содержательную часть признака, но не весь составной кандидат. Отсутствие отдельной классификации максимумов и минимумов не мешает ответить на вопрос о числе всех экстремумов.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;definition&quot;: &quot;По установленной смене знака производной заключать, что точка является локальным экстремумом исходной функции.&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;local_extreme_sign&quot;
+        ],
+        &quot;note&quot;: &quot;Входные направления смены знака происходят из s1, вывод об экстремуме — из s2.&quot;
+      },
+      {
+        &quot;definition&quot;: &quot;Подсчитывать точки экстремума, принадлежащие заданному промежутку.&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;literal_6ad8f502588e&quot;
+        ],
+        &quot;note&quot;: &quot;Отбор выполнен в s1; в s2 виден подсчёт уже отобранных точек.&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;source_path&quot;: &quot;data/fipi/2026-10-31-profile/tasks/891127.json&quot;,
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\891127.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\891127.json&quot;
+}</pre></html>

@@ -1,0 +1,267 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>8D6C09</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><a href="../index.html">Сводка</a><h1>8D6C09</h1><p>Opus100</p><p>Предварительные разборы, внешнего эталона нет.</p><h2>Условие</h2>Дайте развернутый ответ.<div><section>  <p><span>Найдите все значения <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>a</mi>  </semantics> </mstyle></math>, при которых уравнение</span></p> <p class="MsoNormal" align="center"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <msup> <mrow> <mrow><mo>(</mo> <mrow> <mi>x</mi><mo>+</mo><mi>ln</mi><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mi>a</mi><mo stretchy="false">)</mo> </mrow> <mo>)</mo></mrow> </mrow> <mn>2</mn> </msup> <mo>=</mo><msup> <mrow> <mrow><mo>(</mo> <mrow> <mi>x</mi><mo>−</mo><mi>ln</mi><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mi>a</mi><mo stretchy="false">)</mo> </mrow> <mo>)</mo></mrow> </mrow> <mn>2</mn> </msup> </mrow>  </semantics> </mstyle></math><span></span></p> <p class="MsoNormal"><span>имеет единственное решение на отрезке <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mrow> <mo>[</mo> <mn>0</mn> </mrow><mo>;</mo><mtext> </mtext><mtext> </mtext><mrow><mn>1</mn> <mo>]</mo></mrow> </mrow>  </semantics> </mstyle></math>.</span><span></span></p>  </section></div><h2>Состав и исключения</h2><pre>{
+  &quot;complete&quot;: true,
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;author_mode&quot;: &quot;standalone_initial&quot;,
+  &quot;author_path&quot;: &quot;data\\annotation\\runs\\2026-11-07-fipi-team-bogdan108-051-150\\raw\\author\\8D6C09.json&quot;,
+  &quot;auditor_path&quot;: &quot;data\\annotation\\runs\\2026-11-07-fipi-team-bogdan108-051-150\\raw\\auditor\\8D6C09.json&quot;,
+  &quot;feedback_ref&quot;: null,
+  &quot;source_run&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150&quot;
+}</pre><h2>Буквальный сохранённый разбор: ответ, шаги, KC, методы</h2><pre>{
+  &quot;task_id&quot;: &quot;8D6C09&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;a = 0; a ≥ 1&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Перенести всё в одну часть и разложить разность квадратов: (x+ln(x+a))^2-(x-ln(x+a))^2 = 4x·ln(x+a); уравнение равносильно 4x·ln(x+a)=0 при условии x+a&gt;0&quot;,
+      &quot;result&quot;: &quot;x·ln(x+a)=0, ОДЗ: x&gt;-a&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Решить совокупность x=0 или ln(x+a)=0 с учётом ОДЗ&quot;,
+      &quot;result&quot;: &quot;x=0 (корень при a&gt;0); x=1-a (всегда удовлетворяет ОДЗ, т.к. x+a=1)&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;,
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Определить, при каких a каждый корень лежит на отрезке [0;1] и допустим&quot;,
+      &quot;result&quot;: &quot;x=0 подходит при a&gt;0; x=1-a ∈ [0;1] при 0≤a≤1; корни совпадают при a=1&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;,
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Перебрать случаи значений a и подсчитать число различных корней на отрезке&quot;,
+      &quot;result&quot;: &quot;a&lt;0: нет корней; a=0: один корень x=1; 0&lt;a&lt;1: два корня; a=1: один корень x=0; a&gt;1: один корень x=0&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s5&quot;,
+      &quot;action&quot;: &quot;Отобрать значения a с ровно одним решением&quot;,
+      &quot;result&quot;: &quot;a=0 или a≥1&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Преобразовать равенство квадратов через разность квадратов&quot;,
+      &quot;description&quot;: &quot;Вход: уравнение вида A^2=B^2. Операция: привести к (A-B)(A+B)=0 и упростить множители, сохранив ОДЗ исходных выражений. Граница: алгебраические выражения любой природы.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Решить уравнение-произведение с учётом ОДЗ&quot;,
+      &quot;description&quot;: &quot;Вход: произведение множителей, равное нулю, и область определения. Операция: приравнять каждый множитель к нулю и отбросить корни вне ОДЗ всех множителей. Граница: множители определены не везде.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Решить простейшее логарифмическое уравнение&quot;,
+      &quot;description&quot;: &quot;Вход: ln(f)=c. Операция: перейти к f=e^c при f&gt;0. Граница: простейшие логарифмические уравнения.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Подсчитать число корней на промежутке в зависимости от параметра&quot;,
+      &quot;description&quot;: &quot;Вход: корни, выраженные через параметр, условия их допустимости и промежуток. Операция: найти условия принадлежности корней промежутку, учесть совпадение корней, разбить ось параметра на случаи и отобрать значения с требуемым числом решений. Граница: явно выраженные корни.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Факторизация через разность квадратов и анализ корней по параметру&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;,
+        &quot;s5&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h2>Буквальный независимый аудит</h2><pre>{
+  &quot;task_id&quot;: &quot;8D6C09&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;разложить разность квадратов: (x+ln(x+a))^2-(x-ln(x+a))^2 = 4x·ln(x+a)&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+          &quot;reason&quot;: &quot;факторизация многочлена для исследования знака; здесь равенство квадратов неполиномиальных выражений, цель — уравнение, не знак&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_57e72251d4a8&quot;,
+          &quot;reason&quot;: &quot;x²=c с числовым c; здесь равенство двух квадратов выражений&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+          &quot;reason&quot;: &quot;решение нулевого произведения; само получение произведения факторизацией из A²=B² туда не входит&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдается преобразование A²=B² к произведению 4x·ln(x+a)=0 через разность квадратов с сохранением ОДЗ логарифма. В каталоге нет узла для равносильного перехода от равенства квадратов к произведению.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Преобразовывать уравнение A²=B² в (A−B)(A+B)=0 и упрощать множители, сохраняя область определения исходных выражений.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Решить совокупность x=0 или ln(x+a)=0 с учётом ОДЗ&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;x=0 (корень при a&gt;0); x=1-a (всегда удовлетворяет ОДЗ, т.к. x+a=1)&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_37584ab15732&quot;,
+          &quot;reason&quot;: &quot;совместная область логарифма и корня; корня нет, хотя оговорка про нулевой множитель родственна&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Нули множителей x и ln(x+a) найдены и отобраны по общей области x&gt;-a (x=0 допустим лишь при a&gt;0) — соответствует определению zero_product целиком; решение ln(x+a)=0 размечено отдельно kc3.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_9a635e89ccb3&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;x=1-a (всегда удовлетворяет ОДЗ, т.к. x+a=1)&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:action&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_d66dd830e876&quot;,
+          &quot;reason&quot;: &quot;вычисление числового логарифма, а не решение уравнения с переменной&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_2443f08dda82&quot;,
+          &quot;reason&quot;: &quot;равенство двух логарифмов; здесь ln(f)=0&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;ln(x+a)=0 решено по определению логарифма: x+a=1 при положительном аргументе.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;x=0 подходит при a&gt;0; x=1-a ∈ [0;1] при 0≤a≤1; корни совпадают при a=1&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;a&lt;0: нет корней; a=0: один корень x=1; 0&lt;a&lt;1: два корня; a=1: один корень x=0; a&gt;1: один корень x=0&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s5:result&quot;,
+          &quot;quote&quot;: &quot;a=0 или a≥1&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+          &quot;reason&quot;: &quot;покрывает только отбор кандидатов по области и промежутку (s3)&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_05f53e4cc43a&quot;,
+          &quot;reason&quot;: &quot;покрывает подсчёт различных решений с совпадением ветвей (s4), но не параметрическое условие принадлежности; дубли literal_d93e50c17220, literal_5dcd4a01af19 близки&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_e41f0e408b87&quot;,
+          &quot;reason&quot;: &quot;покрывает только запись множества параметров с границами (s5)&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат объединяет три действия в трёх шагах: условия принадлежности корней отрезку через параметр, подсчёт различных корней с совпадением при a=1 и сборку множества параметров. Ни один узел не покрывает их целиком.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;part&quot;: &quot;Найти условия на параметр, при которых каждый корень допустим и лежит на [0;1] (s3)&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;
+          },
+          {
+            &quot;part&quot;: &quot;Разбить ось параметра и подсчитать различные корни с учётом совпадения (s4)&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;literal_05f53e4cc43a (неоднозначно с literal_d93e50c17220, literal_5dcd4a01af19)&quot;
+          },
+          {
+            &quot;part&quot;: &quot;Отобрать и записать множество параметров с граничными случаями (s5)&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;literal_e41f0e408b87&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre><h2>Исторические редакторские назначения</h2><pre>[]</pre><p><a href="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/8D6C09.json">author raw</a> · <a href="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/8D6C09.json">auditor raw</a></p><pre>{
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;source_policy_included&quot;: true,
+  &quot;source_policy_exclusion_reasons&quot;: []
+}</pre></html>

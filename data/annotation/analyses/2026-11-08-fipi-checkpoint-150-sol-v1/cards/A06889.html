@@ -1,0 +1,268 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>A06889</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><a href="../index.html">Сводка</a><h1>A06889</h1><p>sol50</p><p>Предварительные разборы, внешнего эталона нет.</p><h2>Условие</h2>Дайте развернутый ответ.<div><section>  <p class="MsoNormal">В июле 2026 года планируется взять кредит на три года в размере 800 тыс. рублей. Условия его возврата таковы:</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> каждый январь долг будет возрастать на 20 % по сравнению с концом предыдущего года;</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> с февраля по июнь каждого года необходимо выплатить одним платежом часть долга;</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> платежи в 2027 и 2028 годах должны быть равными;</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> к июлю 2029 года долг должен быть выплачен полностью.</p> <p class="MsoNormal">Известно, что сумма всех платежей после полного погашения кредита будет равна 1254,4 тыс. рублей. Сколько рублей составит платёж 2027 года?</p> <p class="MsoNormal"><span> </span></p>  </section></div><h2>Состав и исключения</h2><pre>{
+  &quot;complete&quot;: true,
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;author_mode&quot;: &quot;standalone_initial&quot;,
+  &quot;author_path&quot;: &quot;raw\\author\\A06889.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\A06889.json&quot;,
+  &quot;feedback_ref&quot;: null,
+  &quot;source_run&quot;: &quot;data/annotation/runs/2026-11-08-fipi-team-ThreeHundredsperSecond-50&quot;
+}</pre><h2>Буквальный сохранённый разбор: ответ, шаги, KC, методы</h2><pre>{
+  &quot;task_id&quot;: &quot;A06889&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;200000 рублей&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Обозначить равные платежи первых двух лет через x и выразить остатки долга с учётом ежегодного начисления процентов.&quot;,
+      &quot;result&quot;: &quot;Все суммы далее в тысячах рублей. После платежа 2027 года долг равен 800·1,2−x=960−x; после платежа 2028 года — 1,2(960−x)−x=1152−2,2x. Платёж 2029 года для полного погашения равен 1,2(1152−2,2x)=1382,4−2,64x. Требуются положительные платежи и неотрицательные остатки долга.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Составить уравнение по известной сумме трёх платежей.&quot;,
+      &quot;result&quot;: &quot;x+x+(1382,4−2,64x)=1254,4, то есть 1382,4−0,64x=1254,4.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Решить линейное уравнение относительно равного ежегодного платежа.&quot;,
+      &quot;result&quot;: &quot;0,64x=128, откуда x=200 тыс. рублей.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Проверить допустимость найденного платежа в модели долга и перевести его в рубли.&quot;,
+      &quot;result&quot;: &quot;Остатки долга после первых двух платежей составляют 760 и 712 тыс. рублей, оба положительны. Последний платёж равен 854,4 тыс. рублей и полностью погашает долг; 200+200+854,4=1254,4 тыс. рублей. Платёж 2027 года: 200·1000=200000 рублей.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;,
+        &quot;kc5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Выразить долг после начисления процентов и платежа&quot;,
+      &quot;description&quot;: &quot;По начальному долгу, ставке и последовательности платежей выразить остаток долга за каждый период, умножая предыдущий остаток на коэффициент процентного роста и вычитая платёж; применяется при начислении процентов до платежа.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Составить уравнение по суммарным выплатам&quot;,
+      &quot;description&quot;: &quot;По выражениям отдельных платежей и заданной общей сумме составить равенство суммы платежей этой величине; включает все платежи до полного погашения.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Решить линейное уравнение с числовыми коэффициентами&quot;,
+      &quot;description&quot;: &quot;По линейному уравнению с одной неизвестной собрать члены и выделить неизвестную делением на ненулевой коэффициент.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Проверить платёж по условиям кредитной модели&quot;,
+      &quot;description&quot;: &quot;Подставить найденный платёж в последовательность изменения долга, проверить допустимость остатков и платежей, полное погашение и заданную общую выплату.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc5&quot;,
+      &quot;name&quot;: &quot;Перевести денежную сумму из тысяч рублей в рубли&quot;,
+      &quot;description&quot;: &quot;По сумме, выраженной в тысячах рублей, получить сумму в рублях умножением на тысячу.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Последовательное выражение долга и уравнение общей суммы платежей&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: [
+    &quot;Предварительная предметная интерпретация, не эталон и не оценка ученика.&quot;
+  ]
+}</pre><h2>Буквальный независимый аудит</h2><pre>{
+  &quot;task_id&quot;: &quot;A06889&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;После платежа 2027 года долг равен 800·1,2−x=960−x; после платежа 2028 года — 1,2(960−x)−x=1152−2,2x. Платёж 2029 года для полного погашения равен 1,2(1152−2,2x)=1382,4−2,64x.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+          &quot;reason&quot;: &quot;Процентная доля является компонентом, но определение не охватывает последовательное начисление роста и вычитание платежей из остатка долга.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+          &quot;reason&quot;: &quot;Здесь строится кредитная модель по словесным условиям, а не подставляются величины в данную физическую формулу.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_33060533660f&quot;,
+          &quot;reason&quot;: &quot;Прибыль, выручка, выпуск и окупаемость отсутствуют; объекты и связи иные.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдается единое рекуррентное моделирование долга при процентах до платежа, включая последний платёж как весь начисленный остаток. После просмотра полного каталога определения с этой операцией и порядком событий не найдено.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Выражать последовательные остатки кредитного долга&quot;,
+        &quot;definition&quot;: &quot;По начальному долгу, ставке и платежам выразить остатки по периодам: умножить предыдущий остаток на коэффициент процентного роста, затем вычесть платёж; при полном погашении приравнять последний платёж начисленному остатку.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;x+x+(1382,4−2,64x)=1254,4, то есть 1382,4−0,64x=1254,4.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+          &quot;reason&quot;: &quot;Определение прямо исключает построение модели; в этом шаге уравнение составляется по сумме платежей, а не решается.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;arithmetic_series&quot;,
+          &quot;reason&quot;: &quot;Три платежа не образуют заданную арифметическую прогрессию; используется сумма отдельных выражений.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_33060533660f&quot;,
+          &quot;reason&quot;: &quot;Общая сумма выплат по кредиту не является суммарной прибылью или сроком окупаемости.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Действие связывает уже полученные выражения платежей с известной полной выплатой. Алгебраическое приведение подобных членов не меняет основную операцию моделирования. Подходящего определения в полном каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Составлять уравнение полной суммы платежей&quot;,
+        &quot;definition&quot;: &quot;По выражениям платежей за все периоды до погашения и известной общей выплате составить равенство суммы этих платежей заданной величине, согласовав единицы.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;0,64x=128, откуда x=200 тыс. рублей.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [],
+      &quot;rationale&quot;: &quot;Исходное аффинное равенство одной переменной с числовыми коэффициентами преобразовано выделением неизвестной и делением на ненулевой коэффициент; получено единственное решение. Составление модели осталось в предыдущем шаге.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;Остатки долга после первых двух платежей составляют 760 и 712 тыс. рублей, оба положительны. Последний платёж равен 854,4 тыс. рублей и полностью погашает долг; 200+200+854,4=1254,4 тыс. рублей.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;,
+        &quot;step:s3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a873d91378ab&quot;,
+          &quot;reason&quot;: &quot;Найденный платёж не является граничным ответом; здесь проверяется алгебраическое решение кредитной модели.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+          &quot;reason&quot;: &quot;Вычисление значений выражений является компонентом, но не охватывает проверку допустимости и исходной общей суммы.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Найденный корень проверен на физический смысл через положительные остатки и платежи, полное погашение и исходное соотношение суммарных выплат. Это целиком соответствует отбору алгебраического решения по условиям модели.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc5&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;Платёж 2027 года: 200·1000=200000 рублей.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_89184e5e6ac9&quot;,
+          &quot;reason&quot;: &quot;x уже обозначает искомый платёж; вспомогательного параметра иной величины нет. Меняются только единицы денежной суммы.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+          &quot;reason&quot;: &quot;Согласование единиц входит в определение как компонент подстановки в данную физическую формулу, которой здесь нет.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+          &quot;reason&quot;: &quot;Не вычисляется значение заданной функции по аргументу; применяется коэффициент перевода единиц одной величины.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Явно наблюдается перевод масштаба денежной единицы умножением на 1000. Полный каталог не содержит самостоятельного определения перевода единиц, соответствующего этому действию; это не повод дробить само умножение на отдельные арифметические операции.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Переводить величину между кратными единицами&quot;,
+        &quot;definition&quot;: &quot;По числовому значению величины в исходной единице и известному отношению единиц получить значение в требуемой единице, умножая или деля на коэффициент перевода и сохраняя саму величину.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre><h2>Исторические редакторские назначения</h2><pre>[]</pre></html>
