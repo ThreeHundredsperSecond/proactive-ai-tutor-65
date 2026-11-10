@@ -1,0 +1,130 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>BEB5E7</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>80. ФИПИ BEB5E7 · бронь #4, партия 6</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Найдите наименьшее значение функции <span><img src="../../../runs/2026-11-09-fipi-team-bogdan108-next-100/inputs/assets/d41a829b48976398bd3a1d32.png" alt="Рисунок ФИПИ"></span><span class="apple-converted-space"> на отрезке <span><img src="../../../runs/2026-11-09-fipi-team-bogdan108-next-100/inputs/assets/5c7902c7e20950ba34a51ae2.png" alt="Рисунок ФИПИ"></span></span></p>  </section></div><p>КЭС: 4.1 Производная функции. Производные элементарных функций; 4.2 Применение производной к исследованию функций на монотонность и экстремумы. Нахождение наибольшего и наименьшего значения функции на отрезке</p><h2>Ответ</h2><p>-29</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти производную функции y = x^{3/2} - 6x + 3 при x &gt; 0</td><td>y&#x27; = (3/2)√x - 6</td><td>kc1</td></tr><tr><td>s2 · s1, condition</td><td>Найти критические точки, решив y&#x27; = 0, и отобрать принадлежащие отрезку [0; 40]</td><td>√x = 4, x = 16 ∈ [0; 40]; y&#x27; &lt; 0 при 0 &lt; x &lt; 16, y&#x27; &gt; 0 при x &gt; 16</td><td>kc2</td></tr><tr><td>s3 · s2, condition</td><td>Вычислить значения функции в критической точке и на концах отрезка и выбрать наименьшее</td><td>y(0) = 3, y(16) = 64 - 96 + 3 = -29, y(40) = 80√10 - 237 ≈ 15.98; наименьшее -29</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Поиск наименьшего значения на отрезке через производную&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Дифференцировать степенную функцию с дробным показателем в сумме</h3><p>Вход: функция — сумма степенных (в т.ч. x√x как x^{3/2}) и линейных слагаемых; операция: переписать в виде степени и применить правило (x^a)&#x27; = a·x^{a-1} и линейность; граница: внутри области определения, где производная существует.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_0efedaf04823&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Найти производную функции y = x^{3/2} - 6x + 3 при x &gt; 0&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;y&#x27; = (3/2)√x - 6&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;image:assets/d41a829b48976398bd3a1d32.png&quot;,
+      &quot;region_description&quot;: &quot;Формула функции y = x√x − 6x + 3 во всём изображении&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;image:assets/d41a829b48976398bd3a1d32.png&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_3a3e1295118b&quot;,
+      &quot;reason&quot;: &quot;Функция не многочлен: слагаемое x√x имеет дробный показатель 3/2.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+      &quot;reason&quot;: &quot;Запись x√x как x^{3/2} — вспомогательное преобразование, не наблюдаемое отдельно; основное действие — дифференцирование.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: применение (x^p)&#x27;=p x^(p-1) с p=3/2 и линейности к сумме степенного и линейного слагаемых на области x&gt;0. Соответствует определению целиком; переписывание x√x в степень выполнено неявно в формулировке шага.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Найти критические точки на отрезке</h3><p>Вход: производная функции и отрезок; операция: решить уравнение f&#x27;(x)=0, отобрать корни из отрезка, определить знак производной вокруг них; граница: непрерывная функция на отрезке, дифференцируемая внутри.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Найти критические точки, решив y&#x27; = 0, и отобрать принадлежащие отрезку [0; 40]&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;√x = 4, x = 16 ∈ [0; 40]; y&#x27; &lt; 0 при 0 &lt; x &lt; 16, y&#x27; &gt; 0 при x &gt; 16&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;image:assets/5c7902c7e20950ba34a51ae2.png&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;stationary_point&quot;,
+      &quot;reason&quot;: &quot;Покрывает решение f&#x27;=0 и отбор точек отрезка, но не определение знака производной на промежутках.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;,
+      &quot;reason&quot;: &quot;Покрывает знак производной и монотонность, но не нахождение нулей производной.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;local_extreme_sign&quot;,
+      &quot;reason&quot;: &quot;Вывод о типе экстремума в шаге явно не сформулирован; есть только знаки производной.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет два действия: нахождение стационарной точки x=16 с отбором по отрезку и установление знака производной по обе стороны от неё. Каждое по отдельности соответствует своему узлу каталога.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Решить (3/2)√x − 6 = 0 и отобрать x=16 из [0; 40]&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;stationary_point&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Определить y&#x27;&lt;0 на (0;16) и y&#x27;&gt;0 при x&gt;16&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Выбрать наименьшее значение функции на отрезке по критическим точкам и концам</h3><p>Вход: непрерывная на отрезке функция, критические точки внутри отрезка; операция: вычислить значения в критических точках и на концах, сравнить и выбрать наименьшее; граница: замкнутый отрезок.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;global_interval_extreme&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Вычислить значения функции в критической точке и на концах отрезка и выбрать наименьшее&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;y(0) = 3, y(16) = 64 - 96 + 3 = -29, y(40) = 80√10 - 237 ≈ 15.98; наименьшее -29&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;,
+    &quot;image:assets/d41a829b48976398bd3a1d32.png&quot;,
+    &quot;image:assets/5c7902c7e20950ba34a51ae2.png&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+      &quot;reason&quot;: &quot;Вычисление значения по формуле — компонент шага; кандидат дополнительно включает сравнение и выбор глобального минимума.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;local_extreme_sign&quot;,
+      &quot;reason&quot;: &quot;Шаг устанавливает глобальное значение, а не тип локального экстремума.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: сравнение значений функции на концах отрезка [0; 40] и в критической точке с выбором наименьшего значения −29. Полностью соответствует определению глобального экстремума на отрезке через сравнение концов и критических точек. Вычисления проверены: y(16)=−29, y(40)=80√10−237≈15.98.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/BEB5E7.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/BEB5E7.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

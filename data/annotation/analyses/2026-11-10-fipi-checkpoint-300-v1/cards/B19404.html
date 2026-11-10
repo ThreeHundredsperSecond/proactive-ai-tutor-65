@@ -1,0 +1,242 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>B19404</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>86. ФИПИ B19404 · бронь #4, партия 7</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">В правильной шестиугольной пирамиде <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>S</mi><mi>A</mi><mi>B</mi><mi>C</mi><mi>D</mi><mi>E</mi><mi>F</mi> </mrow> </semantics> </math> точки <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mi>M</mi> </semantics> </math> и <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mi>K</mi> </semantics> </math> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> середины боковых рёбер <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>S</mi><mi>A</mi> </mrow> </semantics> </math> и <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>S</mi><mi>D</mi> </mrow> </semantics> </math> соответственно.</p> <p class="MsoNormal">а) Докажите, что прямые <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>B</mi><mi>M</mi> </mrow> </semantics> </math> и <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>C</mi><mi>K</mi> </mrow> </semantics> </math> лежат в одной плоскости.</p> <p class="MsoNormal">б) Найдите высоту пирамиды, если <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mo>=</mo><mn>8,</mn> </mrow> </semantics> </math> а угол между плоскостью <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>B</mi><mi>M</mi><mi>C</mi> </mrow> </semantics> </math> и плоскостью основания пирамиды равен <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mn>45</mn><mi>°</mi><mo>.</mo> </mrow> </semantics> </math><span></span></p>  </section></div><p>КЭС: 7.3 Многогранники</p><h2>Ответ</h2><p>а) MK ∥ AD ∥ BC, поэтому BM и CK лежат в плоскости BCKM; б) 8√3</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Установить, что MK — средняя линия треугольника SAD, значит MK ∥ AD</td><td>MK ∥ AD, MK = AD/2</td><td>kc1</td></tr><tr><td>s2 · condition</td><td>Использовать свойство правильного шестиугольника: AD ∥ BC</td><td>AD ∥ BC, AD = 2·AB = 16</td><td>kc2</td></tr><tr><td>s3 · s1, s2</td><td>По транзитивности параллельности MK ∥ BC, через две параллельные прямые проходит плоскость, содержащая B, C, K, M, а значит и прямые BM и CK</td><td>BM и CK лежат в плоскости BCKM</td><td>kc3</td></tr><tr><td>s4 · condition, s2</td><td>Построить линейный угол двугранного угла между плоскостью BMC и основанием: проекция M на основание — середина OA (O — центр), расстояние от проекции до BC измеряется по перпендикуляру к BC; так как MM&#x27; ⊥ основанию и M&#x27;H ⊥ BC, угол MHM&#x27; — искомый</td><td>Высота MM&#x27; = h/2; M&#x27;H = расстояние между прямыми AD и BC = AB·√3/2 = 4√3</td><td>kc4, kc2</td></tr><tr><td>s5 · s4, condition</td><td>Из прямоугольного треугольника MM&#x27;H с углом 45° найти h</td><td>h/2 = 4√3, h = 8√3</td><td>kc5</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Доказательство компланарности через цепочку параллельностей&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;m2&quot;,
+    &quot;name&quot;: &quot;Вычисление высоты через линейный угол двугранного угла&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s4&quot;,
+      &quot;s5&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Применять теорему о средней линии треугольника</h3><p>По двум серединам сторон треугольника получить параллельность третьей стороне и половинную длину</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Установить, что MK — средняя линия треугольника SAD, значит MK ∥ AD&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;MK ∥ AD, MK = AD/2&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d5e287608dd5&quot;,
+      &quot;reason&quot;: &quot;Составление пропорции длин по подобию/параллельности; здесь параллельность выводится из середин сторон, а не используется как предпосылка для пропорции.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_b58390338050&quot;,
+      &quot;reason&quot;: &quot;Требует уже установленного подобия; в шаге подобие не доказывается и не используется.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: по двум серединам сторон треугольника SAD (из условия M, K — середины SA, SD) вывести MK ∥ AD и MK = AD/2. В каталоге нет узла теоремы о средней линии. Длина MK = AD/2 в дальнейшем не используется, но входит в определение действия.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Применять теорему о средней линии треугольника&quot;,
+    &quot;definition&quot;: &quot;По двум точкам-серединам сторон невырожденного треугольника установить, что соединяющий их отрезок параллелен третьей стороне и равен её половине.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Использовать метрические и параллельные свойства правильного шестиугольника</h3><p>Выводить параллельность сторон и больших диагоналей, их длины и расстояния между параллельными прямыми через сторону</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Использовать свойство правильного шестиугольника: AD ∥ BC&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;AD ∥ BC, AD = 2·AB = 16&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;M&#x27;H = расстояние между прямыми AD и BC = AB·√3/2 = 4√3&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_fd27eefef432&quot;,
+      &quot;reason&quot;: &quot;Покрывает только вычисление AB·√3/2 как высоты равностороннего треугольника OBC; само разбиение шестиугольника на равносторонние треугольники в решении не показано явно.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет разные действия в двух шагах: (1) параллельность большой диагонали AD стороне BC и длину AD = 2·AB в s2; (2) расстояние между AD и BC через сторону в s4. Это составной набор свойств фигуры, а не одно действие.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;name&quot;: &quot;Устанавливать параллельность и длину большой диагонали правильного шестиугольника&quot;,
+        &quot;definition&quot;: &quot;В правильном шестиугольнике вывести, что большая диагональ параллельна противолежащим сторонам и равна удвоенной стороне.&quot;,
+        &quot;possible_catalog_kc_id&quot;: null,
+        &quot;step_ref&quot;: &quot;step:s2:result&quot;
+      },
+      {
+        &quot;name&quot;: &quot;Находить расстояние между большой диагональю и параллельной стороной&quot;,
+        &quot;definition&quot;: &quot;Выразить расстояние как высоту равностороннего треугольника со стороной шестиугольника.&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_fd27eefef432&quot;,
+        &quot;step_ref&quot;: &quot;step:s4:result&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i2&quot;
+  ]
+}</pre></section><section id="kc3"><h3>kc3 · Доказывать принадлежность прямых одной плоскости через параллельность</h3><p>Из параллельности двух прямых заключить существование плоскости, содержащей их и соединяющие их отрезки</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;По транзитивности параллельности MK ∥ BC, через две параллельные прямые проходит плоскость, содержащая B, C, K, M, а значит и прямые BM и CK&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;BM и CK лежат в плоскости BCKM&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0cd75b4548b3&quot;,
+      &quot;reason&quot;: &quot;Распознавание призмы по параллельным основаниям; не о плоскости через две параллельные прямые.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6f2cb1731d16&quot;,
+      &quot;reason&quot;: &quot;Тип сечения по пересечённым рёбрам; здесь доказывается компланарность.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: из MK ∥ AD (s1) и AD ∥ BC (s2) по транзитивности получить MK ∥ BC, затем по аксиоме/теореме о плоскости через две параллельные прямые заключить, что B, C, K, M и прямые BM, CK лежат в одной плоскости. Подходящего узла в каталоге нет. Транзитивность параллельности в пространстве — компонент шага, отдельно не дроблю.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Доказывать компланарность прямых через параллельность&quot;,
+    &quot;definition&quot;: &quot;Установить параллельность двух различных прямых (в том числе по транзитивности в пространстве) и заключить, что через них проходит единственная плоскость, содержащая все отрезки, соединяющие их точки.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Строить линейный угол двугранного угла по теореме о трёх перпендикулярах</h3><p>Для плоскости, проходящей через прямую основания, опустить перпендикуляр из точки плоскости на основание и перпендикуляр из проекции на общую прямую</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:action&quot;,
+      &quot;quote&quot;: &quot;так как MM&#x27; ⊥ основанию и M&#x27;H ⊥ BC, угол MHM&#x27; — искомый&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;Высота MM&#x27; = h/2&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_91697073f741&quot;,
+      &quot;reason&quot;: &quot;Связывает высоту точки с перпендикуляром к линии пересечения вертикальной плоскости и основания; плоскость BMC не вертикальна, и требуется построение линейного угла двугранного угла по теореме о трёх перпендикулярах.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_aec2af1753c8&quot;,
+      &quot;reason&quot;: &quot;Угол между плоскостями через нормали в координатах; в решении используется синтетическое построение.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_71811f9f6a63&quot;,
+      &quot;reason&quot;: &quot;Доказательство перпендикулярности прямой плоскости; в шаге MM&#x27; ⊥ основанию принимается как построение, а не доказывается.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: опустить перпендикуляр MM&#x27; из точки плоскости BMC на основание и перпендикуляр M&#x27;H к общей прямой BC, объявив угол MHM&#x27; линейным углом двугранного угла. Ключевое заключение MH ⊥ BC (теорема о трёх перпендикулярах) в тексте не записано явно, но следует из построения. Вычисления MM&#x27; = h/2 (проекция M — середина OA) и M&#x27;H — смежные действия того же шага.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Строить линейный угол двугранного угла по теореме о трёх перпендикулярах&quot;,
+    &quot;definition&quot;: &quot;Для плоскости, проходящей через прямую в основании, опустить перпендикуляр из её точки на основание и перпендикуляр из проекции на общую прямую; по теореме о трёх перпендикулярах обосновать, что наклонная также перпендикулярна общей прямой, и взять полученный угол как линейный.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc5"><h3>kc5 · Находить катет прямоугольного треугольника по углу и другому катету</h3><p>Использовать тангенс острого угла для связи катетов</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc5&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s5:action&quot;,
+      &quot;quote&quot;: &quot;Из прямоугольного треугольника MM&#x27;H с углом 45° найти h&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s5:result&quot;,
+      &quot;quote&quot;: &quot;h/2 = 4√3, h = 8√3&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s4:result&quot;,
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_38dfd2a1aa18&quot;,
+      &quot;reason&quot;: &quot;«Синус, косинус или тангенс известного острого угла и известная сторона» — подходит полностью.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_db53e3ae2119&quot;,
+      &quot;reason&quot;: &quot;«Отношение катетов/гипотенузы и известный угол после установления прямого угла» — также подходит полностью; два перекрывающихся определения без основания выбрать одно.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_79a8fac1b83f&quot;,
+      &quot;reason&quot;: &quot;Только синус/косинус при известной гипотенузе; здесь известен катет и используется тангенс.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Действие: в прямоугольном треугольнике MM&#x27;H (прямой угол при M&#x27; из s4) по углу 45° и катету M&#x27;H = 4√3 найти катет MM&#x27; = h/2, затем h. Математически верно (tg45° = 1). Два одноимённых узла каталога перекрываются, поэтому uncertain, а не match.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;coverage&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s4:action&quot;
+    ],
+    &quot;description&quot;: &quot;Не записано явно, что MH ⊥ BC по теореме о трёх перпендикулярах, и не обосновано, что проекция M — середина OA (SO — высота, M — середина SA). Выводы верны, но обоснование линейного угла неполное.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc4&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;i2&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s4:result&quot;
+    ],
+    &quot;description&quot;: &quot;kc2 привязан к s2 и s4 с разными действиями (параллельность/длина диагонали и расстояние между параллельными прямыми); значение AD = 16 в дальнейшем решении не используется.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc2&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/B19404.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/B19404.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

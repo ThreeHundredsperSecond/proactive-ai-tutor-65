@@ -1,0 +1,196 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>45927B</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>8. ФИПИ 45927B · бронь #4, партия 1</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Найдите все значения <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>a</mi>  </semantics> </mstyle></math>, при каждом из которых система уравнений</p> <p class="MsoNormal" align="center"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mrow><mo>{</mo> <mtable columnalign="left"> <mtr> <mtd> <mi>a</mi><msup> <mi>x</mi> <mn>2</mn> </msup> <mo>+</mo><mi>a</mi><msup> <mi>y</mi> <mn>2</mn> </msup> <mo>−</mo><mrow><mo>(</mo> <mrow> <mn>2</mn><mi>a</mi><mo>−</mo><mn>5</mn> </mrow> <mo>)</mo></mrow><mi>x</mi><mo>+</mo><mn>2</mn><mi>a</mi><mi>y</mi><mo>+</mo><mn>1</mn><mo>=</mo><mn>0,</mn> </mtd> </mtr> <mtr> <mtd> <msup> <mi>x</mi> <mn>2</mn> </msup> <mo>+</mo><mi>y</mi><mo>=</mo><mi>x</mi><mi>y</mi><mo>+</mo><mi>x</mi> </mtd> </mtr> </mtable> </mrow> </mrow>  </semantics> </mstyle></math></p> <p class="MsoNormal">имеет ровно четыре различных решения.</p> <p class="MsoNormal"><span> </span></p>  </section></div><p>КЭС: 2.1 Целые и дробно-рациональные уравнения; 2.5 Целые и дробно-рациональные неравенства; 2.9 Системы и совокупности уравнений и неравенств</p><h2>Ответ</h2><p>a ∈ (−∞; −3) ∪ (−3; 0) ∪ (3; 25/8)</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Разложить второе уравнение на множители: x^2+y−xy−x=(x−1)(x−y)=0, т.е. x=1 или y=x</td><td>Решения лежат на прямых x=1 и y=x</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Подставить x=1 в первое уравнение</td><td>ay^2+2ay−a+6=0</td><td>kc2</td></tr><tr><td>s3 · condition, s1</td><td>Подставить y=x в первое уравнение</td><td>2ax^2+5x+1=0</td><td>kc2</td></tr><tr><td>s4 · s2</td><td>Найти условие двух различных корней уравнения ay^2+2ay+6−a=0 с учётом старшего коэффициента</td><td>a=0 даёт 6=0 (нет корней); при a≠0 D/4=2a^2−6a&gt;0 ⇔ a&lt;0 или a&gt;3</td><td>kc3</td></tr><tr><td>s5 · s3</td><td>Найти условие двух различных корней уравнения 2ax^2+5x+1=0 с учётом старшего коэффициента</td><td>a=0 даёт один корень; при a≠0 D=25−8a&gt;0 ⇔ a&lt;25/8, a≠0</td><td>kc3</td></tr><tr><td>s6 · s1, s2, s3</td><td>Найти значения a, при которых решения на двух прямых совпадают (точка пересечения (1,1))</td><td>(1,1) удовлетворяет первому уравнению при 2a+6=0, a=−3; тогда решений 3</td><td>kc4</td></tr><tr><td>s7 · s4, s5, s6</td><td>Объединить условия: по два различных решения на каждой прямой и отсутствие общих решений</td><td>a&lt;0, a≠−3 или 3&lt;a&lt;25/8</td><td>kc4</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Разложение уравнения на ветви и подсчёт корней квадратных уравнений с параметром по ветвям&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;,
+      &quot;s5&quot;,
+      &quot;s6&quot;,
+      &quot;s7&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Разложить уравнение системы на множители</h3><p>Вход: уравнение с двумя переменными; операция: группировка и вынесение общего множителя до произведения, равного нулю; результат — совокупность более простых уравнений (линий)</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;x^2+y−xy−x=(x−1)(x−y)=0, т.е. x=1 или y=x&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;Решения лежат на прямых x=1 и y=x&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+      &quot;reason&quot;: &quot;Покрывает переход от произведения к совокупности нулей множителей, но явно не включает саму факторизацию; кандидат kc1 описан прежде всего как группировка и вынесение множителя&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+      &quot;reason&quot;: &quot;Факторизация многочлена, но для исследования знака одной переменной, а не для уравнения с двумя переменными&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_89adef4e8cee&quot;,
+      &quot;reason&quot;: &quot;Квадратный трёхчлен с параметром; здесь многочлен двух переменных без параметра&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В s1 наблюдаются два действия: разложение многочлена двух переменных на множители группировкой и переход по нулевому произведению к совокупности x=1 или y=x. Второе соответствует zero_product (с оговоркой: результат — прямые, а не числовые корни), первое в каталоге не имеет подходящего узла.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Разложить многочлен двух переменных на множители группировкой&quot;,
+        &quot;possible_catalog_kc_id&quot;: null,
+        &quot;definition&quot;: &quot;Сгруппировать слагаемые уравнения с двумя переменными и вынести общий множитель, получив произведение, равное нулю; проверить тождество раскрытием скобок&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Перейти от произведения, равного нулю, к совокупности уравнений&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;zero_product&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Подставить выражение переменной в другое уравнение системы</h3><p>Вход: система и связь переменных из одного уравнения; операция: подстановка и упрощение; результат — уравнение с одной переменной и параметром</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Подставить x=1 в первое уравнение&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;ay^2+2ay−a+6=0&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Подставить y=x в первое уравнение&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;2ax^2+5x+1=0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:action&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0a4ebc8382b5&quot;,
+      &quot;reason&quot;: &quot;Общая подстановка из линейной связи; подходит к обоим шагам&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_48d7fd02cfd9&quot;,
+      &quot;reason&quot;: &quot;Подстановка y=mx; подходит к s3 (m=1), но не к s2 (x=1)&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Подстановка выполнена верно (проверено: x=1 даёт ay^2+2ay−a+6=0, y=x даёт 2ax^2+5x+1=0). Два перекрывающихся определения каталога с одинаковым названием; для s3 подходят оба, для s2 — только общее. Нет основания выбрать один узел для кандидата, объединяющего оба шага.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Определить условие числа корней квадратного уравнения с параметром</h3><p>Вход: уравнение с параметром при старшем коэффициенте; операция: отдельный разбор вырожденного случая и требование знака дискриминанта; результат — множество значений параметра</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;a=0 даёт 6=0 (нет корней); при a≠0 D/4=2a^2−6a&gt;0 ⇔ a&lt;0 или a&gt;3&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s5:result&quot;,
+      &quot;quote&quot;: &quot;a=0 даёт один корень; при a≠0 D=25−8a&gt;0 ⇔ a&lt;25/8, a≠0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;,
+    &quot;step:s3:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+      &quot;reason&quot;: &quot;Нахождение корней при ненулевом старшем коэффициенте; подсчёт корней с параметром и вырожденный случай явно исключены&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_7a3b2e2d0b3a&quot;,
+      &quot;reason&quot;: &quot;Требует дополнительно положительность корней; здесь знак корней не нужен&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_1b97db4e28e8&quot;,
+      &quot;reason&quot;: &quot;Решение квадратного неравенства 2a^2−6a&gt;0 — лишь компонент действия&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Действие: для уравнения с параметром при старшем коэффициенте отдельно разобрать случай нулевого старшего коэффициента и потребовать D&gt;0 для двух различных корней, получив множество параметров. В каталоге нет узла для условия ровно двух различных действительных корней без знаковых требований.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Для уравнения вида p(a)t^2+q(a)t+r(a)=0 отдельно исследовать p(a)=0 (линейный или противоречивый случай), а при p(a)≠0 потребовать D&gt;0 и получить множество значений параметра с двумя различными действительными корнями&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Подсчитать решения совокупности с учётом совпадений</h3><p>Вход: число решений каждой ветви совокупности как функции параметра; операция: найти значения параметра, при которых решения ветвей совпадают, и исключить их при подсчёте; результат — условие на параметр для заданного числа различных решений</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_05f53e4cc43a&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s6:result&quot;,
+      &quot;quote&quot;: &quot;(1,1) удовлетворяет первому уравнению при 2a+6=0, a=−3; тогда решений 3&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s7:action&quot;,
+      &quot;quote&quot;: &quot;Объединить условия: по два различных решения на каждой прямой и отсутствие общих решений&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;step:s4:result&quot;,
+    &quot;step:s5:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_5dcd4a01af19&quot;,
+      &quot;reason&quot;: &quot;Акцент на принадлежности кандидатов областям и граничном корне; областей ветвей здесь нет&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d93e50c17220&quot;,
+      &quot;reason&quot;: &quot;Близко, но про допустимость и граничные случаи корней; литерал 05f53e4cc43a прямо говорит об объединении ветвей и общих решениях&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+      &quot;reason&quot;: &quot;Совмещение ограничений в s7 — компонент, не весь кандидат&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Найдено общее решение ветвей (единственная точка пересечения прямых (1,1)) при a=−3, количества не складываются без учёта пересечения; это соответствует определению подсчёта различных решений объединения ветвей. Проверено: при a=−3 корни y=1,−3 и x=1,−1/6, всего 3 решения. Итог a&lt;0, a≠−3 или 3&lt;a&lt;25/8 согласуется с ответом.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;missing_annotation&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s7:result&quot;
+    ],
+    &quot;description&quot;: &quot;В s7 пересечение множеств a&lt;0 или a&gt;3 и a&lt;25/8, a≠0 с исключением a=−3 — отдельное действие (set_intersection), не размеченное отдельно; на сопоставление kc4 не влияет критически.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc4&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/45927B.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/45927B.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

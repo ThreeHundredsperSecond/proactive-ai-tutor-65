@@ -1,0 +1,163 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>8755EE</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>96. ФИПИ 8755EE · бронь #4, партия 8</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Деревянную линейку, длина которой выражается целым числом сантиметров, разрезают на куски. За один ход можно взять один или несколько кусков линейки, положить их друг на друга и разрезать каждый из них на две части, длины которых выражаются целым числом сантиметров.</p> <p class="MsoNormal">а) Можно ли за четыре хода разрезать линейку длиной 16 см на куски <br> длиной 1 см?</p> <p class="MsoNormal">б) Можно ли за пять ходов разрезать линейку длиной 100 см на куски <br> длиной 1 см?</p> <p class="MsoNormal">в) Какое наименьшее число ходов нужно сделать, чтобы разрезать линейку длиной 200 см на куски длиной 1 см?</p>  </section></div><p>КЭС: 1.1 Натуральные и целые числа. Признаки делимости целых чисел</p><h2>Ответ</h2><p>а) да; б) нет; в) 8</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Построить алгоритм для пункта а: на каждом ходу сложить все куски и разрезать каждый пополам: 16→8→4→2→1.</td><td>За 4 хода все куски длины 1 см; ответ а) да.</td><td>kc1</td></tr><tr><td>s2 · condition</td><td>Доказать оценку: за один ход длина наибольшего куска уменьшается не более чем вдвое (кусок длины m даёт часть не короче m/2), значит после k ходов наибольший кусок имеет длину не меньше L/2^k.</td><td>После k ходов наибольший кусок ≥ L/2^k; для получения кусков 1 см нужно 2^k ≥ L.</td><td>kc2</td></tr><tr><td>s3 · s2</td><td>Применить оценку к L=100, k=5.</td><td>100/32 &gt; 1, кусок длины ≥ 4 см остаётся; ответ б) нет.</td><td>kc3</td></tr><tr><td>s4 · s2</td><td>Применить оценку к L=200: найти наименьшее k с 2^k ≥ 200.</td><td>2^7=128&lt;200, значит нужно не менее 8 ходов.</td><td>kc3</td></tr><tr><td>s5 · condition, s4</td><td>Построить пример за 8 ходов: каждый раз разрезать все куски длины больше 1 на части ⌈m/2⌉ и ⌊m/2⌋; наибольший кусок: 200→100→50→25→13→7→4→2→1.</td><td>8 ходов достаточно; ответ в) 8.</td><td>kc1</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Пример для а&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;m2&quot;,
+    &quot;name&quot;: &quot;Оценка плюс пример для б и в&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;,
+      &quot;s5&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Построить пример процесса, удовлетворяющий условию</h3><p>По правилам процесса и цели предъявить явную последовательность допустимых действий и проверить, что она достигает цели за заданное число шагов.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;на каждом ходу сложить все куски и разрезать каждый пополам: 16→8→4→2→1.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s5:action&quot;,
+      &quot;quote&quot;: &quot;каждый раз разрезать все куски длины больше 1 на части ⌈m/2⌉ и ⌊m/2⌋; наибольший кусок: 200→100→50→25→13→7→4→2→1.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s4:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;integer_construction&quot;,
+      &quot;reason&quot;: &quot;Определение ориентировано на статический целочисленный объект с ограничениями количества, различности, остатков, суммы; здесь предъявляется последовательность допустимых ходов процесса. Частичное перекрытие.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_f6b803c5f9c2&quot;,
+      &quot;reason&quot;: &quot;Подходит к s5 (пример, достигающий доказанной границы 8), но не к s1, где границы нет; кандидат объединяет оба употребления.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;optimal_bound_attainment&quot;,
+      &quot;reason&quot;: &quot;Это общее доказательство оптимальности (граница + пример), а не построение примера само по себе.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: предъявить алгоритм ходов и проверить достижение цели за заданное число ходов. Два каталожных определения перекрываются частично (integer_construction для объекта, literal_f6b803c5f9c2 для s5 при наличии границы), ни одно не покрывает кандидат целиком для процесса; основания выбрать одно нет.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc2"><h3>kc2 · Доказать оценку через монотонную величину процесса</h3><p>Выбрать величину (например, максимум), изменение которой за один ход ограничено, и вывести оценку её значения после заданного числа ходов.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;за один ход длина наибольшего куска уменьшается не более чем вдвое (кусок длины m даёт часть не короче m/2), значит после k ходов наибольший кусок имеет длину не меньше L/2^k.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;optimal_bound_attainment&quot;,
+      &quot;reason&quot;: &quot;Явно исключает способ получения границы, который размечается отдельно; kc2 — именно способ.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_31eed356b5e1&quot;,
+      &quot;reason&quot;: &quot;Оценка дроби через монотонность, не оценка величины процесса по ходам.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;finite_exhaustion&quot;,
+      &quot;reason&quot;: &quot;Перебора случаев нет.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдаемое действие: выбрать величину процесса (максимальную длину куска), ограничить её изменение за один ход и итерацией получить оценку после k ходов. В каталоге нет узла для оценки через ограниченно меняющуюся величину процесса.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Оценивать величину процесса по ограничению её изменения за ход&quot;,
+    &quot;definition&quot;: &quot;Выбрать характеристику состояния процесса, доказать ограничение её изменения за один допустимый ход и индукцией по числу ходов вывести границу её значения после k ходов.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Сравнить требуемое и достижимое значения по оценке</h3><p>Подставить параметры в полученную оценку и сделать вывод о невозможности или о нижней границе числа ходов, решив неравенство с показательной функцией в целых числах.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;100/32 &gt; 1, кусок длины ≥ 4 см остаётся; ответ б) нет.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:action&quot;,
+      &quot;quote&quot;: &quot;найти наименьшее k с 2^k ≥ 200.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;2^7=128&lt;200, значит нужно не менее 8 ходов.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_inequality&quot;,
+      &quot;reason&quot;: &quot;Переход b^x→x по монотонности для действительного x; здесь наименьшее натуральное k находится сравнением степеней двойки, плюс в s3 лишь числовая проверка и вывод о невозможности.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+      &quot;reason&quot;: &quot;Касается заданной прикладной формулы и единиц, а не доказанной в решении оценки.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+      &quot;reason&quot;: &quot;Вычисление значения функции покрывает только подстановку, но не вывод о невозможности/нижней границе.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: подставить параметры в доказанную оценку L/2^k и сделать вывод о невозможности (s3) или о наименьшем натуральном k (s4). Близкие узлы покрывают лишь части; подходящего определения целиком нет. Возможна и трактовка как needs_split (подстановка + целочисленное показательное неравенство), но действие компактно.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Выводить невозможность или нижнюю границу числа ходов из доказанной оценки&quot;,
+    &quot;definition&quot;: &quot;Подставить параметры задачи в доказанную оценку и решить полученное ограничение в натуральных числах (например, наименьшее k с 2^k ≥ L), сделав вывод о невозможности или нижней границе.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;missing_annotation&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s4:result&quot;,
+      &quot;step:s5:result&quot;
+    ],
+    &quot;description&quot;: &quot;Объединение нижней границы 8 (s4) и примера за 8 ходов (s5) в вывод о наименьшем числе ходов — действие уровня optimal_bound_attainment — не размечено отдельным кандидатом; s5 помечен только kc1.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc1&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;i2&quot;,
+    &quot;kind&quot;: &quot;coverage&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s5:action&quot;
+    ],
+    &quot;description&quot;: &quot;В s5 прослежен только наибольший кусок; то, что остальные куски (не длиннее наибольшего) тоже доходят до 1 за те же ходы, не проговорено явно, хотя следует из монотонности ⌈m/2⌉. Ошибки нет, ответ 8 верен.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc1&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/8755EE.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/8755EE.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

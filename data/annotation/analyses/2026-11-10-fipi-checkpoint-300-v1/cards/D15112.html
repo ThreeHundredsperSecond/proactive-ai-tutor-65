@@ -1,0 +1,138 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>D15112</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>79. ФИПИ D15112 · бронь #4, партия 6</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">15 января планируется взять кредит в банке на 4 месяца. Условия его возврата таковы:</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> 1-го числа каждого месяца долг возрастает на <b>целое</b> число <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mi>r</mi> </semantics> </math> процентов по сравнению с концом предыдущего месяца;</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> со 2-го по 14-е число каждого месяца необходимо одним платежом выплатить часть долга;</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> 15-го числа каждого месяца долг должен составлять часть кредита в соответствии со следующей таблицей.</p> <p class="MsoNormal"><span> </span></p>  <table class="MsoNormalTable" border="1" cellspacing="0" cellpadding="0"> <tr> <td valign="top"> <p class="MsoNormal">Дата</p> </td> <td> <p class="MsoNormal" align="center">15.01</p> </td> <td> <p class="MsoNormal" align="center">15.02</p> </td> <td> <p class="MsoNormal" align="center">15.03</p> </td> <td> <p class="MsoNormal" align="center">15.04</p> </td> <td> <p class="MsoNormal" align="center">15.05</p> </td> </tr> <tr> <td valign="top"> <p class="MsoNormal">Долг (в процентах от кредита)</p> </td> <td> <p class="MsoNormal" align="center">100 %</p> </td> <td> <p class="MsoNormal" align="center">80 %</p> </td> <td> <p class="MsoNormal" align="center">60 %</p> </td> <td> <p class="MsoNormal" align="center">40 %</p> </td> <td> <p class="MsoNormal" align="center">0 %</p> </td> </tr> </table>  <p class="MsoNormal"><span> </span></p> <p class="MsoNormal">Найдите наименьшее значение <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>r</mi><mo>,</mo> </mrow> </semantics> </math> при котором сумма всех платежей будет превышать кредит больше чем на 30 %.<span></span></p>  </section></div><p>КЭС: 1.2 Рациональные числа. Обыкновенные и десятичные дроби, проценты, бесконечные периодические дроби; 2.1 Целые и дробно-рациональные уравнения</p><h2>Ответ</h2><p>11</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Выразить сумму всех платежей как кредит плюс сумму начисленных процентов: каждый месяц начисляется r% от долга на 15-е число предыдущего месяца (100%, 80%, 60%, 40% кредита S), а весь долг погашается к 15.05.</td><td>Сумма платежей = S + (r/100)·S·(1+0,8+0,6+0,4) = S(1 + 0,028r)</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Составить и решить неравенство: переплата больше 30% кредита, т.е. 0,028r·S &gt; 0,3·S.</td><td>r &gt; 300/28 = 75/7 ≈ 10,71</td><td>kc2</td></tr><tr><td>s3 · s2, condition</td><td>Выбрать наименьшее целое r, удовлетворяющее неравенству.</td><td>r = 11 (при r=10 переплата 28% ≤ 30%, при r=11 — 30,8% &gt; 30%)</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Суммирование процентов по остаткам долга и решение неравенства&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Вычислить сумму выплат по кредиту через остатки долга</h3><p>По заданной схеме остатков долга после платежей и ставке ежемесячного начисления выразить общую сумму платежей как кредит плюс сумма процентов, начисленных на остатки предыдущих периодов; применимо, когда долг полностью погашается к концу срока.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Выразить сумму всех платежей как кредит плюс сумму начисленных процентов&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;Сумма платежей = S + (r/100)·S·(1+0,8+0,6+0,4) = S(1 + 0,028r)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+      &quot;reason&quot;: &quot;Перевод процентов в множитель p/100 — лишь компонент; не охватывает моделирование суммы платежей по графику остатков долга.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_33060533660f&quot;,
+      &quot;reason&quot;: &quot;Модель прибыли и окупаемости (выручка, затраты, инвестиции), а не кредитная схема начисления процентов на остатки.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;arithmetic_series&quot;,
+      &quot;reason&quot;: &quot;Сумма остатков 1+0,8+0,6+0,4 вычислена напрямую; суммирование прогрессии по числу членов и крайним членам не является сутью действия.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — построение модели суммы выплат по кредиту: проценты начисляются на остаток долга на 15-е число предыдущего месяца (из таблицы условия), долг полностью погашается, поэтому сумма платежей = кредит + сумма процентов. В каталоге нет узла финансовой (кредитной) модели; ближайшие узлы покрывают только компоненты.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;По заданному графику остатков долга после платежей и ставке ежемесячного начисления выразить общую сумму платежей как кредит плюс сумму процентов, начисленных на остатки предыдущих периодов, при полном погашении долга к концу срока.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Решить линейное неравенство по условию на переплату</h3><p>Перевести словесное условие сравнения суммы платежей с кредитом в линейное неравенство относительно ставки и решить его.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Составить и решить неравенство: переплата больше 30% кредита, т.е. 0,028r·S &gt; 0,3·S.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;r &gt; 300/28 = 75/7 ≈ 10,71&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0cf8af170957&quot;,
+      &quot;reason&quot;: &quot;Соответствует только решению 0,028r &gt; 0,3 (деление на положительный коэффициент); не включает перевод словесного условия в неравенство.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cb48e5bc61de&quot;,
+      &quot;reason&quot;: &quot;Построение неравенства по прикладной формуле близко к первой части, но определение говорит о подстановке величин в заданную формулу; здесь модель получена в s1, и решение неравенства в узел не входит.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+      &quot;reason&quot;: &quot;Перевод «30%» в 0,3 — лишь компонент составления неравенства.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет два действия: перевод условия «сумма платежей превышает кредит больше чем на 30%» в неравенство 0,028r·S &gt; 0,3·S (с сокращением на S&gt;0) и решение линейного неравенства с числовыми коэффициентами. Составление модели и решение рассматриваются отдельно.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Перевести условие на переплату в неравенство относительно r, используя модель суммы платежей из s1 и S&gt;0&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_cb48e5bc61de&quot;,
+        &quot;note&quot;: &quot;соответствие неполное; возможно, нужен отдельный узел&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Решить линейное неравенство 0,028r &gt; 0,3&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_0cf8af170957&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Выбрать наименьшее целое решение неравенства</h3><p>По найденному промежутку значений параметра выбрать наименьшее целое значение, удовлетворяющее строгому неравенству, с проверкой граничных соседей.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Выбрать наименьшее целое r, удовлетворяющее неравенству.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;r = 11 (при r=10 переплата 28% ≤ 30%, при r=11 — 30,8% &gt; 30%)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;,
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_a873d91378ab&quot;,
+      &quot;reason&quot;: &quot;Проверка граничного ответа подстановкой в модель — компонент (проверка r=10 и r=11), но не выбор наименьшего целого из промежутка.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+      &quot;reason&quot;: &quot;Отбор решений по условиям модели касается корней уравнения и физического смысла, а не выбора наименьшего целого элемента промежутка.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;finite_exhaustion&quot;,
+      &quot;reason&quot;: &quot;Полного конечного перебора нет.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — из промежутка r &gt; 75/7 с учётом целочисленности r из условия выбрать наименьшее целое значение (11) с проверкой соседних значений. Подходящего узла выбора наименьшего целого решения в каталоге нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;По найденному промежутку решений и условию целочисленности параметра выбрать наименьшее (наибольшее) целое значение, учитывая строгость неравенства.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/D15112.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/D15112.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

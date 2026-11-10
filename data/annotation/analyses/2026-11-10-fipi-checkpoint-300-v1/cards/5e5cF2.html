@@ -1,0 +1,225 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>5e5cF2</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>44. ФИПИ 5e5cF2 · бронь #4, партия 3</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">а) Решите уравнение <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mn>2</mn><mi>sin</mi><mrow><mo>(</mo> <mrow> <mi>x</mi><mo>−</mo><mfrac> <mi>π</mi> <mn>4</mn> </mfrac> </mrow> <mo>)</mo></mrow><mo>+</mo><mn>2</mn><msqrt> <mn>2</mn> </msqrt> <mi>cos</mi><mrow><mo>(</mo> <mrow> <mfrac> <mi>π</mi> <mn>2</mn> </mfrac> <mo>+</mo><mi>x</mi> </mrow> <mo>)</mo></mrow><mo>=</mo><mn>0.</mn> </mrow> </semantics> </math> </p> <p class="MsoNormal">б) Найдите все корни этого уравнения, принадлежащие отрезку <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mrow><mo>[</mo> <mrow> <mo>−</mo><mtext> </mtext><mn>4</mn><mi>π</mi><mo>;</mo><mtext> </mtext><mo>−</mo><mfrac> <mrow> <mn>5</mn><mi>π</mi> </mrow> <mn>2</mn> </mfrac> </mrow> <mo>]</mo></mrow><mo>.</mo> </mrow> </semantics> </math><span></span></p>  </section></div><p>КЭС: 2.3 Тригонометрические уравнения</p><h2>Ответ</h2><p>а) -π/4+πn, n∈Z; б) -13π/4</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Раскрыть sin(x-π/4) по формуле синуса разности и применить формулу приведения cos(π/2+x)=-sin x</td><td>√2 sin x - √2 cos x - 2√2 sin x = 0</td><td>kc1, kc2</td></tr><tr><td>s2 · s1</td><td>Привести подобные и упростить уравнение</td><td>sin x + cos x = 0</td><td>kc3</td></tr><tr><td>s3 · s2</td><td>Разделить однородное уравнение первой степени на cos x, обосновав, что cos x ≠ 0 (иначе sin x = ±1 и равенство не выполняется)</td><td>tg x = -1</td><td>kc4</td></tr><tr><td>s4 · s3</td><td>Решить простейшее уравнение с тангенсом</td><td>x = -π/4 + πn, n∈Z</td><td>kc5</td></tr><tr><td>s5 · s4, condition</td><td>Отобрать корни серии на отрезке [-4π; -5π/2] через двойное неравенство для целого n</td><td>-15/4 ≤ n ≤ -9/4, n = -3, x = -13π/4</td><td>kc6</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Преобразование к однородному уравнению первой степени и переход к тангенсу&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;m2&quot;,
+    &quot;name&quot;: &quot;Отбор корней двойным неравенством&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s5&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Применить формулу синуса (косинуса) суммы или разности</h3><p>Вход: тригонометрическая функция от суммы/разности аргументов; операция: разложить по формуле сложения с подстановкой табличных значений; граница: аргументы, для одного из которых известны значения функций.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Раскрыть sin(x-π/4) по формуле синуса разности&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;√2 sin x - √2 cos x&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;,
+      &quot;reason&quot;: &quot;определение охватывает формулы приведения и двойного угла, не формулы сложения&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_55d5a6d9eb3c&quot;,
+      &quot;reason&quot;: &quot;то же: приведение и двойной угол&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_3d70ab3eb24a&quot;,
+      &quot;reason&quot;: &quot;только формула двойного угла&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: разложение синуса разности аргументов по формуле сложения с подстановкой табличных значений sin(π/4), cos(π/4). В каталоге формул сложения нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Раскрывать синус/косинус суммы или разности аргументов по формуле сложения, подставляя известные значения функций одного из аргументов.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Применить формулу приведения</h3><p>Вход: тригонометрическая функция от аргумента вида kπ/2 ± x; операция: заменить на ±функцию (ко)функцию от x по правилу знака и смены функции; граница: целые k.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;применить формулу приведения cos(π/2+x)=-sin x&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;,
+      &quot;reason&quot;: &quot;включает формулы приведения, но как часть сведения выражения к одной функции вместе с двойным углом&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_55d5a6d9eb3c&quot;,
+      &quot;reason&quot;: &quot;практически дублирует literal_cc7d68a38f29; нет основания выбрать один узел&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдаемое действие — одна формула приведения; оно является компонентом составных узлов каталога, и два перекрывающихся определения не позволяют выбрать единственный ID.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc3"><h3>kc3 · Привести подобные тригонометрические слагаемые</h3><p>Вход: линейная комбинация sin x и cos x; операция: сложить коэффициенты и сократить на общий ненулевой множитель; граница: одинаковые аргументы.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Привести подобные и упростить уравнение&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;sin x + cos x = 0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;решение аффинного уравнения одной переменной, а здесь упрощение линейной комбинации sin x и cos x без нахождения решений&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Сложение коэффициентов при sin x и деление на ненулевой множитель -√2. Подходящего узла нет; действие близко к рутинной алгебре и может не требовать отдельного KC.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Упрощать линейную комбинацию sin x и cos x одного аргумента: складывать коэффициенты и делить уравнение на общий ненулевой числовой множитель.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Свести однородное тригонометрическое уравнение к уравнению с тангенсом</h3><p>Вход: a sin x + b cos x = 0 (или однородное степени n); операция: проверить, что cos x = 0 не даёт решений, и разделить на cos^n x; граница: однородные уравнения относительно sin x и cos x.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Разделить однородное уравнение первой степени на cos x, обосновав, что cos x ≠ 0 (иначе sin x = ±1 и равенство не выполняется)&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;tg x = -1&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_695d7a370e3b&quot;,
+      &quot;reason&quot;: &quot;вычисление значения тангенса по известным sin и cos, а не равносильный переход в уравнении с проверкой cos x=0&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+      &quot;reason&quot;: &quot;иной метод решения&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Равносильный переход от a sin x + b cos x = 0 к уравнению с тангенсом с обоснованием, что cos x=0 корней не даёт. В каталоге нет такого узла.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Сводить однородное уравнение относительно sin x и cos x к уравнению с tg x делением на cos^n x после проверки, что cos x=0 не даёт решений.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc5"><h3>kc5 · Решить простейшее уравнение tg x = a</h3><p>Вход: уравнение tg x = a; операция: записать серию x = arctg a + πn; граница: любое действительное a.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc5&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:action&quot;,
+      &quot;quote&quot;: &quot;Решить простейшее уравнение с тангенсом&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;x = -π/4 + πn, n∈Z&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s3:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;elementary_trig_equation&quot;,
+      &quot;reason&quot;: &quot;определение явно ограничено sin x=c и cos x=c; тангенс с периодом π не охвачен&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Запись серии arctg a + πn для tg x = -1. Близкий узел есть, но его определение не включает тангенс; возможно расширение elementary_trig_equation вместо нового узла.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Решать tg x=a для действительного a, выписывая полную серию x=arctg a+πn, n∈Z.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc6"><h3>kc6 · Отобрать корни серии на промежутке через неравенство для параметра</h3><p>Вход: серия корней с целым параметром и числовой промежуток; операция: составить и решить двойное неравенство, выбрать целые значения параметра и вычислить корни; граница: линейные по параметру серии.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc6&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;periodic_interval&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s5:action&quot;,
+      &quot;quote&quot;: &quot;Отобрать корни серии на отрезке [-4π; -5π/2] через двойное неравенство для целого n&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s5:result&quot;,
+      &quot;quote&quot;: &quot;-15/4 ≤ n ≤ -9/4, n = -3, x = -13π/4&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s4:result&quot;,
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_8409c9003f48&quot;,
+      &quot;reason&quot;: &quot;для конечного набора корней без параметра&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6ad8f502588e&quot;,
+      &quot;reason&quot;: &quot;общая проверка точек без периодической серии&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Серия подставлена в границы отрезка, найдено единственное целое n=-3 и корень -13π/4; проверка: -4π≤-π/4+πn≤-5π/2 даёт -15/4≤n≤-9/4, верно.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s1:action&quot;
+    ],
+    &quot;description&quot;: &quot;Узлы literal_cc7d68a38f29 и literal_55d5a6d9eb3c дублируют друг друга и объединяют формулы приведения с двойным углом; отдельное применение формулы приведения нельзя однозначно сопоставить.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc2&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/5e5cF2.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/5e5cF2.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

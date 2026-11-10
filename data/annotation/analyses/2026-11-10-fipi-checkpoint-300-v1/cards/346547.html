@@ -1,0 +1,82 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>346547</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>91. ФИПИ 346547 · бронь #4, партия 7</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">В торговом центре два одинаковых автомата продают кофе. Вероятность того, что к концу дня в первом автомате закончится кофе, равна 0,1. Вероятность того, что кофе закончится во втором автомате, такая же. Вероятность того, что кофе закончится в двух автоматах, равна 0,03. Найдите вероятность того, что к концу дня кофе останется в двух автоматах.<span></span></p>  </section></div><p>КЭС: 6.2 Вероятность</p><h2>Ответ</h2><p>0,83</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти вероятность того, что кофе закончится хотя бы в одном автомате, по формуле сложения вероятностей совместных событий</td><td>P(A∪B)=0,1+0,1−0,03=0,17</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Найти вероятность того, что кофе останется в обоих автоматах, как вероятность события, противоположного «закончится хотя бы в одном»</td><td>1−0,17=0,83</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Сложение вероятностей и переход к дополнению&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Вычислить вероятность объединения совместных событий</h3><p>Вход: вероятности двух событий и их пересечения. Операция: P(A∪B)=P(A)+P(B)−P(A∩B). Применимо к любым (в том числе совместным) событиям.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;по формуле сложения вероятностей совместных событий&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;P(A∪B)=0,1+0,1−0,03=0,17&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+      &quot;reason&quot;: &quot;Вероятность пересечения независимых событий через произведение; здесь пересечение задано, а вычисляется объединение, независимость не используется (0,03≠0,1·0,1).&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;reason&quot;: &quot;m/n в равновозможной модели; здесь нет подсчёта исходов.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — вычисление P(A∪B)=P(A)+P(B)−P(A∩B) по заданным вероятностям двух событий и их пересечения. В каталоге нет узла для формулы сложения вероятностей произвольных событий.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Вычислять вероятность объединения двух событий&quot;,
+    &quot;definition&quot;: &quot;По заданным P(A), P(B) и P(A∩B) найти P(A∪B)=P(A)+P(B)−P(A∩B); не требует несовместности или независимости.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Перейти к противоположному событию</h3><p>Вход: вероятность события. Операция: вероятность противоположного события равна 1 минус вероятность исходного. Применимо, когда искомое событие является дополнением известного.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;как вероятность события, противоположного «закончится хотя бы в одном»&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;1−0,17=0,83&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+      &quot;reason&quot;: &quot;Произведение вероятностей независимых событий; здесь используется дополнение.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;reason&quot;: &quot;Не подсчёт равновозможных исходов.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — распознать, что «кофе останется в обоих» является дополнением «закончится хотя бы в одном», и вычислить 1−P. В каталоге узла для противоположного события нет. Вычисление верно: 0,83.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Вычислять вероятность противоположного события&quot;,
+    &quot;definition&quot;: &quot;Установить, что искомое событие — дополнение события с известной вероятностью, и вычислить P(Ā)=1−P(A).&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/346547.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/346547.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

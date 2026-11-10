@@ -1,0 +1,137 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>11D603</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>95. ФИПИ 11D603 · бронь #4, партия 7</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Найдите все значения <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>a</mi><mo>,</mo> </mrow> </semantics> </math> при каждом из которых уравнение</p> <p class="MsoNormal" align="center"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>a</mi><msup> <mrow> <mrow><mo>(</mo> <mrow> <mi>x</mi><mo>+</mo><mfrac> <mn>4</mn> <mi>x</mi> </mfrac> </mrow> <mo>)</mo></mrow> </mrow> <mn>2</mn> </msup> <mo>+</mo><mn>2</mn><mrow><mo>(</mo> <mrow> <mi>x</mi><mo>+</mo><mfrac> <mn>4</mn> <mi>x</mi> </mfrac> </mrow> <mo>)</mo></mrow><mo>−</mo><mn>25</mn><mi>a</mi><mo>+</mo><mn>10</mn><mo>=</mo><mn>0</mn> </mrow> </semantics> </math></p> <p class="MsoNormal">имеет ровно два различных корня.<span></span></p>  </section></div><p>КЭС: 2.10 Уравнения, неравенства и системы с параметрами</p><h2>Ответ</h2><p>a ∈ {0} ∪ {1/5} ∪ (2/9; 2)</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Ввести замену t = x + 4/x и найти множество значений t и число корней x для каждого t (x ≠ 0)</td><td>x^2 − tx + 4 = 0: при |t| &gt; 4 два корня x, при |t| = 4 один корень (x = ±2), при |t| &lt; 4 корней нет; разным t соответствуют разные x</td><td>kc1</td></tr><tr><td>s2 · condition</td><td>Разложить уравнение относительно t на множители</td><td>a(t^2 − 25) + 2(t + 5) = 0, т.е. (t + 5)(a(t − 5) + 2) = 0; t = −5 всегда корень, второй t = 5 − 2/a при a ≠ 0</td><td>kc2</td></tr><tr><td>s3 · s1, s2</td><td>Учесть, что t = −5 даёт два корня x, и потребовать, чтобы второй множитель не добавлял новых x</td><td>Подходят: a = 0 (второго t нет); 5 − 2/a = −5, т.е. a = 1/5; 5 − 2/a ∈ (−4; 4), т.е. 2/9 &lt; a &lt; 2. При 5 − 2/a = ±4 корней три, при |5 − 2/a| &gt; 4 — четыре</td><td>kc1, kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Замена переменной с разложением на множители и анализом числа прообразов&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Подсчитать число корней исходного уравнения по значениям замены</h3><p>Для замены вида t = f(x) определить, сколько значений x соответствует каждому значению t, и выразить число корней исходного уравнения через корни уравнения относительно t</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;x^2 − tx + 4 = 0: при |t| &gt; 4 два корня x, при |t| = 4 один корень (x = ±2), при |t| &lt; 4 корней нет; разным t соответствуют разные x&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Учесть, что t = −5 даёт два корня x, и потребовать, чтобы второй множитель не добавлял новых x&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ab8a29be8367&quot;,
+      &quot;reason&quot;: &quot;Та же идея подсчёта прообразов, но определение ограничено заменой u=x² и условием u≥0; здесь замена t=x+4/x с иной структурой прообразов (|t|&gt;4, |t|=4, |t|&lt;4).&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_05f53e4cc43a&quot;,
+      &quot;reason&quot;: &quot;Подсчёт различных решений объединения ветвей — часть s3, но не включает определение числа прообразов значения замены.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+      &quot;reason&quot;: &quot;Дискриминант x^2−tx+4 используется внутри s1 как компонент, но не покрывает перенос числа корней через замену.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: для замены t=x+4/x (x≠0) определить число x для каждого t и выразить число корней исходного уравнения через корни по t. Наблюдается в s1 (результат) и s3 (применение). Каталожный узел для произвольной замены отсутствует; ближайший узел специфичен для u=x².&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Для замены t=f(x) найти, сколько допустимых x соответствует каждому значению t (включая граничные значения с одним прообразом и отсутствие прообразов), проверить, что разные t дают разные x, и выразить число различных корней исходного уравнения через корни уравнения относительно t.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Разложить уравнение с параметром на множители</h3><p>Сгруппировать слагаемые с параметром и без него, чтобы выделить общий множитель и получить корни в явном виде через параметр</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;a(t^2 − 25) + 2(t + 5) = 0, т.е. (t + 5)(a(t − 5) + 2) = 0&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;t = −5 всегда корень, второй t = 5 − 2/a при a ≠ 0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:action&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_89adef4e8cee&quot;,
+      &quot;reason&quot;: &quot;Покрывает факторизацию квадратного трёхчлена с параметром (часть 1), но не получение корней; проверка раскрытием скобок явно не показана.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+      &quot;reason&quot;: &quot;Покрывает переход от произведения к нулям множителей (часть 2), но не саму группировку.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;Решение a(t−5)+2=0 относительно t имеет параметрический коэффициент a и случай a=0, поэтому не совпадает с узлом для числовых коэффициентов.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет группировку и разложение квадратного по t выражения с параметром и получение корней из нулевого произведения с разбором a≠0. Разложение проверено: a(t^2−25)+2(t+5)=(t+5)(a(t−5)+2) верно.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Сгруппировать слагаемые и разложить a t^2+2t−25a+10 на множители (t+5)(a(t−5)+2)&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_89adef4e8cee&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Приравнять множители к нулю и выразить корень t=5−2/a с учётом случая a=0&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;zero_product&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Решить условие на расположение корня, зависящего от параметра</h3><p>Для корня, явно выраженного через параметр, записать и решить неравенства или равенства, задающие его попадание в нужный промежуток или совпадение с другим корнем, учитывая случай вырождения</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;5 − 2/a = −5, т.е. a = 1/5; 5 − 2/a ∈ (−4; 4), т.е. 2/9 &lt; a &lt; 2&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;a = 0 (второго t нет)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ad66344767ba&quot;,
+      &quot;reason&quot;: &quot;Двойное неравенство для модуля линейного выражения; здесь выражение 5−2/a дробно-рациональное по параметру.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_e41f0e408b87&quot;,
+      &quot;reason&quot;: &quot;Объединение найденных случаев параметра в ответ — завершающий компонент, а не решение условий расположения корня.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;rational_intervals&quot;,
+      &quot;reason&quot;: &quot;Неравенство −4&lt;5−2/a&lt;4 можно решать методом интервалов, но кандидат включает также условие совпадения корней и вырожденный случай a=0.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: для корня t=5−2/a записать условия совпадения с t=−5 и попадания в (−4;4), решить их по a и учесть a=0. Проверка: −4&lt;5−2/a&lt;4 ⇔ 1&lt;2/a&lt;9 ⇔ 2/9&lt;a&lt;2; 5−2/a=−5 ⇔ a=1/5. Подходящего узла в каталоге нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Для корня вспомогательного уравнения, явно выраженного через параметр, записать равенства (совпадение с другим корнем) и неравенства (попадание в заданный промежуток), решить их относительно параметра и отдельно учесть значения, при которых корень не существует.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/11D603.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/11D603.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

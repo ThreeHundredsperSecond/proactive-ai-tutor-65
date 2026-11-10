@@ -1,0 +1,122 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>A9DCC5</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>53. ФИПИ A9DCC5 · бронь #4, партия 5</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section> <table class="MsoTableGrid" cellspacing="0" cellpadding="2" border="0">
+<tbody>
+<tr>
+<td valign="top">
+<p class="Basis">Два угла вписанного в окружность четырёхугольника равны <sub><img src="../../../runs/2026-11-09-fipi-team-bogdan108-next-100/inputs/assets/1611b753adc0d44bbdc0366c.gif" alt="Рисунок ФИПИ"></sub> и <sub><img src="../../../runs/2026-11-09-fipi-team-bogdan108-next-100/inputs/assets/55f30945a86b620a4fdf9c36.gif" alt="Рисунок ФИПИ"></sub>. Найдите бо́льший из оставшихся углов. Ответ дайте в градусах.</p></td>
+<td valign="top">
+<p class="Basis" align="right"><span lang="EN-US"><img src="../../../runs/2026-11-09-fipi-team-bogdan108-next-100/inputs/assets/6e595b80ae88d61092ee730f.gif" alt="Рисунок ФИПИ"></span></p></td></tr></tbody></table>
+<p class="Basis"></p> </section></div><p>КЭС: 7.1 Фигуры на плоскости</p><h2>Ответ</h2><p>81</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Проверить, что данные углы 99° и 117° не являются противолежащими: их сумма 216° ≠ 180°, значит, они соседние, и каждому противолежит один из оставшихся углов.</td><td>Оставшиеся углы противолежат углам 99° и 117° соответственно</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Найти оставшиеся углы по свойству вписанного четырёхугольника: сумма противолежащих углов равна 180°.</td><td>180°−99°=81°, 180°−117°=63°</td><td>kc1</td></tr><tr><td>s3 · s2</td><td>Выбрать больший из найденных углов.</td><td>81°</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Нахождение углов вписанного четырёхугольника через сумму противолежащих углов&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Применить свойство противолежащих углов вписанного четырёхугольника</h3><p>Вход: известные углы четырёхугольника, вписанного в окружность. Операция: использовать равенство суммы противолежащих углов 180°, чтобы определить, какие углы противолежат, и найти неизвестный угол как дополнение до 180°. Граница: только для четырёхугольников, вписанных в окружность.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;их сумма 216° ≠ 180°, значит, они соседние&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;сумма противолежащих углов равна 180°&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;180°−99°=81°, 180°−117°=63°&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;image:assets/6e595b80ae88d61092ee730f.gif&quot;,
+      &quot;region_description&quot;: &quot;окружность с вписанным четырёхугольником, все четыре вершины лежат на окружности; подписей углов нет&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;image:assets/1611b753adc0d44bbdc0366c.gif&quot;,
+    &quot;image:assets/55f30945a86b620a4fdf9c36.gif&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_f5a787e19d0e&quot;,
+      &quot;reason&quot;: &quot;сумма углов треугольника и смежность, а не свойство вписанного четырёхугольника&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;diameter_angle&quot;,
+      &quot;reason&quot;: &quot;прямой вписанный угол на диаметре; диаметр здесь не используется&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_adbf18f11761&quot;,
+      &quot;reason&quot;: &quot;сложение/вычитание углов с общей стороной, не противолежащие углы четырёхугольника&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: применить свойство вписанного четырёхугольника (сумма противолежащих углов 180°) для определения взаимного расположения данных углов и нахождения неизвестных как дополнений до 180°. Объект и условие (вписанность) в каталоге не представлены; ближайшие узлы относятся к треугольникам, смежным углам и диаметру.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Использовать сумму противолежащих углов вписанного четырёхугольника&quot;,
+    &quot;definition&quot;: &quot;Для четырёхугольника, вписанного в окружность, использовать равенство суммы противолежащих углов 180°: находить неизвестный угол как дополнение противолежащего до 180° и, при необходимости, определять противолежащие пары по этому равенству.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Сравнить найденные значения и выбрать требуемое</h3><p>Вход: несколько вычисленных величин и условие отбора (больший/меньший). Операция: сравнить и выбрать величину, удовлетворяющую условию задачи.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Выбрать больший из найденных углов.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;81°&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+      &quot;reason&quot;: &quot;отбор корней по физическому смыслу/ОДЗ, а не сравнение величин по требованию вопроса&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_89184e5e6ac9&quot;,
+      &quot;reason&quot;: &quot;восстановление искомой величины из вспомогательного параметра; здесь вспомогательного параметра нет&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;global_interval_extreme&quot;,
+      &quot;reason&quot;: &quot;глобальный экстремум функции на отрезке, а не выбор из двух чисел&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Действие — сравнение двух вычисленных чисел и выбор по условию «больший». В каталоге нет узла общего отбора требуемого значения из конечного набора по условию вопроса. Действие элементарное; возможно, команда решит не выделять его как KC.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Выбирать требуемую величину из найденных по условию вопроса&quot;,
+    &quot;definition&quot;: &quot;Сравнить несколько вычисленных значений и выбрать то, которое удовлетворяет требованию вопроса (больший/меньший). Предложение; может оказаться слишком мелким для отдельного KC.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s1:action&quot;
+    ],
+    &quot;description&quot;: &quot;Рассуждение s1 опирается на то, что противолежащие углы в сумме дают 180°, поэтому данные углы с суммой 216° соседние. Это верно; ответ 81 проверен: 180−99=81 &gt; 180−117=63. Пометка о границе: s1 и s2 размечены одним kc1, что согласуется с описанием кандидата.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc1&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/A9DCC5.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/A9DCC5.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

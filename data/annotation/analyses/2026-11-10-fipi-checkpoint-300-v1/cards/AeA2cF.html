@@ -1,0 +1,156 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>AeA2cF</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>39. ФИПИ AeA2cF · бронь #4, партия 3</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Найдите все значения <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>a</mi><mo>,</mo> </mrow> </semantics> </math> при каждом из которых уравнение</p> <p class="MsoNormal" align="center"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mrow><mo>(</mo> <mrow> <mi>x</mi><mo>−</mo><mn>2</mn> </mrow> <mo>)</mo></mrow><msup> <mi>a</mi> <mn>2</mn> </msup> <mo>+</mo><mrow><mo>(</mo> <mrow> <msup> <mi>x</mi> <mn>3</mn> </msup> <mo>−</mo><msup> <mi>x</mi> <mn>2</mn> </msup> <mo>−</mo><mn>4</mn> </mrow> <mo>)</mo></mrow><mi>a</mi><mo>+</mo><msup> <mi>x</mi> <mn>4</mn> </msup> <mo>−</mo><mn>4</mn><msup> <mi>x</mi> <mn>2</mn> </msup> <mo>=</mo><mn>0</mn> </mrow> </semantics> </math></p> <p class="MsoNormal">имеет ровно два различных корня.<span></span></p>  </section></div><p>КЭС: 2.1 Целые и дробно-рациональные уравнения</p><h2>Ответ</h2><p>a = -4; a &gt; 0</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Рассмотреть уравнение как квадратное относительно a и разложить левую часть на множители</td><td>(x-2)(a+x^2)(a+x+2)=0</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Выписать корни каждого множителя с условием существования</td><td>x=2; x=-a-2; x=±√(-a) при a≤0</td><td>kc2</td></tr><tr><td>s3 · s2</td><td>Случай a&gt;0: подсчитать различные корни среди 2 и -a-2</td><td>-a-2&lt;-2≠2, ровно два корня при всех a&gt;0</td><td>kc3</td></tr><tr><td>s4 · s2</td><td>Случай a=0: подсчитать различные корни</td><td>корни 2, -2, 0 — три, не подходит</td><td>kc3</td></tr><tr><td>s5 · s2</td><td>Случай a&lt;0: ввести t=√(-a)&gt;0, корни 2, t, -t, t^2-2; найти, когда различных ровно два</td><td>2, t, -t различны при t≠2 (≥3 корней); при t=2 (a=-4) корни {2,-2} — ровно два</td><td>kc3</td></tr><tr><td>s6 · s3, s4, s5</td><td>Объединить результаты случаев</td><td>a=-4 или a&gt;0</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Факторизация по параметру и анализ совпадений корней&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;,
+      &quot;s5&quot;,
+      &quot;s6&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Разложить выражение с параметром на множители, рассматривая его как многочлен относительно параметра</h3><p>Вход: уравнение, квадратное относительно параметра; операция: подбор или нахождение корней по параметру и разложение на множители; применимо, когда коэффициенты согласованно факторизуются</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Рассмотреть уравнение как квадратное относительно a и разложить левую часть на множители&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;(x-2)(a+x^2)(a+x+2)=0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_89adef4e8cee&quot;,
+      &quot;reason&quot;: &quot;Ближайшее: факторизация квадратного трёхчлена с параметром. Здесь роль переменной играет a, коэффициенты зависят от x, плюс вынесен общий множитель (x-2); проверка раскрытием скобок, входящая в определение, в решении не показана.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+      &quot;reason&quot;: &quot;Факторизация для исследования знака; здесь цель — нулевое произведение, а не знак.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция (разложение многочлена, квадратного по параметру a, на множители) близка к literal_89adef4e8cee, но объект шире (смена ролей переменной и параметра, три множителя), а обязательная проверка тождества не наблюдается. Разложение математически верно (проверено раскрытием рецензентом).&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Найти корни уравнения-произведения с учётом условий существования</h3><p>Вход: произведение множителей, равное нулю; операция: приравнять каждый множитель к нулю и записать корни как функции параметра с условиями их существования</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Выписать корни каждого множителя с условием существования&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;x=2; x=-a-2; x=±√(-a) при a≤0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_57e72251d4a8&quot;,
+      &quot;reason&quot;: &quot;Решение x^2=-a — компонент действия (один из множителей), не всё действие.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Из факторизованного уравнения получены нули всех множителей и условия их существования — это действие нулевого произведения целиком; объединение по числу корней выполняется в следующих шагах и размечено kc3.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Подсчитать число различных корней семейства по случаям параметра</h3><p>Вход: корни как функции параметра; операция: разбить область параметра на случаи, учесть совпадения корней и определить число различных решений; граница: требует полноты перебора случаев</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;-a-2&lt;-2≠2, ровно два корня при всех a&gt;0&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;корни 2, -2, 0 — три, не подходит&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s5:result&quot;,
+      &quot;quote&quot;: &quot;при t=2 (a=-4) корни {2,-2} — ровно два&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s6:result&quot;,
+      &quot;quote&quot;: &quot;a=-4 или a&gt;0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_5dcd4a01af19&quot;,
+      &quot;reason&quot;: &quot;Подсчёт различных корней с учётом совпадений — подходит к s3–s5, но перекрывается с literal_d93e50c17220 и literal_05f53e4cc43a.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d93e50c17220&quot;,
+      &quot;reason&quot;: &quot;Почти дублирующее определение того же действия.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_05f53e4cc43a&quot;,
+      &quot;reason&quot;: &quot;Различные решения объединения ветвей — тоже перекрывается.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_e41f0e408b87&quot;,
+      &quot;reason&quot;: &quot;Соответствует только s6 (объединение случаев параметра).&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет разбиение области параметра и подсчёт различных корней с учётом совпадений (s3–s5) и запись итогового множества параметров (s6). Это разные действия.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Подсчёт различных корней семейства в каждом случае параметра с учётом совпадений (s3, s4, s5)&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;literal_5dcd4a01af19&quot;,
+          &quot;literal_d93e50c17220&quot;,
+          &quot;literal_05f53e4cc43a&quot;
+        ],
+        &quot;note&quot;: &quot;перекрывающиеся определения, выбор не однозначен&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Объединение случаев в множество значений параметра (s6)&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;literal_e41f0e408b87&quot;
+        ]
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s5:result&quot;
+    ],
+    &quot;description&quot;: &quot;В s5 утверждение о ≥3 корнях при t≠2 верно (2, t, -t различны при t&gt;0, t≠2), но совпадения корня t^2-2 с остальными явно не разобраны; на итог не влияет. Ответ a=-4; a&gt;0 при выборочной проверке верен.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc3&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/AeA2cF.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/AeA2cF.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

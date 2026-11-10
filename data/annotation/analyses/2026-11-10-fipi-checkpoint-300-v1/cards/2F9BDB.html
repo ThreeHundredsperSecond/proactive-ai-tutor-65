@@ -1,0 +1,151 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>2F9BDB</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>100. ФИПИ 2F9BDB · бронь #4, партия 8</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0"> <tr> <td valign="top"> <p class="MsoNormal">Площадь боковой поверхности треугольной призмы равна 54. Через среднюю линию основания призмы проведена плоскость, параллельная боковому ребру. Найдите площадь боковой поверхности отсечённой треугольной призмы.</p> </td> <td valign="top"> <p class="MsoNormal" align="right"><img src="../../../runs/2026-11-09-fipi-team-bogdan108-next-100/inputs/assets/089a38b6f165902df128244d.png" alt="Рисунок ФИПИ"><span></span></p> </td> </tr> </table> <p class="MsoNormal"><span> </span></p>  </section></div><p>КЭС: 7.3 Многогранники</p><h2>Ответ</h2><p>27</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>S1 · condition</td><td>Установить, что сечение плоскостью через среднюю линию основания параллельно боковому ребру отсекает призму с теми же боковыми рёбрами, основание которой — треугольник, отсечённый средней линией и подобный исходному основанию с коэффициентом 1/2; поэтому периметр её перпендикулярного сечения (или основания) вдвое меньше</td><td>Периметр отсечённой призмы равен половине периметра исходной, боковые рёбра те же</td><td>KC1, KC2</td></tr><tr><td>S2 · condition, S1</td><td>Выразить площадь боковой поверхности призмы как произведение периметра перпендикулярного сечения на длину бокового ребра и найти отношение площадей</td><td>S = 54 · 1/2 = 27</td><td>KC3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;M1&quot;,
+    &quot;name&quot;: &quot;Отношение боковых поверхностей через отношение периметров сечений&quot;,
+    &quot;step_ids&quot;: [
+      &quot;S1&quot;,
+      &quot;S2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="KC1"><h3>KC1 · Применить свойство средней линии треугольника</h3><p>По средней линии треугольника определить, что отсекаемый ею треугольник подобен исходному с коэффициентом 1/2 и его периметр вдвое меньше; применимо, когда отрезок соединяет середины двух сторон.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S1:action&quot;,
+      &quot;quote&quot;: &quot;основание которой — треугольник, отсечённый средней линией и подобный исходному основанию с коэффициентом 1/2&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S1:result&quot;,
+      &quot;quote&quot;: &quot;Периметр отсечённой призмы равен половине периметра исходной&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d5e287608dd5&quot;,
+      &quot;reason&quot;: &quot;Общее подобие для пропорции отрезков и высот; не содержит свойства средней линии (параллельность и половина стороны) и вывода об отношении периметров.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_b58390338050&quot;,
+      &quot;reason&quot;: &quot;Использует уже установленное подобие для пропорции сторон; здесь же подобие выводится из средней линии и переносится на периметр.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;similar_area&quot;,
+      &quot;reason&quot;: &quot;Отношение площадей подобных фигур (квадрат коэффициента), а здесь отношение периметров (первая степень).&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;similarity_AA&quot;,
+      &quot;reason&quot;: &quot;Доказательство подобия по двум углам в решении не выполняется.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: по средней линии треугольника-основания установить подобие отсекаемого треугольника с коэффициентом 1/2 и уменьшение периметра вдвое. Объект — треугольник основания призмы; условие — отрезок соединяет середины двух сторон (из условия). В каталоге нет узла о средней линии треугольника; ближайшие узлы о подобии покрывают лишь часть действия.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Применять свойство средней линии треугольника&quot;,
+    &quot;definition&quot;: &quot;По отрезку, соединяющему середины двух сторон треугольника, установить его параллельность третьей стороне и равенство её половине; отсекаемый треугольник подобен исходному с коэффициентом 1/2, поэтому соответствующие длины и периметр вдвое меньше.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="KC2"><h3>KC2 · Определить вид сечения призмы плоскостью, параллельной боковому ребру</h3><p>По прямой в основании и условию параллельности боковому ребру установить, что сечение отсекает призму с теми же боковыми рёбрами и основанием, ограниченным этой прямой.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S1:action&quot;,
+      &quot;quote&quot;: &quot;сечение плоскостью через среднюю линию основания параллельно боковому ребру отсекает призму с теми же боковыми рёбрами&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;image:assets/089a38b6f165902df128244d.png&quot;,
+      &quot;region_description&quot;: &quot;Треугольная призма с наклонными боковыми рёбрами; внутри проведена плоскость (сплошные и штриховые линии) через отрезок в основаниях, параллельная боковым рёбрам, отсекающая меньшую треугольную призму у одного ребра.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;image:assets/089a38b6f165902df128244d.png&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6f2cb1731d16&quot;,
+      &quot;reason&quot;: &quot;Определяет тип многоугольника сечения по пересечённым рёбрам; здесь устанавливается, что отсечённая часть — призма с общими боковыми рёбрами, это другой результат.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0cd75b4548b3&quot;,
+      &quot;reason&quot;: &quot;Распознавание призмы по параллельным равным основаниям — близкий компонент, но не включает построение плоскости через прямую основания параллельно ребру и вывод об отсечённом теле.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: по прямой в основании и параллельности плоскости боковому ребру установить, что отсечённая часть — призма с той же длиной боковых рёбер и основанием, ограниченным этой прямой. Ни один узел каталога не описывает этот вывод целиком.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Определять отсечённое тело при сечении призмы плоскостью, параллельной боковому ребру&quot;,
+    &quot;definition&quot;: &quot;Для плоскости, проходящей через прямую в основании призмы параллельно боковому ребру, установить, что она отсекает призму с боковыми рёбрами той же длины и основанием, ограниченным этой прямой.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="KC3"><h3>KC3 · Сравнить площади боковых поверхностей призм с общими боковыми рёбрами</h3><p>Использовать формулу боковой поверхности призмы как произведения периметра перпендикулярного сечения на боковое ребро, чтобы при равных рёбрах найти отношение площадей как отношение периметров.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC3&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S2:action&quot;,
+      &quot;quote&quot;: &quot;Выразить площадь боковой поверхности призмы как произведение периметра перпендикулярного сечения на длину бокового ребра и найти отношение площадей&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S2:result&quot;,
+      &quot;quote&quot;: &quot;S = 54 · 1/2 = 27&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:S1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;cylinder_lateral&quot;,
+      &quot;reason&quot;: &quot;Боковая поверхность прямого цилиндра S=2πrh, другой объект.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_e97bf0e03da7&quot;,
+      &quot;reason&quot;: &quot;Боковая поверхность конуса, другой объект.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_19971b364ca1&quot;,
+      &quot;reason&quot;: &quot;Объём призмы, а не площадь боковой поверхности.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;similar_area&quot;,
+      &quot;reason&quot;: &quot;Отношение площадей здесь линейно по периметру при равных рёбрах, а не квадрат коэффициента подобия; призмы не подобны.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: использовать S_бок = P_⊥·l и при равных боковых рёбрах перейти к отношению периметров (входное состояние — результат S1). Узла о боковой поверхности призмы в каталоге нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Сравнивать площади боковых поверхностей призм через периметры сечений&quot;,
+    &quot;definition&quot;: &quot;Использовать S_бок = P_⊥·l (P_⊥ — периметр перпендикулярного сечения, l — боковое ребро); при равных боковых рёбрах отношение боковых поверхностей равно отношению периметров перпендикулярных сечений.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:S1:action&quot;,
+      &quot;step:S2:action&quot;
+    ],
+    &quot;description&quot;: &quot;Для наклонной призмы (как на рисунке) в S2 нужно отношение периметров перпендикулярных сечений; в S1 оно обосновано через основание с оговоркой «(или основания)». Вывод верен, поскольку перпендикулярное сечение отсечённой призмы — треугольник, отсечённый средней линией перпендикулярного сечения исходной призмы, но этот переход явно не показан. Ответ 27 подтверждается.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;KC1&quot;,
+      &quot;KC3&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/2F9BDB.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/2F9BDB.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

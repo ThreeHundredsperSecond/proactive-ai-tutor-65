@@ -1,0 +1,127 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>94554A</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>11. ФИПИ 94554A · бронь #4, партия 1</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Расстояние от наблюдателя, находящегося на небольшой высоте <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mi>h</mi> </semantics> </math> <br> (в километрах) над землёй, до наблюдаемой им линии горизонта вычисляется по формуле <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>l</mi><mo>=</mo><msqrt> <mrow> <mn>2</mn><mi>R</mi><mi>h</mi> </mrow> </msqrt> <mo>,</mo> </mrow> </semantics> </math> где <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>R</mi><mo>=</mo><mn>6400</mn><mtext> </mtext><mtext>км</mtext> </mrow> </semantics> </math> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> радиус Земли. С какой высоты горизонт виден на расстоянии 48 километров? Ответ дайте в километрах.<span></span></p>  </section></div><p>КЭС: 2.2 Иррациональные уравнения</p><h2>Ответ</h2><p>0,18</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Подставить l=48 и R=6400 в формулу l=sqrt(2Rh) и возвести обе части в квадрат (обе части неотрицательны), получив линейное уравнение относительно h</td><td>2304=12800h</td><td>kc1, kc2</td></tr><tr><td>s2 · s1</td><td>Решить линейное уравнение относительно h и проверить h&gt;0</td><td>h=0,18</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Подстановка в формулу и выражение неизвестной величины&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Подставить известные величины в формулу</h3><p>Вход: формула зависимости и значения части величин; операция: подстановка значений с согласованием единиц; граница: формула задана в условии</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Подставить l=48 и R=6400 в формулу l=sqrt(2Rh)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+      &quot;reason&quot;: &quot;вычисление значения функции по аргументу; здесь известное значение и параметр подставляются в заданную формулу для получения уравнения относительно h&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cb48e5bc61de&quot;,
+      &quot;reason&quot;: &quot;строит неравенство, а здесь получается равенство&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: соотнесение данных условия (l=48 км, R=6400 км) с обозначениями заданной формулы и получение числового соотношения; единицы согласованы (километры). Модель не выводится. Возведение в квадрат в том же шаге относится к kc2 и сюда не переносится.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Избавиться от квадратного корня возведением в квадрат</h3><p>Вход: уравнение вида корень из выражения равен неотрицательному числу; операция: возведение обеих частей в квадрат с учётом неотрицательности; граница: равносильно при неотрицательной правой части</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_10490f2275e0&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;возвести обе части в квадрат (обе части неотрицательны)&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;2304=12800h&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0b7ec31b74d9&quot;,
+      &quot;reason&quot;: &quot;касается равенства двух корней, здесь корень равен числу&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_57e72251d4a8&quot;,
+      &quot;reason&quot;: &quot;решение x²=c, обратная операция&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Установлена неотрицательность обеих частей равенства sqrt(2Rh)=48 и выполнен переход к квадратам; это полностью соответствует определению равносильного снятия квадратного корня.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Решить линейное уравнение с одной переменной</h3><p>Вход: линейное уравнение с числовыми коэффициентами; операция: выразить переменную; граница: ненулевой коэффициент при переменной, проверка физического смысла корня</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Решить линейное уравнение относительно h и проверить h&gt;0&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;h=0,18&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;покрывает решение 2304=12800h, но не проверку физического смысла корня&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+      &quot;reason&quot;: &quot;покрывает проверку корня на физический смысл, но не решение уравнения&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет решение линейного уравнения с числовыми коэффициентами и отбор корня по физическому смыслу (h&gt;0), который в описании кандидата явно включён в границу. Это два действия каталога.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Решить 2304=12800h, получить h=0,18&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;linear_equation&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Проверить h&gt;0 как условие модели (высота)&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s2:action&quot;
+    ],
+    &quot;description&quot;: &quot;Проверка h&gt;0 заявлена в действии, но фактически не показана; к тому же положительность h следует уже из положительного 48²/12800, поэтому отдельное наблюдаемое действие отбора слабое. Арифметика 48²=2304, 2304/12800=0,18 верна.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc3&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/94554A.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/94554A.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

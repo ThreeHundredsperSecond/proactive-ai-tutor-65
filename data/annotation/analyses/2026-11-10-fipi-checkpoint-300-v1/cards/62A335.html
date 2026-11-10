@@ -1,0 +1,111 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>62A335</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>97. ФИПИ 62A335 · бронь #4, партия 8</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal"><a name="_GoBack"></a>На рисунке изображён график функции вида <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>f</mi><mrow><mo fence="true">(</mo><mi>x</mi><mo fence="true">)</mo></mrow><mo>=</mo><msup><mi>a</mi><mi>x</mi></msup><mtext>​</mtext><mo>.</mo></mrow></mstyle></math></span> Найдите значение <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>f</mi><mrow><mo fence="true">(</mo><mrow><mo>−</mo><mtext> </mtext><mn>2</mn></mrow><mo fence="true">)</mo></mrow><mo>.</mo></mrow></mstyle></math></span> </p> <p class="MsoNormal" align="center"><img src="../../../runs/2026-11-09-fipi-team-bogdan108-next-100/inputs/assets/7fa3bff10326ab1014522713.png" alt="Рисунок ФИПИ"></p>  </section></div><p>КЭС: 3.5 Показательная и логарифмическая функции, их свойства и графики</p><h2>Ответ</h2><p>16</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>По отмеченной на графике точке (-1; 4) составить и решить уравнение a^(-1)=4 для основания</td><td>a=1/4, f(x)=(1/4)^x</td><td>kc1</td></tr><tr><td>s2 · s1, condition</td><td>Вычислить значение найденной функции при x=-2</td><td>f(-2)=(1/4)^(-2)=16</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Восстановление формулы функции по точке графика и подстановка аргумента&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Определить параметр показательной функции по точке графика</h3><p>Вход: вид функции a^x и точка с целыми координатами, читаемая на графике. Операция: подставить координаты и решить получившееся уравнение относительно основания a&gt;0, a≠1.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_3ac0ecd3cd49&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;составить и решить уравнение a^(-1)=4 для основания&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;a=1/4, f(x)=(1/4)^x&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;image:assets/7fa3bff10326ab1014522713.png&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;graph_coordinates&quot;,
+      &quot;reason&quot;: &quot;Считывание точки (-1; 4) — входное состояние кандидата, а не его операция; узел определения явно отделяет восстановление формулы.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+      &quot;reason&quot;: &quot;Неизвестно основание, а не показатель; приравнивание показателей не выполняется.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;direct_proportion&quot;,
+      &quot;reason&quot;: &quot;Относится к y=kx, а не к a^x.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — нахождение основания a&gt;0, a≠1 функции a^x по известной точке с ненулевой абсциссой -1; это целиком соответствует определению узла. Точка взята с рисунка (входное состояние), вид функции — из условия.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Вычислить значение степени с отрицательным показателем</h3><p>Вход: известное основание и целый отрицательный показатель. Операция: перейти к обратному основанию и возвести в положительную степень.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Вычислить значение найденной функции при x=-2&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;f(-2)=(1/4)^(-2)=16&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+      &quot;reason&quot;: &quot;Шаг s2 соответствует подстановке аргумента в найденную формулу, но кандидат определён уже: только вычисление степени с отрицательным показателем; границы не совпадают.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+      &quot;reason&quot;: &quot;Законы степени степени/произведения/частного; переход к обратному основанию при отрицательном показателе прямо не назван.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдаемое действие s2 — вычисление значения функции (подстановка x=-2) с вычислением (1/4)^(-2)=16. Кандидат описывает только компонент — степень с отрицательным показателем; узел literal_6308771d01a6 шире, power_laws лишь частично перекрывает. Однозначной границы для match нет.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i2&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[
+  &quot;Точка (-1; 4) прочитана по отметкам на рисунке; точка (0; 1) согласуется с видом a^x.&quot;
+]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;missing_annotation&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s1:action&quot;,
+      &quot;image:assets/7fa3bff10326ab1014522713.png&quot;
+    ],
+    &quot;description&quot;: &quot;Считывание точки (-1; 4) с графика (узел graph_coordinates) выполняется, но не размечено отдельным кандидатом. На рисунке отмечены точки на кривой при x=-1 (y=4, подпись 4 на оси y) и при x=0 (y=1); прочтение автора согласуется с рисунком, ответ 16 верен.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc1&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;i2&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s2:action&quot;
+    ],
+    &quot;description&quot;: &quot;Название шага (значение функции по формуле) и кандидат kc2 (степень с отрицательным показателем) описывают разные уровни действия.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc2&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/62A335.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/62A335.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

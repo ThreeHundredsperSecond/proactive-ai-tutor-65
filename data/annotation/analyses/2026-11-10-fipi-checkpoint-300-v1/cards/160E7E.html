@@ -1,0 +1,129 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>160E7E</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>98. ФИПИ 160E7E · бронь #4, партия 8</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Решите неравенство <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mfrac> <mrow> <mn>13</mn> </mrow> <mrow> <msup> <mn>3</mn> <mi>x</mi> </msup> <mo>−</mo><mn>81</mn> </mrow> </mfrac> <mo>≤</mo><mfrac> <mn>1</mn> <mrow> <msup> <mn>3</mn> <mi>x</mi> </msup> <mo>−</mo><mn>9</mn> </mrow> </mfrac> </mrow> </semantics> </math>.</p> <p class="MsoNormal"><span> </span></p>  </section></div><p>КЭС: 2.5 Целые и дробно-рациональные неравенства; 2.7 Показательные и логарифмические неравенства</p><h2>Ответ</h2><p>(-∞; 1] ∪ (2; 4)</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Ввести замену t = 3^x с условием t &gt; 0</td><td>13/(t-81) ≤ 1/(t-9), t &gt; 0, t ≠ 9, t ≠ 81</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Перенести всё в одну часть и привести к общему знаменателю</td><td>12(t-3)/((t-81)(t-9)) ≤ 0</td><td>kc2</td></tr><tr><td>s3 · s2</td><td>Решить рациональное неравенство методом интервалов с учётом t &gt; 0</td><td>0 &lt; t ≤ 3 или 9 &lt; t &lt; 81</td><td>kc3</td></tr><tr><td>s4 · s3</td><td>Выполнить обратную замену и решить простейшие показательные неравенства</td><td>x ≤ 1 или 2 &lt; x &lt; 4</td><td>kc4</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Замена переменной и метод интервалов&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Ввести замену для показательного выражения</h3><p>Для неравенства, содержащего одно и то же выражение a^x, заменить его новой переменной с учётом положительности a^x.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Ввести замену t = 3^x с условием t &gt; 0&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;13/(t-81) ≤ 1/(t-9), t &gt; 0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+      &quot;reason&quot;: &quot;Ограничения t ≠ 9, t ≠ 81 зафиксированы попутно, но основное действие — введение положительной замены степени.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Введена t=3^x с t&gt;0 при основании 3&gt;0, 3≠1; обе степени 3^x согласованы с t. Обратный переход отнесён к s4, что соответствует границе определения.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Привести дробно-рациональное неравенство к виду дробь сравнивается с нулём</h3><p>Перенести слагаемые в одну часть, привести к общему знаменателю и разложить числитель и знаменатель на множители, сохранив ограничения знаменателей.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_67caf017b566&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Перенести всё в одну часть и привести к общему знаменателю&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;12(t-3)/((t-81)(t-9)) ≤ 0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+      &quot;reason&quot;: &quot;Только часть действия: сохранение нулей знаменателей; объединение дробей им не покрывается.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+      &quot;reason&quot;: &quot;Вынесение 12 из линейного числителя тривиально и не является отдельной факторизацией многочлена.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Разность дробей объединена в одну дробь с общим знаменателем (t-81)(t-9); знаменатели в разложенном виде, исходные исключения сохраняются из s1. Проверено: 13(t-9)-(t-81)=12t-36=12(t-3).&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Решить рациональное неравенство методом интервалов</h3><p>По нулям числителя и знаменателя определить знаки дроби на промежутках, учитывая нестрогость знака, исключённые точки знаменателя и дополнительные ограничения переменной.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;rational_intervals&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Решить рациональное неравенство методом интервалов с учётом t &gt; 0&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;0 &lt; t ≤ 3 или 9 &lt; t &lt; 81&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+      &quot;reason&quot;: &quot;Учёт t&gt;0 — компонент; основное действие — знаковый анализ по нулю 3 и полюсам 9, 81.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Нуль числителя t=3 включён (нестрогое), полюса 9 и 81 исключены, знаки на промежутках верны; добавлено ограничение t&gt;0. Само исследование знаков в решении не расписано, только результат.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Решить простейшие показательные неравенства</h3><p>Перейти от неравенства a^x относительно числа к неравенству для показателя с учётом монотонности при основании a &gt; 1.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;exponential_inequality&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:action&quot;,
+      &quot;quote&quot;: &quot;Выполнить обратную замену и решить простейшие показательные неравенства&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;x ≤ 1 или 2 &lt; x &lt; 4&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s3:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+      &quot;reason&quot;: &quot;Определение исключает обратный переход и решение неравенств.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Из 0&lt;3^x≤3 и 9&lt;3^x&lt;81 по возрастанию 3^x получены x≤1 и 2&lt;x&lt;4; результат верен.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/160E7E.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/160E7E.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>
