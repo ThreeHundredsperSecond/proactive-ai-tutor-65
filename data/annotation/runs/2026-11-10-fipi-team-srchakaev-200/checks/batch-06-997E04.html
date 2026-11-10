@@ -1,0 +1,180 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>997E04</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">В коробке 5 синих, 9 красных и 11 зелёных фломастеров. Случайным образом выбирают два фломастера. Найдите вероятность того, что окажутся выбраны один синий и один красный фломастеры.<span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;997E04&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;0,15&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Найти общее число равновозможных исходов выбора двух фломастеров из 5+9+11=25 как число сочетаний C(25,2)&quot;,
+      &quot;result&quot;: &quot;300&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Найти число благоприятных исходов: выбор одного синего из 5 и одного красного из 9 по правилу произведения&quot;,
+      &quot;result&quot;: &quot;45&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Вычислить вероятность как отношение числа благоприятных исходов к общему числу исходов&quot;,
+      &quot;result&quot;: &quot;45/300=0,15&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Подсчитать число неупорядоченных выборок через сочетания&quot;,
+      &quot;description&quot;: &quot;Вход: размер множества и размер выборки без учёта порядка и без повторений. Операция: вычислить число сочетаний. Применимо, когда объекты выбираются одновременно или порядок не важен.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Применить правило произведения для независимых выборов из групп&quot;,
+      &quot;description&quot;: &quot;Вход: численности групп и число выбираемых объектов из каждой. Операция: перемножить числа способов выбора в каждой группе. Применимо, когда выбор из разных непересекающихся групп выполняется независимо.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Вычислить классическую вероятность&quot;,
+      &quot;description&quot;: &quot;Вход: число благоприятных и общее число равновозможных исходов. Операция: найти их отношение. Применимо только при равновозможности элементарных исходов.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Классическая вероятность с комбинаторным подсчётом исходов&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;997E04&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;как число сочетаний C(25,2)&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;300&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_8e6b7abd8340&quot;,
+          &quot;reason&quot;: &quot;Определение ограничено выбором позиций k успехов среди n испытаний в схеме Бернулли; здесь подсчёт неупорядоченных пар объектов из конечного множества, а не позиций успехов.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+          &quot;reason&quot;: &quot;Узел про задание элементарных исходов и обоснование равновозможности, а не про их комбинаторный подсчёт; обоснование равновозможности в шаге не наблюдается.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+          &quot;reason&quot;: &quot;Определение прямо исключает комбинаторный подсчёт.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;В s1 вычисляется число неупорядоченных выборок без повторений 2 из 25 через C(25,2)=300. В каталоге нет общего узла подсчёта сочетаний для выбора объектов из множества; ближайший узел привязан к схеме Бернулли.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Подсчитывать число неупорядоченных выборок через сочетания&quot;,
+        &quot;definition&quot;: &quot;По размеру конечного множества n и размеру выборки k без учёта порядка и без повторений вычислить C(n,k). Обоснование, что порядок не важен, и использование результата как числа равновозможных исходов размечаются отдельно.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;выбор одного синего из 5 и одного красного из 9 по правилу произведения&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;45&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+          &quot;reason&quot;: &quot;Перемножаются вероятности независимых событий, а здесь перемножаются числа способов выбора из непересекающихся групп.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_8e6b7abd8340&quot;,
+          &quot;reason&quot;: &quot;Подсчёт позиций успехов в испытаниях, не правило произведения для выбора из групп.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;В s2 число благоприятных неупорядоченных пар получено как 5·9=45 по правилу произведения для выбора по одному объекту из двух непересекающихся групп. Подходящего комбинаторного узла в каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Применять правило произведения для выбора из непересекающихся групп&quot;,
+        &quot;definition&quot;: &quot;Число способов составить набор, берущий заданное число объектов из каждой из непересекающихся групп, равно произведению чисел способов выбора в каждой группе. Согласованность с неупорядоченной моделью общего числа исходов проверяется отдельно.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;Вычислить вероятность как отношение числа благоприятных исходов к общему числу исходов&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;45/300=0,15&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+          &quot;reason&quot;: &quot;Обоснование равновозможности в s3 не выполняется; узел отделён от формулы m/n.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;s3 вычисляет m/n=45/300 по результатам s1 и s2 в конечной модели неупорядоченных пар; это ровно определение classical_probability, которое не включает комбинаторный подсчёт и обоснование равновозможности. Арифметика верна.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>
