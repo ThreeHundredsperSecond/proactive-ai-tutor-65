@@ -90,6 +90,13 @@ def analyze_current():
     provenance['input_hashes'].update(exports['outputs'])
     for path in [Path(__file__),ROOT/'scripts/fipi_domain_quality.py',SAVED/'manifest.json',SAVED/'summary.json']:
         provenance['input_hashes'][path.relative_to(ROOT).as_posix()]=hashlib.sha256(path.read_bytes()).hexdigest()
+    # A team README has advanced since the saved315 export. Validate its pinned bytes,
+    # leaving the current team documentation and the historical expected hash intact.
+    historical_readme='data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/README.md'
+    frozen_readme='notebooks/checkpoint-2/derived/source-snapshots/2937b04/README.md'
+    assert hashlib.sha256((ROOT/frozen_readme).read_bytes()).hexdigest()==provenance['input_hashes'][historical_readme]
+    provenance['input_locations']={historical_readme:{'snapshot_path':frozen_readme,
+        'source_commit':'2937b04d5e2df51da67e6a1a2a6c784204960a4e'}}
     provenance['scope']='Main quantitative EDA: pinned saved315/included312; qualitative subset12 remains fixed'
     p.write_text(json.dumps(provenance,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     return data,summary,tables,bank_stats,bank,composition
@@ -247,7 +254,7 @@ def verify_current(root):
     assert headings(old)==headings(new)[:10]==[str(i) for i in range(1,11)]
     for i in [3,4,6,7,8,9,24,28,31]:assert source(old['cells'][i])==source(new['cells'][i]),i
     assert '315 уникальных' in source(new['cells'][0]) and '312 задач в основных частотах' in source(new['cells'][0])
-    assert '635 из 1007' in source(new['cells'][34])
+    assert '635 из 1007' in next(source(c) for c in new['cells'] if '## 9. Итог:' in source(c))
     assert current['populations']['new_accumulated']['unmatched_local_candidates']==dict(numerator=635,denominator=1007)
     import base64
     for index in [11,14,16,18,20,23,26]:

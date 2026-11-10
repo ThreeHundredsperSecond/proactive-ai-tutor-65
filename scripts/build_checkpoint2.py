@@ -844,7 +844,8 @@ table([{'ID':c['task_id'],'Контекст задачи':c['context_label'],
     cells[0].source=cells[0].source.split('### Содержание')[0]+'### Содержание\n\n'+'\n'.join(toc)
 
     from checkpoint2_current import update_cells
-    return update_cells(cells)
+    from checkpoint2_retrieval import add_retrieval_cells
+    return add_retrieval_cells(update_cells(cells))
 
 
 def build():
