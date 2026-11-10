@@ -1,0 +1,210 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>002FC3</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><a href="../index.html">Сводка</a><h1>002FC3</h1><p>historical_editorial50</p><p>Предварительные разборы, внешнего эталона нет.</p><h2>Условие</h2>Дайте развернутый ответ.<div><section>  <p class="MsoNormal">На доске написано 30 натуральных чисел (числа могут повторяться), каждое <span>из которых либо зелёного, либо красного цвета. Каждое зелёное число кратно 3,</span> а каждое красное число кратно 7. При этом все зелёные числа различны <br> и все красные различны (какое-то зелёное число может равняться какому-то красному числу).</p> <p class="MsoNormal">а) Может ли сумма написанных чисел быть меньше <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mn>1395</mn><mo>=</mo><mn>3</mn><mo>+</mo><mn>6</mn><mo>+</mo><mo>…</mo><mo>+</mo><mn>90</mn> </mrow>  </semantics> </mstyle></math>, если все числа на доске кратны 3?</p> <p class="MsoNormal">б) Может ли ровно одно число на доске быть красным, если сумма написанных чисел равна 1067?</p> <p class="MsoNormal">в) Какое наименьшее количество красных чисел может быть на доске, если сумма написанных чисел равна 1067?<span></span></p>  </section></div><h2>Состав и исключения</h2><pre>{
+  &quot;complete&quot;: true,
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;author_mode&quot;: &quot;historical_shared_context&quot;,
+  &quot;author_path&quot;: null,
+  &quot;auditor_path&quot;: null,
+  &quot;feedback_ref&quot;: null,
+  &quot;source_run&quot;: &quot;data/annotation/runs/2026-10-31-fipi-50x1&quot;
+}</pre><h2>Буквальный сохранённый разбор: ответ, шаги, KC, методы</h2><pre>{
+  &quot;task_id&quot;: &quot;002FC3&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;а) да; б) нет; в) 6 красных чисел&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;а) Построить пример с суммой меньше 1395 при кратности всех чисел трём&quot;,
+      &quot;result&quot;: &quot;Взять зелёные 3,6,...,87 (29 чисел, сумма 1305) и красное 21. Все кратны 3, условия различности внутри цвета выполнены; сумма 1326&lt;1395.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k1&quot;,
+        &quot;k2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;б) Оценить минимальную сумму при одном красном&quot;,
+      &quot;result&quot;: &quot;29 различных зелёных дают не менее 3(1+...+29)=1305; красное не меньше 7. Сумма ≥1312&gt;1067, поэтому нельзя.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k3&quot;,
+        &quot;k2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;в) Вывести нижнюю оценку суммы при r красных&quot;,
+      &quot;result&quot;: &quot;Зелёных 30-r: сумма ≥3(30-r)(31-r)/2; красных r: сумма ≥7r(r+1)/2. Итого S≥1395-88r+5r².&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k3&quot;,
+        &quot;k2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;в) Исключить r от 0 до 5&quot;,
+      &quot;result&quot;: &quot;Нижние границы для r=0,1,2,3,4,5: 1395,1312,1239,1176,1123,1080; все больше 1067. Нужно r≥6.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s5&quot;,
+      &quot;action&quot;: &quot;в) Предъявить набор с шестью красными и нужной суммой&quot;,
+      &quot;result&quot;: &quot;Зелёные 3,6,...,69 и 78: 24 числа, сумма 906. Красные 7,14,21,28,35,56: сумма 161. Всего 30 чисел и сумма 1067; различность внутри каждого цвета сохранена. Значит минимум 6.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k1&quot;,
+        &quot;k2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;k1&quot;,
+      &quot;name&quot;: &quot;Строить целочисленный пример с заданными ограничениями&quot;,
+      &quot;description&quot;: &quot;Выбрать числа, удовлетворяющие кратности, количеству, различности и целевой сумме, и проверить каждое ограничение.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k2&quot;,
+      &quot;name&quot;: &quot;Суммировать арифметическую прогрессию&quot;,
+      &quot;description&quot;: &quot;По числу членов и крайним членам вычислить сумму арифметической прогрессии; отдельные исключённые/добавленные члены учитывать явно.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k3&quot;,
+      &quot;name&quot;: &quot;Оценивать сумму различных кратных снизу&quot;,
+      &quot;description&quot;: &quot;Для заданного числа различных положительных кратных использовать наименьшие допустимые кратные; независимые ограничения цветов учитывать отдельно.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k4&quot;,
+      &quot;name&quot;: &quot;Доказывать утверждение полным конечным перебором&quot;,
+      &quot;description&quot;: &quot;Вывести конечный диапазон целочисленных случаев и проверить каждый; перебор нескольких примеров без ограничения диапазона не является полным.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;а) Предъявить разноцветный пример&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;m2&quot;,
+      &quot;name&quot;: &quot;б) Сравнить минимальную сумму с заданной&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;m3&quot;,
+      &quot;name&quot;: &quot;в) Совместить нижнюю оценку числа красных с конструкцией&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s3&quot;,
+        &quot;s4&quot;,
+        &quot;s5&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h2>Буквальный независимый аудит</h2><pre>null</pre><h2>Исторические редакторские назначения</h2><pre>[
+  {
+    &quot;task_id&quot;: &quot;002FC3&quot;,
+    &quot;local_id&quot;: &quot;k1&quot;,
+    &quot;canonical_id&quot;: &quot;integer_construction&quot;,
+    &quot;decision_basis&quot;: &quot;explicit_editorial_operation_group&quot;,
+    &quot;source_name&quot;: &quot;Строить целочисленный пример с заданными ограничениями&quot;,
+    &quot;source_description&quot;: &quot;Выбрать числа, удовлетворяющие кратности, количеству, различности и целевой сумме, и проверить каждое ограничение.&quot;,
+    &quot;evidence&quot;: [
+      {
+        &quot;step_id&quot;: &quot;s1&quot;,
+        &quot;action&quot;: &quot;а) Построить пример с суммой меньше 1395 при кратности всех чисел трём&quot;,
+        &quot;result&quot;: &quot;Взять зелёные 3,6,...,87 (29 чисел, сумма 1305) и красное 21. Все кратны 3, условия различности внутри цвета выполнены; сумма 1326&lt;1395.&quot;
+      },
+      {
+        &quot;step_id&quot;: &quot;s5&quot;,
+        &quot;action&quot;: &quot;в) Предъявить набор с шестью красными и нужной суммой&quot;,
+        &quot;result&quot;: &quot;Зелёные 3,6,...,69 и 78: 24 числа, сумма 906. Красные 7,14,21,28,35,56: сумма 161. Всего 30 чисел и сумма 1067; различность внутри каждого цвета сохранена. Значит минимум 6.&quot;
+      }
+    ]
+  },
+  {
+    &quot;task_id&quot;: &quot;002FC3&quot;,
+    &quot;local_id&quot;: &quot;k2&quot;,
+    &quot;canonical_id&quot;: &quot;arithmetic_series&quot;,
+    &quot;decision_basis&quot;: &quot;explicit_editorial_operation_group&quot;,
+    &quot;source_name&quot;: &quot;Суммировать арифметическую прогрессию&quot;,
+    &quot;source_description&quot;: &quot;По числу членов и крайним членам вычислить сумму арифметической прогрессии; отдельные исключённые/добавленные члены учитывать явно.&quot;,
+    &quot;evidence&quot;: [
+      {
+        &quot;step_id&quot;: &quot;s1&quot;,
+        &quot;action&quot;: &quot;а) Построить пример с суммой меньше 1395 при кратности всех чисел трём&quot;,
+        &quot;result&quot;: &quot;Взять зелёные 3,6,...,87 (29 чисел, сумма 1305) и красное 21. Все кратны 3, условия различности внутри цвета выполнены; сумма 1326&lt;1395.&quot;
+      },
+      {
+        &quot;step_id&quot;: &quot;s2&quot;,
+        &quot;action&quot;: &quot;б) Оценить минимальную сумму при одном красном&quot;,
+        &quot;result&quot;: &quot;29 различных зелёных дают не менее 3(1+...+29)=1305; красное не меньше 7. Сумма ≥1312&gt;1067, поэтому нельзя.&quot;
+      },
+      {
+        &quot;step_id&quot;: &quot;s3&quot;,
+        &quot;action&quot;: &quot;в) Вывести нижнюю оценку суммы при r красных&quot;,
+        &quot;result&quot;: &quot;Зелёных 30-r: сумма ≥3(30-r)(31-r)/2; красных r: сумма ≥7r(r+1)/2. Итого S≥1395-88r+5r².&quot;
+      },
+      {
+        &quot;step_id&quot;: &quot;s5&quot;,
+        &quot;action&quot;: &quot;в) Предъявить набор с шестью красными и нужной суммой&quot;,
+        &quot;result&quot;: &quot;Зелёные 3,6,...,69 и 78: 24 числа, сумма 906. Красные 7,14,21,28,35,56: сумма 161. Всего 30 чисел и сумма 1067; различность внутри каждого цвета сохранена. Значит минимум 6.&quot;
+      }
+    ]
+  },
+  {
+    &quot;task_id&quot;: &quot;002FC3&quot;,
+    &quot;local_id&quot;: &quot;k3&quot;,
+    &quot;canonical_id&quot;: &quot;literal_af302473a16f&quot;,
+    &quot;decision_basis&quot;: &quot;identical_name_and_description_only&quot;,
+    &quot;source_name&quot;: &quot;Оценивать сумму различных кратных снизу&quot;,
+    &quot;source_description&quot;: &quot;Для заданного числа различных положительных кратных использовать наименьшие допустимые кратные; независимые ограничения цветов учитывать отдельно.&quot;,
+    &quot;evidence&quot;: [
+      {
+        &quot;step_id&quot;: &quot;s2&quot;,
+        &quot;action&quot;: &quot;б) Оценить минимальную сумму при одном красном&quot;,
+        &quot;result&quot;: &quot;29 различных зелёных дают не менее 3(1+...+29)=1305; красное не меньше 7. Сумма ≥1312&gt;1067, поэтому нельзя.&quot;
+      },
+      {
+        &quot;step_id&quot;: &quot;s3&quot;,
+        &quot;action&quot;: &quot;в) Вывести нижнюю оценку суммы при r красных&quot;,
+        &quot;result&quot;: &quot;Зелёных 30-r: сумма ≥3(30-r)(31-r)/2; красных r: сумма ≥7r(r+1)/2. Итого S≥1395-88r+5r².&quot;
+      }
+    ]
+  },
+  {
+    &quot;task_id&quot;: &quot;002FC3&quot;,
+    &quot;local_id&quot;: &quot;k4&quot;,
+    &quot;canonical_id&quot;: &quot;finite_exhaustion&quot;,
+    &quot;decision_basis&quot;: &quot;explicit_editorial_operation_group&quot;,
+    &quot;source_name&quot;: &quot;Доказывать утверждение полным конечным перебором&quot;,
+    &quot;source_description&quot;: &quot;Вывести конечный диапазон целочисленных случаев и проверить каждый; перебор нескольких примеров без ограничения диапазона не является полным.&quot;,
+    &quot;evidence&quot;: [
+      {
+        &quot;step_id&quot;: &quot;s4&quot;,
+        &quot;action&quot;: &quot;в) Исключить r от 0 до 5&quot;,
+        &quot;result&quot;: &quot;Нижние границы для r=0,1,2,3,4,5: 1395,1312,1239,1176,1123,1080; все больше 1067. Нужно r≥6.&quot;
+      }
+    ]
+  }
+]</pre></html>

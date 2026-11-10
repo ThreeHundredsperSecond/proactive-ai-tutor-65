@@ -1,0 +1,211 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>72Beec</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>89. ФИПИ 72Beec · бронь #4, партия 7</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">а) Решите уравнение</p> <p class="MsoNormal" align="center"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mn>2</mn><mo>−</mo><mn>2</mn><mi>cos</mi><mrow><mo>(</mo> <mrow> <mi>π</mi><mo>−</mo><mn>2</mn><mi>x</mi> </mrow> <mo>)</mo></mrow><mo>+</mo><msqrt> <mn>8</mn> </msqrt> <mi>cos</mi><mi>x</mi><mo>=</mo><msqrt> <mn>6</mn> </msqrt> <mo>+</mo><msqrt> <mrow> <mn>12</mn> </mrow> </msqrt> <mi>cos</mi><mi>x</mi><mo>.</mo> </mrow> </semantics> </math></p> <p class="MsoNormal">б) Найдите все корни этого уравнения, принадлежащие отрезку <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mrow><mo>[</mo> <mrow> <mn>3</mn><mi>π</mi><mo>;</mo><mtext> </mtext><mtext> </mtext><mfrac> <mrow> <mn>9</mn><mi>π</mi> </mrow> <mn>2</mn> </mfrac> </mrow> <mo>]</mo></mrow><mo>.</mo> </mrow> </semantics> </math><span></span></p>  </section></div><p>КЭС: 1.5 Синус, косинус и тангенс числового аргумента. Арксинус, арккосинус, арктангенс числового аргумента; 1.8 Преобразование выражений; 2.3 Тригонометрические уравнения</p><h2>Ответ</h2><p>а) x = ±3π/4 + 2πk, x = ±π/6 + 2πk, k ∈ Z; б) 13π/4; 23π/6; 25π/6</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Применить формулу приведения cos(π−2x) = −cos2x и формулу cos2x = 2cos²x − 1, упростить левую часть</td><td>4cos²x + 2√2 cosx = √6 + 2√3 cosx</td><td>kc1, kc2</td></tr><tr><td>s2 · s1</td><td>Перенести все члены в одну часть и разложить квадратное относительно cosx выражение на множители группировкой</td><td>(2cosx + √2)(2cosx − √3) = 0</td><td>kc3</td></tr><tr><td>s3 · s2</td><td>Приравнять каждый множитель нулю и найти значения cosx, проверив |cosx| ≤ 1</td><td>cosx = −√2/2 или cosx = √3/2</td><td>kc4</td></tr><tr><td>s4 · s3</td><td>Решить простейшие уравнения cosx = a</td><td>x = ±3π/4 + 2πk, x = ±π/6 + 2πk, k ∈ Z</td><td>kc5</td></tr><tr><td>s5 · s4, condition</td><td>Отобрать корни серий, принадлежащие отрезку [3π; 9π/2], с помощью оценки параметра k</td><td>13π/4, 23π/6, 25π/6</td><td>kc6</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Сведение к уравнению от cosx, разложение на множители и отбор корней&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;,
+      &quot;s5&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Применить формулу приведения</h3><p>Вход: тригонометрическая функция аргумента вида πn/2 ± α. Операция: заменить её функцией от α с нужным знаком. Граница: только аргументы, кратные π/2, со сдвигом.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Применить формулу приведения cos(π−2x) = −cos2x&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;,
+      &quot;reason&quot;: &quot;Определение составное: формулы приведения и двойного угла для сведения к функции одного аргумента; kc1 — только компонент (формула приведения), полного соответствия нет.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_55d5a6d9eb3c&quot;,
+      &quot;reason&quot;: &quot;Дубликат с почти тем же определением; та же граница — составное действие, kc1 лишь его часть; выбрать один из двух дублирующих ID без основания нельзя.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Действие (замена cos(π−2x) на −cos2x) выполнено корректно в s1, но каталог не содержит отдельного узла для формулы приведения; ближайшие узлы описывают объединённое преобразование приведения и двойного угла и дублируют друг друга. Узкий кандидат не получает match к составному узлу.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc2"><h3>kc2 · Выразить косинус двойного угла через косинус</h3><p>Вход: выражение с cos2x и cosx. Операция: заменить cos2x на 2cos²x − 1 для получения выражения от одной функции. Граница: используется, когда остальные члены зависят от cosx.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;формулу cos2x = 2cos²x − 1, упростить левую часть&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;4cos²x + 2√2 cosx = √6 + 2√3 cosx&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;,
+      &quot;reason&quot;: &quot;Составной узел (приведение + двойной угол); kc2 покрывает только часть с двойным углом.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_55d5a6d9eb3c&quot;,
+      &quot;reason&quot;: &quot;Дубликат предыдущего с той же границей.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_3d70ab3eb24a&quot;,
+      &quot;reason&quot;: &quot;Двойной угол для синуса/произведения sin·cos, а не cos2x через cos²x.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Замена cos2x = 2cos²x − 1 для сведения к одной функции cosx наблюдается в s1. Это компонент составного каталожного узла; кроме того, два перекрывающихся дублирующих ID не позволяют выбрать один. Объединение kc1+kc2 вместе соответствовало бы literal_cc7d68a38f29/literal_55d5a6d9eb3c.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc3"><h3>kc3 · Разложить многочлен на множители группировкой</h3><p>Вход: многочлен (в том числе с иррациональными коэффициентами) относительно переменной или функции. Операция: сгруппировать члены и вынести общие множители, получив произведение. Граница: применимо при наличии общих множителей в группах.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Перенести все члены в одну часть и разложить квадратное относительно cosx выражение на множители группировкой&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;(2cosx + √2)(2cosx − √3) = 0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+      &quot;reason&quot;: &quot;Факторизация многочлена ради исследования знака с учётом кратности; здесь цель — уравнение, знак не исследуется.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_89adef4e8cee&quot;,
+      &quot;reason&quot;: &quot;Квадратный трёхчлен с параметром; здесь параметра нет, коэффициенты иррациональные числовые.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+      &quot;reason&quot;: &quot;Корни через дискриминант не находятся; использована группировка.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Разложение 4c² + 2√2c − 2√3c − √6 группировкой на (2c+√2)(2c−√3) проверено раскрытием скобок — верно. В каталоге нет узла общей факторизации для решения уравнения.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Разложить многочлен (в т.ч. с иррациональными коэффициентами, относительно переменной или функции) на множители группировкой членов и вынесением общих множителей, проверив тождество раскрытием скобок; решение уравнения-произведения отдельно.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Решить уравнение-произведение, равное нулю</h3><p>Вход: произведение множителей, равное нулю. Операция: приравнять каждый множитель нулю и проверить допустимость найденных значений (например, область значений функции). Граница: множители должны быть определены.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Приравнять каждый множитель нулю и найти значения cosx, проверив |cosx| ≤ 1&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;cosx = −√2/2 или cosx = √3/2&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;elementary_trig_equation&quot;,
+      &quot;reason&quot;: &quot;Относится к следующему шагу решения cosx = a.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Из произведения, равного нулю (s2), получены нули множителей с проверкой допустимости значений косинуса; множители определены при всех x. Соответствует определению целиком.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc5"><h3>kc5 · Решить простейшее уравнение cos x = a</h3><p>Вход: уравнение cosx = a, |a| ≤ 1. Операция: записать серию x = ±arccos a + 2πk. Граница: табличные или выражаемые через arccos значения.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc5&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;elementary_trig_equation&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:action&quot;,
+      &quot;quote&quot;: &quot;Решить простейшие уравнения cosx = a&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;x = ±3π/4 + 2πk, x = ±π/6 + 2πk, k ∈ Z&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s3:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [],
+  &quot;rationale&quot;: &quot;Уравнения cos x = −√2/2 и cos x = √3/2 решены на всей прямой с полными периодическими сериями; значения верны.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc6"><h3>kc6 · Отобрать корни тригонометрических серий на отрезке</h3><p>Вход: серии решений с целым параметром и отрезок. Операция: решить двойное неравенство относительно параметра или перебрать значения, выписать попавшие корни. Граница: конечный отрезок.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc6&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;periodic_interval&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s5:action&quot;,
+      &quot;quote&quot;: &quot;Отобрать корни серий, принадлежащие отрезку [3π; 9π/2], с помощью оценки параметра k&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s5:result&quot;,
+      &quot;quote&quot;: &quot;13π/4, 23π/6, 25π/6&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s4:result&quot;,
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_8409c9003f48&quot;,
+      &quot;reason&quot;: &quot;Для конечного набора без периодического параметра; здесь серии с k.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Отбор корней периодических серий на отрезке через оценку целого параметра. Проверено: 13π/4 (k=2 серии 3π/4... т.е. −3π/4+4π), 23π/6, 25π/6; 19π/4 &gt; 9π/2, 11π/4 &lt; 3π — набор полон. Промежуточные значения k в шаге не выписаны, но результат верен.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s1:action&quot;
+    ],
+    &quot;description&quot;: &quot;Каталог содержит два дублирующих узла literal_cc7d68a38f29 и literal_55d5a6d9eb3c с составным определением (приведение + двойной угол), тогда как автор разметил эти действия как два отдельных KC; граница гранулярности неоднозначна.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc1&quot;,
+      &quot;kc2&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/72Beec.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/72Beec.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

@@ -1,0 +1,485 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>F89087</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><a href="../index.html">Сводка</a><h1>F89087</h1><p>historical_independent50</p><p>Предварительные разборы, внешнего эталона нет.</p><h2>Условие</h2>Дайте развернутый ответ.<div><section>  <p class="MsoNormal">На доске записано 10 натуральных чисел, среди которых нет одинаковых. Оказалось, что среднее арифметическое любых трёх, четырёх, пяти или шести чисел из записанных является целым числом. Одно из записанных чисел равно 30 033.</p> <p class="MsoNormal">а) Может ли среди записанных на доске чисел быть число 303?</p> <p class="MsoNormal">б) Может ли отношение двух записанных на доске чисел равняться 31?</p> <p class="MsoNormal">в) Отношение двух записанных на доске чисел является квадратом натурального числа <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>n</mi><mo>.</mo></mrow></mstyle></math></span> Найдите наименьшее возможное значение <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>n</mi><mo>.</mo></mrow></mstyle></math></span> </p>  </section></div><h2>Состав и исключения</h2><pre>{
+  &quot;complete&quot;: true,
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;author_mode&quot;: &quot;standalone_initial&quot;,
+  &quot;author_path&quot;: &quot;raw\\author\\F89087.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\F89087.json&quot;,
+  &quot;feedback_ref&quot;: null,
+  &quot;source_run&quot;: &quot;data/annotation/runs/2026-11-02-fipi-extension-150&quot;
+}</pre><h2>Буквальный сохранённый разбор: ответ, шаги, KC, методы</h2><pre>{
+  &quot;task_id&quot;: &quot;F89087&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;а) Нет. б) Нет. в) 9.&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Сравнить суммы двух наборов одинакового размера, отличающихся только одним числом.&quot;,
+      &quot;result&quot;: &quot;Для любых двух записанных чисел x и y и каждого k из {3,4,5,6} можно выбрать ещё k−1 общих чисел, отличных от x и y: имеется восемь таких чисел. Обе суммы делятся на k, поэтому их разность x−y делится на k. Следовательно, x−y делится на НОК(3,4,5,6)=60.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;,
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Получить необходимое и достаточное условие на записанные числа с учётом известного числа.&quot;,
+      &quot;result&quot;: &quot;Все числа сравнимы с 30033 по модулю 60, то есть имеют остаток 33. Обратно, если все числа имеют вид 33+60t, сумма любых k из них равна 33k+60T и делится на k при k=3,4,5,6. Поэтому достаточно и необходимо, чтобы десять различных натуральных чисел имели остаток 33 по модулю 60 и включали 30033.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Проверить возможность включения предложенного числа по необходимому остатку.&quot;,
+      &quot;result&quot;: &quot;303 имеет остаток 3 по модулю 60, а требуется остаток 33. Ответ на пункт а): нет.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Проверить совместимость заданного отношения с остатками двух чисел.&quot;,
+      &quot;result&quot;: &quot;Если y=31x и x≡33 (mod 60), то y≡31·33≡3 (mod 60), что противоречит y≡33 (mod 60). Ответ на пункт б): нет.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s5&quot;,
+      &quot;action&quot;: &quot;Вывести необходимое сравнение для квадратного множителя отношения.&quot;,
+      &quot;result&quot;: &quot;Пусть y=n²x. Из x≡y≡33 (mod 60) следует 60 | 33(n²−1), или, после сокращения на НОД(33,60)=3, 20 | (n²−1). Таким образом, n²≡1 (mod 20). При n=1 числа x и y совпадают, что запрещено, поэтому n&gt;1.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc5&quot;,
+        &quot;kc6&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s6&quot;,
+      &quot;action&quot;: &quot;Найти наименьший натуральный множитель, удовлетворяющий необходимому сравнению и различию чисел.&quot;,
+      &quot;result&quot;: &quot;Сравнение n²≡1 (mod 20) требует нечётности n и n≡1 или −1 (mod 5). Среди чисел от 2 до 8 остатки ±1 по модулю 5 имеют только 4 и 6, но они чётные. Число 9 подходит: 9²−1=80 делится на 20. Следовательно, n≥9.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc7&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s5&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s7&quot;,
+      &quot;action&quot;: &quot;Построить полный допустимый набор, достигающий найденной нижней границы.&quot;,
+      &quot;result&quot;: &quot;Подходит набор {33,93,153,213,273,333,393,453,2673,30033}. В нём ровно десять различных натуральных чисел, все имеют остаток 33 по модулю 60, и включено 30033. Поэтому все требуемые средние целые. При этом 2673/33=81=9². Нижняя граница достигается, и ответ на пункт в): 9.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc8&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s2&quot;,
+        &quot;s6&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Выводить делимость разности из сумм с общими слагаемыми&quot;,
+      &quot;description&quot;: &quot;Если суммы всех подмножеств заданного размера делятся на этот размер и элементов достаточно, выбрать два подмножества с одинаковой общей частью и вычесть суммы, получая делимость разности двух заменяемых элементов. Применяется при возможности выбрать общую часть без обоих сравниваемых элементов.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Объединять условия делимости через наименьшее общее кратное&quot;,
+      &quot;description&quot;: &quot;Для целого числа, делящегося на каждый из нескольких положительных делителей, вычислить их наименьшее общее кратное и получить делимость на него. Не требует попарной взаимной простоты делителей.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Характеризовать целочисленность средних общим классом вычетов&quot;,
+      &quot;description&quot;: &quot;Используя делимость всех попарных разностей на общий модуль и один известный элемент, определить общий остаток элементов; затем проверить достаточность этого остатка, записав сумму выбранных элементов как кратное их количества. Достаточность здесь применяется, когда каждое разрешённое количество делит модуль.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Исключать значение по несовместимому остатку&quot;,
+      &quot;description&quot;: &quot;При необходимом условии принадлежности числа определённому классу вычетов вычислить остаток предложенного значения и исключить его, если остатки различны.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc5&quot;,
+      &quot;name&quot;: &quot;Переводить целочисленное отношение в условие на вычеты&quot;,
+      &quot;description&quot;: &quot;Если два целых числа связаны равенством с целым множителем и принадлежат заданным классам вычетов, подставить эти остатки в равенство и получить необходимое сравнение для множителя либо противоречие.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc6&quot;,
+      &quot;name&quot;: &quot;Сокращать условие делимости с помощью наибольшего общего делителя&quot;,
+      &quot;description&quot;: &quot;Для условия m | au вычислить d=НОД(a,m) и заменить его эквивалентным условием m/d | u, используя взаимную простоту a/d и m/d.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc7&quot;,
+      &quot;name&quot;: &quot;Находить наименьшее решение квадратного сравнения по простым модулям&quot;,
+      &quot;description&quot;: &quot;Для квадратного сравнения разложить ограничение на условия по делителям модуля, вывести допустимые остатки и чётность, исключить меньшие натуральные значения и проверить первый допустимый кандидат. Учитывать дополнительные ограничения на искомое число.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc8&quot;,
+      &quot;name&quot;: &quot;Подтверждать достижимость минимума явным допустимым набором&quot;,
+      &quot;description&quot;: &quot;После получения нижней границы построить набор требуемой мощности и проверить все исходные ограничения, включая различие, натуральность, обязательные элементы и целевое отношение. Достижение границы вместе с доказанной оценкой устанавливает минимум.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Общая характеристика набора через сравнение сумм подмножеств&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;m2&quot;,
+      &quot;name&quot;: &quot;Пункт а: исключение числа по остатку&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;m3&quot;,
+      &quot;name&quot;: &quot;Пункт б: противоречие для остатка кратного&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s4&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;m4&quot;,
+      &quot;name&quot;: &quot;Пункт в: нижняя граница из квадратного сравнения и достигающий пример&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s5&quot;,
+        &quot;s6&quot;,
+        &quot;s7&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h2>Буквальный независимый аудит</h2><pre>{
+  &quot;task_id&quot;: &quot;F89087&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;Обе суммы делятся на k, поэтому их разность x−y делится на k.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_e3fb5cdd2965&quot;,
+          &quot;reason&quot;: &quot;Определение связывает остатки с количеством слагаемых; здесь выбираются два перекрывающихся подмножества и вычитанием выделяется разность заменённых элементов.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдается специальный переход от делимости сумм подмножеств к делимости любой попарной разности. Возможность общей части из k−1 элементов обоснована восемью доступными числами. Соответствующего целого действия в каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Выводить делимость попарных разностей сравнением сумм подмножеств&quot;,
+        &quot;definition&quot;: &quot;При делимости сумм всех подмножеств заданной мощности на один модуль выбрать два подмножества с общей частью и разными одиночными элементами, проверить наличие достаточного числа элементов и вычесть суммы, получая делимость разности этих элементов.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;Следовательно, x−y делится на НОК(3,4,5,6)=60.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_e3fb5cdd2965&quot;,
+          &quot;reason&quot;: &quot;Получение необходимого ограничения на сумму по остаткам не включает объединение нескольких делимостей через НОК.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+          &quot;reason&quot;: &quot;Общее совмещение ограничений не описывает вычисление НОК и теорему о совместной делимости; это другой уровень операции.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Для одной целой разности объединены делимости на 3,4,5,6, включая невзаимно простые делители. Каталог не содержит соответствующей арифметической операции.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Объединять делимости через НОК&quot;,
+        &quot;definition&quot;: &quot;Из делимости целого числа на каждый из нескольких положительных целых делителей получить делимость на их наименьшее общее кратное, вычислив его без предположения попарной взаимной простоты.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;Все числа сравнимы с 30033 по модулю 60, то есть имеют остаток 33.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;Обратно, если все числа имеют вид 33+60t, сумма любых k из них равна 33k+60T и делится на k при k=3,4,5,6.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_e3fb5cdd2965&quot;,
+          &quot;reason&quot;: &quot;Узел даёт необходимое ограничение по модулю для суммы, но не покрывает одновременно восстановление общего остатка по известному элементу и доказательство достаточности для всех разрешённых мощностей.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат соединяет два направленных действия: определение общего класса вычетов из попарных разностей и известного элемента, затем доказательство достаточности через сумму произвольного подмножества. Одно соответствие узкому определению потеряет второе направление.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;name&quot;: &quot;Определять общий остаток по попарным разностям и известному элементу&quot;,
+            &quot;catalog_kc_id&quot;: null,
+            &quot;definition&quot;: &quot;Из делимости всех попарных разностей на модуль и известного элемента установить общий класс вычетов всех элементов.&quot;
+          },
+          {
+            &quot;name&quot;: &quot;Доказывать целочисленность средних представлением сумм&quot;,
+            &quot;catalog_kc_id&quot;: null,
+            &quot;definition&quot;: &quot;Для элементов общего вида r+mt и разрешённых мощностей k, делящих m, записать сумму произвольных k элементов как kr+mT и доказать её делимость на k.&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;303 имеет остаток 3 по модулю 60, а требуется остаток 33. Ответ на пункт а): нет.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_e3fb5cdd2965&quot;,
+          &quot;reason&quot;: &quot;Проверяется отдельное число по готовому необходимому остатку, а не выводится ограничение на сумму и количество слагаемых.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+          &quot;reason&quot;: &quot;Определение относится к области определения и промежутку алгебраических решений, не к исключению числа по классу вычетов.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Проверка необходимого класса вычетов наблюдается буквально. Числовые данные не создают отдельного узла, но общего определения такого модульного исключения в каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Исключать число по необходимому классу вычетов&quot;,
+        &quot;definition&quot;: &quot;Вычислить остаток предложенного целого числа по заданному модулю и исключить его допустимость при несовпадении с ранее доказанным необходимым остатком.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc5&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;Если y=31x и x≡33 (mod 60), то y≡31·33≡3 (mod 60), что противоречит y≡33 (mod 60).&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s5:result&quot;,
+          &quot;quote&quot;: &quot;Пусть y=n²x. Из x≡y≡33 (mod 60) следует 60 | 33(n²−1)&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_e3fb5cdd2965&quot;,
+          &quot;reason&quot;: &quot;Каталожное определение ограничено суммой целых чисел и количеством слагаемых, здесь используется мультипликативная связь двух чисел.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_48d7fd02cfd9&quot;,
+          &quot;reason&quot;: &quot;Подстановка линейной связи в другое уравнение не покрывает переход к сравнению и проверку совместимости остатков.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;В двух шагах выполнена одна переносимая операция: в равенстве с целым множителем заменены числа их классами вычетов, что даёт противоречие или ограничение на множитель. Сокращение делимости в s5 относится к следующему кандидату.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Выводить ограничение на целый множитель через вычеты&quot;,
+        &quot;definition&quot;: &quot;Для целых x,y,q с y=qx и установленными остатками x,y по общему модулю подставить эти остатки в равенство и вывести необходимое сравнение на q или несовместимость фиксированного q.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc6&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s5:result&quot;,
+          &quot;quote&quot;: &quot;60 | 33(n²−1), или, после сокращения на НОД(33,60)=3, 20 | (n²−1).&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_7570fa06d474&quot;,
+          &quot;reason&quot;: &quot;Узел сокращает числитель и знаменатель дроби при ненулевом множителе; сокращение делимости требует НОД и взаимной простоты, это не та же операция.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Переход от делимости произведения к делимости второго множителя с уменьшением модуля на НОД математически корректен; такого определения каталог не содержит.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Сокращать условие делимости через НОД&quot;,
+        &quot;definition&quot;: &quot;Для целых a,u и положительного m заменить m | au эквивалентным условием m/d | u, где d=НОД(a,m), опираясь на взаимную простоту a/d и m/d.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc7&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s6:result&quot;,
+          &quot;quote&quot;: &quot;Сравнение n²≡1 (mod 20) требует нечётности n и n≡1 или −1 (mod 5).&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s6:result&quot;,
+          &quot;quote&quot;: &quot;Среди чисел от 2 до 8 остатки ±1 по модулю 5 имеют только 4 и 6, но они чётные. Число 9 подходит: 9²−1=80 делится на 20. Следовательно, n≥9.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s5:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;finite_exhaustion&quot;,
+          &quot;reason&quot;: &quot;Подходит к исключению всего конечного диапазона 2–8, но не покрывает предварительное получение условий на остатки из квадратного сравнения.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_e3fb5cdd2965&quot;,
+          &quot;reason&quot;: &quot;Определение о суммах и числе слагаемых не является решением квадратного сравнения.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат объединяет вывод ограничений для квадратного сравнения и доказательство минимальности полным исключением меньших значений. Перебор не произвольный: n&gt;1 уже получено в s5, проверка остатков и чётности исключает все 2–8.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;name&quot;: &quot;Выводить ограничения на остатки из квадратного сравнения&quot;,
+            &quot;catalog_kc_id&quot;: null,
+            &quot;definition&quot;: &quot;Перейти от квадратного сравнения к необходимым условиям по делителям модуля и определить разрешённые остатки и чётность переменной.&quot;
+          },
+          {
+            &quot;name&quot;: &quot;Исключать все меньшие целочисленные кандидаты&quot;,
+            &quot;catalog_kc_id&quot;: &quot;finite_exhaustion&quot;,
+            &quot;definition&quot;: &quot;Установить конечный диапазон меньших допустимых натуральных чисел, исключить все его элементы по доказанным ограничениям и проверить первый оставшийся кандидат.&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc8&quot;,
+      &quot;status&quot;: &quot;uncertain&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s7:result&quot;,
+          &quot;quote&quot;: &quot;Подходит набор {33,93,153,213,273,333,393,453,2673,30033}.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s7:result&quot;,
+          &quot;quote&quot;: &quot;В нём ровно десять различных натуральных чисел, все имеют остаток 33 по модулю 60, и включено 30033. Поэтому все требуемые средние целые. При этом 2673/33=81=9². Нижняя граница достигается, и ответ на пункт в): 9.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s2:result&quot;,
+        &quot;step:s6:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;optimal_bound_attainment&quot;,
+          &quot;reason&quot;: &quot;Подходит к общей оценке и достигающему объекту с использованием s6, но пересекается с отдельным узлом о достижимости допустимым примером.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_f6b803c5f9c2&quot;,
+          &quot;reason&quot;: &quot;Предъявление целочисленного объекта и проверка ограничений соответствует действию; определение отдельно упоминает максимум, не запрещая минимум. Правило выбора относительно optimal_bound_attainment не дано.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;integer_construction&quot;,
+          &quot;reason&quot;: &quot;Покрывает построение и проверку объекта, но само по себе не включает заключение об оптимальности.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a873d91378ab&quot;,
+          &quot;reason&quot;: &quot;Проверка граничного ответа близка, однако здесь требуется строить весь набор, а не только подставить границу в готовую модель.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Достигающий набор и все необходимые проверки наблюдаются, арифметических препятствий не видно. Однако два определения каталога перекрываются на этом действии: общее доказательство оценкой и достижимостью и проверка достижимости целочисленным примером. Без правила их границ единственный ID выбрать нельзя.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;boundary&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s6:result&quot;,
+        &quot;step:s7:result&quot;
+      ],
+      &quot;description&quot;: &quot;Для достижения минимума явным целочисленным набором пересекаются optimal_bound_attainment и literal_f6b803c5f9c2; требуется правило выбора общего доказательного действия и проверки достигающего примера. Это не математическая ошибка решения.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc8&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre><h2>Исторические редакторские назначения</h2><pre>[]</pre><p><a href="../../../runs/2026-11-02-fipi-extension-150/raw/author/F89087.json">author raw</a> · <a href="../../../runs/2026-11-02-fipi-extension-150/raw/auditor/F89087.json">auditor raw</a></p><pre>{
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;source_policy_included&quot;: true,
+  &quot;source_policy_exclusion_reasons&quot;: []
+}</pre></html>

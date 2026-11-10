@@ -1,0 +1,95 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>29A6B4</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>83. ФИПИ 29A6B4 · бронь #4, партия 7</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">В июле 2026 года планируется взять кредит на три года. Условия его возврата таковы:</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> каждый январь долг будет возрастать на 20 % по сравнению с концом предыдущего года;</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> с февраля по июнь каждого года необходимо выплатить одним платежом часть долга;</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> платежи в 2027 и в 2028 годах должны быть по 500 тыс. рублей;</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> к июлю 2029 года долг должен быть выплачен полностью.</p> <p class="MsoNormal">Известно, что сумма всех платежей после полного погашения кредита равна 1235,2 тыс. рублей. Какую сумму планируется взять в кредит?</p> <p class="MsoNormal"><span> </span></p>  </section></div><p>КЭС: 1.2 Рациональные числа. Обыкновенные и десятичные дроби, проценты, бесконечные периодические дроби; 2.1 Целые и дробно-рациональные уравнения; 3.8 Арифметическая и геометрическая прогрессии. Формула сложных процентов</p><h2>Ответ</h2><p>900 тыс. рублей</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти третий платёж как разность суммы всех платежей и двух известных платежей</td><td>x3 = 1235,2 − 2·500 = 235,2 тыс. руб.</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Восстановить долг после платежа 2028 года по последнему платежу, гасящему долг после начисления 20 %</td><td>1,2·D2 = 235,2, D2 = 196 тыс. руб.</td><td>kc2</td></tr><tr><td>s3 · condition, s2</td><td>Восстановить долг после платежа 2027 года: долг после начисления равен остатку плюс платёж</td><td>1,2·D1 = 196 + 500 = 696, D1 = 580 тыс. руб.</td><td>kc2</td></tr><tr><td>s4 · condition, s3</td><td>Восстановить исходную сумму кредита тем же обратным шагом</td><td>1,2·S = 580 + 500 = 1080, S = 900 тыс. руб.</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Обратный ход от полного погашения к сумме кредита&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Выразить неизвестный платёж через общую сумму выплат</h3><p>По известной сумме всех платежей кредита и известным отдельным платежам найти оставшийся платёж вычитанием.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Найти третий платёж как разность суммы всех платежей и двух известных платежей&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;x3 = 1235,2 − 2·500 = 235,2 тыс. руб.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;Вычитание можно формально считать решением x+1000=1235,2, но содержательное действие — составление связи суммы платежей кредита с отдельными платежами (построение модели), которое определение linear_equation явно исключает.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_33060533660f&quot;,
+      &quot;reason&quot;: &quot;Моделирует прибыль и окупаемость производства, а не сумму платежей по кредиту.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: по условию о сумме всех платежей и двух известных платежах найти третий платёж вычитанием. Объект — платежи кредитной схемы. В каталоге нет узла о моделировании суммы выплат по кредиту; арифметика сама по себе нового KC не создаёт, поэтому предлагается узел на уровне составления связи платежей.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;В задаче о кредите связать известную общую сумму выплат с отдельными платежами и выразить неизвестный платёж (общая сумма минус известные платежи).&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Восстановить предыдущий долг обратным ходом по схеме начисление–платёж</h3><p>Для кредита, где долг ежегодно умножается на коэффициент начисления, затем уменьшается на платёж, по остатку и платежу найти долг до начисления: (остаток + платёж) / коэффициент.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Восстановить долг после платежа 2028 года по последнему платежу, гасящему долг после начисления 20 %&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;1,2·D2 = 235,2, D2 = 196 тыс. руб.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;1,2·D1 = 196 + 500 = 696, D1 = 580 тыс. руб.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;1,2·S = 580 + 500 = 1080, S = 900 тыс. руб.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+      &quot;reason&quot;: &quot;Перевод 20 % в множитель 1,2 — лишь компонент; узел о процентной доле части от целого, а не о годовом цикле начисление–платёж.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;Решение 1,2·D=… — компонент; составление уравнения по схеме долга (модель) в определение не входит.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_33060533660f&quot;,
+      &quot;reason&quot;: &quot;Другая прикладная модель (прибыль/окупаемость).&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: по остатку долга после платежа и величине платежа восстановить долг до начисления процентов: (остаток+платёж)/1,2. Выполнена в s2–s4 последовательно; вход s2 — третий платёж из s1 и условие о полном погашении к июлю 2029. Каталог не содержит узла о схеме дифференцированного/аннуитетного долга с начислением и платежом. Проверка: 235,2/1,2=196; 696/1,2=580; 1080/1,2=900; 900·1,2−500=580, 580·1,2−500=196, 196·1,2=235,2 — согласуется.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Для кредита со схемой «долг умножается на коэффициент начисления, затем уменьшается на платёж» по остатку после платежа и величине платежа найти долг до начисления: (остаток + платёж)/коэффициент; последний платёж равен долгу после начисления.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/29A6B4.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/29A6B4.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

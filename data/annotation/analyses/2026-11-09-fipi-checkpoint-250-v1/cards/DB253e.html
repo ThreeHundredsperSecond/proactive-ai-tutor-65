@@ -1,0 +1,153 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>DB253e</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><a href="../index.html">Сводка</a><h1>DB253e</h1><p>Opus100</p><p>Предварительные разборы, внешнего эталона нет.</p><h2>Условие</h2>Впишите правильный ответ.<div><section>  <p class="MsoNormal">В соревнованиях по толканию ядра участвуют спортсмены из четырёх стран: 9 из <span>Швейцарии</span>, 7 из <span>Чехии</span>, 8 из <span>Словакии </span>и 11 из <span>Австрии</span>. Порядок, <br> в котором выступают спортсмены, определяется жребием. Найдите вероятность того, что спортсмен, выступающий первым, окажется из <span>Чехии</span>.<span></span></p>  </section></div><h2>Состав и исключения</h2><pre>{
+  &quot;complete&quot;: true,
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;author_mode&quot;: &quot;standalone_initial&quot;,
+  &quot;author_path&quot;: &quot;data\\annotation\\runs\\2026-11-07-fipi-team-bogdan108-051-150\\raw\\author\\DB253e.json&quot;,
+  &quot;auditor_path&quot;: &quot;data\\annotation\\runs\\2026-11-07-fipi-team-bogdan108-051-150\\raw\\auditor\\DB253e.json&quot;,
+  &quot;feedback_ref&quot;: null,
+  &quot;source_run&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150&quot;
+}</pre><h2>Буквальный сохранённый разбор: ответ, шаги, KC, методы</h2><pre>{
+  &quot;task_id&quot;: &quot;DB253e&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;0,2&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Найти общее число спортсменов как сумму участников всех стран&quot;,
+      &quot;result&quot;: &quot;9+7+8+11=35&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Вычислить вероятность того, что первый выступающий из Чехии, как отношение числа чешских спортсменов к общему числу при равновозможных исходах жребия&quot;,
+      &quot;result&quot;: &quot;7/35=0,2&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Подсчитать общее число равновозможных исходов&quot;,
+      &quot;description&quot;: &quot;По данным о численности непересекающихся групп найти общее число элементарных исходов сложением; применимо, когда каждый объект соответствует одному исходу.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Вычислить классическую вероятность&quot;,
+      &quot;description&quot;: &quot;По числу благоприятных и общему числу равновозможных исходов найти вероятность как их отношение; применимо только при равновозможности исходов (случайный жребий).&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Классическое определение вероятности&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h2>Буквальный независимый аудит</h2><pre>{
+  &quot;task_id&quot;: &quot;DB253e&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Найти общее число спортсменов как сумму участников всех стран&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;9+7+8+11=35&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+          &quot;reason&quot;: &quot;Определение требует задать элементарные исходы и обосновать равные вероятности; в s1 выполнен только подсчёт их числа сложением, обоснования равновозможности здесь нет.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+          &quot;reason&quot;: &quot;Покрывает вычисление m/n; комбинаторный подсчёт n явно не включается автоматически.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция — подсчёт общего числа исходов (n) сложением численностей непересекающихся групп. В каталоге нет узла для подсчёта числа исходов конечной модели. Действие арифметически тривиально; возможно, при консолидации его стоит отнести к общему подсчёту исходов, а не выделять отдельно.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Подсчитывать число исходов по непересекающимся группам&quot;,
+        &quot;definition&quot;: &quot;Найти число элементарных исходов конечной модели как сумму численностей непересекающихся групп, когда каждому объекту соответствует ровно один исход.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;как отношение числа чешских спортсменов к общему числу при равновозможных исходах жребия&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;7/35=0,2&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+          &quot;reason&quot;: &quot;Равновозможность лишь констатирована в s2, а не построена и обоснована; формула m/n относится к classical_probability.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;В конечной равновозможной модели вычислено m/n: m=7 из условия, n=35 из s1. Результат 0,2 верен. Обоснование равновозможности в узел не входит.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;missing_annotation&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s2:action&quot;
+      ],
+      &quot;description&quot;: &quot;Предпосылка равновозможности (жребий: любой спортсмен с равной вероятностью выступает первым) лишь упомянута внутри s2 и не выделена как шаг с KC equiprobable_model. На соответствие kc2 не влияет.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc2&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre><h2>Исторические редакторские назначения</h2><pre>[]</pre><p><a href="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/DB253e.json">author raw</a> · <a href="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/DB253e.json">auditor raw</a></p><pre>{
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;source_policy_included&quot;: true,
+  &quot;source_policy_exclusion_reasons&quot;: []
+}</pre></html>

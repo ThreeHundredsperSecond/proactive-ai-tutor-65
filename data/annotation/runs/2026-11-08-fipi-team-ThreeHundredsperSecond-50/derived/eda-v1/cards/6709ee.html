@@ -1,0 +1,84 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>6709ee</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>49. ФИПИ 6709ee</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>   <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0"> <tr> <td valign="top"> <p class="MsoNormal">В треугольнике <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>A</mi><mi>B</mi><mi>C</mi></mrow></mstyle></math></span> угол <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>C</mi></mstyle></math></span> равен <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mn>54</mn><mo>°</mo><mo>,</mo></mrow></mstyle></math></span> <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>A</mi><mi>D</mi></mrow></mstyle></math></span> — биссектриса, угол <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>C</mi><mi>A</mi><mi>D</mi></mrow></mstyle></math></span> равен <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mn>30</mn><mo>°</mo><mo>.</mo></mrow></mstyle></math></span> Найдите <br> величину угла <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>B</mi><mo>.</mo></mrow></mstyle></math></span> Ответ дайте в градусах.</p> </td> <td valign="top"> <p class="MsoNormal" align="right"><img src="../../../inputs/assets/d0fd161812b02530427ddca0.png" alt="Рисунок ФИПИ"></p> </td> </tr> </table>  <p class="MsoNormal"><span> </span></p>   <hr class="msocomoff" align="left" size="1">  </section></div><p>КЭС: 7.1 Фигуры на плоскости</p><h2>Ответ</h2><p>66</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Применить определение биссектрисы внутреннего угла треугольника.</td><td>Поскольку AD — биссектриса угла A, ∠BAD = ∠CAD = 30°, поэтому ∠A = 60°.</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Найти третий угол треугольника по сумме его внутренних углов.</td><td>∠B = 180° − ∠A − ∠C = 180° − 60° − 54° = 66°.</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Восстановить угол по биссектрисе и применить сумму углов треугольника&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Вычислить угол по его половине, выделенной биссектрисой</h3><p>Если луч является биссектрисой внутреннего угла и известна величина одной из двух равных частей, получить величину всего угла удвоением этой части.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;Поскольку AD — биссектриса угла A, ∠BAD = ∠CAD = 30°, поэтому ∠A = 60°.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_57221556b432&quot;,
+      &quot;reason&quot;: &quot;Определение направлено от заданного целого угла к двум равным частям. Здесь величина целого неизвестна: равенство частей является компонентом восстановления целого по известной половине.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_adbf18f11761&quot;,
+      &quot;reason&quot;: &quot;Сложение углов с общей стороной покрывает получение целого из уже известных частей, но не установление величины второй части по свойству биссектрисы.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В s1 наблюдается единое восстановление величины угла по известной половине и заданной биссектрисе. Ни одно определение каталога не покрывает эту операцию целиком: одно задаёт деление целого, другое — сложение известных углов. Отдельное дробление удвоения как арифметики не требуется. Проверены все 144 определения; предлагается обратное по входу и результату действие, а не новый узел из-за чисел или букв.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Восстанавливать величину угла по половине, выделенной биссектрисой&quot;,
+    &quot;definition&quot;: &quot;При заданной биссектрисе угла и известной величине одной из двух частей установить равенство частей и вычислить величину всего угла удвоением известной части.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Вычислить третий угол треугольника по двум известным</h3><p>По величинам двух внутренних углов невырожденного евклидова треугольника вычислить оставшийся угол, вычитая их сумму из 180°.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Найти третий угол треугольника по сумме его внутренних углов.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;∠B = 180° − ∠A − ∠C = 180° − 60° − 54° = 66°.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_f5a787e19d0e&quot;,
+      &quot;reason&quot;: &quot;Определение соединяет сумму углов треугольника со смежностью при известных положениях лучей. В s2 используется только сумма внутренних углов, смежные углы не вводятся и не вычисляются.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_adbf18f11761&quot;,
+      &quot;reason&quot;: &quot;Вычитание здесь основано на сумме трёх внутренних углов треугольника, а не на взаимном положении двух углов с общей стороной.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;Не выполняется преобразование аффинного равенства к множеству решений; непосредственно применяется геометрическое соотношение с числовым вычислением.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Два внутренних угла известны: 54° из условия и 60° из результата s1. s2 вычисляет третий угол вычитанием из 180°. Проверка полного каталога не обнаружила определения именно этого действия без дополнительного требования смежности; совпадение с компонентом literal_f5a787e19d0e недостаточно для полного match. Вычисление 66° корректно.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Вычислять третий внутренний угол треугольника по двум известным&quot;,
+    &quot;definition&quot;: &quot;По величинам двух внутренних углов невырожденного евклидова треугольника вычислить величину третьего как 180° минус сумма известных углов.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;source_path&quot;: &quot;data/fipi/2026-10-31-profile/tasks/6709ee.json&quot;,
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\6709ee.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\6709ee.json&quot;
+}</pre></html>

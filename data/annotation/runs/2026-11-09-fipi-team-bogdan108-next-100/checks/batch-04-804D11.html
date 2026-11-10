@@ -1,0 +1,147 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>804D11</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Стрелок стреляет по одному разу в каждую из четырёх мишеней. Вероятность попадания в мишень при каждом отдельном выстреле равна 0,8. Найдите вероятность того, что стрелок попадёт в три первые мишени <br> и не попадёт в последнюю.<span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;804D11&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;0,1024&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Найти вероятность промаха при одном выстреле как вероятность противоположного события&quot;,
+      &quot;result&quot;: &quot;1 − 0,8 = 0,2&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Перемножить вероятности независимых исходов выстрелов: попадание в первые три мишени и промах по последней&quot;,
+      &quot;result&quot;: &quot;0,8·0,8·0,8·0,2 = 0,1024&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Вычислить вероятность противоположного события&quot;,
+      &quot;description&quot;: &quot;По известной вероятности события найти вероятность его непроисхождения как 1 − P; применимо к событию и его дополнению в одном испытании.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Перемножить вероятности независимых событий&quot;,
+      &quot;description&quot;: &quot;По вероятностям нескольких независимых событий найти вероятность их совместного наступления как произведение; применимо только при независимости событий (например, отдельных испытаний).&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Вероятность заданной последовательности исходов независимых испытаний через дополнение и умножение&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;804D11&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Найти вероятность промаха при одном выстреле как вероятность противоположного события&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;1 − 0,8 = 0,2&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+          &quot;reason&quot;: &quot;m/n в равновозможной модели, а здесь вычисляется 1 − P без подсчёта исходов&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;bernoulli_model&quot;,
+          &quot;reason&quot;: &quot;задание модели испытаний с двумя исходами, а не вычисление вероятности дополнения&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+          &quot;reason&quot;: &quot;умножение вероятностей независимых событий, а не переход к противоположному событию&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: по вероятности события найти вероятность противоположного как 1 − P; объект — исход одного выстрела. В каталоге нет узла для вероятности дополнения.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Вычислять вероятность противоположного события&quot;,
+        &quot;definition&quot;: &quot;По известной вероятности события A найти P(не A)=1−P(A) для события и его дополнения в одном вероятностном пространстве.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Перемножить вероятности независимых исходов выстрелов: попадание в первые три мишени и промах по последней&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;0,8·0,8·0,8·0,2 = 0,1024&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;bernoulli_model&quot;,
+          &quot;reason&quot;: &quot;узел о задании модели независимых испытаний; в шаге выполняется само умножение&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_8e6b7abd8340&quot;,
+          &quot;reason&quot;: &quot;позиции успехов фиксированы, C(n,k) не используется&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Перемножаются вероятности четырёх событий, которые должны произойти одновременно; результат 0,1024 верен. Независимость выстрелов в шаге принята как стандартное предположение задачи, а не обоснована явно (см. i1).&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;missing_annotation&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s2:action&quot;
+      ],
+      &quot;description&quot;: &quot;Независимость выстрелов и постоянная вероятность 0,8 приняты неявно; действие моделирования (близко к bernoulli_model) не выделено отдельным шагом или KC. На сопоставление kc2 не влияет.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc2&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>

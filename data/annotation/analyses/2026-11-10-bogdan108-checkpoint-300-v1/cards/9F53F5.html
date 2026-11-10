@@ -1,0 +1,269 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>9F53F5</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>71. ФИПИ 9F53F5 · бронь #4, партия 6</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Найдите все значения <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>a</mi>  </semantics> </mstyle></math>, при каждом из которых уравнение</p> <p class="MsoNormal" align="center"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <msqrt> <mrow> <mn>4</mn><mi>x</mi><mo>−</mo><mn>1</mn> </mrow> </msqrt> <mo>⋅</mo><mi>ln</mi><mrow><mo>(</mo> <mrow> <msup> <mi>x</mi> <mn>2</mn> </msup> <mo>−</mo><mn>2</mn><mi>x</mi><mo>+</mo><mn>2</mn><mo>−</mo><msup> <mi>a</mi> <mn>2</mn> </msup> </mrow> <mo>)</mo></mrow><mo>=</mo><mn>0</mn> </mrow>  </semantics> </mstyle></math></p> <p class="MsoNormal">имеет ровно один корень на отрезке <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mrow><mo>[</mo> <mrow> <mn>0</mn><mo>;</mo><mtext> </mtext><mn>1</mn> </mrow> <mo>]</mo></mrow> </mrow>  </semantics> </mstyle></math>.<span></span></p>  </section></div><p>КЭС: 2.10 Уравнения, неравенства и системы с параметрами</p><h2>Ответ</h2><p>a ∈ (−5/4; −3/4] ∪ [3/4; 5/4)</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>S1 · condition</td><td>Записать ОДЗ уравнения: подкоренное выражение неотрицательно, аргумент логарифма положителен; пересечь с отрезком [0;1]</td><td>x ∈ [1/4; 1], x²−2x+2−a² &gt; 0</td><td>KC1</td></tr><tr><td>S2 · condition, S1</td><td>Разложить уравнение-произведение на совокупность: √(4x−1)=0 или ln(x²−2x+2−a²)=0 при условии ОДЗ</td><td>x = 1/4 или x²−2x+2−a² = 1</td><td>KC2</td></tr><tr><td>S3 · S1, S2</td><td>Определить, при каких a корень x=1/4 входит в ОДЗ логарифма</td><td>1/16−1/2+2−a² &gt; 0 ⇔ a² &lt; 25/16 ⇔ |a| &lt; 5/4</td><td>KC3</td></tr><tr><td>S4 · S2</td><td>Решить уравнение ln(...)=0 относительно x с параметром, выделив полный квадрат</td><td>(x−1)² = a², x = 1 ± a; аргумент логарифма равен 1 &gt; 0, ОДЗ логарифма выполнено</td><td>KC4</td></tr><tr><td>S5 · S1, S4</td><td>Определить, при каких a корни 1±a попадают в [1/4; 1]</td><td>x = 1−|a| ∈ [1/4;1] ⇔ |a| ≤ 3/4; x = 1+|a| ∈ [1/4;1] только при a=0, где совпадает с 1−|a|=1</td><td>KC3</td></tr><tr><td>S6 · S3, S5</td><td>Подсчитать число различных корней на отрезке в зависимости от |a|, учитывая совпадение корней</td><td>|a|&lt;3/4: два корня (1/4 и 1−|a|); |a|=3/4: один корень 1/4 (корни совпали); 3/4&lt;|a|&lt;5/4: один корень 1/4; |a|≥5/4: корней нет</td><td>KC5</td></tr><tr><td>S7 · S6</td><td>Отобрать значения параметра с ровно одним корнем</td><td>3/4 ≤ |a| &lt; 5/4, т.е. a ∈ (−5/4; −3/4] ∪ [3/4; 5/4)</td><td>KC5</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;M1&quot;,
+    &quot;name&quot;: &quot;Расщепление произведения с учётом ОДЗ и анализ корней по параметру&quot;,
+    &quot;step_ids&quot;: [
+      &quot;S1&quot;,
+      &quot;S2&quot;,
+      &quot;S3&quot;,
+      &quot;S4&quot;,
+      &quot;S5&quot;,
+      &quot;S6&quot;,
+      &quot;S7&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="KC1"><h3>KC1 · Найти ОДЗ уравнения с корнем и логарифмом</h3><p>Вход: уравнение с квадратным корнем и логарифмом, возможно с параметром и отрезком. Операция: записать условия неотрицательности подкоренного выражения и положительности аргумента логарифма, пересечь с заданным промежутком.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC1&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S1:action&quot;,
+      &quot;quote&quot;: &quot;подкоренное выражение неотрицательно, аргумент логарифма положителен; пересечь с отрезком [0;1]&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S1:result&quot;,
+      &quot;quote&quot;: &quot;x ∈ [1/4; 1], x²−2x+2−a² &gt; 0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_37584ab15732&quot;,
+      &quot;reason&quot;: &quot;Покрывает совместную область корня и логарифма, но не пересечение с заданным отрезком задачи.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+      &quot;reason&quot;: &quot;Покрывает пересечение 4x−1≥0 с [0;1], но не постановку условий области.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0214fc221120&quot;,
+      &quot;reason&quot;: &quot;Только логарифм, без радиканда.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_a5938e1a7fec&quot;,
+      &quot;reason&quot;: &quot;Только квадратные корни.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет постановку совместной области корня и логарифма и пересечение с отрезком [0;1]; это два действия каталога. Условие на логарифм оставлено нерешённым, что корректно для дальнейшего анализа.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Записать условия 4x−1≥0 и x²−2x+2−a²&gt;0&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_37584ab15732&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Пересечь x≥1/4 с отрезком [0;1]&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;set_intersection&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="KC2"><h3>KC2 · Разложить уравнение-произведение на совокупность</h3><p>Вход: уравнение вида f·g=0. Операция: перейти к совокупности f=0 или g=0 при условии, что оба множителя определены.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S2:action&quot;,
+      &quot;quote&quot;: &quot;Разложить уравнение-произведение на совокупность: √(4x−1)=0 или ln(x²−2x+2−a²)=0 при условии ОДЗ&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S2:result&quot;,
+      &quot;quote&quot;: &quot;x = 1/4 или x²−2x+2−a² = 1&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:S1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_37584ab15732&quot;,
+      &quot;reason&quot;: &quot;Задаёт область, но не переход к совокупности; используется как входное условие из S1.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Произведение двух множителей приравнено к нулю через нули множителей с сохранением общей области — соответствует определению zero_product. Снятие логарифма в результате S2 частично предвосхищает KC4, но основное действие — расщепление.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="KC3"><h3>KC3 · Определить условия на параметр для принадлежности корня множеству</h3><p>Вход: корень, выраженный через параметр или фиксированный, и множество (ОДЗ, отрезок). Операция: записать и решить неравенства относительно параметра.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC3&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S3:result&quot;,
+      &quot;quote&quot;: &quot;1/16−1/2+2−a² &gt; 0 ⇔ a² &lt; 25/16 ⇔ |a| &lt; 5/4&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S5:result&quot;,
+      &quot;quote&quot;: &quot;x = 1−|a| ∈ [1/4;1] ⇔ |a| ≤ 3/4&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:S1:result&quot;,
+    &quot;step:S2:result&quot;,
+    &quot;step:S4:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+      &quot;reason&quot;: &quot;Отбор конкретных кандидатов по области; не включает вывод ограничения на параметр решением неравенств.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_8409c9003f48&quot;,
+      &quot;reason&quot;: &quot;Сравнение числовых корней с границами, без параметра.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ad66344767ba&quot;,
+      &quot;reason&quot;: &quot;Решение двойного неравенства с модулем — лишь компонент S5, не постановка условия принадлежности.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cd64639b0b5a&quot;,
+      &quot;reason&quot;: &quot;Квадратное неравенство с параметром из ограничения на квадрат — близко к S3 (a²&lt;25/16), но не охватывает подстановку корня в условие множества.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Действие: подставить корень (фиксированный или зависящий от параметра) в условия множества (ОДЗ, отрезок) и получить ограничение на параметр. В каталоге есть отбор числовых кандидатов и решение неравенств, но нет узла, переводящего принадлежность корня в условие на параметр.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Выводить условие на параметр для принадлежности корня множеству&quot;,
+    &quot;definition&quot;: &quot;Подставить корень, выраженный через параметр или фиксированный, в условия области/промежутка и решить полученные неравенства относительно параметра с учётом строгости границ.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="KC4"><h3>KC4 · Решить простейшее логарифмическое уравнение с параметром</h3><p>Вход: уравнение ln(P(x,a))=0 с квадратным P. Операция: приравнять аргумент к 1, выделить полный квадрат и выразить корни через параметр.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC4&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S2:result&quot;,
+      &quot;quote&quot;: &quot;x²−2x+2−a² = 1&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S4:result&quot;,
+      &quot;quote&quot;: &quot;(x−1)² = a², x = 1 ± a; аргумент логарифма равен 1 &gt; 0, ОДЗ логарифма выполнено&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:S2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9a635e89ccb3&quot;,
+      &quot;reason&quot;: &quot;Покрывает переход ln P=0 ⇒ P=1, который фактически записан в результате S2, а не S4.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_fe2b4673ac10&quot;,
+      &quot;reason&quot;: &quot;Покрывает выделение квадрата и две ветви корней в S4.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_57e72251d4a8&quot;,
+      &quot;reason&quot;: &quot;Решение (x−1)²=a² при a²≥0 — компонент, перекрывается с выделением квадрата.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат смешивает снятие логарифма по определению и решение квадратного уравнения выделением квадрата. Снятие логарифма наблюдается в S2:result, а не в шаге S4, помеченном KC4.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Перейти от ln(P)=0 к P=1 при P&gt;0&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_9a635e89ccb3&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Выделить полный квадрат (x−1)²=a² и найти x=1±a&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_fe2b4673ac10&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="KC5"><h3>KC5 · Подсчитать число корней в зависимости от параметра</h3><p>Вход: семейства корней с условиями существования по параметру. Операция: разбить область параметра на промежутки, учесть совпадения корней, подсчитать различные корни и отобрать нужные значения.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC5&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S6:result&quot;,
+      &quot;quote&quot;: &quot;|a|&lt;3/4: два корня (1/4 и 1−|a|); |a|=3/4: один корень 1/4 (корни совпали); 3/4&lt;|a|&lt;5/4: один корень 1/4; |a|≥5/4: корней нет&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S7:result&quot;,
+      &quot;quote&quot;: &quot;3/4 ≤ |a| &lt; 5/4, т.е. a ∈ (−5/4; −3/4] ∪ [3/4; 5/4)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:S3:result&quot;,
+    &quot;step:S5:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_05f53e4cc43a&quot;,
+      &quot;reason&quot;: &quot;Подсчёт различных решений объединения ветвей — подходит к S6; перекрывается с literal_5dcd4a01af19 и literal_d93e50c17220 (почти одинаковые определения).&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_5dcd4a01af19&quot;,
+      &quot;reason&quot;: &quot;Перекрывающийся дубль для S6.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d93e50c17220&quot;,
+      &quot;reason&quot;: &quot;Перекрывающийся дубль для S6.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_e41f0e408b87&quot;,
+      &quot;reason&quot;: &quot;Объединение случаев параметра с границами — подходит к S7.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет подсчёт различных корней по промежуткам параметра (S6) и запись итогового множества параметров (S7). Для S6 есть три перекрывающихся узла без основания выбрать один. Математически подсчёт корректен: при |a|=3/4 корни совпадают, при a=0 ветви 1±a дают один корень x=1.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Подсчитать различные корни по промежуткам |a| с учётом совпадений (S6)&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_05f53e4cc43a | literal_5dcd4a01af19 | literal_d93e50c17220 (неоднозначно)&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Записать множество параметров с ровно одним корнем и границами (S7)&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_e41f0e408b87&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i2&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:S2:result&quot;,
+      &quot;step:S4:action&quot;
+    ],
+    &quot;description&quot;: &quot;Снятие логарифма (ln P=0 ⇒ P=1) выполнено уже в результате S2, размеченного KC2, тогда как KC4 приписан S4, где наблюдается только выделение квадрата.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;KC2&quot;,
+      &quot;KC4&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;i2&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:S6:result&quot;
+    ],
+    &quot;description&quot;: &quot;В каталоге три узла с почти одинаковым определением подсчёта различных корней (literal_05f53e4cc43a, literal_5dcd4a01af19, literal_d93e50c17220), что не позволяет однозначно сопоставить S6.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;KC5&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/9F53F5.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/9F53F5.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

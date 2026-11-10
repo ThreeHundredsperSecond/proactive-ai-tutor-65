@@ -1,0 +1,103 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>34F395</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>46. ФИПИ 34F395</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Даны векторы <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mover accent="true"> <mi>a</mi> <mo>→</mo> </mover> <mrow><mo>(</mo> <mrow> <mn>2</mn><mo>;</mo><mtext> </mtext><mn>2</mn> </mrow> <mo>)</mo></mrow> </mrow> </semantics> </math> и <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mover accent="true"> <mi>b</mi> <mo>→</mo> </mover> <mrow><mo>(</mo> <mrow> <mn>2</mn><mo>;</mo><mtext> </mtext><mo>−</mo><mn>2</mn> </mrow> <mo>)</mo></mrow><mo>.</mo> </mrow> </semantics> </math> Найдите длину вектора <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mn>7</mn><mover accent="true"> <mi>a</mi> <mo>→</mo> </mover> <mo>+</mo><mover accent="true"> <mi>b</mi> <mo stretchy="true">→</mo> </mover> <mo>.</mo> </mrow> </semantics> </math><span></span></p>  </section></div><p>КЭС: 7.5 Координаты и векторы</p><h2>Ответ</h2><p>20</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Вычислить координаты линейной комбинации векторов покоординатно.</td><td>7a + b = (7·2 + 2; 7·2 − 2) = (16; 12).</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Найти длину полученного вектора по его координатам.</td><td>|7a + b| = √(16² + 12²) = √400 = 20.</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Вычисление линейной комбинации и её длины по координатам&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Вычислить координаты линейной комбинации векторов</h3><p>По координатам векторов в общей системе координат и числовым коэффициентам вычислить каждую координату их линейной комбинации как соответствующую линейную комбинацию координат.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Вычислить координаты линейной комбинации векторов покоординатно.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;7a + b = (7·2 + 2; 7·2 − 2) = (16; 12).&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_59f2d9499ac1&quot;,
+      &quot;reason&quot;: &quot;Охватывает умножение каждой координаты a на 7, но не последующее прибавление координат b.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_68de6fa84846&quot;,
+      &quot;reason&quot;: &quot;Охватывает сложение соответствующих координат 7a и b, но не получение координат 7a скалярным умножением.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_4af504d61511&quot;,
+      &quot;reason&quot;: &quot;Здесь вычисляют векторную линейную комбинацию, а не точку внутреннего деления отрезка в заданном отношении.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат соединяет две наблюдаемые в одной записи операции: скалярное умножение вектора и покоординатное сложение. Ни один из двух узких векторных KC не покрывает весь кандидат. Числовые вычисления не требуют отдельного дробления.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;name&quot;: &quot;Умножить вектор на число по координатам&quot;,
+        &quot;definition&quot;: &quot;Умножить каждую координату исходного вектора на заданный скаляр.&quot;,
+        &quot;catalog_kc_id&quot;: &quot;literal_59f2d9499ac1&quot;,
+        &quot;evidence&quot;: [
+          {
+            &quot;ref&quot;: &quot;step:s1:result&quot;,
+            &quot;quote&quot;: &quot;(7·2 + 2; 7·2 − 2)&quot;
+          }
+        ]
+      },
+      {
+        &quot;name&quot;: &quot;Сложить векторы по координатам&quot;,
+        &quot;definition&quot;: &quot;Сложить соответствующие координаты полученного кратного вектора и второго вектора в общей системе координат.&quot;,
+        &quot;catalog_kc_id&quot;: &quot;literal_68de6fa84846&quot;,
+        &quot;evidence&quot;: [
+          {
+            &quot;ref&quot;: &quot;step:s1:result&quot;,
+            &quot;quote&quot;: &quot;(7·2 + 2; 7·2 − 2) = (16; 12)&quot;
+          }
+        ]
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Найти длину вектора по координатам</h3><p>По двум координатам вектора на плоскости в прямоугольной декартовой системе вычислить его длину как квадратный корень из суммы квадратов координат.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_d4dd6695995d&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Найти длину полученного вектора по его координатам.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;|7a + b| = √(16² + 12²) = √400 = 20.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;pythagoras&quot;,
+      &quot;reason&quot;: &quot;Решение не устанавливает прямоугольный треугольник и не работает с его сторонами; непосредственно применяется формула нормы вектора по координатам.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;На входе шага s2 уже имеется вектор с координатами (16; 12). Наблюдаемый результат — квадратный корень из суммы квадратов этих координат и его числовое значение. Это целиком соответствует определению каталога. Ортонормированность здесь используется в обычном школьном соглашении о декартовых координатах вектора, а не выводится из рисунка или предыдущего вычисления; иной базис в условии не задан.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;source_path&quot;: &quot;data/fipi/2026-10-31-profile/tasks/34F395.json&quot;,
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\34F395.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\34F395.json&quot;
+}</pre></html>

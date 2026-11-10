@@ -1,0 +1,90 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>D170BF</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>25. ФИПИ D170BF</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Автоматическая линия изготавливает батарейки. Вероятность того, <br> что готовая батарейка неисправна, равна 0,01. Перед упаковкой каждая батарейка проходит систему контроля качества. Вероятность того, <br> что система забракует неисправную батарейку, равна 0,95. Вероятность того, что система по ошибке забракует исправную батарейку, равна 0,05. Найдите вероятность того, что случайно выбранная изготовленная батарейка будет забракована системой контроля.<span></span></p>  </section></div><p>КЭС: 6.2 Вероятность</p><h2>Ответ</h2><p>0,059</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Разбить событие браковки на два несовместных случая по состоянию батарейки и вычислить их вероятности.</td><td>Вероятность браковки неисправной батарейки: 0,01·0,95=0,0095. Вероятность браковки исправной батарейки: (1−0,01)·0,05=0,0495.</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Сложить вероятности несовместных случаев, исчерпывающих событие браковки.</td><td>P(браковка)=0,0095+0,0495=0,059.</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Вычисление вероятности браковки по двум возможным состояниям батарейки&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Вычислить вероятность совместного наступления событий через условную вероятность</h3><p>По вероятности исходного события и условной вероятности второго события при его наступлении вычислить вероятность их пересечения произведением; для противоположного исходного события предварительно использовать дополнение до единицы.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;Вероятность браковки неисправной батарейки: 0,01·0,95=0,0095. Вероятность браковки исправной батарейки: (1−0,01)·0,05=0,0495.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+      &quot;reason&quot;: &quot;Определение требует независимости. Здесь вероятность браковки зависит от исправности, а перемножаются вероятность состояния и условная вероятность браковки при этом состоянии.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;reason&quot;: &quot;Нет подсчёта благоприятных и равновозможных исходов; вероятности даны в условии.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат явно объединяет два самостоятельных вероятностных действия: дополнение до единицы для исправности и вычисление пересечения через условную вероятность. Оба наблюдаются в s1. После просмотра полного каталога подходящих определений для этих частей нет; умножение независимых вероятностей не эквивалентно условному умножению.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;name&quot;: &quot;Находить вероятность противоположного события&quot;,
+        &quot;definition&quot;: &quot;По вероятности события A вычислить вероятность его дополнения как 1−P(A), установив противоположность событий.&quot;,
+        &quot;catalog_kc_id&quot;: null
+      },
+      {
+        &quot;name&quot;: &quot;Вычислять вероятность пересечения через условную вероятность&quot;,
+        &quot;definition&quot;: &quot;При известных P(A) и P(B|A) вычислить P(A∩B)=P(A)P(B|A); независимость не требуется.&quot;,
+        &quot;catalog_kc_id&quot;: null
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Вычислить вероятность события суммированием несовместных случаев</h3><p>Разбить рассматриваемое событие на попарно несовместные исчерпывающие случаи с известными вероятностями и сложить эти вероятности.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Сложить вероятности несовместных случаев, исчерпывающих событие браковки.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;P(браковка)=0,0095+0,0495=0,059.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:action&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+      &quot;reason&quot;: &quot;Это произведение вероятностей независимых событий, а s2 суммирует вероятности несовместных случаев.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;reason&quot;: &quot;Определение требует отношения чисел равновозможных исходов, которого здесь нет.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Вход s2 уже содержит разбиение браковки по двум противоположным состояниям батарейки и рассчитанные вероятности случаев из s1. В s2 наблюдается именно сложение этих вероятностей; разбиение не приписывается текущему шагу. Полный каталог не содержит определения аддитивности вероятности по несовместным случаям.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Вычислять вероятность события суммированием несовместных случаев&quot;,
+    &quot;definition&quot;: &quot;Для события, представленного объединением попарно несовместных исчерпывающих его случаев с известными вероятностями, вычислить вероятность суммой вероятностей этих случаев; разбиение может быть установлено на предыдущем шаге.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;source_path&quot;: &quot;data/fipi/2026-10-31-profile/tasks/D170BF.json&quot;,
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\D170BF.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\D170BF.json&quot;
+}</pre></html>

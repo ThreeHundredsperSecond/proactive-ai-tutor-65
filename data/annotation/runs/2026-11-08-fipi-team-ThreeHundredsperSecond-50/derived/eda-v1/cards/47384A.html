@@ -1,0 +1,184 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>47384A</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>20. ФИПИ 47384A</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal"><span>Найдите точку минимума функции <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>y</mi><mo>=</mo><msup> <mi>x</mi> <mn>2</mn> </msup> <mtext> </mtext><mo>−</mo><mn>28</mn><mi>x</mi><mo>+</mo><mn>96</mn><mo>⋅</mo><mi>ln</mi><mi>x</mi><mo>+</mo><mn>31</mn> </mrow>  </semantics> </mstyle></math>.</span><span></span></p>  </section></div><p>КЭС: 4.1 Производная функции. Производные элементарных функций; 4.2 Применение производной к исследованию функций на монотонность и экстремумы. Нахождение наибольшего и наименьшего значения функции на отрезке</p><h2>Ответ</h2><p>8</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Определить область определения функции с логарифмом.</td><td>ln x определён при x &gt; 0, поэтому D(y) = (0; +∞).</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Вычислить производную функции.</td><td>y′ = 2x − 28 + 96/x при x &gt; 0.</td><td>kc2</td></tr><tr><td>s3 · s1, s2</td><td>Найти стационарные точки в области определения.</td><td>При x &gt; 0 уравнение y′ = 0 равносильно 2x² − 28x + 96 = 0, то есть (x − 6)(x − 8) = 0. Стационарные точки: x = 6 и x = 8; обе входят в область определения.</td><td>kc3</td></tr><tr><td>s4 · s1, s2, s3</td><td>Исследовать знак производной и выделить точку минимума.</td><td>y′ = 2(x − 6)(x − 8)/x. Знаменатель положителен на области определения, поэтому y′ &gt; 0 на (0; 6), y′ &lt; 0 на (6; 8) и y′ &gt; 0 на (8; +∞). В x = 8 производная меняет знак с минуса на плюс: это единственная точка локального минимума. В x = 6 расположен локальный максимум.</td><td>kc4</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Исследование функции по знаку первой производной&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Определять область определения логарифмического выражения</h3><p>Для выражения с действительным логарифмом потребовать положительность его аргумента и учесть полученное ограничение области определения.</p><pre>{
+  &quot;evidence&quot;: [
+    {
+      &quot;quote&quot;: &quot;ln x определён при x &gt; 0, поэтому D(y) = (0; +∞).&quot;,
+      &quot;ref&quot;: &quot;step:s1:result&quot;
+    }
+  ],
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;reason&quot;: &quot;Положительность аргумента и область установлены; определение применимо.&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_0214fc221120&quot;
+    },
+    {
+      &quot;reason&quot;: &quot;Единственный аргумент положителен, основание натурального логарифма допустимо; это определение также применимо.&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_7baedb55a81a&quot;
+    },
+    {
+      &quot;reason&quot;: &quot;Корня нет; совместная область логарифма и корня не исследуется.&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_37584ab15732&quot;
+    }
+  ],
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;rationale&quot;: &quot;Действие корректно и наблюдаемо, но определения двух узлов области логарифма перекрываются на ln x. Основания выбрать единственный ID в пакете нет.&quot;,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc2"><h3>kc2 · Дифференцировать сумму степенных и логарифмических слагаемых</h3><p>Для суммы степенных функций и логарифма переменной вычислить производную по правилам суммы и постоянного множителя на области дифференцируемости.</p><pre>{
+  &quot;evidence&quot;: [
+    {
+      &quot;quote&quot;: &quot;y′ = 2x − 28 + 96/x при x &gt; 0.&quot;,
+      &quot;ref&quot;: &quot;step:s2:result&quot;
+    }
+  ],
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;note&quot;: &quot;Определения перекрываются на многочлене; однозначный ID без правила выбора не установлен.&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;literal_3a3e1295118b&quot;,
+          &quot;literal_0efedaf04823&quot;
+        ],
+        &quot;definition&quot;: &quot;Дифференцировать многочлен x²−28x+31 по степенному правилу и линейности.&quot;
+      },
+      {
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;literal_7e7fe72c8c10&quot;
+        ],
+        &quot;definition&quot;: &quot;Дифференцировать 96 ln x по формуле производной логарифма линейного аргумента с постоянным множителем и сложить результаты.&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;reason&quot;: &quot;Покрывает логарифм линейного аргумента и правило суммы, но не степенное дифференцирование.&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_7e7fe72c8c10&quot;
+    },
+    {
+      &quot;reason&quot;: &quot;Покрывает многочлен, но не логарифмическое слагаемое.&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_3a3e1295118b&quot;
+    },
+    {
+      &quot;reason&quot;: &quot;Степенное правило и линейность не покрывают производную логарифма.&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_0efedaf04823&quot;
+    }
+  ],
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет степенное и логарифмическое дифференцирование; один узкий узел не покрывает всю операцию. Производная вычислена верно.&quot;,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Находить стационарные точки по рациональному уравнению производной</h3><p>При известной рациональной производной приравнять её нулю, устранить ненулевой на области определения знаменатель, решить полученное квадратное уравнение и проверить допустимость корней.</p><pre>{
+  &quot;evidence&quot;: [
+    {
+      &quot;quote&quot;: &quot;При x &gt; 0 уравнение y′ = 0 равносильно 2x² − 28x + 96 = 0, то есть (x − 6)(x − 8) = 0. Стационарные точки: x = 6 и x = 8; обе входят в область определения.&quot;,
+      &quot;ref&quot;: &quot;step:s3:result&quot;
+    }
+  ],
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;catalog_kc_id&quot;: &quot;stationary_point&quot;,
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;reason&quot;: &quot;Устранение знаменателя — компонент, не весь поиск стационарных точек.&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_9698b97fef22&quot;
+    },
+    {
+      &quot;reason&quot;: &quot;Решение через нулевое произведение — компонент поиска стационарных точек.&quot;,
+      &quot;catalog_kc_id&quot;: &quot;zero_product&quot;
+    },
+    {
+      &quot;reason&quot;: &quot;Дискриминант не вычислялся.&quot;,
+      &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;
+    }
+  ],
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;rationale&quot;: &quot;Решено y′=0 на x&gt;0 и обе найденные точки проверены на допустимость. Это полностью соответствует stationary_point; конкретный способ решения уравнения не меняет целевого действия. Тип экстремума определяется далее.&quot;,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Определять локальный минимум по смене знака производной</h3><p>Для функции, непрерывной в рассматриваемых точках и дифференцируемой на соседних интервалах, определить знак производной между критическими точками; переход от отрицательного знака к положительному устанавливает локальный минимум.</p><pre>{
+  &quot;evidence&quot;: [
+    {
+      &quot;quote&quot;: &quot;y′ = 2(x − 6)(x − 8)/x. Знаменатель положителен на области определения, поэтому y′ &gt; 0 на (0; 6), y′ &lt; 0 на (6; 8) и y′ &gt; 0 на (8; +∞). В x = 8 производная меняет знак с минуса на плюс: это единственная точка локального минимума. В x = 6 расположен локальный максимум.&quot;,
+      &quot;ref&quot;: &quot;step:s4:result&quot;
+    }
+  ],
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;catalog_kc_id&quot;: &quot;local_extreme_sign&quot;,
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;reason&quot;: &quot;Вывод о монотонности явно не сформулирован; результат — тип экстремума.&quot;,
+      &quot;catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;
+    },
+    {
+      &quot;reason&quot;: &quot;Графика производной нет, знак установлен по формуле.&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_9aee0783618d&quot;
+    },
+    {
+      &quot;reason&quot;: &quot;Исследуется локальный минимум, а не глобальный экстремум на отрезке.&quot;,
+      &quot;catalog_kc_id&quot;: &quot;global_interval_extreme&quot;
+    },
+    {
+      &quot;reason&quot;: &quot;Исследование знака — подготовка; тип экстремума этот узел не устанавливает.&quot;,
+      &quot;catalog_kc_id&quot;: &quot;rational_intervals&quot;
+    }
+  ],
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;,
+    &quot;step:s3:result&quot;
+  ],
+  &quot;rationale&quot;: &quot;На соседних интервалах установлен знак производной и переход с минуса на плюс при x=8. Непрерывность и дифференцируемость следуют из формулы на x&gt;0. Наблюдаемое действие полностью соответствует критерию локального минимума; глобальное наименьшее значение не заявлено.&quot;,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[
+  &quot;Точка минимума понимается как точка локального минимума. На всей области определения функция не имеет наименьшего значения: при x → 0+ значение функции стремится к −∞.&quot;,
+  &quot;Предварительная предметная интерпретация, не эталон и не оценка ученика.&quot;
+]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;description&quot;: &quot;Узлы literal_0214fc221120 и literal_7baedb55a81a перекрываются для ln x; пакет не задаёт приоритет, поэтому единственный ID для kc1 не подтверждён.&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s1:result&quot;
+    ],
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc1&quot;
+    ],
+    &quot;blocking&quot;: false
+  }
+]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;source_path&quot;: &quot;data/fipi/2026-10-31-profile/tasks/47384A.json&quot;,
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\47384A.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\47384A.json&quot;
+}</pre></html>

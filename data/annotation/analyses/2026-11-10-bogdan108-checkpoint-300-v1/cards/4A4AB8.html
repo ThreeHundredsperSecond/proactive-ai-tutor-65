@@ -1,0 +1,126 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>4A4AB8</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>99. ФИПИ 4A4AB8 · бронь #4, партия 8</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section> <p class="MsoNormal">Теплоход проходит по течению реки до пункта назначения 48 км и после стоянки возвращается в пункт отправления. Найдите скорость теплохода в неподвижной воде, если скорость течения равна 4 км/ч, стоянка длится 5 часов, а в пункт отправления теплоход возвращается через 10 часов. Ответ дайте в км/ч.</p></section></div><p>КЭС: 2.1 Целые и дробно-рациональные уравнения</p><h2>Ответ</h2><p>20</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>S1 · condition</td><td>Определить время движения как общее время минус стоянка и составить уравнение по времени движения по течению и против течения при скорости v в неподвижной воде, v&gt;4</td><td>48/(v+4)+48/(v-4)=10-5=5, v&gt;4</td><td>KC1</td></tr><tr><td>S2 · S1</td><td>Привести дробно-рациональное уравнение к квадратному, умножив на ненулевой общий знаменатель</td><td>5v^2-96v-80=0</td><td>KC2</td></tr><tr><td>S3 · S1, S2</td><td>Решить квадратное уравнение и отобрать корень по ограничению v&gt;4</td><td>D=10816=104^2; v=20 или v=-0,8; подходит v=20</td><td>KC3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;M1&quot;,
+    &quot;name&quot;: &quot;Уравнение по суммарному времени движения&quot;,
+    &quot;step_ids&quot;: [
+      &quot;S1&quot;,
+      &quot;S2&quot;,
+      &quot;S3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="KC1"><h3>KC1 · Составить уравнение движения по реке через время</h3><p>По известным расстоянию, скорости течения и суммарному времени движения выразить время по течению и против течения через собственную скорость и записать уравнение; применимо к движению с постоянными скоростями, с условием, что собственная скорость больше скорости течения.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_63c80a69a122&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S1:action&quot;,
+      &quot;quote&quot;: &quot;Определить время движения как общее время минус стоянка и составить уравнение по времени движения по течению и против течения при скорости v в неподвижной воде, v&gt;4&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S1:result&quot;,
+      &quot;quote&quot;: &quot;48/(v+4)+48/(v-4)=10-5=5, v&gt;4&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+      &quot;reason&quot;: &quot;Формула не задана в условии; здесь строится модель движения, что этот узел исключает.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;Решение уравнения не входит; кандидат — построение модели.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — составление уравнения времени: скорости v±4, времена 48/(v±4), стоянка вычтена из общего времени, сохранено v&gt;4. Это полностью совпадает с определением узла (скорости v±c, время s/v, отделение стоянки, положительность скоростей).&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="KC2"><h3>KC2 · Свести дробно-рациональное уравнение к многочлену</h3><p>Умножить уравнение с дробями на общий знаменатель, ненулевой в области допустимых значений, и получить равносильное ей полиномиальное уравнение.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_9698b97fef22&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S2:action&quot;,
+      &quot;quote&quot;: &quot;Привести дробно-рациональное уравнение к квадратному, умножив на ненулевой общий знаменатель&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S2:result&quot;,
+      &quot;quote&quot;: &quot;5v^2-96v-80=0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:S1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_67caf017b566&quot;,
+      &quot;reason&quot;: &quot;Касается объединения дробей в выражении, а не перехода от уравнения к полиномиальному умножением на общий знаменатель.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+      &quot;reason&quot;: &quot;Только сохранение ограничений знаменателей, без самого преобразования уравнения.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Умножение рационального уравнения на ненулевой общий знаменатель (v+4)(v-4) при v&gt;4 из S1 с получением квадратного уравнения соответствует определению узла. Ненулевость знаменателей опирается на ограничение v&gt;4 из S1. Результат проверен: 96v=5(v^2-16).&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="KC3"><h3>KC3 · Решить квадратное уравнение с отбором корней</h3><p>Найти корни квадратного уравнения через дискриминант и оставить только корни, удовлетворяющие ограничениям из ОДЗ и смысла задачи.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC3&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S3:action&quot;,
+      &quot;quote&quot;: &quot;Решить квадратное уравнение и отобрать корень по ограничению v&gt;4&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S3:result&quot;,
+      &quot;quote&quot;: &quot;D=10816=104^2; v=20 или v=-0,8; подходит v=20&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:S1:result&quot;,
+    &quot;step:S2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+      &quot;reason&quot;: &quot;Покрывает только нахождение корней через дискриминант, без отбора.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+      &quot;reason&quot;: &quot;Покрывает только отбор корней по смыслу модели, без решения уравнения.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+      &quot;reason&quot;: &quot;Отбор по заданной области/промежутку; здесь ограничение физическое (v&gt;4), ближе literal_c840012ba3dd.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет два разных действия: решение квадратного уравнения через дискриминант (D=10816, корни 20 и -0,8) и отбор корня по ограничению модели v&gt;4. В каталоге они представлены отдельными узлами. Вычисления проверены: D=96^2+4·5·80=10816, v=(96±104)/10.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Найти корни 5v^2-96v-80=0 через дискриминант&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+        &quot;evidence_ref&quot;: &quot;step:S3:result&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Отобрать корень v=20 по ограничению v&gt;4 из модели&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+        &quot;evidence_ref&quot;: &quot;step:S3:result&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/4A4AB8.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/4A4AB8.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

@@ -1,0 +1,202 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>AC8783</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>37. ФИПИ AC8783</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal"><span>Найдите точку минимума функции<span class="apple-converted-space"> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>y</mi><mo>=</mo><msup> <mi>x</mi> <mn>3</mn> </msup> <mo>−</mo><mn>20</mn><msup> <mi>x</mi> <mn>2</mn> </msup> <mo>+</mo><mn>100</mn><mi>x</mi><mo>+</mo><mn>23.</mn> </mrow> </semantics> </math></span></span><span></span></p>  </section></div><p>КЭС: 4.2 Применение производной к исследованию функций на монотонность и экстремумы. Нахождение наибольшего и наименьшего значения функции на отрезке</p><h2>Ответ</h2><p>10</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти производную многочлена на его области определения R.</td><td>y&#x27; = 3x^2 - 40x + 100; функция определена и дифференцируема при всех действительных x.</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Найти стационарные точки, решив уравнение производной.</td><td>3x^2 - 40x + 100 = 0; D = 400; x = 10/3 или x = 10. Производная равна 3(x - 10/3)(x - 10).</td><td>kc2</td></tr><tr><td>s3 · s1, s2</td><td>Определить знаки производной и выделить точку минимума по смене знака.</td><td>Производная положительна на (-∞, 10/3), отрицательна на (10/3, 10), положительна на (10, +∞). При x = 10 она меняет знак с минуса на плюс, поэтому точка минимума функции — x = 10; при x = 10/3 находится максимум. Других точек экстремума нет.</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Исследование знаков производной&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Вычислить производную многочлена</h3><p>По заданному многочлену получить его производную, применяя правило дифференцирования степеней и линейность; многочлен дифференцируем на всей действительной прямой.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Найти производную многочлена на его области определения R.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;y&#x27; = 3x^2 - 40x + 100; функция определена и дифференцируема при всех действительных x.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_3a3e1295118b&quot;,
+      &quot;reason&quot;: &quot;Степенное правило и линейность для многочлена непосредственно соответствуют действию.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0efedaf04823&quot;,
+      &quot;reason&quot;: &quot;Степенное правило и линейность суммы также полностью применимы к данному многочлену; определение не исключает целые неотрицательные степени.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Производная вычислена правильно на всей действительной прямой. Два определения перекрываются на наблюдаемом действии; каталог не задаёт правила выбора между специальным многочленом и степенной суммой. Поэтому единственный ID подтвердить нельзя.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc2"><h3>kc2 · Решить квадратное уравнение</h3><p>По квадратному уравнению с числовыми коэффициентами найти все действительные корни с помощью дискриминанта и представить квадратный трёхчлен в виде произведения при наличии корней.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;3x^2 - 40x + 100 = 0; D = 400; x = 10/3 или x = 10. Производная равна 3(x - 10/3)(x - 10).&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+      &quot;reason&quot;: &quot;Охватывает вычисление дискриминанта и корней, но не отдельный результат факторизации.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+      &quot;reason&quot;: &quot;Охватывает разложение многочлена для исследования знака, но не нахождение корней через дискриминант.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;stationary_point&quot;,
+      &quot;reason&quot;: &quot;Описывает назначение решения уравнения производной, но не охватывает факторизацию, прямо включённую в локального кандидата.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+      &quot;reason&quot;: &quot;В решении корни найдены через дискриминант до записи произведения, а не через обнуление множителей.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат явно объединяет получение всех действительных корней квадратного уравнения и представление трёхчлена произведением. Оба действия наблюдаются в s2, но ни одно из близких определений не покрывает их совокупность. Вычисления и разложение верны.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;definition&quot;: &quot;Найти действительные корни квадратного уравнения с ненулевым старшим коэффициентом через дискриминант.&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;quadratic_discriminant&quot;
+        ]
+      },
+      {
+        &quot;definition&quot;: &quot;Представить квадратный трёхчлен произведением линейных множителей для последующего исследования знака.&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;literal_cab525070130&quot;
+        ]
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i2&quot;
+  ]
+}</pre></section><section id="kc3"><h3>kc3 · Найти точку минимума по знакам производной</h3><p>По производной дифференцируемой функции и её нулям определить знаки на промежутках и выделить точки перехода от отрицательного знака к положительному; учитывать область определения и полноту списка критических точек.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;Производная положительна на (-∞, 10/3), отрицательна на (10/3, 10), положительна на (10, +∞).&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;При x = 10 она меняет знак с минуса на плюс, поэтому точка минимума функции — x = 10; при x = 10/3 находится максимум. Других точек экстремума нет.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;local_extreme_sign&quot;,
+      &quot;reason&quot;: &quot;Соответствует классификации экстремумов по смене знака; не описывает отдельное вычисление знаков производной по её алгебраической формуле.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_1b97db4e28e8&quot;,
+      &quot;reason&quot;: &quot;Близок к определению знака квадратного трёхчлена по промежуткам, но требует решения квадратного неравенства с обработкой строгости; здесь результатом является таблица знаков производной.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;,
+      &quot;reason&quot;: &quot;Требует вывода о монотонности исходной функции; такой вывод в s3 явно не дан.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9aee0783618d&quot;,
+      &quot;reason&quot;: &quot;Требует чтения графика производной; графика во входе нет.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;global_interval_extreme&quot;,
+      &quot;reason&quot;: &quot;Исследуется локальный минимум на прямой, а не глобальный экстремум на отрезке.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В s3 сначала устанавливаются знаки квадратной производной на промежутках, затем применяется признак локального экстремума. Составной кандидат не покрывается одним узлом local_extreme_sign. Полнота критических точек следует из дифференцируемости на R в s1 и всех корней в s2; это входной контекст, а не повторное нахождение корней в s3. Знаки и ответ 10 верны.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;definition&quot;: &quot;По разложению квадратного многочлена и всем его нулям установить его знак на каждом промежутке действительной прямой.&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [],
+        &quot;note&quot;: &quot;Предложение компонента: ближайшее literal_1b97db4e28e8 дополнительно требует решения неравенства, которого здесь явно нет.&quot;
+      },
+      {
+        &quot;definition&quot;: &quot;Определить локальный минимум или максимум по направлению смены знака производной в стационарной точке.&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;local_extreme_sign&quot;
+        ]
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i3&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[
+  &quot;Предварительная предметная интерпретация, не экспертный эталон и не оценка ученика.&quot;
+]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s1:action&quot;,
+      &quot;step:s1:result&quot;
+    ],
+    &quot;description&quot;: &quot;На дифференцировании данного многочлена перекрываются определения literal_3a3e1295118b и literal_0efedaf04823; основания для единственного выбора во входе нет.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc1&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;i2&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s2:result&quot;
+    ],
+    &quot;description&quot;: &quot;kc2 объединяет решение квадратного уравнения через дискриминант с факторизацией многочлена; один узкий узел не покрывает весь кандидат.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc2&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;i3&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s3:action&quot;,
+      &quot;step:s3:result&quot;
+    ],
+    &quot;description&quot;: &quot;kc3 объединяет алгебраическое установление знаков производной и применение признака локального экстремума.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc3&quot;
+    ]
+  }
+]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;source_path&quot;: &quot;data/fipi/2026-10-31-profile/tasks/AC8783.json&quot;,
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\AC8783.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\AC8783.json&quot;
+}</pre></html>

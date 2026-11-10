@@ -1,0 +1,176 @@
+{
+  "review_scope": "KC mapping with incidental mathematical checks; not expert validation",
+  "catalog_version": "fipi50-editorial-v1-frozen",
+  "decisions": [
+    {
+      "evidence": [
+        {
+          "quote": "ln x определён при x > 0, поэтому D(y) = (0; +∞).",
+          "ref": "step:s1:result"
+        }
+      ],
+      "proposal": null,
+      "blocking": false,
+      "catalog_kc_id": null,
+      "alternatives_checked": [
+        {
+          "reason": "Положительность аргумента и область установлены; определение применимо.",
+          "catalog_kc_id": "literal_0214fc221120"
+        },
+        {
+          "reason": "Единственный аргумент положителен, основание натурального логарифма допустимо; это определение также применимо.",
+          "catalog_kc_id": "literal_7baedb55a81a"
+        },
+        {
+          "reason": "Корня нет; совместная область логарифма и корня не исследуется.",
+          "catalog_kc_id": "literal_37584ab15732"
+        }
+      ],
+      "status": "uncertain",
+      "local_kc_id": "kc1",
+      "context_refs": [
+        "condition"
+      ],
+      "rationale": "Действие корректно и наблюдаемо, но определения двух узлов области логарифма перекрываются на ln x. Основания выбрать единственный ID в пакете нет.",
+      "issue_ids": [
+        "i1"
+      ]
+    },
+    {
+      "evidence": [
+        {
+          "quote": "y′ = 2x − 28 + 96/x при x > 0.",
+          "ref": "step:s2:result"
+        }
+      ],
+      "proposal": {
+        "parts": [
+          {
+            "note": "Определения перекрываются на многочлене; однозначный ID без правила выбора не установлен.",
+            "possible_catalog_kc_ids": [
+              "literal_3a3e1295118b",
+              "literal_0efedaf04823"
+            ],
+            "definition": "Дифференцировать многочлен x²−28x+31 по степенному правилу и линейности."
+          },
+          {
+            "possible_catalog_kc_ids": [
+              "literal_7e7fe72c8c10"
+            ],
+            "definition": "Дифференцировать 96 ln x по формуле производной логарифма линейного аргумента с постоянным множителем и сложить результаты."
+          }
+        ]
+      },
+      "blocking": false,
+      "catalog_kc_id": null,
+      "alternatives_checked": [
+        {
+          "reason": "Покрывает логарифм линейного аргумента и правило суммы, но не степенное дифференцирование.",
+          "catalog_kc_id": "literal_7e7fe72c8c10"
+        },
+        {
+          "reason": "Покрывает многочлен, но не логарифмическое слагаемое.",
+          "catalog_kc_id": "literal_3a3e1295118b"
+        },
+        {
+          "reason": "Степенное правило и линейность не покрывают производную логарифма.",
+          "catalog_kc_id": "literal_0efedaf04823"
+        }
+      ],
+      "status": "needs_split",
+      "local_kc_id": "kc2",
+      "context_refs": [
+        "condition",
+        "step:s1:result"
+      ],
+      "rationale": "Кандидат объединяет степенное и логарифмическое дифференцирование; один узкий узел не покрывает всю операцию. Производная вычислена верно.",
+      "issue_ids": []
+    },
+    {
+      "evidence": [
+        {
+          "quote": "При x > 0 уравнение y′ = 0 равносильно 2x² − 28x + 96 = 0, то есть (x − 6)(x − 8) = 0. Стационарные точки: x = 6 и x = 8; обе входят в область определения.",
+          "ref": "step:s3:result"
+        }
+      ],
+      "proposal": null,
+      "blocking": false,
+      "catalog_kc_id": "stationary_point",
+      "alternatives_checked": [
+        {
+          "reason": "Устранение знаменателя — компонент, не весь поиск стационарных точек.",
+          "catalog_kc_id": "literal_9698b97fef22"
+        },
+        {
+          "reason": "Решение через нулевое произведение — компонент поиска стационарных точек.",
+          "catalog_kc_id": "zero_product"
+        },
+        {
+          "reason": "Дискриминант не вычислялся.",
+          "catalog_kc_id": "quadratic_discriminant"
+        }
+      ],
+      "status": "match",
+      "local_kc_id": "kc3",
+      "context_refs": [
+        "step:s1:result",
+        "step:s2:result"
+      ],
+      "rationale": "Решено y′=0 на x>0 и обе найденные точки проверены на допустимость. Это полностью соответствует stationary_point; конкретный способ решения уравнения не меняет целевого действия. Тип экстремума определяется далее.",
+      "issue_ids": []
+    },
+    {
+      "evidence": [
+        {
+          "quote": "y′ = 2(x − 6)(x − 8)/x. Знаменатель положителен на области определения, поэтому y′ > 0 на (0; 6), y′ < 0 на (6; 8) и y′ > 0 на (8; +∞). В x = 8 производная меняет знак с минуса на плюс: это единственная точка локального минимума. В x = 6 расположен локальный максимум.",
+          "ref": "step:s4:result"
+        }
+      ],
+      "proposal": null,
+      "blocking": false,
+      "catalog_kc_id": "local_extreme_sign",
+      "alternatives_checked": [
+        {
+          "reason": "Вывод о монотонности явно не сформулирован; результат — тип экстремума.",
+          "catalog_kc_id": "derivative_monotonicity"
+        },
+        {
+          "reason": "Графика производной нет, знак установлен по формуле.",
+          "catalog_kc_id": "literal_9aee0783618d"
+        },
+        {
+          "reason": "Исследуется локальный минимум, а не глобальный экстремум на отрезке.",
+          "catalog_kc_id": "global_interval_extreme"
+        },
+        {
+          "reason": "Исследование знака — подготовка; тип экстремума этот узел не устанавливает.",
+          "catalog_kc_id": "rational_intervals"
+        }
+      ],
+      "status": "match",
+      "local_kc_id": "kc4",
+      "context_refs": [
+        "condition",
+        "step:s1:result",
+        "step:s3:result"
+      ],
+      "rationale": "На соседних интервалах установлен знак производной и переход с минуса на плюс при x=8. Непрерывность и дифференцируемость следуют из формулы на x>0. Наблюдаемое действие полностью соответствует критерию локального минимума; глобальное наименьшее значение не заявлено.",
+      "issue_ids": []
+    }
+  ],
+  "task_id": "47384A",
+  "issues": [
+    {
+      "description": "Узлы literal_0214fc221120 и literal_7baedb55a81a перекрываются для ln x; пакет не задаёт приоритет, поэтому единственный ID для kc1 не подтверждён.",
+      "refs": [
+        "step:s1:result"
+      ],
+      "kind": "boundary",
+      "id": "i1",
+      "affected_local_kc_ids": [
+        "kc1"
+      ],
+      "blocking": false
+    }
+  ]
+}

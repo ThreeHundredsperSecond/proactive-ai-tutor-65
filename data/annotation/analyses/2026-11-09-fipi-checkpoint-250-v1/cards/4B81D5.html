@@ -1,0 +1,343 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>4B81D5</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><a href="../index.html">Сводка</a><h1>4B81D5</h1><p>historical_independent50</p><p>Предварительные разборы, внешнего эталона нет.</p><h2>Условие</h2>Дайте развернутый ответ.<div><section> <p class="Basis">На доске написано <span><img src="../../../runs/2026-11-02-fipi-extension-150/inputs/assets/d6e2d2889b12012a002343f1.png" alt="Рисунок ФИПИ"></span> единиц подряд. Между некоторыми из них расставляют знаки «+» и считают получившуюся сумму. Например, если было написано 10 единиц, то можно получить сумму 136: <span><img src="../../../runs/2026-11-02-fipi-extension-150/inputs/assets/59b80af30bff49c883055f70.png" alt="Рисунок ФИПИ"></span>.</p>
+<p class="Basis">а) Можно ли получить сумму 113, если <span><img src="../../../runs/2026-11-02-fipi-extension-150/inputs/assets/a2704803026c3c7aa0989676.png" alt="Рисунок ФИПИ"></span>?</p>
+<p class="Basis">б) Можно ли получить сумму 114, если <span><img src="../../../runs/2026-11-02-fipi-extension-150/inputs/assets/dd2fee209901c41380ccf81e.png" alt="Рисунок ФИПИ"></span>?</p>
+<p class="Basis">в) Какую наибольшую четырёхзначную сумму можно получить, если <span><img src="../../../runs/2026-11-02-fipi-extension-150/inputs/assets/479f1df533c83bdc07c62478.png" alt="Рисунок ФИПИ"></span>?</p> </section></div><h2>Состав и исключения</h2><pre>{
+  &quot;complete&quot;: true,
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;author_mode&quot;: &quot;standalone_initial&quot;,
+  &quot;author_path&quot;: &quot;raw\\author\\4B81D5.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\4B81D5.json&quot;,
+  &quot;feedback_ref&quot;: null,
+  &quot;source_run&quot;: &quot;data/annotation/runs/2026-11-02-fipi-extension-150&quot;
+}</pre><h2>Буквальный сохранённый разбор: ответ, шаги, KC, методы</h2><pre>{
+  &quot;task_id&quot;: &quot;4B81D5&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;а) Да: семь слагаемых 11 и 36 слагаемых 1 дают 113 и используют 50 единиц. б) Нет. в) 9554 = 8·1111 + 6·111.&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Построить разбиение пятидесяти единиц с суммой 113.&quot;,
+      &quot;result&quot;: &quot;Берём семь блоков по две единицы и 36 одиночных единиц: 7·2+36=50, а 7·11+36·1=113. Поэтому в пункте а) ответ положительный.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Установить остаток любой допустимой суммы по модулю 9 и проверить число 114.&quot;,
+      &quot;result&quot;: &quot;Число из r единиц сравнимо с r по модулю 9, поскольку каждая степень десяти сравнима с 1. Поэтому сумма всех блоков сравнима с общим числом единиц: S ≡ 50 ≡ 5 (mod 9). Но 114 ≡ 6 (mod 9), следовательно, получить 114 нельзя.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Ограничить длину блоков и количество четырёхзначных слагаемых в четырёхзначной сумме.&quot;,
+      &quot;result&quot;: &quot;Все слагаемые положительны, поэтому блок из пяти или более единиц исключён: он не меньше 11111. Пусть a — число блоков 1111. Остальные 50−4a единиц дают сумму не меньше 50−4a, так как значение каждого блока не меньше числа его цифр. Следовательно, S ≥ 1111a+50−4a=50+1107a. При a≥9 это не меньше 10013, что противоречит четырёхзначности. Значит, 0≤a≤8.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Оценить сверху вклад оставшихся блоков через количество использованных единиц.&quot;,
+      &quot;result&quot;: &quot;Для блока длины r≤3 его значение не превосходит 37r: 1≤37, 11≤74, 111=111. Поэтому S≤1111a+37(50−4a)=1850+963a. Из a≤8 следует S≤9554.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s5&quot;,
+      &quot;action&quot;: &quot;Построить допустимое разбиение, достигающее верхней границы.&quot;,
+      &quot;result&quot;: &quot;Восемь блоков 1111 и шесть блоков 111 используют 8·4+6·3=50 единиц и дают сумму 8·1111+6·111=9554. Она четырёхзначна и достигает доказанной верхней границы, поэтому является наибольшей.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k1&quot;,
+        &quot;k5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;k1&quot;,
+      &quot;name&quot;: &quot;Построить разбиение последовательности одинаковых цифр на блоки&quot;,
+      &quot;description&quot;: &quot;По заданному количеству одинаковых цифр выбрать количества блоков различных длин и проверить одновременно расход цифр и сумму соответствующих чисел; применимо при расстановке знаков сложения без перестановки или удаления цифр.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k2&quot;,
+      &quot;name&quot;: &quot;Применить инвариант суммы цифр по модулю девять&quot;,
+      &quot;description&quot;: &quot;Для суммы десятичных чисел, составленных разбиением фиксированной последовательности цифр, вычислить остаток через общую сумму цифр и исключить целевое значение с другим остатком; совпадение остатков само по себе не доказывает достижимость.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k3&quot;,
+      &quot;name&quot;: &quot;Ограничить число крупных слагаемых через нижнюю оценку суммы&quot;,
+      &quot;description&quot;: &quot;Для положительных слагаемых с ограниченным общим количеством цифр и заданной верхней границей суммы исключить слишком длинные блоки, затем оценить минимальный вклад оставшихся цифр и получить ограничение количества крупных блоков.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k4&quot;,
+      &quot;name&quot;: &quot;Оценить сумму блоков через максимальное значение на одну цифру&quot;,
+      &quot;description&quot;: &quot;Для блоков разрешённых длин установить верхнюю оценку значения блока пропорционально его длине, суммировать её при фиксированном количестве оставшихся цифр и оптимизировать полученную линейную оценку на допустимом диапазоне числа крупных блоков.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k5&quot;,
+      &quot;name&quot;: &quot;Доказать максимум достижением верхней границы&quot;,
+      &quot;description&quot;: &quot;При доказанной верхней оценке целевой величины предъявить допустимую конструкцию, достигающую этой оценки, проверить все ограничения и заключить, что полученное значение является максимумом.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Явная конструкция для пункта а)&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;m2&quot;,
+      &quot;name&quot;: &quot;Запрет по остатку для пункта б)&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;m3&quot;,
+      &quot;name&quot;: &quot;Верхняя оценка и достигающая её конструкция для пункта в)&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s3&quot;,
+        &quot;s4&quot;,
+        &quot;s5&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h2>Буквальный независимый аудит</h2><pre>{
+  &quot;task_id&quot;: &quot;4B81D5&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;k1&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;integer_construction&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;Берём семь блоков по две единицы и 36 одиночных единиц: 7·2+36=50, а 7·11+36·1=113.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s5:result&quot;,
+          &quot;quote&quot;: &quot;Восемь блоков 1111 и шесть блоков 111 используют 8·4+6·3=50 единиц и дают сумму 8·1111+6·111=9554.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;image:assets/a2704803026c3c7aa0989676.png&quot;,
+        &quot;image:assets/479f1df533c83bdc07c62478.png&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_f6b803c5f9c2&quot;,
+          &quot;reason&quot;: &quot;Достижение границы относится только к s5, тогда как k1 применяется и к конструкции s1 без границы.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;optimal_bound_attainment&quot;,
+          &quot;reason&quot;: &quot;Кандидат k1 описывает конструкцию и проверку ограничений, а не доказательство оптимальности.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Предъявлены целочисленные количества блоков, проверены число исходных цифр и сумма. Одинаковость цифр позволяет расположить блоки подряд. Дополнительные требования различности или кратности не заданы; оптимальность в это соответствие не включена.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;k2&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_e3fb5cdd2965&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;Число из r единиц сравнимо с r по модулю 9, поскольку каждая степень десяти сравнима с 1.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;Поэтому сумма всех блоков сравнима с общим числом единиц: S ≡ 50 ≡ 5 (mod 9). Но 114 ≡ 6 (mod 9), следовательно, получить 114 нельзя.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;image:assets/dd2fee209901c41380ccf81e.png&quot;
+      ],
+      &quot;alternatives_checked&quot;: [],
+      &quot;rationale&quot;: &quot;Остатки целых слагаемых связаны с количествами цифр, затем просуммированы для необходимого ограничения по модулю. Несовпадение исключает целевое значение; достаточность совпадения не утверждается.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;k3&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;Все слагаемые положительны, поэтому блок из пяти или более единиц исключён: он не меньше 11111.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;Следовательно, S ≥ 1111a+50−4a=50+1107a. При a≥9 это не меньше 10013, что противоречит четырёхзначности. Значит, 0≤a≤8.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;image:assets/479f1df533c83bdc07c62478.png&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_af302473a16f&quot;,
+          &quot;reason&quot;: &quot;Нет различных положительных кратных: блоки могут совпадать, остаток оценивается по числу цифр.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_de250a7de0bb&quot;,
+          &quot;reason&quot;: &quot;Нет классов остатков и минимальных различных представителей.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_0cf8af170957&quot;,
+          &quot;reason&quot;: &quot;Работа с линейным ограничением является лишь компонентом; определение не охватывает исключение длинных блоков и получение нижней оценки.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Смешаны исключение слишком длинного слагаемого и ограничение числа крупных блоков через нижнюю оценку остатка. Одного полного соответствия в каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;name&quot;: &quot;Исключать слишком крупное положительное слагаемое&quot;,
+            &quot;definition&quot;: &quot;При верхней границе положительной суммы исключить слагаемые, каждое из которых уже превышает эту границу.&quot;,
+            &quot;catalog_kc_id&quot;: null
+          },
+          {
+            &quot;name&quot;: &quot;Ограничивать число крупных блоков нижней оценкой остатка&quot;,
+            &quot;definition&quot;: &quot;При фиксированном количестве цифр выразить остаток ресурса через число крупных блоков, оценить снизу вклад остатка и вывести допустимое количество крупных блоков из верхней границы суммы.&quot;,
+            &quot;catalog_kc_id&quot;: null
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;k4&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;Для блока длины r≤3 его значение не превосходит 37r: 1≤37, 11≤74, 111=111.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;Поэтому S≤1111a+37(50−4a)=1850+963a. Из a≤8 следует S≤9554.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_b30ac76abcf2&quot;,
+          &quot;reason&quot;: &quot;Нет квадратичного ограничения и неравенства Коши; суммируются оценки стоимости единицы ресурса.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_31eed356b5e1&quot;,
+          &quot;reason&quot;: &quot;Оценивается сумма, а не дробь.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;optimal_bound_attainment&quot;,
+          &quot;reason&quot;: &quot;Здесь только способ получения границы; конструкция и вывод об оптимальности находятся в s5.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_0cf8af170957&quot;,
+          &quot;reason&quot;: &quot;Не решается линейное неравенство относительно переменной; известное ограничение a≤8 используется в возрастающей оценке.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Установлена верхняя стоимость на одну оставшуюся цифру, оценка просуммирована при фиксированном ресурсе и максимизирована на ранее доказанном диапазоне. Подходящего определения этого способа в полном каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Оценивать сумму через верхнюю стоимость единицы ресурса&quot;,
+        &quot;definition&quot;: &quot;Для допустимых частей установить общую верхнюю оценку значения через количество расходуемого ресурса, просуммировать её при фиксированном ресурсе и использовать допустимый диапазон оставшегося параметра для общей верхней границы суммы.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;k5&quot;,
+      &quot;status&quot;: &quot;uncertain&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s5:result&quot;,
+          &quot;quote&quot;: &quot;Восемь блоков 1111 и шесть блоков 111 используют 8·4+6·3=50 единиц и дают сумму 8·1111+6·111=9554. Она четырёхзначна и достигает доказанной верхней границы, поэтому является наибольшей.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s4:result&quot;,
+        &quot;condition&quot;,
+        &quot;image:assets/479f1df533c83bdc07c62478.png&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;optimal_bound_attainment&quot;,
+          &quot;reason&quot;: &quot;Подходит общее доказательное действие: граница s4 и достигающий объект s5.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_f6b803c5f9c2&quot;,
+          &quot;reason&quot;: &quot;Также подходит: целочисленный объект проверен, максимум следует из уже доказанной границы.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a873d91378ab&quot;,
+          &quot;reason&quot;: &quot;Проверка граничного ответа в исходной модели наблюдаема, но определение не разграничено с проверкой конструкции.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Действие обосновано, но первые два определения перекрываются на доказательстве максимума целочисленной конструкцией. Правила приоритета или разведения не переданы; однозначный выбор ID невозможен.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;boundary&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s4:result&quot;,
+        &quot;step:s5:result&quot;
+      ],
+      &quot;description&quot;: &quot;Для k5 одновременно подходят optimal_bound_attainment и literal_f6b803c5f9c2; требуется правило выбора или разграничение определений. Это неоднозначность каталога, а не математическая ошибка решения.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;k5&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre><h2>Исторические редакторские назначения</h2><pre>[]</pre><p><a href="../../../runs/2026-11-02-fipi-extension-150/raw/author/4B81D5.json">author raw</a> · <a href="../../../runs/2026-11-02-fipi-extension-150/raw/auditor/4B81D5.json">auditor raw</a></p><pre>{
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;source_policy_included&quot;: true,
+  &quot;source_policy_exclusion_reasons&quot;: []
+}</pre></html>

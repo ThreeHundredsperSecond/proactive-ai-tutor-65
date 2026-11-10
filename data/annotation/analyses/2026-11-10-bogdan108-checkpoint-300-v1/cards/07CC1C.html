@@ -1,0 +1,242 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>07CC1C</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>70. ФИПИ 07CC1C · бронь #4, партия 6</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Найдите все значения <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>a</mi>  </semantics> </mstyle></math>, при каждом из которых система уравнений</p> <p class="MsoNormal" align="center"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mrow><mo>{</mo> <mtable columnalign="left"> <mtr> <mtd> <mi>y</mi><mo>=</mo><mrow><mo>(</mo> <mrow> <mi>a</mi><mo>+</mo><mn>2</mn> </mrow> <mo>)</mo></mrow><msup> <mi>x</mi> <mn>2</mn> </msup> <mo>+</mo><mn>2</mn><mi>a</mi><mi>x</mi><mo>+</mo><mi>a</mi><mo>−</mo><mn>2,</mn> </mtd> </mtr> <mtr> <mtd> <msup> <mi>y</mi> <mn>2</mn> </msup> <mo>=</mo><msup> <mi>x</mi> <mn>2</mn> </msup> </mtd> </mtr> </mtable> </mrow> </mrow>  </semantics> </mstyle></math></p> <p class="MsoNormal">имеет ровно четыре различных решения.</p> <p class="MsoNormal"><span> </span></p>  </section></div><p>КЭС: 2.1 Целые и дробно-рациональные уравнения; 2.5 Целые и дробно-рациональные неравенства; 2.9 Системы и совокупности уравнений и неравенств; 2.10 Уравнения, неравенства и системы с параметрами</p><h2>Ответ</h2><p>a ∈ (-17/4; -2) ∪ (-2; 2) ∪ (2; 17/4)</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>S1 · condition</td><td>Заменить уравнение y^2=x^2 совокупностью y=x или y=-x и свести систему к двум уравнениям относительно x: (a+2)x^2+(2a-1)x+a-2=0 и (a+2)x^2+(2a+1)x+a-2=0</td><td>Решения системы — точки (x,x) для корней первого уравнения и (x,-x) для корней второго</td><td>KC1, KC2</td></tr><tr><td>S2 · S1</td><td>Разобрать случай a=-2, когда оба уравнения линейные</td><td>x=-4/5 и x=-4/3, всего 2 решения; a=-2 не подходит</td><td>KC3</td></tr><tr><td>S3 · S1</td><td>При a≠-2 вычислить дискриминанты обоих квадратных уравнений</td><td>D1=17-4a, D2=17+4a</td><td>KC4</td></tr><tr><td>S4 · S1</td><td>Определить совпадающие решения двух ветвей: точки на y=x и y=-x совпадают только при x=0; x=0 — корень обоих уравнений при a=2</td><td>Решения ветвей различны при a≠2; при a=2 общая точка (0,0) и решений не более трёх</td><td>KC5</td></tr><tr><td>S5 · S2, S3, S4</td><td>Потребовать по два различных корня у каждого уравнения (D1&gt;0, D2&gt;0) и отсутствия общих решений, учесть исключения</td><td>-17/4&lt;a&lt;17/4, a≠-2, a≠2</td><td>KC6</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;M1&quot;,
+    &quot;name&quot;: &quot;Расщепление на две ветви и подсчёт корней квадратных уравнений с параметром&quot;,
+    &quot;step_ids&quot;: [
+      &quot;S1&quot;,
+      &quot;S2&quot;,
+      &quot;S3&quot;,
+      &quot;S4&quot;,
+      &quot;S5&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="KC1"><h3>KC1 · Расщепить уравнение вида f^2=g^2 на совокупность f=g или f=-g</h3><p>Вход: уравнение с равенством квадратов двух выражений; операция: замена равносильной совокупностью двух уравнений; применимо для любых действительных выражений</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S1:action&quot;,
+      &quot;quote&quot;: &quot;Заменить уравнение y^2=x^2 совокупностью y=x или y=-x&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_57e72251d4a8&quot;,
+      &quot;reason&quot;: &quot;x²=c с числовой правой частью, а не равенство квадратов двух выражений&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+      &quot;reason&quot;: &quot;факторизация (y-x)(y+x)=0 в решении не наблюдается; действие сформулировано как прямое расщепление&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_10490f2275e0&quot;,
+      &quot;reason&quot;: &quot;обратное направление: переход к квадратам, а не снятие квадратов&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — равносильная замена f²=g² совокупностью f=g или f=-g; объект — второе уравнение системы. В каталоге нет узла с таким определением.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Расщеплять равенство квадратов на совокупность&quot;,
+    &quot;definition&quot;: &quot;Заменить f²=g² равносильной совокупностью f=g или f=-g для действительных выражений, сохранив обе ветви.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="KC2"><h3>KC2 · Подставить выражение одной переменной в другое уравнение системы</h3><p>Вход: система, где одна переменная выражена явно; операция: подстановка и приведение к уравнению с одной переменной с параметром</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_48d7fd02cfd9&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S1:action&quot;,
+      &quot;quote&quot;: &quot;свести систему к двум уравнениям относительно x: (a+2)x^2+(2a-1)x+a-2=0 и (a+2)x^2+(2a+1)x+a-2=0&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S1:result&quot;,
+      &quot;quote&quot;: &quot;Решения системы — точки (x,x) для корней первого уравнения и (x,-x) для корней второго&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0a4ebc8382b5&quot;,
+      &quot;reason&quot;: &quot;более общее определение того же действия; узел literal_48d7fd02cfd9 точнее описывает подстановку y=mx (здесь m=±1)&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;graph_intersection&quot;,
+      &quot;reason&quot;: &quot;речь о системе уравнений, не о составлении f(x)=g(x) для графиков&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Подстановка y=x и y=-x в первое уравнение с получением уравнений относительно x; ответные пары (x,±x) сохраняют соответствие решений. Определение подстановки y=mx выполнено целиком. Подстановки проверены: дают указанные коэффициенты.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="KC3"><h3>KC3 · Рассмотреть отдельно значение параметра, обнуляющее старший коэффициент</h3><p>Вход: уравнение с параметром при старшей степени; операция: отдельный разбор вырожденного случая, где уравнение понижает степень</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC3&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S2:action&quot;,
+      &quot;quote&quot;: &quot;Разобрать случай a=-2, когда оба уравнения линейные&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S2:result&quot;,
+      &quot;quote&quot;: &quot;x=-4/5 и x=-4/3, всего 2 решения; a=-2 не подходит&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:S1:action&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;покрывает только решение получившихся линейных уравнений (компонент), но не выделение вырожденного значения параметра&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_e41f0e408b87&quot;,
+      &quot;reason&quot;: &quot;касается записи итогового множества и границ, а не разбора вырожденного случая&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — выделить значение параметра, обнуляющее старший коэффициент, и разобрать случай понижения степени. Такого узла в каталоге нет; решение линейных уравнений −5x−4=0 и −3x−4=0 — компонент (linear_equation). Результат проверен.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Разбирать вырожденный случай старшего коэффициента с параметром&quot;,
+    &quot;definition&quot;: &quot;Найти значения параметра, при которых старший коэффициент обращается в нуль, и отдельно исследовать уравнение пониженной степени; решение полученного уравнения размечается отдельно.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="KC4"><h3>KC4 · Вычислить дискриминант квадратного уравнения с параметром</h3><p>Вход: квадратное уравнение с коэффициентами, зависящими от параметра; операция: выразить D через параметр для определения числа корней</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC4&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S3:action&quot;,
+      &quot;quote&quot;: &quot;При a≠-2 вычислить дискриминанты обоих квадратных уравнений&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S3:result&quot;,
+      &quot;quote&quot;: &quot;D1=17-4a, D2=17+4a&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:S1:action&quot;,
+    &quot;step:S2:action&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+      &quot;reason&quot;: &quot;определение включает получение действительных корней; здесь только выражение D через параметр без нахождения корней, а параметрический подсчёт оговорён как отдельное действие&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_7a3b2e2d0b3a&quot;,
+      &quot;reason&quot;: &quot;требует положительности корней, здесь её нет&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — вычисление дискриминанта как выражения от параметра при ненулевом старшем коэффициенте. Ближайший узел шире (корни). Вычисления проверены: (2a∓1)²−4(a+2)(a−2)=17∓4a.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Выражать дискриминант квадратного уравнения через параметр&quot;,
+    &quot;definition&quot;: &quot;При ненулевом старшем коэффициенте вычислить дискриминант как выражение от параметра для последующего анализа числа корней, не находя сами корни.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="KC5"><h3>KC5 · Найти совпадающие решения разных ветвей совокупности</h3><p>Вход: решения, полученные из нескольких ветвей; операция: найти условие совпадения точек и значения параметра, при которых оно реализуется, чтобы корректно подсчитать различные решения</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC5&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S4:action&quot;,
+      &quot;quote&quot;: &quot;точки на y=x и y=-x совпадают только при x=0; x=0 — корень обоих уравнений при a=2&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S4:result&quot;,
+      &quot;quote&quot;: &quot;при a=2 общая точка (0,0) и решений не более трёх&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:S1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_05f53e4cc43a&quot;,
+      &quot;reason&quot;: &quot;подходит по совпадению ветвей и общим решениям, но перекрывается с двумя другими узлами&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_5dcd4a01af19&quot;,
+      &quot;reason&quot;: &quot;то же название, перекрывающееся определение с акцентом на границы&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d93e50c17220&quot;,
+      &quot;reason&quot;: &quot;то же название, перекрывающееся определение&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Действие — найти общие решения ветвей и значение параметра, при котором они возникают. Несколько перекрывающихся узлов каталога описывают это действие; основания выбрать один нет. Математически шаг верен (при a=2: корни 0,−3/4 и 0,−5/4, три решения).&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="KC6"><h3>KC6 · Составить условия на параметр для заданного числа решений</h3><p>Вход: количество корней по ветвям и случаи совпадений; операция: объединить неравенства и исключения в итоговое множество значений параметра</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC6&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S5:action&quot;,
+      &quot;quote&quot;: &quot;Потребовать по два различных корня у каждого уравнения (D1&gt;0, D2&gt;0) и отсутствия общих решений, учесть исключения&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S5:result&quot;,
+      &quot;quote&quot;: &quot;-17/4&lt;a&lt;17/4, a≠-2, a≠2&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:S2:result&quot;,
+    &quot;step:S3:result&quot;,
+    &quot;step:S4:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+      &quot;reason&quot;: &quot;покрывает только пересечение и исключения&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_e41f0e408b87&quot;,
+      &quot;reason&quot;: &quot;покрывает объединение случаев и запись множества, перекрывается с set_intersection&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0cf8af170957&quot;,
+      &quot;reason&quot;: &quot;только решение неравенств 17∓4a&gt;0&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_7a3b2e2d0b3a&quot;,
+      &quot;reason&quot;: &quot;включает положительность корней, которой здесь нет&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат смешивает перевод требования «ровно четыре решения» в условия D1&gt;0, D2&gt;0 и отсутствие совпадений, решение линейных неравенств по a и пересечение с исключениями. Итог проверен и согласуется с ответом.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Перевести требуемое число решений в условия D&gt;0 для каждой ветви и отсутствие общих решений&quot;,
+        &quot;possible_catalog_kc_id&quot;: null
+      },
+      {
+        &quot;part&quot;: &quot;Решить линейные неравенства 17-4a&gt;0 и 17+4a&gt;0&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_0cf8af170957&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Пересечь условия и исключить a=-2, a=2&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;set_intersection&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/07CC1C.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/07CC1C.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

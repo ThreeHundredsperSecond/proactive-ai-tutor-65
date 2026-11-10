@@ -1,0 +1,202 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>FD16D2</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>9. ФИПИ FD16D2</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Найдите все значения <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>a</mi><mo>,</mo> </mrow> </semantics> </math> при каждом из которых уравнение</p> <p class="MsoNormal" align="center"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mrow><mo>(</mo> <mrow> <mi>x</mi><mo>−</mo><mn>1</mn> </mrow> <mo>)</mo></mrow><msup> <mi>a</mi> <mn>2</mn> </msup> <mo>−</mo><mrow><mo>(</mo> <mrow> <msup> <mi>x</mi> <mn>3</mn> </msup> <mo>−</mo><mn>2</mn><msup> <mi>x</mi> <mn>2</mn> </msup> <mo>+</mo><mn>3</mn><mi>x</mi><mo>−</mo><mn>2</mn> </mrow> <mo>)</mo></mrow><mi>a</mi><mo>−</mo><msup> <mi>x</mi> <mn>4</mn> </msup> <mo>+</mo><mn>3</mn><msup> <mi>x</mi> <mn>3</mn> </msup> <mo>−</mo><mn>2</mn><msup> <mi>x</mi> <mn>2</mn> </msup> <mo>=</mo><mn>0</mn> </mrow> </semantics> </math></p> <p class="MsoNormal">имеет ровно два различных корня.<span></span></p>  </section></div><p>КЭС: 2.1 Целые и дробно-рациональные уравнения</p><h2>Ответ</h2><p>a ∈ (−∞; 0) ∪ {1}.</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Вынести общий множитель из левой части.</td><td>x³−2x²+3x−2=(x−1)(x²−x+2), а −x⁴+3x³−2x²=−x²(x−1)(x−2). Уравнение принимает вид (x−1)[a²−(x²−x+2)a−x²(x−2)]=0.</td><td>k1</td></tr><tr><td>s2 · s1</td><td>Разложить оставшийся множитель и описать корни.</td><td>a²−(x²−x+2)a−x²(x−2)=(a−x²)(a+x−2). Уравнение равносильно (x−1)(a−x²)(a+x−2)=0. Всегда имеются корни 1 и 2−a; при a≥0 добавляются корни x²=a, а при a&lt;0 это уравнение действительных корней не имеет.</td><td>k1, k2</td></tr><tr><td>s3 · s2</td><td>Подсчитать различные корни при отрицательном параметре.</td><td>При a&lt;0 корни только 1 и 2−a. Поскольку 2−a&gt;2, они различны. Все a&lt;0 подходят.</td><td>k3</td></tr><tr><td>s4 · s2</td><td>Проверить нулевое значение параметра.</td><td>При a=0 множество корней равно {0,1,2}; различных корней три, поэтому значение не подходит.</td><td>k3</td></tr><tr><td>s5 · s2, s3, s4</td><td>Установить необходимое условие при положительном параметре и проверить достаточность.</td><td>При a&gt;0 корни −√a и √a различны, причём −√a&lt;0 и −√a≠1. Чтобы вместе с обязательным корнем 1 они давали только два различных значения, необходимо √a=1, то есть a=1. При a=1 линейный множитель также даёт 2−a=1, и полное множество корней равно {−1,1}. Условие достаточно. С учётом остальных случаев ответ: a∈(−∞;0)∪{1}.</td><td>k3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Факторизация и подсчёт различных корней по знаку параметра&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;,
+      &quot;s5&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="k1"><h3>k1 · Разложить многочлен на множители</h3><p>По алгебраическому выражению выявить общий множитель или представить квадратный трёхчлен произведением с проверкой коэффициентов; преобразование должно быть тождественным.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k1&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;x³−2x²+3x−2=(x−1)(x²−x+2), а −x⁴+3x³−2x²=−x²(x−1)(x−2).&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;a²−(x²−x+2)a−x²(x−2)=(a−x²)(a+x−2).&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_89adef4e8cee&quot;,
+      &quot;reason&quot;: &quot;Охватывает факторизацию квадратного выражения по a в s2, но не весь набор разложений многочленов по x и выделение общего множителя в s1.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+      &quot;reason&quot;: &quot;Определение включает проверку разложения и учёт кратности; исследование знака и явный учёт кратности здесь не выполняются. Не даёт основания поглотить разные действия локального кандидата.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+      &quot;reason&quot;: &quot;Описывает получение корней после разложения, а не тождественную факторизацию.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат явно соединяет выделение общего множителя и представление квадратного трёхчлена произведением. Оба действия наблюдаются, но узкий параметрический KC покрывает лишь вторую часть. Раскрытие скобок подтверждает приведённые тождества; автор отдельно проверку коэффициентов не записывает.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;definition&quot;: &quot;Представить многочлен произведением, выделив общий множитель или разложив его коэффициентные многочлены, сохранив тождественность.&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [],
+        &quot;refs&quot;: [
+          &quot;step:s1:result&quot;
+        ]
+      },
+      {
+        &quot;definition&quot;: &quot;Факторизовать квадратное выражение по a с коэффициентами, зависящими от x, тождественным произведением двух линейных по a множителей.&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;literal_89adef4e8cee&quot;
+        ],
+        &quot;refs&quot;: [
+          &quot;step:s2:result&quot;
+        ]
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="k2"><h3>k2 · Найти корни уравнения в форме произведения</h3><p>Для произведения действительных выражений приравнять каждый множитель к нулю и объединить множества корней; для уравнения с квадратом переменной учитывать знак правой части.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k2&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;Уравнение равносильно (x−1)(a−x²)(a+x−2)=0. Всегда имеются корни 1 и 2−a; при a≥0 добавляются корни x²=a, а при a&lt;0 это уравнение действительных корней не имеет.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+      &quot;reason&quot;: &quot;Охватывает переход к нулям множителей и объединение, но кандидат дополнительно требует решения квадратного уравнения с классификацией по знаку правой части.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_57e72251d4a8&quot;,
+      &quot;reason&quot;: &quot;Охватывает ветвь x²=a, но не решение исходного произведения и объединение с линейными ветвями.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ab8a29be8367&quot;,
+      &quot;reason&quot;: &quot;Здесь не вводится замена u=x² и не решается преобразованная задача по u.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В описании соединены нулевое произведение и отдельное решение x²=a с учётом знака a. Первое действие полностью видно в s2. В s2 для a≥0 ещё оставлена запись x²=a; явные значения ±√a наблюдаются в s5, нулевой корень — в s4.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;definition&quot;: &quot;Получить нули трёх множителей и объединить их множества действительных корней.&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;zero_product&quot;
+        ],
+        &quot;refs&quot;: [
+          &quot;step:s2:result&quot;
+        ]
+      },
+      {
+        &quot;definition&quot;: &quot;Решить x²=a: исключить действительные корни при a&lt;0, получить нуль при a=0 и два корня ±√a при a&gt;0.&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;literal_57e72251d4a8&quot;
+        ],
+        &quot;refs&quot;: [
+          &quot;step:s2:result&quot;,
+          &quot;step:s4:result&quot;,
+          &quot;step:s5:result&quot;
+        ]
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="k3"><h3>k3 · Определить параметр по числу различных корней</h3><p>По зависящим от параметра множествам корней разделить случаи существования корней, учесть совпадения значений и проверить необходимые условия для заданного числа различных действительных корней.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k3&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;При a&lt;0 корни только 1 и 2−a. Поскольку 2−a&gt;2, они различны. Все a&lt;0 подходят.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;При a=0 множество корней равно {0,1,2}; различных корней три, поэтому значение не подходит.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s5:result&quot;,
+      &quot;quote&quot;: &quot;Чтобы вместе с обязательным корнем 1 они давали только два различных значения, необходимо √a=1, то есть a=1. При a=1 линейный множитель также даёт 2−a=1, и полное множество корней равно {−1,1}. Условие достаточно.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d93e50c17220&quot;,
+      &quot;reason&quot;: &quot;Проверка допустимости, совпадений и граничных случаев непосредственно соответствует наблюдаемому подсчёту; однако определение перекрывается с literal_05f53e4cc43a без различающего условия.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_05f53e4cc43a&quot;,
+      &quot;reason&quot;: &quot;Подсчёт объединения корней множителей с учётом общих значений также подходит; нет основания предпочесть его literal_d93e50c17220.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_5dcd4a01af19&quot;,
+      &quot;reason&quot;: &quot;Близкий подсчёт с ветвями и границами, но здесь ветви не ограничены отдельными областями по x и нет общего граничного корня таких областей.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_e41f0e408b87&quot;,
+      &quot;reason&quot;: &quot;Охватывает заключительное объединение случаев, но не основной вывод необходимости совпадения корней и подсчёт различных значений.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Корни из s2 рассматриваются по знаку параметра; в s3–s5 проверены различность, нулевой случай, необходимость совпадения √a с 1 и достаточность a=1. Математическое препятствие не обнаружено. Однако два определения каталога одинаково покрывают основной наблюдаемый подсчёт; их границы не позволяют обоснованно назначить один ID.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i2&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[
+  &quot;Предварительная предметная интерпретация; не экспертный эталон и не оценка ученика.&quot;
+]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;missing_annotation&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s4:result&quot;,
+      &quot;step:s5:result&quot;
+    ],
+    &quot;description&quot;: &quot;Нулевой и положительные корни x²=a явно вычисляются в s4 и s5, где автор назначает только k3. Компонент решения уравнения с квадратом из описания k2 продолжается за пределами его назначения в s2. Это замечание о покрытии, не математическая ошибка.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;k2&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;i2&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s3:result&quot;,
+      &quot;step:s4:result&quot;,
+      &quot;step:s5:result&quot;
+    ],
+    &quot;description&quot;: &quot;Определения literal_d93e50c17220 и literal_05f53e4cc43a перекрываются на подсчёте различных корней объединения ветвей с проверкой совпадений и границ; вход не даёт критерия выбора единственного узла.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;k3&quot;
+    ]
+  }
+]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;source_path&quot;: &quot;data/fipi/2026-10-31-profile/tasks/FD16D2.json&quot;,
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\FD16D2.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\FD16D2.json&quot;
+}</pre></html>

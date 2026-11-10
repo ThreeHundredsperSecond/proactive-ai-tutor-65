@@ -1,0 +1,159 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>31e106</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>35. ФИПИ 31e106 · бронь #4, партия 3</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">В июле 2028 года планируется взять в банке кредит на три года в размере 12 млн рублей. Условия его возврата таковы:</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> каждый январь долг увеличивается на <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mi>r</mi> </semantics> </math> % по сравнению с концом предыдущего года;</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> с февраля по июнь каждого года необходимо выплатить одним платежом часть долга;</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> в июле 2029 и 2030 годов долг должен быть на 10 % меньше долга на июль предыдущего года;</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> к июлю 2031 года долг должен быть выплачен полностью.</p> <p class="MsoNormal">Известно, что сумма всех платежей после полного погашения кредита будет равна 13 626 тыс. рублей. Найдите <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>r</mi><mo>.</mo> </mrow> </semantics> </math> <span></span></p>  </section></div><p>КЭС: 1.2 Рациональные числа. Обыкновенные и десятичные дроби, проценты, бесконечные периодические дроби; 2.1 Целые и дробно-рациональные уравнения</p><h2>Ответ</h2><p>5</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти долг на июль каждого года по условию уменьшения на 10% и полного погашения</td><td>Долг на июль: 2028 — 12 млн, 2029 — 10,8 млн, 2030 — 9,72 млн, 2031 — 0</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Ввести k = 1 + r/100 и выразить каждый платёж как разность долга после начисления процентов и долга после выплаты</td><td>x1 = 12k − 10,8; x2 = 10,8k − 9,72; x3 = 9,72k (млн руб.)</td><td>kc2</td></tr><tr><td>s3 · condition, s2</td><td>Составить уравнение для суммы платежей</td><td>32,52k − 20,52 = 13,626</td><td>kc3</td></tr><tr><td>s4 · s3</td><td>Решить линейное уравнение относительно k и найти r</td><td>k = 34,146/32,52 = 1,05; r = 5</td><td>kc4</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Построение схемы остатков долга и уравнения по сумме платежей&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Вычислить последовательность остатков долга по заданному правилу уменьшения</h3><p>Вход: начальный долг и правило изменения долга после платежа (процентное уменьшение, полное погашение). Операция: последовательно вычислить остатки на контрольные даты. Граница: правило задаёт остатки напрямую, без неизвестных платежей.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Найти долг на июль каждого года по условию уменьшения на 10% и полного погашения&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;2028 — 12 млн, 2029 — 10,8 млн, 2030 — 9,72 млн, 2031 — 0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+      &quot;reason&quot;: &quot;Перевод процента в множитель и связь части с целым — лишь компонент; каталог не содержит действия построения последовательности остатков долга по правилу.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+      &quot;reason&quot;: &quot;Нет установленной формулы функции; это итеративное применение правила схемы кредита.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдается последовательное вычисление остатков долга на контрольные даты по правилу уменьшения на 10% и полного погашения. В каталоге нет узла для схемы остатков кредита.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;По начальному долгу и правилу изменения долга после платежа (процентное уменьшение относительно предыдущей контрольной даты, полное погашение) последовательно вычислить остатки на контрольные даты без неизвестных платежей.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Выразить платёж через остатки долга и процентный множитель</h3><p>Вход: остаток до начисления, множитель начисления процентов и остаток после выплаты. Операция: платёж = остаток·множитель − новый остаток. Граница: одно начисление и один платёж за период.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;выразить каждый платёж как разность долга после начисления процентов и долга после выплаты&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;x1 = 12k − 10,8; x2 = 10,8k − 9,72; x3 = 9,72k (млн руб.)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+      &quot;reason&quot;: &quot;Охватывает только перевод процента в множитель; не включает выражение платежа через остатки.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_89184e5e6ac9&quot;,
+      &quot;reason&quot;: &quot;Касается обратного перехода от параметра к искомой величине, а не построения выражения платежа.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: платёж = остаток·k − следующий остаток для каждого периода, с остатками из s1. Подходящего определения в каталоге нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Для периода с одним начислением процентов и одним платежом выразить платёж как остаток до начисления, умноженный на множитель k=1+r/100, минус остаток после платежа.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Составить уравнение по сумме платежей</h3><p>Вход: выражения платежей через неизвестный параметр и известная общая сумма выплат. Операция: сложить выражения и приравнять к сумме, приведя подобные. Граница: сумма всех платежей задана.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Составить уравнение для суммы платежей&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;32,52k − 20,52 = 13,626&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;Определение явно исключает построение модели; здесь уравнение составляется, а не решается.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_33060533660f&quot;,
+      &quot;reason&quot;: &quot;Модель прибыли и окупаемости, иной объект.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Сложение выражений платежей и приравнивание к заданной сумме 13 626 тыс. руб. (переведено в 13,626 млн) — построение модели. Арифметика проверена: 12+10,8+9,72=32,52; 10,8+9,72=20,52.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Сложить выражения платежей через неизвестный параметр, привести подобные и приравнять к заданной общей сумме выплат в согласованных единицах.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Найти процентную ставку по найденному множителю</h3><p>Вход: линейное уравнение относительно множителя k = 1 + r/100. Операция: решить уравнение и перейти от множителя к ставке в процентах. Граница: множитель положителен, ставка выражена в процентах.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:action&quot;,
+      &quot;quote&quot;: &quot;Решить линейное уравнение относительно k и найти r&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;k = 34,146/32,52 = 1,05; r = 5&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s3:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;Соответствует только части: решение 32,52k − 20,52 = 13,626.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_89184e5e6ac9&quot;,
+      &quot;reason&quot;: &quot;Соответствует только части: переход от вспомогательного k к искомой r.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет решение линейного уравнения с числовыми коэффициентами и восстановление ставки из множителя k=1+r/100. Каждая часть имеет отдельный узел; одному узлу целиком не соответствует. Вычисление верно: 34,146/32,52=1,05.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Решить 32,52k − 20,52 = 13,626 относительно k&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;linear_equation&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Перейти от k=1,05 к r=5 по k=1+r/100&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_89184e5e6ac9&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/31e106.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/31e106.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

@@ -1,0 +1,97 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>DBCD3E</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>12. ФИПИ DBCD3E</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">В соревнованиях по толканию ядра участвуют спортсмены из четырёх стран: 6 из <span>Швеции</span>, 5 из <span>Дании</span>, 10 из <span>Норвегии </span>и 4 из <span>Финляндии</span>. Порядок, <br> в котором выступают спортсмены, определяется жребием. Найдите вероятность того, что спортсмен, выступающий первым, окажется <br> из <span>Норвегии</span>.<span></span></p>  </section></div><p>КЭС: 6.2 Вероятность</p><h2>Ответ</h2><p>0,4</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти общее число участвующих спортсменов.</td><td>6 + 5 + 10 + 4 = 25 спортсменов.</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Вычислить вероятность первого выступления спортсмена из Норвегии как долю благоприятных равновозможных исходов.</td><td>При случайной жеребьёвке каждый из 25 спортсменов имеет одинаковую вероятность выступить первым. Благоприятны 10 исходов, поэтому P = 10/25 = 0,4.</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Вычисление вероятности по доле спортсменов требуемой страны&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Находить численность объединения непересекающихся групп</h3><p>По численностям непересекающихся групп сложить их размеры и получить общее число объектов; применяется, когда перечисленные группы охватывают всю рассматриваемую совокупность.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Найти общее число участвующих спортсменов.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;6 + 5 + 10 + 4 = 25 спортсменов.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;arithmetic_series&quot;,
+      &quot;reason&quot;: &quot;Требуется арифметическая прогрессия и её сумма по крайним членам; здесь складываются четыре заданные численности без прогрессии.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_de250a7de0bb&quot;,
+      &quot;reason&quot;: &quot;Узел требует нижней оценки суммы минимальных различных представителей классов остатков; здесь точная численность объединения групп.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;reason&quot;: &quot;Подсчёт общего количества объектов не является вычислением отношения m/n.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В шаге s1 складываются размеры четырёх перечисленных страновых групп, охватывающих участников соревнований по условию. Результат — общая численность 25. Во всём просмотренном каталоге нет определения точного подсчёта численности объединения непересекающихся групп сложением их размеров.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Находить численность объединения непересекающихся групп&quot;,
+    &quot;definition&quot;: &quot;По известным численностям попарно непересекающихся групп, вместе охватывающих рассматриваемую совокупность, сложить размеры групп и получить общее число объектов.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Вычислять вероятность по числу равновозможных исходов</h3><p>При равновозможном выборе одного объекта из конечной совокупности разделить число объектов с требуемым свойством на общее число объектов; применяется при обоснованной равновозможности исходов.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Вычислить вероятность первого выступления спортсмена из Норвегии как долю благоприятных равновозможных исходов.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;Благоприятны 10 исходов, поэтому P = 10/25 = 0,4.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+      &quot;reason&quot;: &quot;Обоснование равновозможности действительно наблюдается в начале s2, но определение локального kc2 описывает вычисление отношения при уже обоснованной равновозможности; сам расчёт m/n не входит в equiprobable_model.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдается вычисление вероятности как 10/25 в конечной равновозможной модели. Знаменатель получен в s1, численность спортсменов Норвегии дана условием, а равные вероятности первого места явно установлены в начале результата s2 по случайной жеребьёвке. Локальное определение не включает самостоятельное построение модели, поэтому соответствует classical_probability целиком; дополнительное действие модели в том же шаге отмечено отдельно как пропуск разметки.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;missing_annotation&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s2:result&quot;
+    ],
+    &quot;description&quot;: &quot;Фраза «При случайной жеребьёвке каждый из 25 спортсменов имеет одинаковую вероятность выступить первым.» задаёт элементарные исходы и обосновывает равновозможность, что соответствует отдельному equiprobable_model. Для этого действия нет отдельного локального кандидата: kc2 описывает расчёт вероятности при обоснованной равновозможности. Пропуск не подрывает подтверждённое вычисление m/n.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc2&quot;
+    ]
+  }
+]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;source_path&quot;: &quot;data/fipi/2026-10-31-profile/tasks/DBCD3E.json&quot;,
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\DBCD3E.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\DBCD3E.json&quot;
+}</pre></html>

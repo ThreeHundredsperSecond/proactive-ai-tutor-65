@@ -1,0 +1,89 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>A92B9D</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>7. ФИПИ A92B9D · бронь #4, партия 1</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">При выпечке хлеба производится контрольное взвешивание свежей буханки. Известно, что вероятность того, что масса окажется меньше 810 г, равна 0,98. Вероятность того, что масса окажется больше 790 г, равна 0,83. Найдите вероятность того, что масса буханки больше 790 г, но меньше 810 г.<span></span></p>  </section></div><p>КЭС: 6.2 Вероятность</p><h2>Ответ</h2><p>0,81</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти вероятность того, что масса не больше 790 г, как вероятность противоположного события к «масса больше 790 г»</td><td>P(m ≤ 790) = 1 − 0,83 = 0,17</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Представить событие «масса меньше 810 г» как объединение несовместных событий «масса не больше 790 г» и «масса больше 790 г, но меньше 810 г» и найти искомую вероятность вычитанием</td><td>P(790 &lt; m &lt; 810) = 0,98 − 0,17 = 0,81</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Разложение события на несовместные части с переходом к дополнению&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Вычислить вероятность противоположного события</h3><p>Вход: вероятность события. Операция: вычесть её из единицы. Применимо, когда событие и его дополнение исчерпывают все исходы и несовместны.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;как вероятность противоположного события к «масса больше 790 г»&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;P(m ≤ 790) = 1 − 0,83 = 0,17&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;reason&quot;: &quot;m/n в равновозможной модели; здесь нет подсчёта исходов, используется дополнение&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+      &quot;reason&quot;: &quot;умножение вероятностей независимых событий, а не переход к дополнению&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+      &quot;reason&quot;: &quot;построение модели исходов, не вычисление по дополнению&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция P(Ā)=1−P(A) для события «масса больше 790 г» выполнена в s1. В каталоге нет узла о вероятности противоположного события; ближайшие вероятностные узлы описывают другие операции.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;По известной вероятности события вычислить вероятность противоположного события как 1−P(A), правильно сформулировав дополнение (включая границу: не больше vs больше).&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Применить сложение вероятностей несовместных событий</h3><p>Вход: событие, разложенное на несовместные части, и известные вероятности части из них. Операция: выразить неизвестную вероятность части через сумму/разность. Применимо только при несовместности частей.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;как объединение несовместных событий «масса не больше 790 г» и «масса больше 790 г, но меньше 810 г» и найти искомую вероятность вычитанием&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;P(790 &lt; m &lt; 810) = 0,98 − 0,17 = 0,81&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+      &quot;reason&quot;: &quot;пересечение независимых событий через произведение; здесь сложение несовместных&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;reason&quot;: &quot;не используется подсчёт равновозможных исходов&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+      &quot;reason&quot;: &quot;пересечение множеств допустимых значений параметра, не вероятностная аддитивность&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В s2 событие m&lt;810 разложено на две несовместные части, и неизвестная часть найдена разностью P(m&lt;810)−P(m≤790). Входное значение 0,17 получено в s1. Узла об аддитивности вероятностей несовместных событий в каталоге нет. Разложение события и вычитание образуют одно действие аддитивности, дробить не требуется.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Представить событие объединением несовместных событий (проверив несовместность и вложенность частей) и выразить неизвестную вероятность части через сумму/разность известных вероятностей.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/A92B9D.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/A92B9D.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

@@ -1,0 +1,97 @@
+{
+  "task_id": "933FFF",
+  "catalog_version": "fipi50-editorial-v1-frozen",
+  "decisions": [
+    {
+      "local_kc_id": "kc1",
+      "status": "uncertain",
+      "catalog_kc_id": null,
+      "evidence": [{"ref": "step:s1:result", "quote": "x − 7 > 0, поэтому x ∈ (7; +∞)."}],
+      "context_refs": ["condition"],
+      "alternatives_checked": [
+        {"catalog_kc_id": "literal_0214fc221120", "reason": "Требует положительности аргумента и проверки рассматриваемого промежутка; полученный промежуток полностью удовлетворяет ограничению."},
+        {"catalog_kc_id": "literal_7baedb55a81a", "reason": "Также охватывает положительность единственного аргумента натурального логарифма и сохранение ограничений; основание e допустимо."},
+        {"catalog_kc_id": "literal_37584ab15732", "reason": "Требует совместной области логарифма и корня; корня здесь нет."}
+      ],
+      "rationale": "Положительность аргумента установлена и ограничение решено. Два определения логарифмической области перекрываются на этом действии; пакет не даёт основания однозначно выбрать одно из них.",
+      "proposal": null,
+      "blocking": false,
+      "issue_ids": ["i1"]
+    },
+    {
+      "local_kc_id": "kc2",
+      "status": "match",
+      "catalog_kc_id": "literal_7e7fe72c8c10",
+      "evidence": [{"ref": "step:s2:result", "quote": "y′ = 3 − 3/(x − 7)."}],
+      "context_refs": ["condition", "step:s1:result"],
+      "alternatives_checked": [
+        {"catalog_kc_id": "literal_3a3e1295118b", "reason": "Описывает только дифференцирование многочлена, не логарифма."},
+        {"catalog_kc_id": "literal_0efedaf04823", "reason": "Степенное правило и сумма не охватывают производную логарифма."}
+      ],
+      "rationale": "На установленной области x>7 вычислена производная суммы с ln(x−7) по u′/u. Определение каталога явно включает правило суммы; числовой множитель и постоянная не меняют действие.",
+      "proposal": null,
+      "blocking": false,
+      "issue_ids": []
+    },
+    {
+      "local_kc_id": "kc3",
+      "status": "match",
+      "catalog_kc_id": "literal_9698b97fef22",
+      "evidence": [{"ref": "step:s3:result", "quote": "При x > 7 уравнение 3 − 3/(x − 7) = 0 равносильно 3(x − 7) − 3 = 0, то есть 3x − 24 = 0."}],
+      "context_refs": ["step:s1:result", "step:s2:result"],
+      "alternatives_checked": [
+        {"catalog_kc_id": "linear_equation", "reason": "Здесь выполняется снятие рационального знаменателя до получения линейного уравнения, а не нахождение его корня."},
+        {"catalog_kc_id": "denominator_domain", "reason": "Сохранение ограничения знаменателя является только компонентом выполненного равносильного преобразования."}
+      ],
+      "rationale": "Ненулевость x−7 обеспечена ранее найденной областью. Уравнение умножено на этот знаменатель и приведено к линейному без добавления запрещённых корней; это полностью соответствует определению рационального преобразования.",
+      "proposal": null,
+      "blocking": false,
+      "issue_ids": []
+    },
+    {
+      "local_kc_id": "kc4",
+      "status": "needs_split",
+      "catalog_kc_id": null,
+      "evidence": [{"ref": "step:s4:result", "quote": "x = 8; корень принадлежит (7; +∞)."}],
+      "context_refs": ["step:s3:result", "step:s1:result"],
+      "alternatives_checked": [
+        {"catalog_kc_id": "linear_equation", "reason": "Охватывает нахождение корня 3x−24=0, но не отдельную проверку области."},
+        {"catalog_kc_id": "literal_ae9adc80bc91", "reason": "Охватывает проверку найденного кандидата по области, но не решение линейного уравнения."},
+        {"catalog_kc_id": "literal_8409c9003f48", "reason": "Также описывает компонент отбора конечного набора корней на промежутке, без решения уравнения."},
+        {"catalog_kc_id": "stationary_point", "reason": "В контексте s2–s4 реализуется поиск стационарной точки, однако локальный кандидат сформулирован как общее решение линейного уравнения с проверкой области, а не как действие f′=0."}
+      ],
+      "rationale": "Кандидат соединяет получение корня линейного уравнения и его проверку по внешнему ограничению. Одно соответствие узкому linear_equation потеряло бы вторую явно наблюдаемую часть.",
+      "proposal": {"parts": [
+        {"definition": "Решить линейное уравнение с числовыми коэффициентами.", "possible_catalog_kc_ids": ["linear_equation"]},
+        {"definition": "Проверить принадлежность найденного корня заданной области допустимых значений.", "possible_catalog_kc_ids": ["literal_ae9adc80bc91", "literal_8409c9003f48"], "note": "Определения отбора перекрываются; единственный ID для этой части не назначается."}
+      ]},
+      "blocking": false,
+      "issue_ids": []
+    },
+    {
+      "local_kc_id": "kc5",
+      "status": "match",
+      "catalog_kc_id": "local_extreme_sign",
+      "evidence": [{"ref": "step:s5:result", "quote": "На (7; 8) производная отрицательна, на (8; +∞) положительна. Функция убывает до x = 8 и возрастает после него, поэтому точка минимума — x = 8."}],
+      "context_refs": ["condition", "step:s1:result", "step:s2:result", "step:s4:result"],
+      "alternatives_checked": [
+        {"catalog_kc_id": "derivative_monotonicity", "reason": "Охватывает знаки и вывод о монотонности, но не весь вывод кандидата о минимуме по смене знака."},
+        {"catalog_kc_id": "global_interval_extreme", "reason": "Отрезок и поиск значения глобального экстремума отсутствуют; требуется абсцисса точки минимума."},
+        {"catalog_kc_id": "literal_9aee0783618d", "reason": "Знак устанавливается по формуле, а не считывается с графика."}
+      ],
+      "rationale": "Внутренняя допустимая точка 8 и гладкость функции в её окрестности следуют из формулы и области. Явно установлена смена производной с минуса на плюс и сделан вывод о минимуме; это полное действие каталога.",
+      "proposal": null,
+      "blocking": false,
+      "issue_ids": []
+    }
+  ],
+  "issues": [{
+    "id": "i1",
+    "kind": "boundary",
+    "refs": ["step:s1:action", "step:s1:result"],
+    "description": "Определения literal_0214fc221120 и literal_7baedb55a81a перекрываются для единственного натурального логарифма; правило выбора в пакете отсутствует. Это неоднозначность каталога, а не математическая ошибка шага.",
+    "blocking": false,
+    "affected_local_kc_ids": ["kc1"]
+  }],
+  "review_scope": "KC mapping with incidental mathematical checks; not expert validation"
+}

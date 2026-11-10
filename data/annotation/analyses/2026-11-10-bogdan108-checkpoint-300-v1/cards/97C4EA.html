@@ -1,0 +1,116 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>97C4EA</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>24. ФИПИ 97C4EA · бронь #4, партия 2</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">На рисунке изображён график функции вида <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>f</mi><mrow><mo>(</mo> <mi>x</mi> <mo>)</mo></mrow><mo>=</mo><msub> <mrow> <mi>log</mi> </mrow> <mi>a</mi> </msub> <mi>x</mi> </mrow> </semantics> </math>. Найдите <br> значение <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>f</mi><mrow><mo>(</mo> <mrow> <mn>16</mn> </mrow> <mo>)</mo></mrow> </mrow> </semantics> </math>.</p> <p class="MsoNormal" align="center"><img src="../../../runs/2026-11-09-fipi-team-bogdan108-next-100/inputs/assets/f556f51b295dc4bc6b7692dd.png" alt="Рисунок ФИПИ"></p> <p class="MsoNormal"><span> </span></p>  </section></div><p>КЭС: 3.5 Показательная и логарифмическая функции, их свойства и графики</p><h2>Ответ</h2><p>4</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Считать с графика точку с целыми координатами, через которую проходит график</td><td>График проходит через точку (2; 1), т.е. f(2)=1</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Подставить координаты точки в формулу f(x)=log_a x и найти основание</td><td>log_a 2 = 1, откуда a = 2</td><td>kc2</td></tr><tr><td>s3 · condition, s2</td><td>Вычислить значение функции в заданной точке</td><td>f(16)=log_2 16 = 4</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Восстановление формулы функции по точке графика и вычисление значения&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Определить по графику координаты точки на нём</h3><p>Вход: график функции на клетчатой сетке. Операция: найти точку графика с однозначно читаемыми (целыми) координатами. Граница: только точки, которые точно читаются по узлам сетки.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;graph_coordinates&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;График проходит через точку (2; 1), т.е. f(2)=1&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;image:assets/f556f51b295dc4bc6b7692dd.png&quot;,
+      &quot;region_description&quot;: &quot;Отмеченная жирная точка графика над делением 2 оси x на уровне деления 1 оси y; пунктирные линии к осям, единичная клетчатая сетка&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;image:assets/f556f51b295dc4bc6b7692dd.png&quot;
+  ],
+  &quot;alternatives_checked&quot;: [],
+  &quot;rationale&quot;: &quot;Считывание координат отмеченной точки по масштабу сетки; восстановление формулы выполнено отдельно в s2, что соответствует границе определения.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Найти параметр функции по известной точке графика</h3><p>Вход: формула функции с неизвестным параметром и точка графика. Операция: подставить координаты и решить полученное уравнение относительно параметра с учётом ограничений на параметр (для логарифма a&gt;0, a≠1).</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Подставить координаты точки в формулу f(x)=log_a x и найти основание&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;log_a 2 = 1, откуда a = 2&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_3ac0ecd3cd49&quot;,
+      &quot;reason&quot;: &quot;Восстановление основания по точке, но только для показательной функции y=a^x, а не логарифмической.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9a635e89ccb3&quot;,
+      &quot;reason&quot;: &quot;Решение простейшего логарифмического уравнения относительно аргумента; здесь неизвестно основание, и есть этап подстановки точки в формулу функции.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;direct_proportion&quot;,
+      &quot;reason&quot;: &quot;Другой класс функций (y=kx).&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_51a8c0abd718&quot;,
+      &quot;reason&quot;: &quot;Другой класс функций (y=a√x).&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Подстановка точки графика в y=log_a x и нахождение основания с учётом a&gt;0, a≠1; в каталоге есть аналоги для других классов функций, но не для логарифмической.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Восстанавливать основание логарифмической функции по точке&quot;,
+    &quot;definition&quot;: &quot;Для y=log_a x по точке (x0;y0) с x0&gt;0, x0≠1, y0≠0 найти a=x0^(1/y0) с проверкой a&gt;0, a≠1. Считывание точки с графика и последующее вычисление значения отдельно.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Вычислить значение логарифма</h3><p>Вход: логарифм с известным основанием от числа, являющегося степенью основания. Операция: найти показатель степени по определению логарифма.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_d66dd830e876&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;f(16)=log_2 16 = 4&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+      &quot;reason&quot;: &quot;Подстановка аргумента в формулу функции присутствует в s3, но кандидат kc3 описан как вычисление логарифма по определению, что точнее соответствует literal_d66dd830e876.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Нахождение показателя степени основания 2, равной 16, по определению логарифма.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;missing_annotation&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s3:action&quot;
+    ],
+    &quot;description&quot;: &quot;Подстановка аргумента 16 в восстановленную формулу (literal_6308771d01a6) в s3 не размечена отдельно; kc3 покрывает только вычисление логарифма.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc3&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/97C4EA.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/97C4EA.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

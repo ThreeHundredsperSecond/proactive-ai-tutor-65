@@ -1,0 +1,508 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>BA898B</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><a href="../index.html">Сводка</a><h1>BA898B</h1><p>Opus100</p><p>Предварительные разборы, внешнего эталона нет.</p><h2>Условие</h2>Дайте развернутый ответ.<div><section>  <p class="MsoNormal">В июле 2025 года планируется взять кредит на десять лет в размере <br> 500 тыс. рублей. Условия его возврата таковы:</p> <p class="MsoNormal">— каждый январь долг будет возрастать на 30 % по сравнению с концом предыдущего года;</p> <p class="MsoNormal">— с февраля по июнь каждого года необходимо оплатить одним платежом часть долга;</p> <p class="MsoNormal">— в июле 2026, 2027, 2028, 2029 и 2030 годов долг должен быть на какую-то одну и ту же величину меньше долга на июль предыдущего года;</p> <p class="MsoNormal">— в июле 2031, 2032, 2033, 2034 и 2035 годов долг должен быть на другую одну и ту же величину меньше долга на июль предыдущего года;</p> <p class="MsoNormal">— к июлю 2035 года долг должен быть выплачен полностью.</p> <p class="MsoNormal">Известно, что сумма всех платежей после полного погашения кредита будет равна 1250 тыс. рублей. Сколько рублей составит платёж в 2035 году?</p>  </section></div><h2>Состав и исключения</h2><pre>{
+  &quot;complete&quot;: true,
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;author_mode&quot;: &quot;standalone_initial&quot;,
+  &quot;author_path&quot;: &quot;data\\annotation\\runs\\2026-11-07-fipi-team-bogdan108-051-150\\raw\\author\\BA898B.json&quot;,
+  &quot;auditor_path&quot;: &quot;data\\annotation\\runs\\2026-11-07-fipi-team-bogdan108-051-150\\raw\\auditor\\BA898B.json&quot;,
+  &quot;feedback_ref&quot;: null,
+  &quot;source_run&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150&quot;
+}</pre><h2>Буквальный сохранённый разбор: ответ, шаги, KC, методы</h2><pre>{
+  &quot;task_id&quot;: &quot;BA898B&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;52000 рублей&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;S1&quot;,
+      &quot;action&quot;: &quot;Ввести неизвестные уменьшения долга x (2026–2030) и y (2031–2035), тыс. руб., и выразить долг на июль каждого года: D_k = 500 − kx при k = 0..5 (июль 2025 + k), а с учётом полного погашения к июлю 2035 года D_k = (10 − k)y при k = 5..10.&quot;,
+      &quot;result&quot;: &quot;D_0 = 500, D_1 = 500 − x, …, D_5 = 500 − 5x; D_5 = 5y, D_6 = 4y, D_7 = 3y, D_8 = 2y, D_9 = y, D_10 = 0&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;S2&quot;,
+      &quot;action&quot;: &quot;Приравнять два выражения долга на июль 2030 года (конец первого этапа и начало второго) и выразить y через x.&quot;,
+      &quot;result&quot;: &quot;500 − 5x = 5y, т.е. y = 100 − x&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;S1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;S3&quot;,
+      &quot;action&quot;: &quot;Выразить платёж года k как начисленные в январе проценты плюс плановое уменьшение долга.&quot;,
+      &quot;result&quot;: &quot;P_k = 0,3·D_{k−1} + (D_{k−1} − D_k), k = 1..10&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;S1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;S4&quot;,
+      &quot;action&quot;: &quot;Просуммировать платежи: сумма уменьшений долга равна всему кредиту 500, поэтому сумма платежей = 0,3·(D_0 + … + D_9) + 500; приравнять к 1250 и найти сумму остатков.&quot;,
+      &quot;result&quot;: &quot;0,3·(D_0 + … + D_9) = 750, D_0 + … + D_9 = 2500&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;S3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;S5&quot;,
+      &quot;action&quot;: &quot;Выразить сумму остатков D_0 + … + D_9 через x и y как суммы двух арифметических прогрессий и подставить в полученное равенство.&quot;,
+      &quot;result&quot;: &quot;(D_0 + … + D_4) = 2500 − 10x, (D_5 + … + D_9) = 15y; 2500 − 10x + 15y = 2500, откуда 2x = 3y&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;S1&quot;,
+        &quot;S4&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;S6&quot;,
+      &quot;action&quot;: &quot;Решить систему линейных уравнений y = 100 − x и 2x = 3y.&quot;,
+      &quot;result&quot;: &quot;x = 60, y = 40 (тыс. руб.); проверка: D_5 = 500 − 300 = 200 = 5·40&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC6&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;S2&quot;,
+        &quot;S5&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;S7&quot;,
+      &quot;action&quot;: &quot;Вычислить платёж 2035 года по формуле платежа: долг на июль 2034 года D_9 = y, уменьшение до нуля равно y.&quot;,
+      &quot;result&quot;: &quot;P_10 = 0,3·40 + 40 = 52 тыс. руб. = 52000 руб.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;S1&quot;,
+        &quot;S3&quot;,
+        &quot;S6&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;KC1&quot;,
+      &quot;name&quot;: &quot;Выразить остатки долга при равномерном уменьшении по этапам&quot;,
+      &quot;description&quot;: &quot;Вход: начальный долг, число периодов и условие, что на каждом этапе долг после платежа уменьшается на одну и ту же (неизвестную для этапа) величину, и требование полного погашения в конце. Операция: ввести неизвестную величину уменьшения для каждого этапа и записать остаток долга после каждого периода линейно через эти неизвестные (в том числе отсчётом от нулевого конечного долга). Граница: схемы с фиксированным уменьшением долга внутри этапа (дифференцированного типа), не аннуитетные платежи.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;KC2&quot;,
+      &quot;name&quot;: &quot;Связать параметры этапов погашения через долг на границе этапов&quot;,
+      &quot;description&quot;: &quot;Вход: два выражения остатка долга на момент смены этапа, полученные из описаний соседних этапов. Операция: приравнять их и выразить один параметр через другой. Граница: многоэтапные схемы погашения, где остаток долга на стыке этапов определён обоими описаниями.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;KC3&quot;,
+      &quot;name&quot;: &quot;Выразить платёж периода через проценты и уменьшение долга&quot;,
+      &quot;description&quot;: &quot;Вход: остаток долга до начисления, процентная ставка периода и остаток после платежа. Операция: платёж = ставка · долг до начисления + (долг до начисления − долг после платежа). Граница: схемы с однократным начислением процентов в периоде перед платежом и одним платежом за период.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;KC4&quot;,
+      &quot;name&quot;: &quot;Найти сумму платежей через сумму остатков долга&quot;,
+      &quot;description&quot;: &quot;Вход: формула платежа каждого периода как процентов плюс уменьшения долга и условие полного погашения. Операция: сложить платежи, заменив сумму уменьшений на исходную сумму кредита, получить сумму всех платежей = ставка · (сумма остатков до начисления) + кредит; при известной сумме платежей составить уравнение на сумму остатков. Граница: полное погашение кредита, постоянная ставка по всем периодам.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;KC5&quot;,
+      &quot;name&quot;: &quot;Вычислить сумму членов арифметической прогрессии&quot;,
+      &quot;description&quot;: &quot;Вход: конечная арифметическая прогрессия (заданная первым и последним членом и числом членов или формулой общего члена, возможно с буквенными коэффициентами). Операция: сумма = число членов · (первый + последний) / 2. Граница: только конечные арифметические прогрессии.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;KC6&quot;,
+      &quot;name&quot;: &quot;Решить систему двух линейных уравнений с двумя неизвестными&quot;,
+      &quot;description&quot;: &quot;Вход: два линейных уравнения с числовыми коэффициентами относительно двух неизвестных. Операция: исключить одну неизвестную подстановкой или сложением и найти обе. Граница: невырожденные линейные системы.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;M1&quot;,
+      &quot;name&quot;: &quot;Сумма платежей через сумму остатков долга при поэтапном равномерном уменьшении долга&quot;,
+      &quot;step_ids&quot;: [
+        &quot;S1&quot;,
+        &quot;S2&quot;,
+        &quot;S3&quot;,
+        &quot;S4&quot;,
+        &quot;S5&quot;,
+        &quot;S6&quot;,
+        &quot;S7&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h2>Буквальный независимый аудит</h2><pre>{
+  &quot;task_id&quot;: &quot;BA898B&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;KC1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S1:action&quot;,
+          &quot;quote&quot;: &quot;Ввести неизвестные уменьшения долга x (2026–2030) и y (2031–2035), тыс. руб., и выразить долг на июль каждого года&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S1:action&quot;,
+          &quot;quote&quot;: &quot;D_k = 500 − kx при k = 0..5&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S1:action&quot;,
+          &quot;quote&quot;: &quot;с учётом полного погашения к июлю 2035 года D_k = (10 − k)y при k = 5..10&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S1:result&quot;,
+          &quot;quote&quot;: &quot;D_5 = 500 − 5x; D_5 = 5y, D_6 = 4y, D_7 = 3y, D_8 = 2y, D_9 = y, D_10 = 0&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;arithmetic_series&quot;,
+          &quot;reason&quot;: &quot;Узел вычисляет сумму арифметической прогрессии по числу членов и крайним членам; в S1 ничего не суммируется, остатки долга только записываются как линейные функции номера года.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+          &quot;reason&quot;: &quot;Перевод процента в множитель и связь части с целым; ставка 30 % в S1 не используется, записываются только плановые уменьшения долга.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_33060533660f&quot;,
+          &quot;reason&quot;: &quot;Моделирование прибыли и срока окупаемости — другой объект (выручка, затраты, инвестиции), а не график остатков кредита.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: ввести неизвестные величины ежегодного уменьшения долга для двух этапов и выразить остаток долга на каждую июльскую дату линейно через них: от начального долга 500 на первом этапе и обратным отсчётом от нулевого долга в июле 2035 года на втором. Объект — график остатков кредита с постоянным уменьшением внутри каждого этапа; существенные условия (равные уменьшения внутри этапов, полное погашение к июлю 2035 года) берутся из condition. Действие полностью наблюдаемо в S1. В каталоге нет узла о построении модели остатков долга: близкие узлы относятся к суммированию прогрессии, процентам или другой экономической модели. Поэтому предлагается новый кандидат. Пересечение границы с KC2 описано в i4.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Для кредита, долг по которому на каждом этапе после платежа уменьшается на одну и ту же неизвестную величину, ввести параметр уменьшения для каждого этапа и выразить остаток долга на каждую контрольную дату линейно через эти параметры, используя начальный долг и требование полного погашения к концу срока.&quot;,
+        &quot;boundary&quot;: &quot;Только запись остатков долга. Связь параметров соседних этапов, формула платежа, суммирование платежей и решение уравнений — отдельные действия. Аннуитетные схемы не входят.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i4&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;KC2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S2:action&quot;,
+          &quot;quote&quot;: &quot;Приравнять два выражения долга на июль 2030 года (конец первого этапа и начало второго) и выразить y через x.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S2:result&quot;,
+          &quot;quote&quot;: &quot;500 − 5x = 5y, т.е. y = 100 − x&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:S1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;graph_intersection&quot;,
+          &quot;reason&quot;: &quot;Формально тоже приравнивает два выражения, но объект узла — пересечение графиков y=f(x) и y=g(x) на общей области, а не два описания одного остатка долга на стыке этапов.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+          &quot;reason&quot;: &quot;Узел решает уравнение с одной переменной и получает множество решений; в S2 получена линейная связь двух параметров (y через x), а не решение.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_0a4ebc8382b5&quot;,
+          &quot;reason&quot;: &quot;Требует выразить переменную и подставить её в другое уравнение; в S2 есть только выражение y через x, подстановка выполняется позже (S6).&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: приравнять два выражения одного и того же остатка на июль 2030 года — по первому этапу (500 − 5x) и по второму (5y), оба взяты из результата S1, — и получить связь параметров y = 100 − x. Объект — стык этапов многоэтапной схемы погашения. Перенос членов при выражении y — элементарная арифметика, отдельно не выделяется. Ни один узел каталога не описывает согласование параметров соседних этапов: graph_intersection имеет другой объект, linear_equation и literal_0a4ebc8382b5 покрывают в лучшем случае компонент или следующее действие. Предлагается новый кандидат. Возможное слияние с KC1 рассмотрено в i4.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;В многоэтапной схеме погашения приравнять два выражения остатка долга на дату смены этапов, полученные из описаний соседних этапов, и выразить параметр одного этапа через параметр другого.&quot;,
+        &quot;boundary&quot;: &quot;Решение получившейся системы условий — отдельное действие. Если редактор считает согласование на стыке частью модели остатков (KC1), кандидат можно не выделять отдельно.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i4&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;KC3&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S3:action&quot;,
+          &quot;quote&quot;: &quot;Выразить платёж года k как начисленные в январе проценты плюс плановое уменьшение долга.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S3:result&quot;,
+          &quot;quote&quot;: &quot;P_k = 0,3·D_{k−1} + (D_{k−1} − D_k), k = 1..10&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S7:action&quot;,
+          &quot;quote&quot;: &quot;Вычислить платёж 2035 года по формуле платежа: долг на июль 2034 года D_9 = y, уменьшение до нуля равно y.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S7:result&quot;,
+          &quot;quote&quot;: &quot;P_10 = 0,3·40 + 40 = 52 тыс. руб.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:S1:result&quot;,
+        &quot;step:S6:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+          &quot;reason&quot;: &quot;Покрывает только компонент: перевод 30 % в множитель 0,3. Составление выражения платежа как суммы процентов и уменьшения долга в него не входит.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+          &quot;reason&quot;: &quot;Касается подстановки в заданную формулу, а вывод модели исключён; в S3 формула платежа выводится из условия, в S7 подставляются значения в эту выведенную формулу — это лишь компонент.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+          &quot;reason&quot;: &quot;Вычисление значения функции по её формуле соответствует только числовой части S7, а не составлению выражения платежа.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_33060533660f&quot;,
+          &quot;reason&quot;: &quot;Модель прибыли и окупаемости — другой объект.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: выразить платёж периода как начисленные проценты с долга до начисления плюс разность долга до начисления и после платежа. Выражение выведено в S3 и применено к последнему году в S7 (D_9 = y = 40, D_10 = 0), то есть оба шага с меткой KC3 показывают одно и то же действие. Входное состояние: остатки из S1, значение y из S6, ставка 30 % и порядок начисление → платёж из condition. Попутная проверка: после январского начисления долг равен 1,3·D_{k−1}, платёж переводит его в D_k, так что формула S3 верна, а P_10 = 52 тыс. руб. согласуется с x = 60, y = 40. Узел каталога о проценте покрывает только перевод процента в множитель, узлы подстановки в формулу — только числовую часть S7. Составной кандидат не получает match к узкому узлу; подходящего полного определения нет, поэтому предлагается новый кандидат.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;При однократном начислении процентов по ставке r перед единственным платежом периода выразить платёж как r·(долг до начисления) + (долг до начисления − долг после платежа) и применять это выражение к конкретному периоду.&quot;,
+        &quot;boundary&quot;: &quot;Только схемы с одним начислением и одним платежом за период. Суммирование платежей по всем периодам — отдельное действие (KC4).&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i3&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;KC4&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S4:action&quot;,
+          &quot;quote&quot;: &quot;сумма уменьшений долга равна всему кредиту 500, поэтому сумма платежей = 0,3·(D_0 + … + D_9) + 500; приравнять к 1250 и найти сумму остатков&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S4:result&quot;,
+          &quot;quote&quot;: &quot;0,3·(D_0 + … + D_9) = 750, D_0 + … + D_9 = 2500&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:S3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;arithmetic_series&quot;,
+          &quot;reason&quot;: &quot;Суммирование платежей здесь идёт через телескопическую сумму уменьшений долга, а не по формуле суммы арифметической прогрессии; суммы прогрессий вычисляются в S5.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+          &quot;reason&quot;: &quot;Покрывает только завершающий компонент S4: решение 0,3·S = 750 относительно суммы остатков S. Вывод тождества для суммы платежей и составление уравнения в узел не входят (построение модели исключено определением).&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+          &quot;reason&quot;: &quot;Перевод процента в множитель не описывает суммирование платежей и замену суммы уменьшений суммой кредита.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_33060533660f&quot;,
+          &quot;reason&quot;: &quot;Суммирование прибыли за срок — другой объект и другая модель.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: сложить платежи вида 0,3·D_{k−1} + (D_{k−1} − D_k) (формула из S3), заменить телескопическую сумму уменьшений на сумму кредита 500 (полное погашение из condition), получить сумма платежей = 0,3·(сумма остатков) + 500 и приравнять её к 1250 из condition. Попутная проверка: 1250 − 500 = 750, 750/0,3 = 2500 — верно. Определение KC4 описывает целостный приём, которого нет в каталоге; linear_equation покрывает только решение получившегося уравнения относительно суммы остатков. Это решение есть в S4, но не входит в определение KC4 и не размечено отдельно (i1). Предлагается новый кандидат.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;При полном погашении и постоянной ставке r сложить платежи вида r·D_{k−1} + (D_{k−1} − D_k), заменить телескопическую сумму уменьшений долга суммой кредита и получить: сумма платежей = r·(сумма остатков до начисления) + кредит; при известной сумме платежей составить уравнение на сумму остатков.&quot;,
+        &quot;boundary&quot;: &quot;Решение полученного линейного уравнения относительно суммы остатков — linear_equation; вычисление суммы остатков через прогрессии — arithmetic_series.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;KC5&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;arithmetic_series&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S5:action&quot;,
+          &quot;quote&quot;: &quot;Выразить сумму остатков D_0 + … + D_9 через x и y как суммы двух арифметических прогрессий&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S5:result&quot;,
+          &quot;quote&quot;: &quot;(D_0 + … + D_4) = 2500 − 10x, (D_5 + … + D_9) = 15y&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:S1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_de250a7de0bb&quot;,
+          &quot;reason&quot;: &quot;Нижняя оценка суммы различных чисел заданных классов, а не точное вычисление суммы прогрессии.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_af302473a16f&quot;,
+          &quot;reason&quot;: &quot;Оценка снизу суммы различных кратных, а не вычисление суммы конечной арифметической прогрессии.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: найти сумму конечной арифметической прогрессии. Объекты — остатки D_0..D_4 (500, …, 500 − 4x; 5 членов) и D_5..D_9 (5y, …, y; 5 членов) из результата S1. В S5 эти суммы прямо названы суммами двух арифметических прогрессий, а результаты совпадают с суммой по числу членов и крайним членам: 5·(500 + 500 − 4x)/2 = 2500 − 10x, 5·(5y + y)/2 = 15y. Определение arithmetic_series не ограничивает коэффициенты числами, а других узлов точного суммирования прогрессий в каталоге нет. Определения KC5 и arithmetic_series совпадают по операции и объекту, поэтому match. Ограничение: явная запись формулы в S5 не показана, наблюдаемы название действия и верные результаты. Подстановка сумм в уравнение и упрощение до 2x = 3y в S5 не входят ни в KC5, ни в этот узел (i2).&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i2&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;KC6&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S6:action&quot;,
+          &quot;quote&quot;: &quot;Решить систему линейных уравнений y = 100 − x и 2x = 3y.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S6:result&quot;,
+          &quot;quote&quot;: &quot;x = 60, y = 40 (тыс. руб.)&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:S2:result&quot;,
+        &quot;step:S5:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+          &quot;reason&quot;: &quot;Уравнение с одной переменной; покрывает только решение уравнения, получающегося после исключения одной неизвестной, а не всю систему двух уравнений.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_0a4ebc8382b5&quot;,
+          &quot;reason&quot;: &quot;Исключение переменной подстановкой из линейной связи — компонент решения системы; полного нахождения обеих неизвестных не включает, а способ исключения в S6 не показан.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_48d7fd02cfd9&quot;,
+          &quot;reason&quot;: &quot;Подстановка вида y=mx; связь y = 100 − x содержит свободный член, поэтому этот вариант подходит хуже, чем literal_0a4ebc8382b5.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция кандидата: исключить одну неизвестную и найти обе неизвестные системы двух линейных уравнений. Уравнения берутся из S2 и S5. В детализации каталога это два отдельных действия: исключение переменной подстановкой (literal_0a4ebc8382b5) и решение линейного уравнения с одной неизвестной (linear_equation). Узла для системы целиком нет, поэтому кандидат смешивает действия, имеющие отдельные узлы. Попутная проверка: x = 60, y = 40 удовлетворяют y = 100 − x и 2x = 3y. В S6 записан только итог, поэтому соответствие частей указано как возможное (i5). Авторская разметка не переписывается.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;part&quot;: &quot;Исключить одну неизвестную, подставив выражение y = 100 − x во второе уравнение (или исключив её сложением)&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;literal_0a4ebc8382b5&quot;,
+            &quot;note&quot;: &quot;Соответствует только при подстановке; способ исключения в S6 не записан.&quot;
+          },
+          {
+            &quot;part&quot;: &quot;Решить получившееся линейное уравнение с одной неизвестной и числовыми коэффициентами относительно x&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;linear_equation&quot;,
+            &quot;note&quot;: &quot;Промежуточное уравнение в S6 не записано; наблюдаем только итог x = 60.&quot;
+          },
+          {
+            &quot;part&quot;: &quot;Найти вторую неизвестную обратной подстановкой в y = 100 − x&quot;,
+            &quot;possible_catalog_kc_id&quot;: null,
+            &quot;note&quot;: &quot;Элементарная арифметика в рамках исключения; отдельный KC не предлагается.&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i5&quot;
+      ]
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;missing_annotation&quot;,
+      &quot;refs&quot;: [
+        &quot;step:S4:action&quot;,
+        &quot;step:S4:result&quot;
+      ],
+      &quot;description&quot;: &quot;S4 кроме вывода суммы платежей решает линейное уравнение 0,3·S = 750 относительно суммы остатков S (получено S = 2500). Определение KC4 этого не включает, а linear_equation на S4 не размечен. Вычисление верно.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;KC4&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;i2&quot;,
+      &quot;kind&quot;: &quot;missing_annotation&quot;,
+      &quot;refs&quot;: [
+        &quot;step:S5:action&quot;,
+        &quot;step:S5:result&quot;
+      ],
+      &quot;description&quot;: &quot;S5 кроме суммирования прогрессий подставляет суммы в равенство из S4 и упрощает 2500 − 10x + 15y = 2500 до 2x = 3y. Это преобразование линейного соотношения с двумя неизвестными не входит в KC5/arithmetic_series и не размечено. Точного узла каталога для него нет, но для полноты разметки это стоит отметить. Вычисление верно.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;KC5&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;i3&quot;,
+      &quot;kind&quot;: &quot;missing_annotation&quot;,
+      &quot;refs&quot;: [
+        &quot;step:S7:action&quot;,
+        &quot;step:S7:result&quot;
+      ],
+      &quot;description&quot;: &quot;S7 кроме применения формулы платежа переходит от вспомогательного параметра y к искомой величине — платежу 2035 года — и переводит ответ из тыс. руб. в рубли. Такой переход может соответствовать literal_89184e5e6ac9, но на S7 размечен только KC3. Результат 52000 руб. верен.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;KC3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;i4&quot;,
+      &quot;kind&quot;: &quot;boundary&quot;,
+      &quot;refs&quot;: [
+        &quot;step:S1:result&quot;,
+        &quot;step:S2:action&quot;
+      ],
+      &quot;description&quot;: &quot;В результате S1 остаток на июль 2030 года уже записан двумя способами (D_5 = 500 − 5x и D_5 = 5y), то есть их равенство неявно используется в модели KC1. S2 явно приравнивает эти выражения. Граница KC1/KC2 неоднозначна: KC2 можно считать отдельным действием или частью построения модели остатков. На сами решения new_candidate это не влияет.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;KC1&quot;,
+        &quot;KC2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;i5&quot;,
+      &quot;kind&quot;: &quot;coverage&quot;,
+      &quot;refs&quot;: [
+        &quot;step:S6:action&quot;,
+        &quot;step:S6:result&quot;
+      ],
+      &quot;description&quot;: &quot;В S6 записаны только итоговые x = 60, y = 40 и проверка через D_5. Способ исключения неизвестной и промежуточное линейное уравнение не показаны, поэтому соответствие частей KC6 узлам literal_0a4ebc8382b5 и linear_equation указано как возможное, а не наблюдаемое.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;KC6&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre><h2>Исторические редакторские назначения</h2><pre>[]</pre><p><a href="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/BA898B.json">author raw</a> · <a href="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/BA898B.json">auditor raw</a></p><pre>{
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;source_policy_included&quot;: true,
+  &quot;source_policy_exclusion_reasons&quot;: []
+}</pre></html>

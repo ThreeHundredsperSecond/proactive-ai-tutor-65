@@ -1,0 +1,82 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>847B0B</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>29. ФИПИ 847B0B</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <table class="MsoTableGrid" border="0" cellspacing="0" cellpadding="0"> <tr> <td valign="top"> <p class="MsoNormal">В треугольнике <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mi>C</mi> </mrow>  </semantics> </mstyle></math> угол <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>C</mi>  </semantics> </mstyle></math> равен <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mn>90</mn><mi>°</mi> </mrow>  </semantics> </mstyle></math>, <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mo>=</mo><mn>5</mn> </mrow>  </semantics> </mstyle></math>, <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>B</mi><mi>C</mi><mo>=</mo><mn>4</mn> </mrow>  </semantics> </mstyle></math>. Найдите <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>cos</mi><mi>A</mi> </mrow>  </semantics> </mstyle></math>.</p> </td> <td valign="top"> <p class="MsoNormal" align="right"><img src="../../../inputs/assets/d4e3bcc7241951edfd223145.png" alt="Рисунок ФИПИ"></p> </td> </tr> </table> <p class="MsoNormal"><span> </span></p>  </section></div><p>КЭС: 7.1 Фигуры на плоскости</p><h2>Ответ</h2><p>0,6</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти второй катет прямоугольного треугольника по теореме Пифагора.</td><td>Так как угол C равен 90°, AB — гипотенуза. AC = sqrt(AB² − BC²) = sqrt(25 − 16) = 3; выбран положительный корень, поскольку AC — длина стороны.</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Вычислить косинус острого угла как отношение прилежащего катета к гипотенузе.</td><td>cos A = AC/AB = 3/5 = 0,6.</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Нахождение прилежащего катета по теореме Пифагора и применение определения косинуса&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Найти катет по гипотенузе и другому катету</h3><p>В прямоугольном треугольнике по известным длинам гипотенузы и одного катета вычислить другой катет как положительный квадратный корень из разности их квадратов; гипотенуза должна быть длиннее известного катета.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;pythagoras&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;Так как угол C равен 90°, AB — гипотенуза. AC = sqrt(AB² − BC²) = sqrt(25 − 16) = 3; выбран положительный корень, поскольку AC — длина стороны.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;cosine_law&quot;,
+      &quot;reason&quot;: &quot;В шаге используется прямой угол и разность квадратов сторон, а не связь сторон с косинусом произвольного угла по теореме косинусов.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_57e72251d4a8&quot;,
+      &quot;reason&quot;: &quot;Это алгебраическое нахождение обоих корней x²=c; кандидат описывает геометрическое восстановление длины с положительным корнем, прямо включённое в pythagoras.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Прямой угол задан условием и указан в результате; AB верно распознана как гипотенуза. По AB=5 и BC=4 вычислен катет AC=3 с явным выбором положительной длины. Это полное применение определения pythagoras, включая его существенные предпосылки и результат.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Вычислить косинус острого угла прямоугольного треугольника</h3><p>По длинам гипотенузы и катета, прилежащего к заданному острому углу прямоугольного треугольника, вычислить косинус как отношение этого катета к гипотенузе.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_be5764a81415&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Вычислить косинус острого угла как отношение прилежащего катета к гипотенузе.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;cos A = AC/AB = 3/5 = 0,6.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_38dfd2a1aa18&quot;,
+      &quot;reason&quot;: &quot;Требует известный острый угол и вычисление стороны; здесь численное значение угла неизвестно и вычисляется его косинус по сторонам.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_db53e3ae2119&quot;,
+      &quot;reason&quot;: &quot;Использует известный угол для нахождения стороны; здесь действие направлено от длин сторон к тригонометрическому отношению.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_79a8fac1b83f&quot;,
+      &quot;reason&quot;: &quot;Предполагает известную гипотенузу и угол для вычисления сторон, а не вычисление косинуса по двум сторонам.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+      &quot;reason&quot;: &quot;Подстановка аргумента в формулу функции не описывает геометрический выбор прилежащего катета и гипотенузы относительно A.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В прямоугольном ABC относительно угла A выбран прилежащий катет AC и гипотенуза AB, затем их отношение вычислено как 0,6. Значение AC поступает из s1, а AB и прямой угол — из условия. Определение literal_be5764a81415 полностью реализовано выбором соответствующих сторон; численное деление составляет естественное завершение того же действия и не требует отдельного KC.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;source_path&quot;: &quot;data/fipi/2026-10-31-profile/tasks/847B0B.json&quot;,
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\847B0B.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\847B0B.json&quot;
+}</pre></html>

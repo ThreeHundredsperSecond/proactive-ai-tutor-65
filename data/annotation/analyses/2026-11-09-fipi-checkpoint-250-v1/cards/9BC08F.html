@@ -1,0 +1,378 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>9BC08F</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><a href="../index.html">Сводка</a><h1>9BC08F</h1><p>Opus100</p><p>Предварительные разборы, внешнего эталона нет.</p><h2>Условие</h2>Дайте развернутый ответ.<div><section>  <p class="MsoNormal">С трёхзначным числом производят следующую операцию: вычитают из него сумму его цифр, а затем получившуюся разность делят на 3.</p> <p class="MsoNormal">а) Могло ли в результате такой операции получиться число 300?</p> <p class="MsoNormal">б) Могло ли в результате такой операции получиться число 151?</p> <p class="MsoNormal">в) Сколько различных чисел может получиться в результате такой операции из чисел от 100 до 600 включительно?</p> <p class="MsoNormal"><span> </span></p>  </section></div><h2>Состав и исключения</h2><pre>{
+  &quot;complete&quot;: true,
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;author_mode&quot;: &quot;standalone_initial&quot;,
+  &quot;author_path&quot;: &quot;data\\annotation\\runs\\2026-11-07-fipi-team-bogdan108-051-150\\raw\\author\\9BC08F.json&quot;,
+  &quot;auditor_path&quot;: &quot;data\\annotation\\runs\\2026-11-07-fipi-team-bogdan108-051-150\\raw\\auditor\\9BC08F.json&quot;,
+  &quot;feedback_ref&quot;: null,
+  &quot;source_run&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150&quot;
+}</pre><h2>Буквальный сохранённый разбор: ответ, шаги, KC, методы</h2><pre>{
+  &quot;task_id&quot;: &quot;9BC08F&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;а) да (например, 910); б) нет; в) 51&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Записать трёхзначное число как 100a+10b+c (a от 1 до 9, b,c от 0 до 9) и упростить результат операции: (100a+10b+c-(a+b+c))/3&quot;,
+      &quot;result&quot;: &quot;Результат равен 33a+3b = 3(11a+b), не зависит от c&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;,
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Решить в цифрах уравнение 33a+3b=300, т.е. 11a+b=100&quot;,
+      &quot;result&quot;: &quot;a=9, b=1; например, 910: (910-10)/3=300. Ответ а) да&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Проверить делимость 151 на 3, учитывая, что результат всегда кратен 3&quot;,
+      &quot;result&quot;: &quot;151 не делится на 3, поэтому получить 151 нельзя. Ответ б) нет&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Определить, какие пары цифр (a,b) соответствуют числам от 100 до 600&quot;,
+      &quot;result&quot;: &quot;a от 1 до 5 при любом b от 0 до 9 (50 пар), а также a=6, b=0 (число 600)&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s5&quot;,
+      &quot;action&quot;: &quot;Доказать, что разные пары (a,b) дают разные значения 11a+b: при равенстве 11(a-a&#x27;)=b&#x27;-b, а |b&#x27;-b|≤9&quot;,
+      &quot;result&quot;: &quot;Значения попарно различны; всего 50+1=51 различное число&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc6&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Записать число через десятичные разряды&quot;,
+      &quot;description&quot;: &quot;Вход: многозначное число с условием на цифры. Операция: представить его как сумму цифр с весами степеней 10 с ограничениями на цифры. Граница: позиционная запись целых чисел.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Упростить алгебраическое выражение от цифр&quot;,
+      &quot;description&quot;: &quot;Вход: выражение, построенное по операции над числом и его цифрами. Операция: привести подобные и вынести общий множитель. Граница: линейные выражения от цифр.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Решить уравнение в цифрах&quot;,
+      &quot;description&quot;: &quot;Вход: линейное уравнение с целыми неизвестными, ограниченными диапазоном цифр. Операция: найти допустимые целые решения перебором или оценкой. Граница: небольшие диапазоны неизвестных.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Доказать невозможность через делимость&quot;,
+      &quot;description&quot;: &quot;Вход: выражение, всегда кратное некоторому числу, и целевое значение. Операция: проверить делимость целевого значения и сделать вывод о недостижимости. Граница: инварианты делимости целых чисел.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc5&quot;,
+      &quot;name&quot;: &quot;Перевести числовой диапазон в ограничения на цифры&quot;,
+      &quot;description&quot;: &quot;Вход: интервал значений многозначного числа. Операция: выписать допустимые наборы старших цифр. Граница: позиционная запись.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc6&quot;,
+      &quot;name&quot;: &quot;Доказать различность значений через оценку остатка&quot;,
+      &quot;description&quot;: &quot;Вход: линейное выражение от цифр с весом, превышающим диапазон младшей цифры. Операция: показать, что равенство значений влечёт равенство цифр, и подсчитать количество значений. Граница: подсчёт образа отображения на конечном множестве.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Сведение к формуле 3(11a+b) и подбор цифр&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;m2&quot;,
+      &quot;name&quot;: &quot;Инвариант делимости на 3&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;m3&quot;,
+      &quot;name&quot;: &quot;Подсчёт значений через инъективность по цифрам&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s4&quot;,
+        &quot;s5&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h2>Буквальный независимый аудит</h2><pre>{
+  &quot;task_id&quot;: &quot;9BC08F&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Записать трёхзначное число как 100a+10b+c (a от 1 до 9, b,c от 0 до 9)&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_032c8bc781fd&quot;,
+          &quot;reason&quot;: &quot;моделирует долю целочисленными количествами, а не позиционную запись числа&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;integer_construction&quot;,
+          &quot;reason&quot;: &quot;построение примера, а не общее представление числа через цифры&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция — представление трёхзначного числа через разряды с ограничениями на цифры; в каталоге нет узла позиционной записи.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Представить многозначное целое число суммой цифр с весами степеней 10, указав диапазоны цифр (старшая ненулевая).&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;упростить результат операции: (100a+10b+c-(a+b+c))/3&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;Результат равен 33a+3b = 3(11a+b), не зависит от c&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_7570fa06d474&quot;,
+          &quot;reason&quot;: &quot;сокращение дроби с ненулевым общим множителем переменного выражения; здесь деление линейного выражения на число и вынесение множителя&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+          &quot;reason&quot;: &quot;уравнение не решается, только упрощается выражение&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Приведение подобных в линейном выражении от цифр и вынесение общего множителя; общего узла тождественного упрощения многочленов в каталоге нет. Граница с kc1 корректна: kc1 — запись, kc2 — упрощение.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Привести подобные члены линейного выражения от нескольких переменных и вынести общий числовой множитель.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Решить в цифрах уравнение 33a+3b=300, т.е. 11a+b=100&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;a=9, b=1; например, 910: (910-10)/3=300&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;finite_exhaustion&quot;,
+          &quot;reason&quot;: &quot;полного перебора случаев в шаге не показано, и для пункта а) он не нужен&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;integer_construction&quot;,
+          &quot;reason&quot;: &quot;частично совпадает с предъявлением и проверкой 910, но не покрывает нахождение решения уравнения в цифрах&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+          &quot;reason&quot;: &quot;уравнение с двумя целыми неизвестными в ограниченном диапазоне, а не с одной переменной&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Нахождение целого решения линейного диофантова уравнения в диапазоне цифр; подходящего узла нет. Проверка примера 910 верна (сумма цифр 10, 900/3=300).&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Найти целые решения линейного уравнения с неизвестными-цифрами, используя ограничения диапазона (оценка или перебор).&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;Проверить делимость 151 на 3, учитывая, что результат всегда кратен 3&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;151 не делится на 3, поэтому получить 151 нельзя&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_e3fb5cdd2965&quot;,
+          &quot;reason&quot;: &quot;связывает остатки слагаемых с их количеством; здесь инвариант кратности готового выражения&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_29920cf036ec&quot;,
+          &quot;reason&quot;: &quot;контрпример, а не доказательство невозможности&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Вывод о недостижимости значения по инварианту делимости; близкий узел про остатки сумм имеет другой объект.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Из того, что выражение всегда кратно m, и некратности целевого значения m сделать вывод о недостижимости.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc5&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;Определить, какие пары цифр (a,b) соответствуют числам от 100 до 600&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;a от 1 до 5 при любом b от 0 до 9 (50 пар), а также a=6, b=0 (число 600)&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:action&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+          &quot;reason&quot;: &quot;общее пересечение ограничений, не перевод числового интервала в наборы старших цифр&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_6ad8f502588e&quot;,
+          &quot;reason&quot;: &quot;отбор кандидатов по промежутку, а не описание множества цифровых наборов&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Перевод диапазона 100–600 в допустимые пары старших цифр с корректной обработкой границы 600; узла нет. Результат верен.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;По интервалу значений многозначного числа выписать допустимые наборы старших цифр, отдельно обработав граничные значения.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc6&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s5:action&quot;,
+          &quot;quote&quot;: &quot;Доказать, что разные пары (a,b) дают разные значения 11a+b: при равенстве 11(a-a&#x27;)=b&#x27;-b, а |b&#x27;-b|≤9&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s5:result&quot;,
+          &quot;quote&quot;: &quot;Значения попарно различны; всего 50+1=51 различное число&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s4:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_05f53e4cc43a&quot;,
+          &quot;reason&quot;: &quot;подсчёт различных решений объединения ветвей уравнения, а не образа отображения&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;finite_exhaustion&quot;,
+          &quot;reason&quot;: &quot;инъективность доказана оценкой, не перебором&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат объединяет доказательство инъективности 11a+b на цифрах через оценку |b&#x27;-b|≤9 и подсчёт числа значений как числа пар; это разные действия. Математически шаг верен, ответ 51 корректен.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;name&quot;: &quot;Доказать инъективность линейного выражения от цифр оценкой&quot;,
+            &quot;definition&quot;: &quot;Из равенства значений вывести кратность разности младших цифр весу, превышающему её диапазон, и равенство цифр.&quot;,
+            &quot;possible_catalog_kc_id&quot;: null
+          },
+          {
+            &quot;name&quot;: &quot;Считать число значений через биекцию с наборами&quot;,
+            &quot;definition&quot;: &quot;При доказанной инъективности приравнять число различных значений числу допустимых наборов.&quot;,
+            &quot;possible_catalog_kc_id&quot;: null
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;coverage&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s2:result&quot;
+      ],
+      &quot;description&quot;: &quot;Для а) достаточно предъявить 910 с проверкой; путь нахождения a=9, b=1 из 11a+b=100 не показан, поэтому kc3 подтверждается результатом, а не наблюдаемым процессом решения.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc3&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre><h2>Исторические редакторские назначения</h2><pre>[]</pre><p><a href="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/9BC08F.json">author raw</a> · <a href="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/9BC08F.json">auditor raw</a></p><pre>{
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;source_policy_included&quot;: true,
+  &quot;source_policy_exclusion_reasons&quot;: []
+}</pre></html>

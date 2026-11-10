@@ -1,0 +1,302 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>A18442</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><a href="../index.html">Сводка</a><h1>A18442</h1><p>historical_independent50</p><p>Предварительные разборы, внешнего эталона нет.</p><h2>Условие</h2>Дайте развернутый ответ.<div><section>  <p class="MsoNormal">Решите неравенство <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mfrac><mrow><msup><mn>2</mn><mrow><mn>3</mn><mi>x</mi></mrow></msup><mo>−</mo><mn>2</mn><mo>⋅</mo><msup><mn>4</mn><mrow><mi>x</mi><mtext> </mtext><mo>+</mo><mtext> </mtext><mn>1</mn></mrow></msup><mo>+</mo><mn>5</mn><mo>⋅</mo><msup><mn>2</mn><mrow><mi>x</mi><mtext> </mtext><mo>+</mo><mtext> </mtext><mn>2</mn></mrow></msup><mo>−</mo><mn>16</mn></mrow><mrow><mi>x</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo>≥</mo><mn>0.</mn></mrow></mstyle></math></span><span> </span></p>  </section></div><h2>Состав и исключения</h2><pre>{
+  &quot;complete&quot;: true,
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;author_mode&quot;: &quot;standalone_initial&quot;,
+  &quot;author_path&quot;: &quot;raw\\author\\A18442.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\A18442.json&quot;,
+  &quot;feedback_ref&quot;: null,
+  &quot;source_run&quot;: &quot;data/annotation/runs/2026-11-02-fipi-extension-150&quot;
+}</pre><h2>Буквальный сохранённый разбор: ответ, шаги, KC, методы</h2><pre>{
+  &quot;task_id&quot;: &quot;A18442&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;(-∞; 1) ∪ [2; +∞)&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Установить область допустимых значений по знаменателю дроби.&quot;,
+      &quot;result&quot;: &quot;x − 1 ≠ 0, то есть x ≠ 1; показательные выражения определены при всех действительных x.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Привести степени в числителе к основанию 2 и ввести t = 2^x &gt; 0.&quot;,
+      &quot;result&quot;: &quot;2^(3x) − 2·4^(x+1) + 5·2^(x+2) − 16 = t³ − 8t² + 20t − 16.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Разложить полученный многочлен на множители и вернуться к переменной x.&quot;,
+      &quot;result&quot;: &quot;t³ − 8t² + 20t − 16 = (t − 2)²(t − 4). Исходное неравенство принимает вид (2^x − 2)²(2^x − 4)/(x − 1) ≥ 0 при x ≠ 1.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Определить знак квадратного множителя на ОДЗ и убрать строго положительный множитель из неравенства.&quot;,
+      &quot;result&quot;: &quot;2^x − 2 = 0 только при x = 1, который исключён из ОДЗ. Поэтому (2^x − 2)² &gt; 0 на всей ОДЗ и неравенство равносильно (2^x − 4)/(x − 1) ≥ 0 при x ≠ 1.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k4&quot;,
+        &quot;k5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s5&quot;,
+      &quot;action&quot;: &quot;Найти критические точки и определить знак дроби на промежутках с учётом монотонности показательной функции.&quot;,
+      &quot;result&quot;: &quot;Так как 2^x строго возрастает, 2^x − 4 отрицательно при x &lt; 2, равно нулю при x = 2 и положительно при x &gt; 2. Знаменатель меняет знак при x = 1. Дробь положительна на (−∞; 1) и (2; +∞), отрицательна на (1; 2); точка 2 включается, точка 1 исключается. Решение: (−∞; 1) ∪ [2; +∞).&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k5&quot;,
+        &quot;k6&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;k1&quot;,
+      &quot;name&quot;: &quot;Устанавливать ограничения по знаменателю дроби&quot;,
+      &quot;description&quot;: &quot;Для дробного выражения исключать значения переменной, при которых знаменатель равен нулю, и сохранять эти ограничения при последующих преобразованиях.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k2&quot;,
+      &quot;name&quot;: &quot;Преобразовывать показательный многочлен заменой переменной&quot;,
+      &quot;description&quot;: &quot;Если показательные слагаемые приводятся к степеням одного положительного основания, отличного от единицы, применять свойства степеней и заменять базовое показательное выражение новой положительной переменной, получая многочлен.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k3&quot;,
+      &quot;name&quot;: &quot;Разлагать многочлен на линейные множители&quot;,
+      &quot;description&quot;: &quot;Для многочлена с найденными корнями выделять соответствующие линейные множители с учётом их кратности и проверять полученное разложение раскрытием скобок или делением многочлена.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k4&quot;,
+      &quot;name&quot;: &quot;Исключать строго положительный множитель при исследовании знака&quot;,
+      &quot;description&quot;: &quot;В неравенстве с произведением или дробью устанавливать строгую положительность множителя на рассматриваемой области и удалять его без изменения знака неравенства; для квадратного множителя предварительно учитывать все его нули.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k5&quot;,
+      &quot;name&quot;: &quot;Определять нули и знак разности показательной функции и константы&quot;,
+      &quot;description&quot;: &quot;Для положительного основания, отличного от единицы, находить точку равенства показательной функции положительной константе и использовать возрастание либо убывание функции для определения знака разности по сторонам этой точки.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k6&quot;,
+      &quot;name&quot;: &quot;Решать дробное неравенство по знакам множителей&quot;,
+      &quot;description&quot;: &quot;При известных нулях и знаках числителя и знаменателя разбивать область на промежутки, определять знак частного и выбирать промежутки требуемого знака; включать допустимые нули числителя при нестрогом неравенстве и исключать нули знаменателя.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Разложение показательного числителя с последующим исследованием знака дроби&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;,
+        &quot;s5&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h2>Буквальный независимый аудит</h2><pre>{
+  &quot;task_id&quot;: &quot;A18442&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;k1&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;x − 1 ≠ 0, то есть x ≠ 1&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;при x ≠ 1.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;rational_intervals&quot;,
+          &quot;reason&quot;: &quot;Шире ограничения знаменателя: дополнительно требует исследовать знаки на промежутках.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Нули исходного знаменателя выделены, исключение x=1 сохранено в преобразованном неравенстве. Это полное действие ограничения области, а не весь метод интервалов.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;k2&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Привести степени в числителе к основанию 2 и ввести t = 2^x &gt; 0.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;2^(3x) − 2·4^(x+1) + 5·2^(x+2) − 16 = t³ − 8t² + 20t − 16.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+          &quot;reason&quot;: &quot;Покрывает преобразование степеней, но не введение положительной переменной и согласование всех степеней с ней.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Основание 2 положительно и отлично от единицы; введено t=2^x&gt;0, исходные степени согласованы с t и получен многочлен. Это ровно граница определения замены, без решения нового неравенства и обратного перехода.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;k3&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;t³ − 8t² + 20t − 16 = (t − 2)²(t − 4).&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_89adef4e8cee&quot;,
+          &quot;reason&quot;: &quot;Относится к квадратному трёхчлену с параметром; здесь кубический многочлен без параметра.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+          &quot;reason&quot;: &quot;Разложение используется для знакового неравенства, а не для решения уравнения через нулевое произведение.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Показано правильное тождественное разложение многочлена в произведение с двойным множителем t−2 и простым t−4, предназначенное для дальнейшего исследования знака. Отдельная строка раскрытия скобок не выписана; тождество непосредственно проверяемо и верно. Обратная подстановка в том же шаге не включается в соответствие самого кандидата факторизации.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;k4&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_f68eccc115c2&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;2^x − 2 = 0 только при x = 1, который исключён из ОДЗ. Поэтому (2^x − 2)² &gt; 0 на всей ОДЗ и неравенство равносильно (2^x − 4)/(x − 1) ≥ 0 при x ≠ 1.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_b9b755cc8462&quot;,
+          &quot;reason&quot;: &quot;Описывает умножение неравенства на положительное выражение; непосредственно наблюдается удаление положительного множителя.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_ef3f8c7287d4&quot;,
+          &quot;reason&quot;: &quot;Требует положительного знаменателя; знаменатель x−1 здесь меняет знак.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Установлены все нули квадратного множителя и их исключение из области. Поэтому множитель строго положителен на всей рассматриваемой области и удаляется из знакового неравенства равносильно.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;k5&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;exponential_inequality&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s5:result&quot;,
+          &quot;quote&quot;: &quot;Так как 2^x строго возрастает, 2^x − 4 отрицательно при x &lt; 2, равно нулю при x = 2 и положительно при x &gt; 2.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+          &quot;reason&quot;: &quot;Покрывает лишь переход к равенству показателей при нахождении нуля, но не знаки разности по сторонам нуля.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;,
+          &quot;reason&quot;: &quot;Монотонность показательной функции используется непосредственно; знак производной не исследуется.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Определение знака 2^x−4 означает решение сравнений 2^x&lt;4 и 2^x&gt;4. Автор явно переходит к x&lt;2 и x&gt;2 по возрастанию функции с основанием 2&gt;1, включая границу равенства. Это полное наблюдаемое применение монотонности, а не только необходимое действие нахождения нуля в s4.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;k6&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;rational_intervals&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s5:result&quot;,
+          &quot;quote&quot;: &quot;Знаменатель меняет знак при x = 1. Дробь положительна на (−∞; 1) и (2; +∞), отрицательна на (1; 2); точка 2 включается, точка 1 исключается. Решение: (−∞; 1) ∪ [2; +∞).&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s4:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a78667313aa3&quot;,
+          &quot;reason&quot;: &quot;Требует положительного знаменателя, которого на всей области нет.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+          &quot;reason&quot;: &quot;Совмещение ограничений является компонентом, но не покрывает определение знака частного на промежутках.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Дробь разделена нулём числителя x=2 и исключённой точкой знаменателя x=1 на промежутки; определены знаки и обработаны концы. Хотя числитель показательный, определение каталога задаёт операцию по нулям, полюсам и знакам без требования полиномиального числителя; наблюдаемое действие соответствует ему полностью.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre><h2>Исторические редакторские назначения</h2><pre>[]</pre><p><a href="../../../runs/2026-11-02-fipi-extension-150/raw/author/A18442.json">author raw</a> · <a href="../../../runs/2026-11-02-fipi-extension-150/raw/auditor/A18442.json">auditor raw</a></p><pre>{
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;source_policy_included&quot;: true,
+  &quot;source_policy_exclusion_reasons&quot;: []
+}</pre></html>

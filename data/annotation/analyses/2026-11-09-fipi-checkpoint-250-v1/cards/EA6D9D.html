@@ -1,0 +1,239 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>EA6D9D</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><a href="../index.html">Сводка</a><h1>EA6D9D</h1><p>historical_independent50</p><p>Предварительные разборы, внешнего эталона нет.</p><h2>Условие</h2>Дайте развернутый ответ.<div><section>  <p class="MsoNormal">В июле 2020 года планируется взять кредит в банке на некоторую сумму. Условия его возврата таковы:</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mo>—</mo>  </semantics> </mstyle></math> каждый январь долг увеличивается на 10% по сравнению с концом предыдущего года;</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mo>—</mo>  </semantics> </mstyle></math> с февраля по июнь каждого года необходимо выплатить одним платежом часть долга.</p> <p class="MsoNormal">Сколько рублей будет выплачено банку, если известно, что кредит будет полностью погашен тремя равными платежами (то есть за три года) и общая сумма выплат после полного погашения кредита на 34 150 рублей больше суммы, взятой в кредит?<span></span></p>  </section></div><h2>Состав и исключения</h2><pre>{
+  &quot;complete&quot;: true,
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;author_mode&quot;: &quot;standalone_initial&quot;,
+  &quot;author_path&quot;: &quot;raw\\author\\EA6D9D.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\EA6D9D.json&quot;,
+  &quot;feedback_ref&quot;: null,
+  &quot;source_run&quot;: &quot;data/annotation/runs/2026-11-02-fipi-extension-150&quot;
+}</pre><h2>Буквальный сохранённый разбор: ответ, шаги, KC, методы</h2><pre>{
+  &quot;task_id&quot;: &quot;EA6D9D&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;199650 рублей&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Обозначить сумму кредита через S, каждый равный платёж через x и выразить условие о превышении общей суммы выплат над кредитом.&quot;,
+      &quot;result&quot;: &quot;S &gt; 0, x &gt; 0. Всего будет выплачено 3x рублей, поэтому 3x − S = 34150, то есть S = 3x − 34150.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Последовательно вычислить остатки долга после каждого из трёх ежегодных начислений процентов и платежей, затем применить условие полного погашения.&quot;,
+      &quot;result&quot;: &quot;После платежей в 2021, 2022 и 2023 годах остатки равны соответственно D1 = 1,1S − x; D2 = 1,1D1 − x = 1,21S − 2,1x; D3 = 1,1D2 − x = 1,331S − 3,31x. Полное погашение даёт 1,331S − 3,31x = 0.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Подставить выражение суммы кредита в уравнение погашения, решить полученное линейное уравнение и вычислить общую сумму платежей; проверить допустимость графика.&quot;,
+      &quot;result&quot;: &quot;1,331(3x − 34150) − 3,31x = 0, откуда 0,683x = 45453,65 и x = 66550. Сумма кредита S = 165500. Остатки долга после платежей: 115500, 60500 и 0 рублей, поэтому до последнего платежа долг положителен. Общая сумма выплат 3x = 199650 рублей, а её превышение над кредитом равно 199650 − 165500 = 34150 рублей.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;,
+        &quot;kc4&quot;,
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Выразить превышение общей суммы равных платежей над суммой кредита&quot;,
+      &quot;description&quot;: &quot;По числу равных платежей и заданной разности между общей выплатой и первоначальным кредитом составить линейную связь размера платежа и суммы кредита; применяется при одинаковом размере всех учитываемых платежей.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Построить последовательность остатков долга при ежегодном начислении процентов и равных платежах&quot;,
+      &quot;description&quot;: &quot;По первоначальному долгу, постоянной процентной ставке и равному платежу вычислять следующий остаток как предыдущий долг, умноженный на коэффициент роста, минус платёж; применяется, когда начисление процентов предшествует платежу каждого периода. Условие полного погашения задаётся нулевым последним остатком, а допустимость графика проверяется по промежуточным остаткам.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Исключить переменную подстановкой известного выражения&quot;,
+      &quot;description&quot;: &quot;Если одна переменная выражена через другую, подставить это выражение в оставшееся уравнение и привести его к уравнению с одной неизвестной, сохраняя исходные ограничения.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Решить линейное уравнение с числовыми коэффициентами&quot;,
+      &quot;description&quot;: &quot;Для линейного уравнения с одной неизвестной собрать слагаемые, разделить на ненулевой коэффициент при неизвестной и получить её значение; применяется при ненулевом коэффициенте после приведения подобных слагаемых.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Моделирование ежегодного остатка долга и подстановка условия о переплате&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h2>Буквальный независимый аудит</h2><pre>{
+  &quot;task_id&quot;: &quot;EA6D9D&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;Всего будет выплачено 3x рублей, поэтому 3x − S = 34150, то есть S = 3x − 34150.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+          &quot;reason&quot;: &quot;Определение исключает построение модели; здесь составляется связь величин по условию.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+          &quot;reason&quot;: &quot;Связь задаёт абсолютную разность общей выплаты и кредита, а не процентную долю.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_33060533660f&quot;,
+          &quot;reason&quot;: &quot;Нет выручки, затрат на выпуск и срока окупаемости; модель кредитной переплаты не соответствует этому определению.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдается перевод числа равных платежей и абсолютной переплаты в линейную связь размера платежа с первоначальной суммой. Полного определения этой операции в просмотренном каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Составлять связь равных платежей и абсолютной переплаты&quot;,
+        &quot;definition&quot;: &quot;По числу n одинаковых платежей x, первоначальной сумме S и превышению общей выплаты над ней на d составить nx − S = d, согласовав денежные единицы.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;D1 = 1,1S − x; D2 = 1,1D1 − x = 1,21S − 2,1x; D3 = 1,1D2 − x = 1,331S − 3,31x. Полное погашение даёт 1,331S − 3,31x = 0.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;Остатки долга после платежей: 115500, 60500 и 0 рублей, поэтому до последнего платежа долг положителен.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+          &quot;reason&quot;: &quot;Перевод 10% в прирост — только компонент; определение не охватывает последовательность начисления и вычитания платежа, терминальное условие и проверку графика.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+          &quot;reason&quot;: &quot;Соответствует части с проверкой найденных значений на условия модели, но не построению долговой рекурсии.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+          &quot;reason&quot;: &quot;Формула долговой динамики выводится из условий, а не дана для подстановки.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Авторский кандидат соединяет построение модели остатков с последующей проверкой допустимости уже найденного графика. В s2 наблюдается первая операция, в s3 — вторая. Одним узким определением каталога весь кандидат не покрывается.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;name&quot;: &quot;Моделировать остаток долга после начисления процентов и платежа&quot;,
+            &quot;definition&quot;: &quot;При начислении p процентов перед каждым равным платежом x построить D_k=(1+p/100)D_(k−1)−x с D_0=S и выразить полное погашение условием D_n=0.&quot;,
+            &quot;possible_catalog_kc_ids&quot;: []
+          },
+          {
+            &quot;name&quot;: &quot;Проверять допустимость найденного графика погашения&quot;,
+            &quot;definition&quot;: &quot;Для найденных сумм проверить положительность долга до последнего платежа и нулевой конечный остаток в исходной кредитной модели.&quot;,
+            &quot;possible_catalog_kc_ids&quot;: [
+              &quot;literal_c840012ba3dd&quot;
+            ]
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_0a4ebc8382b5&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;1,331(3x − 34150) − 3,31x = 0&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_48d7fd02cfd9&quot;,
+          &quot;reason&quot;: &quot;Узкое определение требует подстановки y=mx. Здесь аффинная связь S=3x−34150 с ненулевым свободным членом.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Из линейной связи в s1 выражено S, и в s3 это выражение подставлено в уравнение s2. Уравнение становится уравнением одной переменной; деления на выражение с неизвестной нет, исходные ограничения затем проверены.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;откуда 0,683x = 45453,65 и x = 66550.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [],
+      &quot;alternatives_checked&quot;: [],
+      &quot;rationale&quot;: &quot;Наблюдается решение аффинного уравнения с числовыми коэффициентами: после приведения подобных слагаемых коэффициент 0,683 ненулевой, найдено единственное значение x. Составление модели сюда не включается.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;missing_annotation&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s3:result&quot;
+      ],
+      &quot;description&quot;: &quot;Переход от найденного размера одного платежа к требуемой общей сумме наблюдается в словах «Общая сумма выплат 3x = 199650 рублей», но отдельным локальным кандидатом не покрыт. Близкое определение каталога literal_89184e5e6ac9 описывает восстановление искомой величины из вспомогательного параметра. Это замечание о покрытии разметки, а не о правильности ответа.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: []
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre><h2>Исторические редакторские назначения</h2><pre>[]</pre><p><a href="../../../runs/2026-11-02-fipi-extension-150/raw/author/EA6D9D.json">author raw</a> · <a href="../../../runs/2026-11-02-fipi-extension-150/raw/auditor/EA6D9D.json">auditor raw</a></p><pre>{
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;source_policy_included&quot;: true,
+  &quot;source_policy_exclusion_reasons&quot;: []
+}</pre></html>

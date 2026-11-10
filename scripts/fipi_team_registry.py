@@ -62,11 +62,17 @@ def build():
                 counts=dict(Counter(x['processing_status'] for x in records)), tasks=records)
 
 
-def check_claim(registry, claims, ids):
+def check_claim(registry, claims, ids, selection=None):
     errors = []
     if len(set(ids)) != len(ids):
         errors.append('Repeated ID in proposal')
     tasks = {x['task_id']: x for x in registry['tasks']}
+    selection_ids = None
+    if selection is not None:
+        selected = [x['task_id'] for x in selection['tasks']]
+        selection_ids = set(selected)
+        if len(selected) != len(selection_ids):
+            errors.append('Repeated ID in additional selection')
     occupied = {}
     for claim in claims['claims']:
         if claim['status'] not in ('reserved', 'in_progress', 'submitted', 'accepted'):
@@ -83,7 +89,9 @@ def check_claim(registry, claims, ids):
             errors.append(f'Already processed: {tid}')
         elif task['source_issues']:
             errors.append(f'Source issue: {tid}')
-        elif not task['eligible_for_next_queue']:
+        elif selection_ids is not None and tid not in selection_ids:
+            errors.append(f'Outside additional selection: {tid}')
+        elif selection_ids is None and not task['eligible_for_next_queue']:
             errors.append(f'Outside frozen remaining queue: {tid}')
         if tid in occupied:
             errors.append(f'Occupied: {tid}: {occupied[tid]}')
@@ -95,6 +103,8 @@ def main():
     parser.add_argument('command', choices=('build', 'check', 'check-claim'))
     parser.add_argument('--ids', nargs='+')
     parser.add_argument('--claims', type=Path, default=TEAM / 'claims.json')
+    parser.add_argument('--selection', type=Path,
+                        help='Explicit additional queue; does not change the frozen queue')
     args = parser.parse_args()
     path = ROOT / TEAM / 'registry.json'
     if args.command == 'build':
@@ -109,7 +119,8 @@ def main():
         registry = read(TEAM / 'registry.json')
         if registry != build():
             raise SystemExit('Stale registry; inspect source changes before proposing IDs')
-        errors = check_claim(registry, read(args.claims), args.ids)
+        selection = read(args.selection) if args.selection else None
+        errors = check_claim(registry, read(args.claims), args.ids, selection)
         if errors:
             raise SystemExit('\n'.join(errors))
         print('Local preflight passed. This does NOT reserve IDs or authorize generation. Recheck live GitHub with coordinator.')

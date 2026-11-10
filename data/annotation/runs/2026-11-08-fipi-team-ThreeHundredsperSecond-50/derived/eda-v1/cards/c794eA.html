@@ -1,0 +1,261 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>c794eA</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>34. ФИПИ c794eA</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">а) Можно ли представить число 2043 в виде суммы двух различных натуральных чисел с одинаковой суммой цифр?</p> <p class="MsoNormal">б) Можно ли представить число 599 в виде суммы двух различных натуральных чисел с одинаковой суммой цифр?</p> <p class="MsoNormal">в) Найдите наименьшее натуральное число, которое можно представить в виде суммы семи различных натуральных чисел с одинаковой суммой цифр.</p>  </section></div><p>КЭС: 1.1 Натуральные и целые числа. Признаки делимости целых чисел</p><h2>Ответ</h2><p>а) Да: 2043 = 900 + 1143, суммы цифр обоих слагаемых равны 9. б) Нет. в) 231 = 6 + 15 + 24 + 33 + 42 + 51 + 60.</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Построить и проверить представление числа из пункта а).</td><td>900 + 1143 = 2043; числа натуральные и различные, суммы их цифр равны 9.</td><td>k1</td></tr><tr><td>s2 · condition</td><td>Исследовать переносы при сложении двух натуральных чисел с суммой 599.</td><td>Дополняем записи слагаемых ведущими нулями до трёх разрядов. В единицах сумма цифр должна равняться 9: значение 19 невозможно. Поэтому переноса в десятки нет. Аналогично в десятках сумма цифр равна 9 и переноса в сотни нет. Сумма цифр сотен равна 5. Следовательно, сумма сумм цифр слагаемых равна 9 + 9 + 5 = 23.</td><td>k2</td></tr><tr><td>s3 · s2</td><td>Проверить совместимость равенства сумм цифр с полученной нечётной суммой.</td><td>Если суммы цифр обоих слагаемых равны целому числу s, то 2s = 23, что невозможно. Представления из пункта б) нет даже без требования различия слагаемых.</td><td>k3</td></tr><tr><td>s4 · condition</td><td>Получить нижнюю границу суммы семи различных чисел с общей суммой цифр s.</td><td>Пусть n1 &lt; n2 &lt; ... &lt; n7 — слагаемые, а s ≥ 1 — общая сумма их цифр. Для любого натурального n сумма цифр не превосходит n и сравнима с n по модулю 9. Поэтому n1 ≥ s, а разности соседних слагаемых — положительные кратные 9. Отсюда ni ≥ s + 9(i−1) и сумма слагаемых не меньше 7s + 189. При s ≥ 6 она не меньше 231.</td><td>k4, k5</td></tr><tr><td>s5 · s4</td><td>Усилить нижнюю границу для малых значений общей суммы цифр.</td><td>При 1 ≤ s ≤ 5 число меньше 100 с суммой цифр s имеет вид 10a + (s−a), где a = 0, ..., s. Таких чисел s+1 ≤ 6, поэтому n7 ≥ 100. Если трёхзначное или более длинное число имеет сумму цифр s, то оно не меньше 99+s: для трёхзначного числа n−s = 99a+9b ≥ 99, а число с четырьмя и более цифрами заведомо больше 99+s. Первые шесть слагаемых по предыдущей оценке имеют сумму не меньше 6s+135. Значит, сумма всех семи не меньше 7s+234 ≥ 241 &gt; 231.</td><td>k6, k5</td></tr><tr><td>s6 · condition, s4, s5</td><td>Построить набор, достигающий общей нижней границы.</td><td>Числа 6, 15, 24, 33, 42, 51, 60 натуральные и попарно различные, сумма цифр каждого равна 6. Их сумма равна 231. Вместе с нижними границами для всех s ≥ 1 это доказывает, что искомый минимум равен 231.</td><td>k1, k7</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Проверяемый пример для существования представления&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;m2&quot;,
+    &quot;name&quot;: &quot;Отсутствие переносов и противоречие по чётности&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;m3&quot;,
+    &quot;name&quot;: &quot;Нижняя оценка через сумму цифр и класс вычетов с достижением границы&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s4&quot;,
+      &quot;s5&quot;,
+      &quot;s6&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="k1"><h3>k1 · Построить представление с заданными суммами цифр</h3><p>Для заданных ограничений на натуральные слагаемые предъявить конкретный набор и проверить его сумму, различие элементов и суммы цифр; применимо для доказательства существования.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;integer_construction&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;900 + 1143 = 2043; числа натуральные и различные, суммы их цифр равны 9.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s6:result&quot;,
+      &quot;quote&quot;: &quot;Числа 6, 15, 24, 33, 42, 51, 60 натуральные и попарно различные, сумма цифр каждого равна 6. Их сумма равна 231.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_f6b803c5f9c2&quot;,
+      &quot;reason&quot;: &quot;Определение связано с достижением границы; пример в s1 доказывает только существование.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;optimal_bound_attainment&quot;,
+      &quot;reason&quot;: &quot;Общая граница не входит в k1 и отдельно отражена k7.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Предъявлены натуральные целочисленные наборы нужного размера и проверены различность, сумма и ограничение на суммы цифр. Специфика десятичной записи не меняет общее действие построения проверяемого примера.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="k2"><h3>k2 · Определить переносы в десятичном сложении</h3><p>По цифрам результата и допустимым суммам цифр слагаемых последовательно установить переносы между разрядами и связь сумм цифр; учитывает входящий перенос каждого разряда.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;В единицах сумма цифр должна равняться 9: значение 19 невозможно. Поэтому переноса в десятки нет. Аналогично в десятках сумма цифр равна 9 и переноса в сотни нет. Сумма цифр сотен равна 5. Следовательно, сумма сумм цифр слагаемых равна 9 + 9 + 5 = 23.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_e3fb5cdd2965&quot;,
+      &quot;reason&quot;: &quot;Сравнения по модулю не устанавливают конкретные разрядные переносы и точную сумму сумм цифр.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;По ограничению суммы двух цифр от 0 до 18 последовательно исключены переносы с учётом предыдущего разряда; это не действие над остатками суммы в определении ближайшего KC. После просмотра полного каталога определения для разрядного анализа не найдено.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;По десятичным цифрам суммы и ограничениям на цифры слагаемых последовательно определить допустимые переносы с учётом входящего переноса и вывести связь сумм цифр.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="k3"><h3>k3 · Исключить равенство целых величин по чётности</h3><p>Если две равные целые величины должны иметь нечётную сумму, вывести противоречие с чётностью удвоенного целого числа.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k3&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;Если суммы цифр обоих слагаемых равны целому числу s, то 2s = 23, что невозможно.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;,
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;Не находится множество вещественных решений аффинного уравнения; противоречие использует целочисленность и чётность.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_e3fb5cdd2965&quot;,
+      &quot;reason&quot;: &quot;Этот KC связывает допустимые остатки с количеством слагаемых; здесь фиксированное удвоение целого исключается по нечётности результата без такого подсчёта.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдается вывод невозможности двух равных целых сумм цифр с нечётной общей суммой. Полного определения этого действия в каталоге нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;При равенстве двух целых величин представить их сумму удвоенным целым и исключить нечётное значение этой суммы по чётности.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="k4"><h3>k4 · Связать натуральное число с суммой его цифр</h3><p>Для десятичной записи натурального числа использовать неравенство между числом и суммой цифр и их сравнимость по модулю девять.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k4&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;Для любого натурального n сумма цифр не превосходит n и сравнима с n по модулю 9.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_e3fb5cdd2965&quot;,
+      &quot;reason&quot;: &quot;Может использовать уже известные остатки при суммировании, но не устанавливает ни связь десятичной записи с остатком, ни неравенство числа и суммы цифр.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет две независимые характеристики десятичной записи: нижнюю оценку числа и сравнимость по модулю 9. Один узкий KC не покрывает обе.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;definition&quot;: &quot;Использовать неравенство между натуральным числом и суммой его десятичных цифр.&quot;,
+        &quot;possible_catalog_kc_ids&quot;: []
+      },
+      {
+        &quot;definition&quot;: &quot;Устанавливать сравнимость натурального числа с суммой его десятичных цифр по модулю 9.&quot;,
+        &quot;possible_catalog_kc_ids&quot;: []
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="k5"><h3>k5 · Оценить сумму различных чисел одного класса вычетов</h3><p>Упорядочить различные целые числа с общим остатком по заданному модулю и нижней границей первого элемента; оценить каждый следующий элемент через минимальный положительный разрыв и сложить оценки.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k5&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;Поэтому n1 ≥ s, а разности соседних слагаемых — положительные кратные 9. Отсюда ni ≥ s + 9(i−1) и сумма слагаемых не меньше 7s + 189.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s5:result&quot;,
+      &quot;quote&quot;: &quot;Первые шесть слагаемых по предыдущей оценке имеют сумму не меньше 6s+135.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s4:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_de250a7de0bb&quot;,
+      &quot;reason&quot;: &quot;Требует минимальных положительных представителей классов остатков; здесь используется дополнительная нижняя граница s первого элемента, которая может превосходить минимального положительного представителя.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_af302473a16f&quot;,
+      &quot;reason&quot;: &quot;Определение относится к положительным кратным, тогда как слагаемые имеют общий произвольный остаток и заданную начальную границу.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;arithmetic_series&quot;,
+      &quot;reason&quot;: &quot;Суммирование прогрессии является компонентом, но определение отдельно исключает доказательство минимальности набора.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Упорядочивание, минимальный разрыв и суммирование оценок образуют действие нижней оценки набора с заданной начальной границей. В полном каталоге нет определения, покрывающего его условия целиком.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Для упорядоченных различных целых одного класса вычетов с известной нижней границей первого элемента использовать минимальный положительный разрыв, получить оценки каждого элемента и нижнюю оценку их суммы.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="k6"><h3>k6 · Ограничить количество коротких записей с заданной суммой цифр</h3><p>Перечислить допустимые разрядные цифры при фиксированной небольшой сумме цифр, оценить число одно- и двузначных записей и вывести необходимость более длинного числа в наборе.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k6&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s5:result&quot;,
+      &quot;quote&quot;: &quot;При 1 ≤ s ≤ 5 число меньше 100 с суммой цифр s имеет вид 10a + (s−a), где a = 0, ..., s. Таких чисел s+1 ≤ 6, поэтому n7 ≥ 100.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s4:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;finite_exhaustion&quot;,
+      &quot;reason&quot;: &quot;Здесь параметрически подсчитаны допустимые записи и выведено ограничение на длину седьмой; не проводится рассмотрение каждого конечного случая для доказательства утверждения.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_de250a7de0bb&quot;,
+      &quot;reason&quot;: &quot;Не подсчитывает десятичные записи и не выводит необходимость числа большей разрядности.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдается параметризация разрядных цифр при малой сумме, подсчёт всех коротких записей и вывод о нехватке их для семи различных чисел. Соответствующего определения в полном каталоге нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;При фиксированной малой сумме десятичных цифр параметризовать и подсчитать одно- и двузначные натуральные числа и по недостатку их количества вывести необходимость числа большей разрядности.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="k7"><h3>k7 · Доказать минимум достижением нижней границы</h3><p>Объединить нижнюю оценку для всех допустимых случаев с конкретным допустимым набором, достигающим оценки, и установить минимальное значение.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;k7&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;optimal_bound_attainment&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s6:result&quot;,
+      &quot;quote&quot;: &quot;Их сумма равна 231. Вместе с нижними границами для всех s ≥ 1 это доказывает, что искомый минимум равен 231.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s4:result&quot;,
+    &quot;step:s5:result&quot;,
+    &quot;step:s6:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_f6b803c5f9c2&quot;,
+      &quot;reason&quot;: &quot;Перекрывает проверку целочисленного примера, но явно оговаривает максимум; optimal_bound_attainment прямо покрывает общее доказательство оптимальности нижней границей.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;integer_construction&quot;,
+      &quot;reason&quot;: &quot;Покрывает пример, но не вывод минимальности из общей границы.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Для всех s ≥ 6 получена граница 231, для 1 ≤ s ≤ 5 — более сильная граница; допустимый набор с суммой 231 завершает общее доказательство минимума. Способы получения оценок остаются отдельными действиями.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[
+  &quot;Предварительная предметная интерпретация; не является экспертным эталоном или оценкой ученика.&quot;
+]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;missing_annotation&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s5:result&quot;
+    ],
+    &quot;description&quot;: &quot;Оценка длинного числа n ≥ 99+s через разрядное разложение n−s = 99a+9b ≥ 99 является существенным отдельным действием: она не входит в k6 (подсчёт коротких записей) или k5 (сумма оценок упорядоченного набора). Явной локальной разметки этого перехода нет. Это не опровергает наблюдаемое действие k6 или математический вывод.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;k6&quot;
+    ]
+  }
+]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;source_path&quot;: &quot;data/fipi/2026-10-31-profile/tasks/c794eA.json&quot;,
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\c794eA.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\c794eA.json&quot;
+}</pre></html>

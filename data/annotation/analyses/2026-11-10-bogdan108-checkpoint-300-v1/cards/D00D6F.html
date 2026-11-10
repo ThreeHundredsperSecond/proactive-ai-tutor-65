@@ -1,0 +1,121 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>D00D6F</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>58. ФИПИ D00D6F · бронь #4, партия 5</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal"><span>На рисунке изображены график функции </span><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>y</mi><mo>=</mo><mi>f</mi><mrow><mo>(</mo> <mi>x</mi> <mo>)</mo></mrow> </mrow> </semantics> </math> <span>и касательная к нему <br> в точке с абсциссой </span><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msub> <mi>x</mi> <mn>0</mn> </msub> <mo>.</mo> </mrow> </semantics> </math><span> Найдите значение производной функции </span><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>f</mi><mrow><mo>(</mo> <mi>x</mi> <mo>)</mo></mrow> </mrow> </semantics> </math> <br> <span>в точке </span><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msub> <mi>x</mi> <mn>0</mn> </msub> <mo>.</mo> </mrow> </semantics> </math><span></span></p> <p class="MsoNormal" align="center"><img src="../../../runs/2026-11-09-fipi-team-bogdan108-next-100/inputs/assets/f5f8454ec6265fd9fca4d17b.png" alt="Рисунок ФИПИ"><span></span></p>  </section></div><p>КЭС: 4.1 Производная функции. Производные элементарных функций; 4.2 Применение производной к исследованию функций на монотонность и экстремумы. Нахождение наибольшего и наименьшего значения функции на отрезке</p><h2>Ответ</h2><p>-1,4</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Определить по рисунку две точки касательной с целочисленными координатами</td><td>(2; 3) и (7; -4)</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Вычислить угловой коэффициент касательной по двум точкам</td><td>k = (-4-3)/(7-2) = -1,4</td><td>kc2</td></tr><tr><td>s3 · s2, condition</td><td>Применить геометрический смысл производной: f&#x27;(x0) равна угловому коэффициенту касательной</td><td>f&#x27;(x0) = -1,4</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Производная через угловой коэффициент касательной по двум точкам сетки&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Считать координаты точек прямой по графику</h3><p>По изображению прямой на координатной сетке выбрать точки, лежащие на прямой в узлах сетки, и записать их координаты.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;graph_coordinates&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Определить по рисунку две точки касательной с целочисленными координатами&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;(2; 3) и (7; -4)&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;image:assets/f5f8454ec6265fd9fca4d17b.png&quot;,
+      &quot;region_description&quot;: &quot;На прямой-касательной отмечены жирные точки в узлах сетки: одна при x=2 на уровне подписи 3 оси y, другая при x=7 на уровне подписи -4; масштаб сетки задан подписями 0,1,2,7 и 1,3,-4.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_f253b50b98a1&quot;,
+      &quot;reason&quot;: &quot;Восстановление коэффициентов прямой — последующее действие, не чтение координат.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Считывание координат отмеченных точек по сетке с подписанным масштабом полностью соответствует определению graph_coordinates; точки на рисунке отмечены явно.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Вычислить угловой коэффициент прямой по двум точкам</h3><p>По координатам двух различных точек невертикальной прямой найти k как отношение приращения ординаты к приращению абсциссы.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Вычислить угловой коэффициент касательной по двум точкам&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;k = (-4-3)/(7-2) = -1,4&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_f253b50b98a1&quot;,
+      &quot;reason&quot;: &quot;Требует найти оба коэффициента y=kx+b; здесь вычислен только k, b не находится — действие-компонент, не полное соответствие.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;direct_proportion&quot;,
+      &quot;reason&quot;: &quot;Касается y=kx по одной точке; прямая не проходит через начало координат.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — отношение приращений ординаты и абсциссы двух точек невертикальной прямой; в каталоге есть только более широкий узел восстановления всей линейной функции.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Вычислять угловой коэффициент прямой по двум точкам&quot;,
+    &quot;definition&quot;: &quot;По двум точкам с разными абсциссами найти k=(y2-y1)/(x2-x1) без нахождения свободного члена; вертикальная прямая исключена.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Применить геометрический смысл производной</h3><p>Значение производной в точке касания приравнять угловому коэффициенту касательной к графику в этой точке; касательная невертикальна.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Применить геометрический смысл производной: f&#x27;(x0) равна угловому коэффициенту касательной&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;f&#x27;(x0) = -1,4&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9aee0783618d&quot;,
+      &quot;reason&quot;: &quot;Чтение знака производной по графику производной, а не значения через касательную.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;,
+      &quot;reason&quot;: &quot;Вывод о монотонности по знаку производной, другая операция.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+      &quot;reason&quot;: &quot;Подстановка в формулу функции; формулы f нет.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Приравнивание f&#x27;(x0) угловому коэффициенту невертикальной касательной в точке касания; подходящего узла в каталоге нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Применять геометрический смысл производной&quot;,
+    &quot;definition&quot;: &quot;Значение производной в точке касания приравнять угловому коэффициенту невертикальной касательной к графику в этой точке.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[
+  &quot;Точки (2; 3) и (7; -4) отмечены на рисунке; координаты прочитаны с изображения.&quot;
+]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/D00D6F.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/D00D6F.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

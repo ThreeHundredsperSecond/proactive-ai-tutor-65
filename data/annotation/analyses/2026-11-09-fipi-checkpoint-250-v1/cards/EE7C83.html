@@ -1,0 +1,201 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>EE7C83</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><a href="../index.html">Сводка</a><h1>EE7C83</h1><p>sol50</p><p>Предварительные разборы, внешнего эталона нет.</p><h2>Условие</h2>Впишите правильный ответ.<div><section>  <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0"> <tr> <td valign="top"> <p class="MsoNormal">Площадь треугольника <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mi>C</mi> </mrow> </semantics> </math> равна 60, <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>D</mi><mi>E</mi> </mrow> </semantics> </math> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> средняя линия, параллельная стороне <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mo>.</mo> </mrow> </semantics> </math> Найдите площадь <br> трапеции <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mi>E</mi><mi>D</mi><mo>.</mo> </mrow> </semantics> </math></p> </td> <td valign="top"> <p class="MsoNormal" align="right"><img src="../../../runs/2026-11-08-fipi-team-ThreeHundredsperSecond-50/inputs/assets/55d4f5ccdbd09c079dd4d2b7.png" alt="Рисунок ФИПИ"></p> </td> </tr> </table> <p class="MsoNormal"><span> </span></p>  </section></div><h2>Состав и исключения</h2><pre>{
+  &quot;complete&quot;: true,
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;author_mode&quot;: &quot;standalone_initial&quot;,
+  &quot;author_path&quot;: &quot;raw\\author\\EE7C83.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\EE7C83.json&quot;,
+  &quot;feedback_ref&quot;: null,
+  &quot;source_run&quot;: &quot;data/annotation/runs/2026-11-08-fipi-team-ThreeHundredsperSecond-50&quot;
+}</pre><h2>Буквальный сохранённый разбор: ответ, шаги, KC, методы</h2><pre>{
+  &quot;task_id&quot;: &quot;EE7C83&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;45&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Установить подобие треугольников CDE и CAB и коэффициент подобия.&quot;,
+      &quot;result&quot;: &quot;D и E — середины сторон CA и CB, DE параллельна AB. Угол при C общий, соответствующие углы при параллельных прямых равны, поэтому треугольники CDE и CAB подобны; CD/CA = CE/CB = 1/2.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Найти площадь меньшего треугольника по коэффициенту подобия.&quot;,
+      &quot;result&quot;: &quot;S_CDE = (1/2)^2 S_ABC = 60/4 = 15.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Вычесть площадь отсечённого треугольника из площади исходного треугольника.&quot;,
+      &quot;result&quot;: &quot;Отрезок DE разбивает треугольник ABC на треугольник CDE и трапецию ABED с непересекающимися внутренними областями. S_ABED = S_ABC − S_CDE = 60 − 15 = 45.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Установить подобие треугольника, отсечённого средней линией&quot;,
+      &quot;description&quot;: &quot;По средней линии треугольника установить подобие отсечённого и исходного треугольников по двум углам и определить отношение соответствующих сторон через свойство середин сторон. Применяется к средней линии, соединяющей середины двух сторон треугольника.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Вычислить площадь подобного треугольника&quot;,
+      &quot;description&quot;: &quot;По площади одного из подобных треугольников и отношению соответствующих сторон вычислить площадь другого, умножив исходную площадь на квадрат коэффициента подобия в нужном направлении.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Вычислить площадь оставшейся части фигуры&quot;,
+      &quot;description&quot;: &quot;По площади фигуры и площади выделенной внутри неё части найти площадь оставшейся области вычитанием; применимо при разбиении без перекрытия внутренних областей.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Найти площадь трапеции через подобие отсечённого треугольника и разность площадей&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h2>Буквальный независимый аудит</h2><pre>{
+  &quot;task_id&quot;: &quot;EE7C83&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;D и E — середины сторон CA и CB, DE параллельна AB.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;Угол при C общий, соответствующие углы при параллельных прямых равны, поэтому треугольники CDE и CAB подобны; CD/CA = CE/CB = 1/2.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;similarity_AA&quot;,
+          &quot;reason&quot;: &quot;Покрывает доказательство по углам, но не получение коэффициента из середин.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_b58390338050&quot;,
+          &quot;reason&quot;: &quot;Предполагает установленное подобие; не охватывает доказательство и свойство середины.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_d5e287608dd5&quot;,
+          &quot;reason&quot;: &quot;Охватывает подобие и пропорцию, но не отдельный вывод численного отношения через середины сторон.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a776d95ccb64&quot;,
+          &quot;reason&quot;: &quot;Отношение двух частей по доле целого отличается от отношения половины к целой стороне из определения середины.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат объединяет доказательство подобия AA и получение коэффициента 1/2 через свойство середин. Оба действия наблюдаемы; один узкий узел не покрывает кандидата целиком.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;definition&quot;: &quot;Доказать подобие треугольников по общему углу и равным углам при параллельных прямых с фиксацией соответствия вершин.&quot;,
+            &quot;possible_catalog_kc_ids&quot;: [
+              &quot;similarity_AA&quot;
+            ]
+          },
+          {
+            &quot;definition&quot;: &quot;Из определения середины стороны получить отношение прилегающей части к целой стороне 1/2 и использовать его как коэффициент установленного подобия.&quot;,
+            &quot;possible_catalog_kc_ids&quot;: []
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;similar_area&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;S_CDE = (1/2)^2 S_ABC = 60/4 = 15.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;right_triangle_area&quot;,
+          &quot;reason&quot;: &quot;Прямой угол не установлен; используется квадрат коэффициента подобия, а не произведение катетов.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;В s1 установлены подобие и коэффициент соответствующих длин 1/2. В s2 этот коэффициент возведён в квадрат и применён к известной площади; числовое вычисление завершает действие.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;Отрезок DE разбивает треугольник ABC на треугольник CDE и трапецию ABED с непересекающимися внутренними областями. S_ABED = S_ABC − S_CDE = 60 − 15 = 45.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;similar_area&quot;,
+          &quot;reason&quot;: &quot;Квадрат коэффициента подобия применён в предыдущем шаге; здесь используется аддитивность площадей, а трапеция не подобна треугольнику.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;right_triangle_area&quot;,
+          &quot;reason&quot;: &quot;Вычитание площадей целого и части не является вычислением половины произведения катетов.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Полный каталог не содержит определения площади остатка через разность площадей. В s3 явно установлено разбиение без перекрытия и выполнено вычитание.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;По известным площадям фигуры и выделенной внутри неё части вычислить площадь оставшейся области вычитанием, установив разбиение без перекрытия внутренних областей.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre><h2>Исторические редакторские назначения</h2><pre>[]</pre><p><a href="../../../runs/2026-11-08-fipi-team-ThreeHundredsperSecond-50/raw/author/EE7C83.json">author raw</a> · <a href="../../../runs/2026-11-08-fipi-team-ThreeHundredsperSecond-50/raw/auditor/EE7C83.json">auditor raw</a></p><pre>{
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;source_policy_included&quot;: true,
+  &quot;source_policy_exclusion_reasons&quot;: []
+}</pre></html>

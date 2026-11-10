@@ -1,0 +1,202 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>1EF816</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>93. ФИПИ 1EF816 · бронь #4, партия 7</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p><span>Решите неравенство </span><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <msub> <mrow> <mi>log</mi> </mrow> <mrow> <mn>16</mn> </mrow> </msub> <mrow><mo>(</mo> <mrow> <mi>x</mi><mo>+</mo><mn>5</mn> </mrow> <mo>)</mo></mrow><mo>+</mo><msub> <mrow> <mi>log</mi> </mrow> <mrow> <mrow><mo>(</mo> <mrow> <msup> <mi>x</mi> <mn>2</mn> </msup> <mo>+</mo><mn>10</mn><mi>x</mi><mo>+</mo><mn>25</mn> </mrow> <mo>)</mo></mrow> </mrow> </msub> <mn>2</mn><mo>≥</mo><mfrac> <mn>3</mn> <mn>4</mn> </mfrac> <mo>.</mo> </mrow>  </semantics> </mstyle></math><span></span></p> <p class="MsoNormal"><span> </span></p>  </section></div><p>КЭС: 2.5 Целые и дробно-рациональные неравенства; 2.7 Показательные и логарифмические неравенства</p><h2>Ответ</h2><p>(-4; -3] ∪ [-1; +∞)</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>S1 · condition</td><td>Найти ОДЗ: аргумент логарифма положителен, основание (x+5)^2 положительно и не равно 1</td><td>x &gt; -5, x ≠ -4</td><td>KC1</td></tr><tr><td>S2 · condition, S1</td><td>Привести оба логарифма к основанию 2 и ввести замену t = log_2(x+5)</td><td>log_16(x+5) = t/4, log_{(x+5)^2} 2 = 1/(2t), t ≠ 0; неравенство t/4 + 1/(2t) ≥ 3/4</td><td>KC2, KC3</td></tr><tr><td>S3 · S2</td><td>Привести рациональное неравенство к виду дроби и решить методом интервалов</td><td>(t-1)(t-2)/t ≥ 0, t ∈ (0; 1] ∪ [2; +∞)</td><td>KC4</td></tr><tr><td>S4 · S1, S3</td><td>Вернуться к x, решив простейшие логарифмические неравенства с основанием больше 1, и учесть ОДЗ</td><td>0 &lt; log_2(x+5) ≤ 1 ⇔ -4 &lt; x ≤ -3; log_2(x+5) ≥ 2 ⇔ x ≥ -1</td><td>KC5</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;M1&quot;,
+    &quot;name&quot;: &quot;Замена логарифма после приведения к общему основанию и метод интервалов&quot;,
+    &quot;step_ids&quot;: [
+      &quot;S1&quot;,
+      &quot;S2&quot;,
+      &quot;S3&quot;,
+      &quot;S4&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="KC1"><h3>KC1 · Найти ОДЗ логарифмического выражения с переменным основанием</h3><p>По логарифмическому выражению записать условия: аргумент положителен, основание положительно и отлично от 1; решить эти условия.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_7baedb55a81a&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S1:action&quot;,
+      &quot;quote&quot;: &quot;Найти ОДЗ: аргумент логарифма положителен, основание (x+5)^2 положительно и не равно 1&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S1:result&quot;,
+      &quot;quote&quot;: &quot;x &gt; -5, x ≠ -4&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0214fc221120&quot;,
+      &quot;reason&quot;: &quot;Только положительность аргумента и проверка промежутка; не охватывает допустимость переменного основания.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_37584ab15732&quot;,
+      &quot;reason&quot;: &quot;Совместная область логарифма и корня; корня в задаче нет.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Записаны положительность аргумента и допустимость переменного основания (x+5)^2 (&gt;0, ≠1), исключения сохранены: x&gt;-5, x≠-4. Это целиком определение области логарифмического выражения с допустимостью оснований.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="KC2"><h3>KC2 · Перейти к общему основанию логарифма</h3><p>Используя формулу перехода и свойства степени в основании/аргументе, выразить логарифмы через логарифм по одному основанию.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC2&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S2:action&quot;,
+      &quot;quote&quot;: &quot;Привести оба логарифма к основанию 2&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S2:result&quot;,
+      &quot;quote&quot;: &quot;log_16(x+5) = t/4, log_{(x+5)^2} 2 = 1/(2t)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:S1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_872613285a26&quot;,
+      &quot;reason&quot;: &quot;Покрывает формулу перехода к общему основанию, но не вынесение показателя степени из основания/аргумента log_2((x+5)^2)=2log_2(x+5) и log_2 16=4.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+      &quot;reason&quot;: &quot;Законы степеней, а не свойство логарифма степени.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d66dd830e876&quot;,
+      &quot;reason&quot;: &quot;Вычисление log_2 16=4 по определению — лишь мелкий компонент.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет переход к основанию 2 (включая обращение log_a b=1/log_b a) и вынесение показателя степени из логарифма ((x+5)^2 → 2·log_2(x+5), законно при x+5&gt;0 из S1). В каталоге первое действие есть, второго нет; составной кандидат не получает match к узкому узлу.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Перейти к общему основанию 2 по формуле перехода&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_872613285a26&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Выносить показатель степени аргумента/основания из логарифма: log_b(u^k)=k·log_b u при u&gt;0 (здесь u=x+5&gt;0 по ОДЗ)&quot;,
+        &quot;possible_catalog_kc_id&quot;: null
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="KC3"><h3>KC3 · Ввести замену переменной для логарифма</h3><p>Обозначить повторяющееся логарифмическое выражение новой переменной, перенеся ограничения на неё, чтобы получить алгебраическое неравенство.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC3&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S2:action&quot;,
+      &quot;quote&quot;: &quot;ввести замену t = log_2(x+5)&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S2:result&quot;,
+      &quot;quote&quot;: &quot;t ≠ 0; неравенство t/4 + 1/(2t) ≥ 3/4&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:S1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+      &quot;reason&quot;: &quot;Замена t=b^x&gt;0 для показательных выражений; здесь логарифмическая замена, t может быть любого знака, ограничение t≠0 из основания ≠1.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_a30e088aef8f&quot;,
+      &quot;reason&quot;: &quot;Замена квадратного корня с t≥0; другой объект и ограничение.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ab8a29be8367&quot;,
+      &quot;reason&quot;: &quot;Замена u=x² и подсчёт прообразов; не относится.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдается обозначение log_2(x+5)=t с переносом ограничения t≠0 (x≠-4) и получением рационального неравенства от t. Подходящего узла для логарифмической замены в каталоге нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Вводить замену логарифмического выражения&quot;,
+    &quot;definition&quot;: &quot;Обозначить повторяющийся логарифм t=log_b(f(x)) при допустимом основании, перенести на t ограничения из ОДЗ (например, t≠0 при основании f(x)^k≠1) и получить алгебраическое уравнение/неравенство от t. Обратный переход к x — отдельное действие.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="KC4"><h3>KC4 · Решить рациональное неравенство методом интервалов</h3><p>Перенести всё в одну часть, привести к дроби, разложить числитель и знаменатель на множители и определить знаки на интервалах с учётом невключения нулей знаменателя.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC4&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;rational_intervals&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S3:action&quot;,
+      &quot;quote&quot;: &quot;Привести рациональное неравенство к виду дроби и решить методом интервалов&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S3:result&quot;,
+      &quot;quote&quot;: &quot;(t-1)(t-2)/t ≥ 0, t ∈ (0; 1] ∪ [2; +∞)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:S2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_67caf017b566&quot;,
+      &quot;reason&quot;: &quot;Приведение к общей дроби — подготовительный компонент, не всё действие.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_a78667313aa3&quot;,
+      &quot;reason&quot;: &quot;Знаменатель t не имеет постоянного знака.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+      &quot;reason&quot;: &quot;Факторизация числителя t²-3t+2 — компонент.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Нули 1, 2 и полюс 0 разделяют прямую, знаки определены, концы 1 и 2 включены, 0 исключён — соответствует определению метода интервалов. Проверено: t/4+1/(2t)-3/4=(t-1)(t-2)/(4t). Приведение к дроби и факторизация видны лишь в результате, отдельно не размечены.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="KC5"><h3>KC5 · Решить простейшее логарифмическое неравенство</h3><p>Для неравенства между логарифмом и числом при основании больше 1 перейти к неравенству аргументов с сохранением знака и учётом положительности аргумента.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC5&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_eae4ca1f2f8b&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S4:action&quot;,
+      &quot;quote&quot;: &quot;решив простейшие логарифмические неравенства с основанием больше 1&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S4:result&quot;,
+      &quot;quote&quot;: &quot;0 &lt; log_2(x+5) ≤ 1 ⇔ -4 &lt; x ≤ -3; log_2(x+5) ≥ 2 ⇔ x ≥ -1&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:S1:result&quot;,
+    &quot;step:S3:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9a635e89ccb3&quot;,
+      &quot;reason&quot;: &quot;Уравнение, а не неравенство.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_inequality&quot;,
+      &quot;reason&quot;: &quot;Показательное неравенство, другой объект.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+      &quot;reason&quot;: &quot;Учёт ОДЗ в S4 — сопутствующий компонент, тривиален здесь (результат уже внутри x&gt;-5, x≠-4).&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Переход от сравнения log_2(x+5) с числами к сравнению аргумента 1&lt;x+5≤2 и x+5≥4 с учётом возрастания при основании 2 — определение узла целиком. Результат проверен.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/1EF816.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/1EF816.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

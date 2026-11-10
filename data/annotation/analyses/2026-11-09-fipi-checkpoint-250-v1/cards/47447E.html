@@ -1,0 +1,192 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>47447E</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><a href="../index.html">Сводка</a><h1>47447E</h1><p>Opus100</p><p>Предварительные разборы, внешнего эталона нет.</p><h2>Условие</h2>Впишите правильный ответ.<div><section>  <p class="MsoNormal"><span>В случайном эксперименте симметричную монету бросают дважды. Найдите вероятность того, что решка выпадет ровно один раз.</span><span></span></p>  </section></div><h2>Состав и исключения</h2><pre>{
+  &quot;complete&quot;: true,
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;author_mode&quot;: &quot;standalone_initial&quot;,
+  &quot;author_path&quot;: &quot;data\\annotation\\runs\\2026-11-07-fipi-team-bogdan108-051-150\\raw\\author\\47447E.json&quot;,
+  &quot;auditor_path&quot;: &quot;data\\annotation\\runs\\2026-11-07-fipi-team-bogdan108-051-150\\raw\\auditor\\47447E.json&quot;,
+  &quot;feedback_ref&quot;: null,
+  &quot;source_run&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150&quot;
+}</pre><h2>Буквальный сохранённый разбор: ответ, шаги, KC, методы</h2><pre>{
+  &quot;task_id&quot;: &quot;47447E&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;0,5&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Перечислить равновозможные элементарные исходы двух бросков симметричной монеты&quot;,
+      &quot;result&quot;: &quot;4 исхода: ОО, ОР, РО, РР&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Отобрать исходы с ровно одной решкой&quot;,
+      &quot;result&quot;: &quot;2 исхода: ОР, РО&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Вычислить вероятность как отношение числа благоприятных исходов к общему&quot;,
+      &quot;result&quot;: &quot;2/4 = 0,5&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Перечислить элементарные исходы эксперимента&quot;,
+      &quot;description&quot;: &quot;Вход: описание случайного эксперимента из нескольких независимых испытаний с равновозможными исходами. Операция: выписать все упорядоченные комбинации исходов. Граница: небольшое число исходов, классическая модель.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Отобрать благоприятные исходы&quot;,
+      &quot;description&quot;: &quot;Вход: список элементарных исходов и условие события. Операция: выбрать исходы, удовлетворяющие условию, и подсчитать их.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Вычислить классическую вероятность&quot;,
+      &quot;description&quot;: &quot;Вход: числа благоприятных и всех равновозможных исходов. Операция: найти их отношение. Граница: только для равновозможных исходов.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Классическое определение вероятности через перебор исходов&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h2>Буквальный независимый аудит</h2><pre>{
+  &quot;task_id&quot;: &quot;47447E&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Перечислить равновозможные элементарные исходы двух бросков симметричной монеты&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;4 исхода: ОО, ОР, РО, РР&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;bernoulli_model&quot;,
+          &quot;reason&quot;: &quot;Описывает последовательность независимых испытаний с постоянной вероятностью успеха; здесь строится пространство упорядоченных элементарных исходов, а не схема Бернулли.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+          &quot;reason&quot;: &quot;Формула m/n отдельно и выполнена в s3.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция — задание множества элементарных исходов случайного эксперимента; равновозможность опирается на симметричность монеты из условия. Обоснование равновозможности в шаге выражено лишь словом «равновозможные», но источник (симметричная монета) указан в действии.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Отобрать исходы с ровно одной решкой&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;2 исхода: ОР, РО&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+          &quot;reason&quot;: &quot;Задаёт все элементарные исходы, но не выделяет событие.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+          &quot;reason&quot;: &quot;Вычисляет m/n, но комбинаторный подсчёт m явно не включается.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_8e6b7abd8340&quot;,
+          &quot;reason&quot;: &quot;Подсчёт через C(n,k), а не прямой отбор из перечня; в решении сочетания не используются.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция — отбор из явного списка элементарных исходов тех, что удовлетворяют условию события, и их подсчёт. В каталоге нет узла для выделения благоприятных исходов перечислением.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;По явному конечному списку элементарных исходов и словесному условию события выбрать исходы, удовлетворяющие условию, и подсчитать их число m.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;Вычислить вероятность как отношение числа благоприятных исходов к общему&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;2/4 = 0,5&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+          &quot;reason&quot;: &quot;Перемножение вероятностей независимых событий в решении не используется.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;В конечной равновозможной модели из s1 вычислено m/n = 2/4; ответ 0,5 верен.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre><h2>Исторические редакторские назначения</h2><pre>[]</pre><p><a href="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/47447E.json">author raw</a> · <a href="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/47447E.json">auditor raw</a></p><pre>{
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;source_policy_included&quot;: true,
+  &quot;source_policy_exclusion_reasons&quot;: []
+}</pre></html>

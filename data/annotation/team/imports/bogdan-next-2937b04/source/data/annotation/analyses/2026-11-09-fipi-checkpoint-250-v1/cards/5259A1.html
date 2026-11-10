@@ -1,0 +1,136 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>5259A1</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>32. ФИПИ 5259A1 · бронь #4, партия 3</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Сумма оснований трапеции равна 10, а её диагонали равны 6 и 8.</p> <p class="MsoNormal">а) Докажите, что диагонали трапеции перпендикулярны.</p> <p class="MsoNormal">б) Найдите высоту трапеции.<span></span></p>  </section></div><p>КЭС: 7.1 Фигуры на плоскости</p><h2>Ответ</h2><p>а) Доказано: диагонали перпендикулярны. б) 4,8</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Пусть ABCD — трапеция с основаниями AD и BC. Через вершину C провести прямую, параллельную диагонали BD, до пересечения с прямой AD в точке E; BCED — параллелограмм, поэтому CE = BD = 8, DE = BC, AE = AD + BC = 10.</td><td>Треугольник ACE со сторонами AC = 6, CE = 8, AE = 10; CE ∥ BD</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Проверить для треугольника ACE равенство AC² + CE² = AE² и применить теорему, обратную теореме Пифагора.</td><td>36 + 64 = 100, угол ACE = 90°; так как CE ∥ BD, то AC ⊥ BD (пункт а)</td><td>kc2</td></tr><tr><td>s3 · s1, s2</td><td>Заметить, что высота трапеции равна высоте треугольника ACE, опущенной из C на AE (вершина C лежит на верхнем основании, AE лежит на прямой нижнего основания), и найти её через площадь прямоугольного треугольника: h = AC·CE/AE.</td><td>h = 6·8/10 = 4,8</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Параллельный перенос диагонали и анализ полученного треугольника&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Перенести диагональ трапеции параллельно</h3><p>Вход: трапеция с известными диагоналями и суммой оснований. Операция: провести через вершину меньшего основания прямую, параллельную диагонали, до пересечения с прямой большего основания, получив треугольник со сторонами-диагоналями и стороной, равной сумме оснований. Граница: применяется к трапеции; опирается на свойства параллелограмма.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Через вершину C провести прямую, параллельную диагонали BD, до пересечения с прямой AD в точке E; BCED — параллелограмм, поэтому CE = BD = 8, DE = BC, AE = AD + BC = 10.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0cd75b4548b3&quot;,
+      &quot;reason&quot;: &quot;распознавание призмы, не планиметрическое дополнительное построение&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d5e287608dd5&quot;,
+      &quot;reason&quot;: &quot;использует параллельность для пропорций, а не перенос отрезка через параллелограмм&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Дополнительное построение: параллельный перенос диагонали трапеции с получением треугольника со сторонами-диагоналями и суммой оснований. В каталоге нет узлов о дополнительных построениях или свойствах параллелограмма.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;В трапеции провести через вершину прямую, параллельную диагонали, до прямой основания и по свойствам полученного параллелограмма выразить стороны нового треугольника через диагонали и сумму оснований.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Установить прямой угол по обратной теореме Пифагора</h3><p>Вход: три известные стороны треугольника. Операция: проверить, равен ли квадрат наибольшей стороны сумме квадратов двух других, и при равенстве заключить, что противолежащий угол прямой. Граница: только для треугольника с известными длинами всех сторон.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Проверить для треугольника ACE равенство AC² + CE² = AE² и применить теорему, обратную теореме Пифагора.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;36 + 64 = 100, угол ACE = 90°&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;pythagoras&quot;,
+      &quot;reason&quot;: &quot;находит длину после установления прямого угла; здесь обратное направление — вывод прямого угла по трём сторонам&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;cosine_law&quot;,
+      &quot;reason&quot;: &quot;теорема косинусов не применяется явно; обратная теорема Пифагора — отдельный вывод&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: проверка равенства квадратов трёх известных сторон и вывод о прямом угле. Каталожный pythagoras имеет противоположное направление вывода.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;По трём известным сторонам треугольника проверить равенство квадрата наибольшей стороны сумме квадратов двух других и при равенстве заключить, что противолежащий угол прямой.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc3"><h3>kc3 · Найти высоту прямоугольного треугольника к гипотенузе</h3><p>Вход: катеты и гипотенуза прямоугольного треугольника. Операция: приравнять два выражения площади и получить высоту как произведение катетов, делённое на гипотенузу. Граница: высота, опущенная из вершины прямого угла.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;найти её через площадь прямоугольного треугольника: h = AC·CE/AE.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;h = 6·8/10 = 4,8&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;right_triangle_area&quot;,
+      &quot;reason&quot;: &quot;площадь как половина произведения катетов — лишь компонент; приравнивание к ½·гипотенуза·высота и выражение высоты не входят&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Высота к гипотенузе через равенство двух выражений площади. right_triangle_area покрывает только часть действия, поэтому match неуместен.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;В прямоугольном треугольнике приравнять площадь через катеты и через гипотенузу с высотой и выразить высоту к гипотенузе как произведение катетов, делённое на гипотенузу.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i2&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;missing_annotation&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s2:result&quot;
+    ],
+    &quot;description&quot;: &quot;Перенос перпендикулярности с CE на BD через параллельность (CE ∥ BD ⇒ AC ⊥ BD) выполнен в s2, но не входит в определение kc2 и не размечен отдельно.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc2&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;i2&quot;,
+    &quot;kind&quot;: &quot;missing_annotation&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s3:action&quot;
+    ],
+    &quot;description&quot;: &quot;Обоснование равенства высоты трапеции и высоты треугольника ACE из C на AE (расстояние между параллельными прямыми) входит в s3, но не покрыто kc3.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc3&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/5259A1.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/5259A1.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

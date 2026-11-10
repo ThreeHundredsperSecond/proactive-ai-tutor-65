@@ -1,0 +1,39 @@
+{
+  "task_id": "37eA9D",
+  "catalog_version": "fipi50-editorial-v1-frozen",
+  "decisions": [
+    {
+      "local_kc_id": "kc1",
+      "status": "match",
+      "catalog_kc_id": "exponential_equation",
+      "evidence": [{"ref": "step:s1:result", "quote": "1/27 = 3^(-3). Поскольку функция 3^t строго возрастает на всей числовой прямой, уравнение равносильно x - 5 = -3; ограничений на действительный x нет."}],
+      "context_refs": ["condition"],
+      "alternatives_checked": [
+        {"catalog_kc_id": "power_laws", "reason": "Преобразование правой части в степень является компонентом; определение не охватывает переход от равенства степеней к равенству показателей."},
+        {"catalog_kc_id": "exponential_substitution", "reason": "Новая переменная t=b^x не вводится; используется инъективность при общем основании."},
+        {"catalog_kc_id": "linear_equation", "reason": "Линейное равенство только получено; его решение вынесено в s2 и исключено из границ этого кандидата."}
+      ],
+      "rationale": "В s1 правая часть представлена как степень основания 3>0, 3≠1; левая степень задана условием. Строгая монотонность обосновывает равносильное приравнивание показателей на всей действительной прямой. Это полностью совпадает с определением exponential_equation, без включения последующего решения линейного уравнения.",
+      "proposal": null,
+      "blocking": false,
+      "issue_ids": []
+    },
+    {
+      "local_kc_id": "kc2",
+      "status": "match",
+      "catalog_kc_id": "linear_equation",
+      "evidence": [{"ref": "step:s2:result", "quote": "Из x - 5 = -3 получаем единственный корень x = 2."}],
+      "context_refs": ["step:s1:result"],
+      "alternatives_checked": [
+        {"catalog_kc_id": "exponential_equation", "reason": "Снятие показательной зависимости выполнено в s1; s2 решает уже полученное аффинное равенство."},
+        {"catalog_kc_id": "literal_0cf8af170957", "reason": "Этот узел определён для линейного неравенства, тогда как здесь решается равенство."}
+      ],
+      "rationale": "Входом служит полученное в s1 равенство x - 5 = -3 с числовыми коэффициентами и ненулевым коэффициентом при x. В s2 найдено полное множество решений — единственное значение 2. Составление модели и снятие степени в это действие не переносятся.",
+      "proposal": null,
+      "blocking": false,
+      "issue_ids": []
+    }
+  ],
+  "issues": [],
+  "review_scope": "KC mapping with incidental mathematical checks; not expert validation"
+}

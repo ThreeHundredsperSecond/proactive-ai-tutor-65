@@ -1,0 +1,136 @@
+{
+  "decisions": [
+    {
+      "rationale": "Кандидат смешивает применение формулы двойного угла и вынесение общего множителя. Ни один узел не покрывает обе операции целиком. Близкие определения тождеств перекрываются и требуют сведения к одной функции; здесь остаются sin x и cos x.",
+      "local_kc_id": "kc1",
+      "evidence": [
+        {
+          "quote": "Уравнение cos x · cos 2x = √2 sin² x + cos x определено при всех действительных x. Оно равносильно cos x(cos 2x − 1) − √2 sin² x = 0, то есть sin² x(2 cos x + √2) = 0, поскольку cos 2x − 1 = −2 sin² x.",
+          "ref": "step:s1:result"
+        }
+      ],
+      "blocking": false,
+      "catalog_kc_id": null,
+      "proposal": {
+        "parts": [
+          {
+            "limitation": "Перекрывающиеся определения и условие сведения к одной функции не позволяют подтвердить полный match.",
+            "action": "Применить cos 2x − 1 = −2 sin² x",
+            "possible_catalog_kc_ids": [
+              "literal_cc7d68a38f29",
+              "literal_55d5a6d9eb3c"
+            ]
+          },
+          {
+            "definition": "Представить сумму тригонометрических выражений произведением посредством вынесения общего множителя с сохранением равносильности уравнения.",
+            "action": "Вынести общий множитель sin² x",
+            "possible_catalog_kc_ids": []
+          }
+        ]
+      },
+      "issue_ids": [],
+      "alternatives_checked": [
+        {
+          "reason": "Тождества не охватывают факторизацию; результат содержит две функции.",
+          "catalog_kc_id": "literal_cc7d68a38f29"
+        },
+        {
+          "reason": "Перекрывается с предыдущим узлом и также требует сведения к одной функции.",
+          "catalog_kc_id": "literal_55d5a6d9eb3c"
+        },
+        {
+          "reason": "Определение ограничено произведением sin и cos или sin двойного аргумента, здесь cos двойного аргумента.",
+          "catalog_kc_id": "literal_3d70ab3eb24a"
+        },
+        {
+          "reason": "Описывает многочлен для исследования знака, здесь тригонометрическое уравнение.",
+          "catalog_kc_id": "literal_cab525070130"
+        },
+        {
+          "reason": "Решение через нули множителей выполняется в s2, а не при факторизации s1.",
+          "catalog_kc_id": "zero_product"
+        }
+      ],
+      "context_refs": [
+        "image:assets/2447313e58d2d7053f75b909.png"
+      ],
+      "status": "needs_split"
+    },
+    {
+      "rationale": "В s2 произведение сведено к нулям множителей, найдены нули и объединены полные серии. В s1 выражения определены на всей прямой; деления на потенциально нулевой множитель нет.",
+      "local_kc_id": "kc2",
+      "evidence": [
+        {
+          "quote": "sin² x = 0 или 2 cos x + √2 = 0. Отсюда sin x = 0 или cos x = −√2/2. Все корни: x = πn, n ∈ ℤ, или x = ±3π/4 + 2πk, k ∈ ℤ. Деления на выражение с переменной не было, поэтому корни не потеряны.",
+          "ref": "step:s2:result"
+        }
+      ],
+      "blocking": false,
+      "catalog_kc_id": "zero_product",
+      "proposal": null,
+      "issue_ids": [],
+      "alternatives_checked": [],
+      "context_refs": [
+        "step:s1:result"
+      ],
+      "status": "match"
+    },
+    {
+      "rationale": "В s2 для sin x = 0 и cos x = −√2/2 правильно записаны все периодические серии на действительной прямой.",
+      "local_kc_id": "kc3",
+      "evidence": [
+        {
+          "quote": "sin² x = 0 или 2 cos x + √2 = 0. Отсюда sin x = 0 или cos x = −√2/2. Все корни: x = πn, n ∈ ℤ, или x = ±3π/4 + 2πk, k ∈ ℤ. Деления на выражение с переменной не было, поэтому корни не потеряны.",
+          "ref": "step:s2:result"
+        }
+      ],
+      "blocking": false,
+      "catalog_kc_id": "elementary_trig_equation",
+      "proposal": null,
+      "issue_ids": [],
+      "alternatives_checked": [
+        {
+          "reason": "Описывает объединение нулей множителей; здесь непосредственно решаются простейшие тригонометрические уравнения.",
+          "catalog_kc_id": "zero_product"
+        }
+      ],
+      "context_refs": [
+        "step:s1:result"
+      ],
+      "status": "match"
+    },
+    {
+      "rationale": "Все три периодические серии ограничены отрезком, найденным на изображении; правильно получены все целые параметры и соответствующие корни, включая правый конец.",
+      "local_kc_id": "kc4",
+      "evidence": [
+        {
+          "quote": "Для πn ∈ [−5π/2; −π] имеем −5/2 ≤ n ≤ −1, поэтому n = −2, −1 и корни −2π, −π. Для 3π/4 + 2πk получаем −13/8 ≤ k ≤ −7/8, то есть k = −1 и корень −5π/4. Для −3π/4 + 2πk получаем −7/8 ≤ k ≤ −1/8; целых k нет. Итак, на отрезке находятся ровно −2π, −5π/4, −π.",
+          "ref": "step:s3:result"
+        }
+      ],
+      "blocking": false,
+      "catalog_kc_id": "periodic_interval",
+      "proposal": null,
+      "issue_ids": [],
+      "alternatives_checked": [
+        {
+          "reason": "Конечный набор без периодического параметра, тогда как здесь ограничиваются бесконечные серии.",
+          "catalog_kc_id": "literal_8409c9003f48"
+        },
+        {
+          "reason": "Линейные неравенства лишь компонент отбора периодических корней.",
+          "catalog_kc_id": "literal_0cf8af170957"
+        }
+      ],
+      "context_refs": [
+        "step:s2:result",
+        "image:assets/312c1d49c05dc6099a52aac4.png"
+      ],
+      "status": "match"
+    }
+  ],
+  "review_scope": "KC mapping with incidental mathematical checks; not expert validation",
+  "catalog_version": "fipi50-editorial-v1-frozen",
+  "task_id": "858BD4",
+  "issues": []
+}

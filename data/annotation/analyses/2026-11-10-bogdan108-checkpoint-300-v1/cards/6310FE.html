@@ -1,0 +1,129 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>6310FE</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>68. ФИПИ 6310FE · бронь #4, партия 6</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal"><span>Найдите точку максимума функции <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>y</mi><mo>=</mo><msup> <mi>x</mi> <mn>3</mn> </msup> <mo>+</mo><mn>14</mn><msup> <mi>x</mi> <mn>2</mn> </msup> <mo>+</mo><mn>49</mn><mi>x</mi><mo>+</mo><mn>8.</mn> </mrow> </semantics> </math></span><span></span></p>  </section></div><p>КЭС: 3.2 Область определения и множество значений функции. Нули функции. Промежутки знакопостоянства. Промежутки монотонности функции. Максимумы и минимумы функции. Наибольшее и наименьшее значение функции на промежутке; 4.1 Производная функции. Производные элементарных функций; 4.2 Применение производной к исследованию функций на монотонность и экстремумы. Нахождение наибольшего и наименьшего значения функции на отрезке</p><h2>Ответ</h2><p>-7</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти производную многочлена</td><td>y&#x27;=3x^2+28x+49</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Решить уравнение y&#x27;=0</td><td>x=-7 или x=-7/3</td><td>kc2</td></tr><tr><td>s3 · s1, s2</td><td>Определить знаки производной на интервалах и выбрать точку смены знака с + на −</td><td>y&#x27;&gt;0 при x&lt;-7, y&#x27;&lt;0 при -7&lt;x&lt;-7/3, y&#x27;&gt;0 при x&gt;-7/3; точка максимума x=-7</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Исследование функции на экстремум с помощью производной&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Дифференцировать многочлен</h3><p>По многочлену получить производную, применяя правила дифференцирования степени, суммы и постоянного множителя.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_3a3e1295118b&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Найти производную многочлена&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;y&#x27;=3x^2+28x+49&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0efedaf04823&quot;,
+      &quot;reason&quot;: &quot;Более общее определение для степенной функции с произвольным p и областью допустимости; объект шага — именно многочлен, что точно совпадает с literal_3a3e1295118b.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — дифференцирование; объект — многочлен третьей степени из условия; применены степенное правило и линейность; результат y&#x27;=3x^2+28x+49 проверен и верен.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Решить квадратное уравнение</h3><p>Найти действительные корни квадратного уравнения через дискриминант или разложение.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Решить уравнение y&#x27;=0&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;x=-7 или x=-7/3&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+      &quot;reason&quot;: &quot;Требует вычисления дискриминанта; в шаге способ не показан, кандидат допускает и разложение.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;stationary_point&quot;,
+      &quot;reason&quot;: &quot;Шаг по смыслу — решение f&#x27;=0, что соответствует этому узлу; но авторский кандидат сформулирован как общее решение квадратного уравнения, а не нахождение стационарных точек.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+      &quot;reason&quot;: &quot;Факторизация в решении не наблюдается.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_fe2b4673ac10&quot;,
+      &quot;reason&quot;: &quot;Выделение квадрата не наблюдается.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Корни верны (D=196, x=(-28±14)/6). Однако метод решения квадратного уравнения не показан, а сам шаг пересекается с stationary_point; основания выбрать один узел нет.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc3"><h3>kc3 · Определить точку экстремума по смене знака производной</h3><p>По критическим точкам и знакам производной на интервалах между ними установить точки максимума (смена + на −) и минимума (− на +) для дифференцируемой функции.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;local_extreme_sign&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Определить знаки производной на интервалах и выбрать точку смены знака с + на −&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;y&#x27;&gt;0 при x&lt;-7, y&#x27;&lt;0 при -7&lt;x&lt;-7/3, y&#x27;&gt;0 при x&gt;-7/3; точка максимума x=-7&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;,
+      &quot;reason&quot;: &quot;Знаки производной — компонент, но вывод о монотонности явно не делается; итог шага — тип экстремума.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;global_interval_extreme&quot;,
+      &quot;reason&quot;: &quot;Вопрос о точке локального максимума, не о глобальном экстремуме на отрезке.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдается установление смены знака производной +→− в x=-7 и вывод о максимуме; знаки верны для трёхчлена с положительным старшим коэффициентом.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s2:action&quot;,
+      &quot;step:s2:result&quot;
+    ],
+    &quot;description&quot;: &quot;Способ решения квадратного уравнения (дискриминант или разложение) не показан, поэтому выбор между quadratic_discriminant и stationary_point не подтверждается; результат при этом верен.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc2&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/6310FE.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/6310FE.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

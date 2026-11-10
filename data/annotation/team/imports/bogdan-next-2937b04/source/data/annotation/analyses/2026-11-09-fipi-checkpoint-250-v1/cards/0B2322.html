@@ -1,0 +1,109 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>0B2322</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>29. ФИПИ 0B2322 · бронь #4, партия 2</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">На рисунке изображён график функции <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>y</mi><mo>=</mo><mi>f</mi><mrow><mo>(</mo> <mi>x</mi> <mo>)</mo></mrow><mo>.</mo> </mrow> </semantics> </math> На оси абсцисс отмечено семь точек: <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msub> <mi>x</mi> <mn>1</mn> </msub> <mo>,</mo> </mrow> </semantics> </math> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msub> <mi>x</mi> <mn>2</mn> </msub> <mo>,</mo> </mrow> </semantics> </math> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msub> <mi>x</mi> <mn>3</mn> </msub> <mo>,</mo> </mrow> </semantics> </math> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msub> <mi>x</mi> <mn>4</mn> </msub> <mo>,</mo> </mrow> </semantics> </math> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msub> <mi>x</mi> <mn>5</mn> </msub> <mo>,</mo> </mrow> </semantics> </math> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msub> <mi>x</mi> <mn>6</mn> </msub> <mo>,</mo> </mrow> </semantics> </math> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msub> <mi>x</mi> <mn>7</mn> </msub> <mo>.</mo> </mrow> </semantics> </math> Найдите количество отмеченных точек, в которых производная функции <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>f</mi><mrow><mo>(</mo> <mi>x</mi> <mo>)</mo></mrow> </mrow> </semantics> </math> положительна.</p> <p class="MsoNormal" align="center"><img src="../../../runs/2026-11-09-fipi-team-bogdan108-next-100/inputs/assets/c1b4cd62c40f42af682dc6cd.png" alt="Рисунок ФИПИ"></p> <p class="MsoNormal"><span> </span></p>  </section></div><p>КЭС: 4.2 Применение производной к исследованию функций на монотонность и экстремумы. Нахождение наибольшего и наименьшего значения функции на отрезке</p><h2>Ответ</h2><p>3</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>По графику определить характер монотонности функции в каждой отмеченной точке (возрастает, убывает или точка экстремума)</td><td>x1 — точка минимума; x2, x3, x5 — на участках возрастания; x4 — около точки минимума/на убывании; x6, x7 — на участках убывания</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Связать знак производной с монотонностью: f&#x27;(x)&gt;0 там, где функция возрастает, и подсчитать такие точки</td><td>f&#x27;&gt;0 в точках x2, x3, x5; количество 3</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Знак производной через монотонность по графику функции&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Определить по графику функции характер монотонности в заданной точке</h3><p>Вход: график функции и точка на оси абсцисс. Операция: установить, лежит ли точка на участке возрастания, убывания или в точке экстремума. Граница: только визуальное чтение графика.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;По графику определить характер монотонности функции в каждой отмеченной точке&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;image:assets/c1b4cd62c40f42af682dc6cd.png&quot;,
+      &quot;region_description&quot;: &quot;График y=f(x) с семью пунктирными отметками x1..x7 на оси абсцисс; в каждой отметке нужно определить, поднимается или опускается кривая&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;image:assets/c1b4cd62c40f42af682dc6cd.png&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;graph_coordinates&quot;,
+      &quot;reason&quot;: &quot;Считывание координат точек, а не направления изменения функции&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9aee0783618d&quot;,
+      &quot;reason&quot;: &quot;Чтение знака по графику производной, здесь дан график самой функции&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;,
+      &quot;reason&quot;: &quot;Вывод монотонности из знака производной, а не визуальное чтение графика функции&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: визуально определить возрастание/убывание/экстремум графика функции в заданной точке. В каталоге нет узла чтения монотонности по графику самой функции.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Определять по графику функции возрастание/убывание в заданной точке&quot;,
+    &quot;definition&quot;: &quot;По графику y=f(x) установить, лежит ли отмеченная абсцисса на участке возрастания, убывания или в точке экстремума; без вычисления производной.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc2"><h3>kc2 · Определить знак производной по монотонности функции</h3><p>Вход: характер монотонности функции в точке. Операция: применить связь возрастание — f&#x27;&gt;0, убывание — f&#x27;&lt;0, гладкий экстремум — f&#x27;=0. Граница: дифференцируемая функция.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Связать знак производной с монотонностью: f&#x27;(x)&gt;0 там, где функция возрастает, и подсчитать такие точки&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;,
+      &quot;reason&quot;: &quot;Обратное направление вывода: от знака производной к монотонности; здесь от монотонности к знаку производной&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;local_extreme_sign&quot;,
+      &quot;reason&quot;: &quot;Классифицирует экстремум по смене знака, а не знак производной в точке&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6ad8f502588e&quot;,
+      &quot;reason&quot;: &quot;Отбор по промежутку, а не по знаку производной; подсчёт здесь тривиален&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: по характеру монотонности в точке заключить знак f&#x27; (возрастание — f&#x27;&gt;0 при строгом наклоне, экстремум — f&#x27;=0) и посчитать точки. Близкий узел derivative_monotonicity описывает обратную импликацию; совпадения определения нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Определять знак производной по монотонности функции в точке&quot;,
+    &quot;definition&quot;: &quot;Для дифференцируемой функции по участку строгого возрастания/убывания или гладкому экстремуму в точке заключить f&#x27;&gt;0, f&#x27;&lt;0 или f&#x27;=0.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[
+  &quot;Положение x3, x4 и x6 относительно экстремумов определено визуально по рисунку и близко к экстремумам; классификация x3 как возрастания и x4, x6 как не-возрастания требует сверки.&quot;
+]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;math&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s1:result&quot;,
+      &quot;step:s2:result&quot;,
+      &quot;image:assets/c1b4cd62c40f42af682dc6cd.png&quot;
+    ],
+    &quot;description&quot;: &quot;На рисунке отметка x3 визуально совпадает с локальным максимумом (f&#x27;=0), а x6 лежит между двумя пиками на нисходящем участке; если x3 — экстремум, положительна производная только в x2 и x5 и ответ 2, а не 3. Классификация x3 и x5 требует сверки с эталоном; на тип KC это не влияет.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc1&quot;,
+      &quot;kc2&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/0B2322.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/0B2322.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

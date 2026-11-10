@@ -1,0 +1,127 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>0005E9</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>8. ФИПИ 0005E9</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0"> <tr> <td valign="top"> <p class="MsoNormal"><span>Найдите угол <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>C</mi><mi>O</mi> </mrow>  </semantics> </mstyle></math>, если его сторона <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>C</mi><mi>A</mi> </mrow>  </semantics> </mstyle></math> касается окружности с центром <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>O</mi>  </semantics> </mstyle></math>, отрезок <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>C</mi><mi>O</mi> </mrow>  </semantics> </mstyle></math> пересекает окружность в точке <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>B</mi>  </semantics> </mstyle></math> (см. рис.), <br> а дуга <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>B</mi> </mrow>  </semantics> </mstyle></math> окружности, заключённая внутри этого угла, равна <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mn>17</mn><mi>°</mi> </mrow>  </semantics> </mstyle></math>. Ответ дайте в градусах.</span></p> </td> <td valign="top"> <p class="MsoNormal" align="right"><span><img src="../../../inputs/assets/087ce527f28dccadb6f62691.png" alt="Рисунок ФИПИ"></span></p> </td> </tr> </table> <p class="MsoNormal"><span> </span></p>  </section></div><p>КЭС: 7.1 Фигуры на плоскости</p><h2>Ответ</h2><p>73</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти центральный угол, опирающийся на заданную дугу, и связать его с углом треугольника.</td><td>Центральный угол AOB равен дуге AB, то есть 17°. Поскольку B лежит на отрезке OC, лучи OB и OC совпадают, поэтому угол AOC равен 17°.</td><td>kc1, kc2</td></tr><tr><td>s2 · condition</td><td>Применить перпендикулярность радиуса и касательной в точке касания.</td><td>CA касается окружности в A, поэтому OA перпендикулярен CA и угол OAC равен 90°.</td><td>kc3</td></tr><tr><td>s3 · s1, s2</td><td>Вычислить третий угол треугольника по двум известным.</td><td>В треугольнике AOC угол ACO равен 180° − 90° − 17° = 73°.</td><td>kc4</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Найти углы треугольника из дуги и свойства касательной&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Определять центральный угол по градусной мере дуги</h3><p>По градусной мере дуги окружности находить равный ей центральный угол, опирающийся на эту дугу.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;Центральный угол AOB равен дуге AB, то есть 17°.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;diameter_angle&quot;,
+      &quot;reason&quot;: &quot;Прямой вписанный угол на диаметре отличается от центрального угла по дуге.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдается получение центрального угла по мере дуги. После просмотра полного каталога соответствующего определения нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;По градусной мере дуги находить равный ей центральный угол, опирающийся на эту дугу.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Заменять луч в угле совпадающим лучом</h3><p>По расположению точки на отрезке устанавливать совпадение лучей с общим началом и переносить значение угла при замене одного луча совпадающим.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;Поскольку B лежит на отрезке OC, лучи OB и OC совпадают, поэтому угол AOC равен 17°.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;image:assets/087ce527f28dccadb6f62691.png&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_adbf18f11761&quot;,
+      &quot;reason&quot;: &quot;Определение требует сложения или вычитания углов; здесь только замена совпадающего луча.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Положение B между O и C подтверждается рисунком. В s1 явно установлено совпадение лучей и перенесена мера угла. Соответствующего определения в каталоге нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;По расположению точек устанавливать совпадение лучей с общим началом и сохранять значение угла при замене стороны совпадающим лучом.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Устанавливать прямой угол между радиусом и касательной</h3><p>Для касательной к окружности и радиуса, проведённого в точку касания, применять их перпендикулярность и получать прямой угол.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;CA касается окружности в A, поэтому OA перпендикулярен CA и угол OAC равен 90°.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;image:assets/087ce527f28dccadb6f62691.png&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;diameter_angle&quot;,
+      &quot;reason&quot;: &quot;Основание прямого угла здесь касательная и радиус, а не диаметр и вписанный угол.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cdb2863ad1e6&quot;,
+      &quot;reason&quot;: &quot;Сравнение углов через уже перпендикулярные направления не устанавливает перпендикулярность радиуса касательной.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В s2 применено свойство радиуса в точку касания и получен прямой угол. Точка A как точка касания видна на рисунке. Каталог свойства не содержит.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Для касательной к окружности и радиуса в точку касания устанавливать их перпендикулярность и прямой угол.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Вычислять третий угол треугольника</h3><p>По двум известным внутренним углам треугольника находить третий, вычитая их сумму из 180 градусов.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;В треугольнике AOC угол ACO равен 180° − 90° − 17° = 73°.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_f5a787e19d0e&quot;,
+      &quot;reason&quot;: &quot;Определение объединяет сумму углов треугольника и смежность. Здесь наблюдается только сумма, смежность не применяется.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;Выполнено непосредственное вычисление третьего угла, без преобразования аффинного уравнения.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;По двум установленным внутренним углам вычислен третий. Узкий кандидат покрывает лишь компонент составного определения суммы и смежности. Отдельного определения этого действия в каталоге нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;По двум известным внутренним углам треугольника находить третий, вычитая их сумму из 180 градусов.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;source_path&quot;: &quot;data/fipi/2026-10-31-profile/tasks/0005E9.json&quot;,
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\0005E9.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\0005E9.json&quot;
+}</pre></html>

@@ -1,0 +1,178 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>7FF06A</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">В коробке 4 синих, 3 красных и 9 зелёных фломастеров. Случайным образом выбирают два фломастера. Найдите вероятность того, что окажутся выбраны один синий и один красный фломастеры.<span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;7FF06A&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;0,1&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Подсчитать число равновероятных неупорядоченных пар выбираемых фломастеров.&quot;,
+      &quot;result&quot;: &quot;Всего 4 + 3 + 9 = 16 фломастеров; число пар равно C(16,2) = 120.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Подсчитать число пар из одного синего и одного красного фломастера.&quot;,
+      &quot;result&quot;: &quot;Каждый из 4 синих можно соединить с каждым из 3 красных: 4 · 3 = 12 благоприятных пар.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Вычислить вероятность по отношению числа благоприятных пар к общему числу равновероятных пар.&quot;,
+      &quot;result&quot;: &quot;P = 12/120 = 0,1.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;k1&quot;,
+      &quot;name&quot;: &quot;Подсчитать неупорядоченные пары объектов&quot;,
+      &quot;description&quot;: &quot;По числу различных объектов вычислить число способов выбрать два без возвращения и без учёта порядка по формуле сочетаний. Применяется, когда каждый объект выбирается не более одного раза.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k2&quot;,
+      &quot;name&quot;: &quot;Подсчитать пары из двух непересекающихся групп&quot;,
+      &quot;description&quot;: &quot;По численностям двух непересекающихся групп вычислить произведение численностей для подсчёта пар, содержащих по одному объекту из каждой группы.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k3&quot;,
+      &quot;name&quot;: &quot;Вычислить вероятность по классическому определению&quot;,
+      &quot;description&quot;: &quot;По числу благоприятных исходов и общему числу исходов найти их отношение; применяется к конечному пространству равновероятных исходов.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Подсчёт благоприятных и всех равновероятных неупорядоченных пар&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;7FF06A&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;k1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;Всего 4 + 3 + 9 = 16 фломастеров; число пар равно C(16,2) = 120.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:action&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_8e6b7abd8340&quot;,
+          &quot;reason&quot;: &quot;Определение ограничено выбором позиций успехов в испытаниях; здесь выбираются два различных объекта без возвращения, а последовательности испытаний и позиций успехов нет.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+          &quot;reason&quot;: &quot;Построение равновозможной модели не включает комбинаторный подсчёт числа неупорядоченных пар.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+          &quot;reason&quot;: &quot;Определение прямо отделяет комбинаторный подсчёт от вычисления отношения m/n.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;В s1 наблюдается подсчёт всех двухэлементных подмножеств 16 физических объектов по формуле сочетаний. Выбор двух фломастеров задаёт отсутствие повторного выбора одного объекта; порядок не учитывается в явно выбранной модели пар. Полный каталог не содержит определения этого подсчёта; одинаковая формула с выбором позиций успехов не устраняет различие области определения существующего узла.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Подсчитывать неупорядоченные пары различных объектов&quot;,
+        &quot;definition&quot;: &quot;По числу n различных объектов найти число способов выбрать два без возвращения и без учёта порядка: C(n,2)=n(n−1)/2 при целом n≥2.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;k2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;Каждый из 4 синих можно соединить с каждым из 3 красных: 4 · 3 = 12 благоприятных пар.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+          &quot;reason&quot;: &quot;Узел перемножает вероятности независимых событий; здесь перемножаются численности групп для подсчёта пар, независимость событий не используется.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_8e6b7abd8340&quot;,
+          &quot;reason&quot;: &quot;Подсчёт позиций успехов сочетаниями отличается от подсчёта пар по одному объекту из каждой группы правилом произведения.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+          &quot;reason&quot;: &quot;Вычисление m/n не включает подсчёт благоприятных исходов.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;В s2 каждой паре из синего и красного фломастеров соответствует единственный выбор одного объекта из каждой непересекающейся цветовой группы. Наблюдается правило произведения численностей 4 и 3, без дополнительного множителя за порядок. Подходящего определения в полном каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Подсчитывать пары из двух непересекающихся групп&quot;,
+        &quot;definition&quot;: &quot;Для двух конечных непересекающихся групп численностей a и b найти число пар, содержащих ровно один объект из каждой группы, по правилу произведения ab; порядок объектов внутри пары отдельно не учитывается.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;k3&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;Вычислить вероятность по отношению числа благоприятных пар к общему числу равновероятных пар.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;P = 12/120 = 0,1.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:action&quot;,
+        &quot;step:s1:result&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+          &quot;reason&quot;: &quot;Задание исходов и обоснование равновозможности отделены от вычисления отношения; s3 использует уже выбранные в s1 равновероятные пары.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдается вычисление отношения 12 благоприятных исходов к 120 исходам конечной равновозможной модели. Числа получены в s1 и s2, а равновероятность пар явно принята в действии s1. Это целиком соответствует определению classical_probability; построение модели и подсчёт исходов не приписываются s3.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>

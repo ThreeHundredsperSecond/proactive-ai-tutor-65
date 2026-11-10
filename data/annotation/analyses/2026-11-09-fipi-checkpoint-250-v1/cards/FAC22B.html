@@ -1,0 +1,234 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>FAC22B</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><a href="../index.html">Сводка</a><h1>FAC22B</h1><p>historical_independent50</p><p>Предварительные разборы, внешнего эталона нет.</p><h2>Условие</h2>Впишите правильный ответ.<div><section>  <p class="MsoNormal">Первая труба пропускает на 5 литров воды в минуту меньше, чем вторая. Сколько литров воды в минуту пропускает первая труба, если резервуар объёмом 104 литра она заполняет на 5 минут дольше, чем вторая труба?<span></span></p>  </section></div><h2>Состав и исключения</h2><pre>{
+  &quot;complete&quot;: true,
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;author_mode&quot;: &quot;standalone_initial&quot;,
+  &quot;author_path&quot;: &quot;raw\\author\\FAC22B.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\FAC22B.json&quot;,
+  &quot;feedback_ref&quot;: null,
+  &quot;source_run&quot;: &quot;data/annotation/runs/2026-11-02-fipi-extension-150&quot;
+}</pre><h2>Буквальный сохранённый разбор: ответ, шаги, KC, методы</h2><pre>{
+  &quot;task_id&quot;: &quot;FAC22B&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;8&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Обозначить расход первой трубы через x и выразить время заполнения каждой трубой, затем составить уравнение разности времён.&quot;,
+      &quot;result&quot;: &quot;При x&gt;0 расходы равны x и x+5 л/мин; времена равны 104/x и 104/(x+5) минут. Поэтому 104/x-104/(x+5)=5.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Устранить знаменатели при положительном расходе и привести уравнение к квадратному.&quot;,
+      &quot;result&quot;: &quot;Знаменатели ненулевые при x&gt;0. Умножение на x(x+5) даёт 520=5x(x+5), откуда x²+5x-104=0.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Решить полученное квадратное уравнение.&quot;,
+      &quot;result&quot;: &quot;D=25+416=441; x=(-5±21)/2, поэтому x=8 или x=-13.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Отобрать корень по смысловому ограничению и проверить разность времён.&quot;,
+      &quot;result&quot;: &quot;Корень -13 не удовлетворяет x&gt;0. При x=8 вторая труба пропускает 13 л/мин; времена заполнения равны 13 и 8 минут, разность составляет 5 минут. Расход первой трубы — 8 л/мин.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Составлять уравнение разности времён заполнения&quot;,
+      &quot;description&quot;: &quot;По общему объёму, зависимости между постоянными положительными расходами и разности времён выразить времена как отношение объёма к расходу и составить уравнение; применяется при независимом заполнении одного объёма каждым потоком.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Приводить рациональное уравнение к квадратному&quot;,
+      &quot;description&quot;: &quot;Для рационального уравнения с известными ограничениями на знаменатели умножить обе части на общий ненулевой знаменатель и преобразовать полученное равенство к квадратному уравнению, сохраняя ограничения.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Решать квадратное уравнение через дискриминант&quot;,
+      &quot;description&quot;: &quot;По числовым коэффициентам квадратного уравнения с ненулевым старшим коэффициентом вычислить дискриминант и найти все действительные корни по формуле либо установить их отсутствие.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Отбирать и проверять корни модели заполнения&quot;,
+      &quot;description&quot;: &quot;Для найденных корней уравнения расходов исключить неположительные и иные недопустимые значения, затем подстановкой расходов в выражения времён проверить заданное соотношение и определить искомый расход.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Составление уравнения разности времён с последующим решением квадратного уравнения&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h2>Буквальный независимый аудит</h2><pre>{
+  &quot;task_id&quot;: &quot;FAC22B&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;При x&gt;0 расходы равны x и x+5 л/мин; времена равны 104/x и 104/(x+5) минут. Поэтому 104/x-104/(x+5)=5.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_63c80a69a122&quot;,
+          &quot;reason&quot;: &quot;Определение требует движения по течению, скоростей v±c и отделения стоянки. Здесь независимое заполнение общего объёма двумя потоками и разность времён; аналогия отношения объёма/расхода и пути/скорости не даёт полного соответствия.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+          &quot;reason&quot;: &quot;Условие не задаёт готовую формулу: автор строит модель времени и уравнение, тогда как определение явно исключает вывод модели.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+          &quot;reason&quot;: &quot;Это составление рациональной модели, а не решение аффинного равенства.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдается единое действие построения модели разности времён независимого выполнения одинакового объёма при постоянных положительных производительностях. Выражение времён является частью этой модели. После просмотра каталога полного определения для этого действия не найдено; различие с движением связано с существенными условиями определения, а не с числами или названием труб.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Составлять уравнение разности времён выполнения общего объёма&quot;,
+        &quot;definition&quot;: &quot;Для двух независимых исполнителей с постоянными положительными производительностями, заданным одинаковым объёмом работы, связью производительностей и разностью времён выразить каждое время как объём, делённый на производительность, и составить уравнение разности времён с сохранением положительности производительностей. Решение уравнения отдельно.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_9698b97fef22&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;Знаменатели ненулевые при x&gt;0. Умножение на x(x+5) даёт 520=5x(x+5), откуда x²+5x-104=0.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+          &quot;reason&quot;: &quot;Сохранение ограничений знаменателей является только компонентом: кандидат также выполняет равносильное устранение знаменателей и приведение равенства.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_67caf017b566&quot;,
+          &quot;reason&quot;: &quot;Объединение рациональных выражений в одну дробь не описывает умножение обеих частей уравнения на ненулевой знаменатель.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Входное рациональное равенство и область x&gt;0 установлены в s1. В s2 явно проверена ненулевость обоих знаменателей и выполнено умножение на их произведение; приведение полученного полиномиального равенства к квадратному завершает это преобразование. Запрещённые значения не включаются, нахождение корней оставлено следующему шагу.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;D=25+416=441; x=(-5±21)/2, поэтому x=8 или x=-13.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fe2b4673ac10&quot;,
+          &quot;reason&quot;: &quot;Полный квадрат не выделяется; корни получены через дискриминант и формулу.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+          &quot;reason&quot;: &quot;Решение разбиением нулевого произведения не выполнено.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Квадратное уравнение с коэффициентами 1, 5, -104 получено в s2. В s3 вычислены дискриминант 441 и оба действительных корня, что целиком соответствует определению; физический отбор корней сюда не переносится.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;Корень -13 не удовлетворяет x&gt;0. При x=8 вторая труба пропускает 13 л/мин; времена заполнения равны 13 и 8 минут, разность составляет 5 минут. Расход первой трубы — 8 л/мин.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;,
+        &quot;step:s3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+          &quot;reason&quot;: &quot;Определение предусматривает область определения и заданный промежуток, но не охватывает наблюдаемую проверку исходного физического соотношения; здесь естественно полное определение отбора по условиям модели.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a873d91378ab&quot;,
+          &quot;reason&quot;: &quot;Проверяется найденный корень уравнения, а не достижение граничного ответа.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_8409c9003f48&quot;,
+          &quot;reason&quot;: &quot;Сравнение корней с границами промежутка покрывало бы лишь часть действия и не включает проверку разности времён.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Используя найденные в s3 корни и смысл x из s1, автор исключает отрицательную производительность, затем проверяет исходную модель времён и отвечает о первой трубе. Это полный отбор по физическому смыслу, допустимости и исходному соотношению; отдельного составного остатка вне определения нет.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre><h2>Исторические редакторские назначения</h2><pre>[]</pre><p><a href="../../../runs/2026-11-02-fipi-extension-150/raw/author/FAC22B.json">author raw</a> · <a href="../../../runs/2026-11-02-fipi-extension-150/raw/auditor/FAC22B.json">auditor raw</a></p><pre>{
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;source_policy_included&quot;: true,
+  &quot;source_policy_exclusion_reasons&quot;: []
+}</pre></html>

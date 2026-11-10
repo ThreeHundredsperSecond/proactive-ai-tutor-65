@@ -1,0 +1,160 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>FC0337</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><a href="../index.html">Сводка</a><h1>FC0337</h1><p>Opus100</p><p>Предварительные разборы, внешнего эталона нет.</p><h2>Условие</h2>Впишите правильный ответ.<div><section>  <p class="MsoNormal"><a name="_GoBack"></a>Аня и Таня, работая вместе, пропалывают грядку за 24 минуты, а одна Таня — за 36 минут. За сколько минут пропалывает эту грядку одна Аня?</p>  </section></div><h2>Состав и исключения</h2><pre>{
+  &quot;complete&quot;: true,
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;author_mode&quot;: &quot;standalone_initial&quot;,
+  &quot;author_path&quot;: &quot;data\\annotation\\runs\\2026-11-07-fipi-team-bogdan108-051-150\\raw\\author\\FC0337.json&quot;,
+  &quot;auditor_path&quot;: &quot;data\\annotation\\runs\\2026-11-07-fipi-team-bogdan108-051-150\\raw\\auditor\\FC0337.json&quot;,
+  &quot;feedback_ref&quot;: null,
+  &quot;source_run&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150&quot;
+}</pre><h2>Буквальный сохранённый разбор: ответ, шаги, KC, методы</h2><pre>{
+  &quot;task_id&quot;: &quot;FC0337&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;72&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Выразить производительности: совместная 1/24 грядки в минуту, Тани 1/36 грядки в минуту&quot;,
+      &quot;result&quot;: &quot;v_вместе=1/24, v_Т=1/36&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Найти производительность Ани как разность совместной производительности и производительности Тани&quot;,
+      &quot;result&quot;: &quot;v_А=1/24-1/36=1/72&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Найти время работы Ани как величину, обратную её производительности&quot;,
+      &quot;result&quot;: &quot;72 минуты&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Связать время выполнения работы и производительность&quot;,
+      &quot;description&quot;: &quot;По времени выполнения всей работы найти производительность как обратную величину (долю работы в единицу времени), и наоборот; применимо при постоянной производительности и работе, принятой за 1.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Сложить производительности при совместной работе&quot;,
+      &quot;description&quot;: &quot;Использовать, что при одновременной независимой работе производительности складываются, чтобы найти совместную или неизвестную индивидуальную производительность; применимо при постоянных производительностях.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Через производительности: работа как единица, сложение производительностей&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h2>Буквальный независимый аудит</h2><pre>{
+  &quot;task_id&quot;: &quot;FC0337&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Выразить производительности: совместная 1/24 грядки в минуту, Тани 1/36 грядки в минуту&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;Найти время работы Ани как величину, обратную её производительности&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+          &quot;reason&quot;: &quot;Подстановка в заданную формулу; здесь формула не дана, а модель «работа=1, производительность=1/t» вводится самим решающим, что каталог явно исключает.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_63c80a69a122&quot;,
+          &quot;reason&quot;: &quot;Модель времени для движения по течению (v±c, s/v), иной объект.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+          &quot;reason&quot;: &quot;Процентная доля, а не доля работы в единицу времени.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция — переход между временем выполнения всей работы (принятой за 1) и производительностью как обратной величиной при постоянном темпе; наблюдается в s1 (t→1/t) и s3 (1/72→72). Узла для модели совместной работы в каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Связывать время выполнения работы и производительность&quot;,
+        &quot;definition&quot;: &quot;При постоянной производительности и всей работе, принятой за 1, находить производительность как 1/t по времени и время как 1/v по производительности.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Найти производительность Ани как разность совместной производительности и производительности Тани&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;v_А=1/24-1/36=1/72&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+          &quot;reason&quot;: &quot;Уравнение v_А+1/36=1/24 не составлено явно; ключевое действие — модельное утверждение аддитивности производительностей, а построение модели узлом исключено.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_63c80a69a122&quot;,
+          &quot;reason&quot;: &quot;Сложение скоростей лодки и течения в другой модели; не про совместную работу.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция — использовать аддитивность производительностей при одновременной независимой работе, чтобы найти неизвестную индивидуальную производительность вычитанием; выполнено в s2. Арифметика 1/24-1/36=3/72-2/72=1/72 верна. Подходящего узла в каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Использовать аддитивность производительностей при совместной работе&quot;,
+        &quot;definition&quot;: &quot;При одновременной независимой работе с постоянными производительностями приравнять совместную производительность сумме индивидуальных и найти неизвестную составляющую.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre><h2>Исторические редакторские назначения</h2><pre>[]</pre><p><a href="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/FC0337.json">author raw</a> · <a href="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/FC0337.json">auditor raw</a></p><pre>{
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;source_policy_included&quot;: true,
+  &quot;source_policy_exclusion_reasons&quot;: []
+}</pre></html>

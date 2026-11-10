@@ -27,8 +27,11 @@ def main():
         assert [c.execution_count for c in code]==list(range(1,len(code)+1))
         assert not [o for c in code for o in c.outputs if o.output_type=='error']
         png=sum('image/png' in o.get('data',{}) for c in code for o in c.outputs)
-        assert png==11, png
+        assert len(n.cells)==35 and png==11
+        assert n.metadata.get('analysis_population')==dict(selected=315,included=312)
+        assert not any(c.cell_type=='markdown' and re.match(r'^## (11|12)\.',c.source) for c in n.cells)
         sources='\n'.join(c.source for c in n.cells)
+        assert not any(x in sources.lower() for x in ['богдан','bogdan','semantic_tokens','naive bayes','tf–idf']), 'Optional experiments or personal narrative in primary EDA'
         assert '.html' not in sources, 'The main notebook must not require HTML pages'
         assert '127.0.0.1' not in sources and 'localhost' not in sources
         assert not any('text/html' in o.get('data',{}) for c in code for o in c.outputs)
@@ -46,6 +49,8 @@ def main():
     assert inspect(nb)==counts
     after={p.name:sha(p) for p in (DEST/'derived').iterdir() if p.suffix in ('.csv','.png') or p.name in ('summary.json','integrated-summary.json')}
     assert before==after, 'Replay changed data/figure outputs'
+    from checkpoint2_current import verify_current
+    historical_notebook = verify_current(ROOT)
     # The executed primary notebook is the deliverable. Replay is verified in
     # memory; the former saved replay is now an immutable archived snapshot.
     checked=0
@@ -76,10 +81,12 @@ def main():
     result=dict(passed=True,scope='Consolidated single notebook: no new model calls/collection or HTML/service dependency; replay from root and initial execution from notebook directory',
                 notebook=counts,replay_data_and_figures_byte_identical=True,replay_persistence='In memory; former replay archived',historical_hash_checks=checked,
                 provenance_hash_checks=len(provenance['input_hashes']),local_links_checked=links,
+                original_100_notebook=historical_notebook,
                 pdf='One-page practical-value PDF authored and visually reviewed separately; notebook replay preserves its bytes',
                 outputs={p.relative_to(ROOT).as_posix():sha(p) for p in sorted(DEST.rglob('*')) if p.is_file() and p.name!='verification.json'})
     for path in ['output/pdf/checkpoint-2-practical-value.pdf','docs/eda/05-analysis/checkpoint-2-practical-value.md',
-                 'scripts/build_checkpoint2.py','scripts/build_checkpoint2_pdf.py','scripts/verify_checkpoint2.py']:
+                 'scripts/build_checkpoint2.py','scripts/checkpoint2_extensions.py','scripts/checkpoint2_saved_refresh.py',
+                 'scripts/fipi_saved_refresh.py','scripts/checkpoint2_current.py','scripts/build_checkpoint2_pdf.py','scripts/verify_checkpoint2.py']:
         result['outputs'][path]=sha(ROOT/path)
     import importlib.metadata
     result['runtime']={'python':sys.version,'packages':{m:importlib.metadata.version(m) for m in ['nbformat','nbclient','ipykernel','matplotlib','numpy','lxml']}}
