@@ -1,0 +1,203 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>3B468E</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>114. ФИПИ 3B468E · партия 9</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">В треугольнике <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mi>C</mi> </mrow>  </semantics> </mstyle></math> угол <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>A</mi>  </semantics> </mstyle></math> равен <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mn>120</mn><mi>°</mi> </mrow>  </semantics> </mstyle></math>. Прямые, содержащие высоты <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>B</mi><mi>M</mi> </mrow>  </semantics> </mstyle></math> и <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>C</mi><mi>N</mi> </mrow>  </semantics> </mstyle></math> треугольника <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mi>C</mi> </mrow>  </semantics> </mstyle></math>, пересекаются в точке <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>H</mi>  </semantics> </mstyle></math>. Точка <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>O</mi>  </semantics> </mstyle></math> <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mo>—</mo>  </semantics> </mstyle></math> центр окружности, описанной около треугольника <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mi>C</mi> </mrow>  </semantics> </mstyle></math>.</p> <p class="MsoNormal">а) Докажите, что <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>H</mi><mo>=</mo><mi>A</mi><mi>O</mi> </mrow>  </semantics> </mstyle></math>.</p> <p class="MsoNormal">б) Найдите площадь треугольника <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>H</mi><mi>O</mi> </mrow>  </semantics> </mstyle></math>, если <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>B</mi><mi>C</mi><mo>=</mo><mn>3</mn> </mrow>  </semantics> </mstyle></math>, <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mo>∠</mo><mi>A</mi><mi>B</mi><mi>C</mi><mo>=</mo><mn>15</mn><mi>°</mi> </mrow>  </semantics> </mstyle></math>.</p>  </section></div><p>КЭС: 7.1 Фигуры на плоскости</p><h2>Ответ</h2><p>а) доказано: AH = 2R|cos A| = R = AO; б) 3/4</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Выразить расстояние от вершины до ортоцентра через радиус описанной окружности: AH = 2R|cos A|; при A = 120° получить AH = R = AO</td><td>AH = R = AO (пункт а)</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Найти радиус описанной окружности по теореме синусов: 2R = BC/sin A</td><td>R = √3, AH = AO = √3</td><td>kc2</td></tr><tr><td>s3 · condition</td><td>Найти угол C из суммы углов треугольника и угол между прямой высоты из A и AO (изогональность высоты и радиуса: угол равен |B − C|); учесть, что при тупом угле A точки H и O лежат по разные стороны от A на соответствующих направлениях</td><td>C = 45°, угол между прямыми 30°, ∠HAO = 150°, sin∠HAO = 1/2</td><td>kc3</td></tr><tr><td>s4 · s2, s3</td><td>Вычислить площадь треугольника по двум сторонам и синусу угла между ними</td><td>S = ½·√3·√3·½ = 3/4</td><td>kc4</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Доказательство через формулу AH = 2R|cos A|&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;m2&quot;,
+    &quot;name&quot;: &quot;Площадь через две стороны и угол между ними&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Выразить расстояние от вершины до ортоцентра через R и угол</h3><p>Вход: треугольник с известным углом при вершине и радиусом описанной окружности. Операция: применить AH = 2R|cos A|. Граница: верно и для тупоугольного треугольника с модулем косинуса.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;AH = 2R|cos A|; при A = 120° получить AH = R = AO&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_38dfd2a1aa18&quot;,
+      &quot;reason&quot;: &quot;стороны прямоугольного треугольника по углу; здесь формула расстояния до ортоцентра в произвольном треугольнике&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+      &quot;reason&quot;: &quot;подстановка в заданную формулу; здесь формула не дана условием, а применяется как геометрический факт&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: применить соотношение AH = 2R|cos A| для ортоцентра и сравнить с радиусом. В каталоге нет узлов про ортоцентр или описанную окружность.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Выражать расстояние от вершины до ортоцентра через радиус описанной окружности и угол при этой вершине: AH = 2R|cos A|, включая тупоугольный случай.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc2"><h3>kc2 · Применить расширенную теорему синусов</h3><p>Вход: сторона и противолежащий угол. Операция: 2R = a/sin A для нахождения радиуса описанной окружности.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Найти радиус описанной окружности по теореме синусов: 2R = BC/sin A&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;R = √3&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;cosine_law&quot;,
+      &quot;reason&quot;: &quot;теорема косинусов связывает три стороны и угол, а не сторону, угол и радиус&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_be5764a81415&quot;,
+      &quot;reason&quot;: &quot;отношение в прямоугольном треугольнике, здесь треугольник тупоугольный&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдаемо применение расширенной теоремы синусов: BC=3, sin120°=√3/2, R=√3 — вычисление верно. Узла теоремы синусов в каталоге нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Находить радиус описанной окружности по стороне и противолежащему углу: 2R = a/sin α.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Найти угол между высотой и радиусом описанной окружности из вершины</h3><p>Вход: углы треугольника при двух других вершинах. Операция: использовать изогональность высоты и радиуса (угол между прямыми равен модулю разности углов), учитывая расположение точек для тупоугольного треугольника.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Найти угол C из суммы углов треугольника&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;изогональность высоты и радиуса: угол равен |B − C|&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;учесть, что при тупом угле A точки H и O лежат по разные стороны от A на соответствующих направлениях&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;C = 45°, угол между прямыми 30°, ∠HAO = 150°&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_f5a787e19d0e&quot;,
+      &quot;reason&quot;: &quot;подходит только к части: угол C по сумме углов треугольника&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cdb2863ad1e6&quot;,
+      &quot;reason&quot;: &quot;сравнение углов через перпендикуляры; изогональность высоты и радиуса — иной факт&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_adbf18f11761&quot;,
+      &quot;reason&quot;: &quot;угол между лучами по общей стороне; может описывать переход 180°−30°, но не изогональность&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Шаг объединяет три действия: нахождение угла C, применение изогональности высоты и AO, выбор угла ∠HAO по расположению точек. Кандидат kc3 при этом не описывает нахождение C. Числа верны: C=45°, |B−C|=30°, ∠HAO=150°.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Найти угол C по сумме углов треугольника&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_f5a787e19d0e&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Использовать изогональность высоты и радиуса описанной окружности из вершины: угол между ними |B − C|&quot;,
+        &quot;possible_catalog_kc_id&quot;: null
+      },
+      {
+        &quot;part&quot;: &quot;Определить угол HAO по расположению H и O относительно A в тупоугольном треугольнике (смежный угол 180°−30°)&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_adbf18f11761 (условно)&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i2&quot;
+  ]
+}</pre></section><section id="kc4"><h3>kc4 · Вычислить площадь треугольника по двум сторонам и углу</h3><p>Вход: две стороны и угол между ними. Операция: S = ½ab·sin γ.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:action&quot;,
+      &quot;quote&quot;: &quot;Вычислить площадь треугольника по двум сторонам и синусу угла между ними&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;S = ½·√3·√3·½ = 3/4&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;,
+    &quot;step:s3:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;right_triangle_area&quot;,
+      &quot;reason&quot;: &quot;только прямоугольный треугольник через катеты; здесь угол 150°&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция S = ½ab·sin γ для треугольника AHO с AH=AO=√3 и углом 150°; результат 3/4 верен. Подходящего узла нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Вычислять площадь треугольника по двум сторонам и синусу угла между ними: S = ½ab·sin γ.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[
+  &quot;Формулы AH = 2R|cos A| и изогональность высоты и AO используются как известные факты без вывода.&quot;
+]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;coverage&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s1:action&quot;
+    ],
+    &quot;description&quot;: &quot;В пункте а) требуется доказательство, а формула AH = 2R|cos A| используется как известный факт без вывода (отмечено автором в warnings). Полнота доказательства зависит от допустимости ссылки на этот факт.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc1&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;i2&quot;,
+    &quot;kind&quot;: &quot;coverage&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s3:action&quot;
+    ],
+    &quot;description&quot;: &quot;Расположение H и O по разные стороны от A и изогональность приняты без обоснования; итоговое значение ∠HAO = 150° при этом верно.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc3&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/3B468E.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/3B468E.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

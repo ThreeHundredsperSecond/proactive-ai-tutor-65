@@ -1,0 +1,198 @@
+{
+ "task_id": "517890",
+ "catalog_version": "fipi50-editorial-v1-frozen",
+ "decisions": [
+  {
+   "local_kc_id": "k1",
+   "status": "match",
+   "catalog_kc_id": "literal_7baedb55a81a",
+   "evidence": [
+    {
+     "ref": "step:s1:action",
+     "quote": "аргумент x^2-9 положителен"
+    }
+   ],
+   "context_refs": [
+    "condition"
+   ],
+   "alternatives_checked": [
+    {
+     "catalog_kc_id": "literal_0214fc221120",
+     "reason": "требует ещё проверки принадлежности рассматриваемого промежутка области; здесь промежутка нет, есть выражение с логарифмом"
+    }
+   ],
+   "rationale": "Для логарифмического выражения log_2(x^2-9) с постоянным основанием 2 потребована положительность аргумента и получено x<-3 или x>3. Это соответствует определению области определения логарифмического выражения; решение x^2>9 входит как тривиальная часть.",
+   "proposal": null,
+   "blocking": false,
+   "issue_ids": []
+  },
+  {
+   "local_kc_id": "k2",
+   "status": "new_candidate",
+   "catalog_kc_id": null,
+   "evidence": [
+    {
+     "ref": "step:s2:action",
+     "quote": "Ввести замену t=log_2(x^2-9) и привести неравенство к квадратному относительно t"
+    }
+   ],
+   "context_refs": [
+    "condition"
+   ],
+   "alternatives_checked": [
+    {
+     "catalog_kc_id": "exponential_substitution",
+     "reason": "замена показателя t=b^x, а не логарифмического выражения"
+    },
+    {
+     "catalog_kc_id": "literal_a30e088aef8f",
+     "reason": "замена квадратного корня t=√x с t>=0"
+    }
+   ],
+   "rationale": "В каталоге нет узла для замены логарифмического выражения, повторяющегося в разных степенях, с приведением к алгебраическому неравенству. Обратный переход отдельно.",
+   "proposal": {
+    "definition": "В неравенстве, где повторяется одно логарифмическое выражение в разных степенях, обозначить его новой переменной на области его значений и получить алгебраическое неравенство относительно неё."
+   },
+   "blocking": false,
+   "issue_ids": []
+  },
+  {
+   "local_kc_id": "k3",
+   "status": "match",
+   "catalog_kc_id": "literal_1b97db4e28e8",
+   "evidence": [
+    {
+     "ref": "step:s3:action",
+     "quote": "Решить квадратное неравенство относительно t (корни 4 и 5, ветви вверх)"
+    },
+    {
+     "ref": "step:s3:result",
+     "quote": "t≤4 или t≥5."
+    }
+   ],
+   "context_refs": [
+    "step:s2:result"
+   ],
+   "alternatives_checked": [
+    {
+     "catalog_kc_id": "literal_cd64639b0b5a",
+     "reason": "относится к неравенству с параметром"
+    }
+   ],
+   "rationale": "Найдены корни трёхчлена t^2-9t+20 (4 и 5), определены знаки по промежуткам, учтена нестрогость; результат t≤4 или t≥5 верен.",
+   "proposal": null,
+   "blocking": false,
+   "issue_ids": []
+  },
+  {
+   "local_kc_id": "k4",
+   "status": "match",
+   "catalog_kc_id": "literal_eae4ca1f2f8b",
+   "evidence": [
+    {
+     "ref": "step:s4:action",
+     "quote": "переходя к аргументу по основанию больше 1"
+    },
+    {
+     "ref": "step:s5:action",
+     "quote": "переходом к аргументу по основанию больше 1"
+    },
+    {
+     "ref": "step:s5:result",
+     "quote": "x^2-9≥32"
+    }
+   ],
+   "context_refs": [
+    "step:s3:result",
+    "step:s1:result"
+   ],
+   "alternatives_checked": [
+    {
+     "catalog_kc_id": "literal_2443f08dda82",
+     "reason": "только равенство логарифмов"
+    }
+   ],
+   "rationale": "Выполнен переход от log_2(x^2-9)≤4 и ≥5 к сравнению аргумента с 2^4 и 2^5 при основании 2>1 с сохранением знака и положительности аргумента (0<x^2-9≤16, x^2-9≥32). Действие наблюдается в двух шагах.",
+   "proposal": null,
+   "blocking": false,
+   "issue_ids": []
+  },
+  {
+   "local_kc_id": "k5",
+   "status": "new_candidate",
+   "catalog_kc_id": null,
+   "evidence": [
+    {
+     "ref": "step:s4:result",
+     "quote": "9<x^2≤25, откуда x∈[-5;-3)∪(3;5]"
+    },
+    {
+     "ref": "step:s5:result",
+     "quote": "x^2≥41, откуда x≤-√41 или x≥√41"
+    }
+   ],
+   "context_refs": [],
+   "alternatives_checked": [
+    {
+     "catalog_kc_id": "literal_57e72251d4a8",
+     "reason": "только уравнение x^2=c"
+    },
+    {
+     "catalog_kc_id": "literal_cd64639b0b5a",
+     "reason": "неравенство с параметром и знаковыми ограничениями"
+    },
+    {
+     "catalog_kc_id": "literal_1b97db4e28e8",
+     "reason": "общий трёхчлен, а не x^2 против константы"
+    }
+   ],
+   "rationale": "В каталоге нет узла для решения неравенства x^2 против положительной константы (включая двойное) с записью объединения промежутков.",
+   "proposal": {
+    "definition": "Решить неравенство вида a<x^2≤b или x^2≥c при положительных константах, перейдя к промежуткам для x (через модуль или корни), и записать множество решений."
+   },
+   "blocking": false,
+   "issue_ids": []
+  },
+  {
+   "local_kc_id": "k6",
+   "status": "new_candidate",
+   "catalog_kc_id": null,
+   "evidence": [
+    {
+     "ref": "step:s6:action",
+     "quote": "Объединить решения обоих случаев."
+    },
+    {
+     "ref": "step:s6:result",
+     "quote": "x∈(-∞;-√41]∪[-5;-3)∪(3;5]∪[√41;+∞)."
+    }
+   ],
+   "context_refs": [
+    "step:s4:result",
+    "step:s5:result"
+   ],
+   "alternatives_checked": [
+    {
+     "catalog_kc_id": "set_intersection",
+     "reason": "пересечение/исключение, а не объединение"
+    },
+    {
+     "catalog_kc_id": "literal_e41f0e408b87",
+     "reason": "множество параметров с граничными проверками"
+    },
+    {
+     "catalog_kc_id": "literal_05f53e4cc43a",
+     "reason": "подсчёт числа решений"
+    }
+   ],
+   "rationale": "Подходящего узла объединения множеств решений случаев нет. Учёт ОДЗ выполнен в s4 и s5 ранее, в s6 только объединение; границы записаны верно.",
+   "proposal": {
+    "definition": "Объединить множества решений независимых случаев совокупности и записать итог упорядоченными промежутками с верными границами."
+   },
+   "blocking": false,
+   "issue_ids": []
+  }
+ ],
+ "issues": [],
+ "review_scope": "KC mapping with incidental mathematical checks; not expert validation"
+}

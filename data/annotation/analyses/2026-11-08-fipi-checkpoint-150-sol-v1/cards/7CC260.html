@@ -1,0 +1,312 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>7CC260</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><a href="../index.html">Сводка</a><h1>7CC260</h1><p>sol50</p><p>Предварительные разборы, внешнего эталона нет.</p><h2>Условие</h2>Дайте развернутый ответ.<div><section>  <p class="MsoNormal">Найдите все положительные значения <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>a</mi><mo>,</mo> </mrow> </semantics> </math> при каждом из которых система уравнений</p> <p class="MsoNormal" align="center"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mrow><mo>{</mo> <mtable columnalign="left"> <mtr> <mtd> <mrow><mo>|</mo> <mi>x</mi> <mo>|</mo></mrow><mo>+</mo><mrow><mo>|</mo> <mi>y</mi> <mo>|</mo></mrow><mo>=</mo><mi>a</mi><mo>,</mo> </mtd> </mtr> <mtr> <mtd> <mi>y</mi><mo>=</mo><msqrt> <mrow> <mi>x</mi><mo>+</mo><mn>4</mn> </mrow> </msqrt> </mtd> </mtr> </mtable> </mrow> </mrow> </semantics> </math></p> <p class="MsoNormal">имеет ровно два различных решения.</p> <p class="MsoNormal"><span> </span></p>  </section></div><h2>Состав и исключения</h2><pre>{
+  &quot;complete&quot;: true,
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;author_mode&quot;: &quot;standalone_initial&quot;,
+  &quot;author_path&quot;: &quot;raw\\author\\7CC260.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\7CC260.json&quot;,
+  &quot;feedback_ref&quot;: null,
+  &quot;source_run&quot;: &quot;data/annotation/runs/2026-11-08-fipi-team-ThreeHundredsperSecond-50&quot;
+}</pre><h2>Буквальный сохранённый разбор: ответ, шаги, KC, методы</h2><pre>{
+  &quot;task_id&quot;: &quot;7CC260&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;a ∈ (2; 4) ∪ {17/4}.&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Ввести параметр t = y = √(x + 4) и выразить x через него с сохранением области допустимых значений.&quot;,
+      &quot;result&quot;: &quot;t ≥ 0, x = t² − 4, y = t. Каждому t ≥ 0 соответствует ровно одна пара (x, y), удовлетворяющая второму уравнению. Поэтому число решений системы равно числу корней |t² − 4| + t = a при t ≥ 0.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Раскрыть модуль по знаку подмодульного выражения и разделить область параметра на непересекающиеся части.&quot;,
+      &quot;result&quot;: &quot;При 0 ≤ t &lt; 2 получаем a = 4 − t² + t; при t ≥ 2 получаем a = t² + t − 4. Точка t = 2 учитывается только во второй части.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Установить число корней на части t ≥ 2 по монотонности квадратного трёхчлена.&quot;,
+      &quot;result&quot;: &quot;Функция t² + t − 4 строго возрастает при t ≥ 2, принимает значение 2 в точке t = 2 и неограниченно возрастает. На этой части существует ровно один корень при a ≥ 2 и ни одного при a &lt; 2.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Выделить полный квадрат и определить монотонные участки первой части функции вместе с их диапазонами значений.&quot;,
+      &quot;result&quot;: &quot;4 − t² + t = 17/4 − (t − 1/2)². На [0; 1/2] функция строго возрастает от 4 до 17/4; на (1/2; 2) строго убывает и имеет диапазон (2; 17/4). Вершина включена только в первый из этих участков.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;,
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s5&quot;,
+      &quot;action&quot;: &quot;Подсчитать суммарное число корней на непересекающихся участках, отдельно проверяя граничные уровни.&quot;,
+      &quot;result&quot;: &quot;При 0 &lt; a &lt; 2 корней нет; при a = 2 имеется один корень; при 2 &lt; a &lt; 4 имеются два корня; при 4 ≤ a &lt; 17/4 имеются три корня (при a = 4 первая часть даёт t = 0 и t = 1); при a = 17/4 имеются два корня, один из них t = 1/2; при a &gt; 17/4 имеется один корень. Следовательно, ровно два различных решения получаются при a ∈ (2; 4) ∪ {17/4}.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Заменить радикал неотрицательным параметром&quot;,
+      &quot;description&quot;: &quot;Для уравнения, связывающего переменную с квадратным корнем из линейного выражения, ввести неотрицательный параметр, выразить исходные переменные и проверить взаимно однозначное соответствие допустимых решений. Применяется при возможности однозначно восстановить исходные переменные.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Раскрыть модуль с разбиением области на участки&quot;,
+      &quot;description&quot;: &quot;Для выражения с модулем определить знак его аргумента на допустимой области и записать формулы без модуля на непересекающихся участках, сохраняя принадлежность граничных точек.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Подсчитать корни на строго монотонном участке&quot;,
+      &quot;description&quot;: &quot;Для непрерывной строго монотонной функции на заданном промежутке установить диапазон значений с учётом включённых концов и по нему определить наличие и единственность корня уравнения с заданным уровнем.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Определить вершину параболы выделением полного квадрата&quot;,
+      &quot;description&quot;: &quot;Для квадратного трёхчлена выделить полный квадрат и по полученной форме определить экстремум и направления монотонности на заданной области.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc5&quot;,
+      &quot;name&quot;: &quot;Собрать число решений по непересекающимся участкам&quot;,
+      &quot;description&quot;: &quot;Имея число корней на отдельных непересекающихся частях допустимой области, сложить их по диапазонам параметра, отдельно проверить граничные уровни и выбрать все значения параметра с требуемым общим числом решений.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Замена радикала параметром и подсчёт пересечений уровня с кусочно квадратичной функцией&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;,
+        &quot;s5&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: [
+    &quot;Предварительная предметная интерпретация; не экспертный эталон и не оценка ученика.&quot;
+  ]
+}</pre><h2>Буквальный независимый аудит</h2><pre>{
+  &quot;task_id&quot;: &quot;7CC260&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_a30e088aef8f&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;t ≥ 0, x = t² − 4, y = t. Каждому t ≥ 0 соответствует ровно одна пара (x, y), удовлетворяющая второму уравнению. Поэтому число решений системы равно числу корней |t² − 4| + t = a при t ≥ 0.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_ab8a29be8367&quot;,
+          &quot;reason&quot;: &quot;Замена квадратом имеет два прообраза положительного значения; здесь неотрицательная корневая замена однозначно обратима.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Вводится t=√(x+4)≥0 и восстанавливается x=t²−4, y=t. Сдвиг аргумента не меняет операции корневой замены. Однозначность восстановления явно проверена.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_b0359174295e&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;При 0 ≤ t &lt; 2 получаем a = 4 − t² + t; при t ≥ 2 получаем a = t² + t − 4. Точка t = 2 учитывается только во второй части.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_1b97db4e28e8&quot;,
+          &quot;reason&quot;: &quot;Знак трёхчлена используется для снятия модуля, а не для решения квадратного неравенства.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Аргумент модуля t²−4 на допустимой области меняет знак в t=2. Выписаны обе формулы без модуля и однозначно распределена граница. Составной аргумент не меняет операцию раскрытия модуля по знаку.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;Функция t² + t − 4 строго возрастает при t ≥ 2, принимает значение 2 в точке t = 2 и неограниченно возрастает. На этой части существует ровно один корень при a ≥ 2 и ни одного при a &lt; 2.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;4 − t² + t = 17/4 − (t − 1/2)². На [0; 1/2] функция строго возрастает от 4 до 17/4; на (1/2; 2) строго убывает и имеет диапазон (2; 17/4). Вершина включена только в первый из этих участков.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;,
+          &quot;reason&quot;: &quot;Требует исследования знака производной, которого здесь нет; подсчёт корней по диапазону не охвачен.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+          &quot;reason&quot;: &quot;Подстановка конца промежутка лишь компонент, не установление существования и единственности корня.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_5dcd4a01af19&quot;,
+          &quot;reason&quot;: &quot;Проверка кандидатов и совпадений отличается от установления числа корней по непрерывности и строгой монотонности.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;В s3 из строгого возрастания непрерывного трёхчлена и диапазона [2;+∞) получены существование и единственность корня уровня a. В s4 установлены участки и диапазоны первой части; сам подсчёт их корней выполнен в s5. Полного определения для операции s3 в каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Для непрерывной строго монотонной функции на промежутке определить диапазон с учётом концов и по принадлежности заданного уровня диапазону установить наличие ровно одного корня либо отсутствие корней.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;4 − t² + t = 17/4 − (t − 1/2)². На [0; 1/2] функция строго возрастает от 4 до 17/4; на (1/2; 2) строго убывает и имеет диапазон (2; 17/4). Вершина включена только в первый из этих участков.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_b1bcbe4b4f6b&quot;,
+          &quot;reason&quot;: &quot;Покрывает полный квадрат, вершину и максимум, но не весь кандидат с направлениями монотонности на области.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;,
+          &quot;reason&quot;: &quot;Производная не используется; монотонность определяется по квадрату.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;global_interval_extreme&quot;,
+          &quot;reason&quot;: &quot;Глобальный экстремум на отрезке не охватывает исследование направлений монотонности на заданном полуинтервале.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат объединяет получение вершины выделением квадрата и определение направлений монотонности. Оба действия наблюдаются в s4, но узел про максимум охватывает только первое.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;definition&quot;: &quot;Выделить полный квадрат в вогнутом трёхчлене и определить вершину и максимум.&quot;,
+            &quot;possible_catalog_kc_ids&quot;: [
+              &quot;literal_b1bcbe4b4f6b&quot;
+            ]
+          },
+          {
+            &quot;definition&quot;: &quot;По форме C−(t−h)² определить монотонность по обе стороны вершины на заданной области и диапазоны участков с учётом концов.&quot;,
+            &quot;possible_catalog_kc_ids&quot;: [],
+            &quot;note&quot;: &quot;Предложение компонента: полного определения в каталоге нет.&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc5&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s5:result&quot;,
+          &quot;quote&quot;: &quot;При 0 &lt; a &lt; 2 корней нет; при a = 2 имеется один корень; при 2 &lt; a &lt; 4 имеются два корня; при 4 ≤ a &lt; 17/4 имеются три корня (при a = 4 первая часть даёт t = 0 и t = 1); при a = 17/4 имеются два корня, один из них t = 1/2; при a &gt; 17/4 имеется один корень. Следовательно, ровно два различных решения получаются при a ∈ (2; 4) ∪ {17/4}.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s3:result&quot;,
+        &quot;step:s4:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_5dcd4a01af19&quot;,
+          &quot;reason&quot;: &quot;Учёт ветвей и границ не охватывает весь выбор параметров по требуемому числу решений.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_d93e50c17220&quot;,
+          &quot;reason&quot;: &quot;Перекрывается с literal_5dcd4a01af19 по допустимости, совпадениям и границам; оснований выбрать единственный узел для компонента нет.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_05f53e4cc43a&quot;,
+          &quot;reason&quot;: &quot;Описывает учёт общих решений ветвей, но не всю классификацию уровней параметра.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_e41f0e408b87&quot;,
+          &quot;reason&quot;: &quot;Объединение параметрических случаев не покрывает предшествующий подсчёт числа корней.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Выполнены подсчёт корней на непересекающихся частях с граничными случаями и последующий выбор параметров, дающих два решения. Единого определения нет; близкие определения компонента подсчёта перекрываются.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;definition&quot;: &quot;Собрать число различных корней по ветвям, учитывая допустимость, границы и отсутствие двойного счёта.&quot;,
+            &quot;possible_catalog_kc_ids&quot;: [
+              &quot;literal_5dcd4a01af19&quot;,
+              &quot;literal_d93e50c17220&quot;,
+              &quot;literal_05f53e4cc43a&quot;
+            ],
+            &quot;note&quot;: &quot;Возможные соответствия перекрываются; выбор единственного не подтверждён.&quot;
+          },
+          {
+            &quot;definition&quot;: &quot;Выбрать и объединить случаи параметра с требуемым числом решений, отдельно проверив граничные уровни.&quot;,
+            &quot;possible_catalog_kc_ids&quot;: [
+              &quot;literal_e41f0e408b87&quot;
+            ]
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre><h2>Исторические редакторские назначения</h2><pre>[]</pre></html>

@@ -1,0 +1,196 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>783DBA</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">На рисунке изображён график функции вида <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>f</mi><mrow><mo>(</mo> <mi>x</mi> <mo>)</mo></mrow><mo>=</mo><msup> <mi>a</mi> <mi>x</mi> </msup> </mrow> </semantics> </math>. Найдите <br> значение <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>f</mi><mrow><mo>(</mo> <mrow> <mo>−</mo><mtext> </mtext><mn>3</mn> </mrow> <mo>)</mo></mrow> </mrow> </semantics> </math>.</p> <p class="MsoNormal" align="center"><img src="file:///Users/bogdanlukancuk/proactive-ai-tutor-65/data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/inputs/assets/5ff05d976eaa90aab04eba81.png" alt="Рисунок ФИПИ"></p> <p class="MsoNormal"><span> </span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;783DBA&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;8&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Считать с графика координаты отмеченной точки графика с целыми координатами&quot;,
+      &quot;result&quot;: &quot;График проходит через точку (-1; 2)&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Подставить точку в f(x)=a^x и найти основание a&quot;,
+      &quot;result&quot;: &quot;a^{-1}=2, a=1/2&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Вычислить значение показательной функции в x=-3&quot;,
+      &quot;result&quot;: &quot;f(-3)=(1/2)^{-3}=8&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Определить координаты точки графика по рисунку&quot;,
+      &quot;description&quot;: &quot;Вход: график функции на клетчатой сетке с отмеченными точками. Операция: считать координаты точки, через которую проходит график. Граница: только точки с однозначно читаемыми координатами (узлы сетки).&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Найти параметр функции по точке графика&quot;,
+      &quot;description&quot;: &quot;Вход: вид функции с неизвестным параметром и точка графика. Операция: подставить координаты и решить уравнение относительно параметра. Граница: параметр однозначно определяется уравнением с учётом ограничений вида (основание степени положительно и не равно 1).&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Вычислить степень с отрицательным показателем&quot;,
+      &quot;description&quot;: &quot;Вход: основание и целый отрицательный показатель. Операция: перейти к обратной величине и возвести в натуральную степень. Граница: ненулевое основание.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Восстановление формулы функции по точке графика и вычисление значения&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;783DBA&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;graph_coordinates&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Считать с графика координаты отмеченной точки графика с целыми координатами&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;График проходит через точку (-1; 2)&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;image:assets/5ff05d976eaa90aab04eba81.png&quot;,
+          &quot;region_description&quot;: &quot;Клетчатая сетка с единичным масштабом (подписи -1, 0, 1 на оси x и 1, 2 на оси y); на убывающей кривой y=f(x) отмечены жирные точки в узлах (-1; 2) и (0; 1).&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_3ac0ecd3cd49&quot;,
+          &quot;reason&quot;: &quot;Восстановление основания — последующее отдельное действие, в s1 не выполняется.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция — считывание координат отмеченной точки по установленному масштабу сетки; точка (-1; 2) лежит в узле и отмечена на рисунке, что соответствует определению graph_coordinates целиком. Восстановление формулы исключено границей узла.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_3ac0ecd3cd49&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Подставить точку в f(x)=a^x и найти основание a&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;a^{-1}=2, a=1/2&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;direct_proportion&quot;,
+          &quot;reason&quot;: &quot;Касается y=kx, а не показательной функции.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_51a8c0abd718&quot;,
+          &quot;reason&quot;: &quot;Касается y=a√x.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+          &quot;reason&quot;: &quot;Неизвестна не переменная показателя, а основание; приравнивание показателей не выполняется.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+          &quot;reason&quot;: &quot;Относится к подстановке величин в прикладную формулу, а не к восстановлению параметра функции.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдаемое действие: для f(x)=a^x по точке с ненулевой абсциссой -1 (из s1) найдено основание a=1/2 — полностью совпадает с определением literal_3ac0ecd3cd49. Авторский кандидат сформулирован шире (любой параметр функции), но в данной задаче реализован ровно этот частный случай; соответствие относится к наблюдаемому действию.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;f(-3)=(1/2)^{-3}=8&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+          &quot;reason&quot;: &quot;Описывает подстановку аргумента в установленную формулу и вычисление в целом; кандидат kc3 — только вычисление степени с отрицательным целым показателем, узкий компонент этого шага. Сам шаг s3 соответствует literal_6308771d01a6, но kc3 по определению ему не равен.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+          &quot;reason&quot;: &quot;Законы степени степени, произведения и частного; переход к обратной величине при отрицательном показателе не описан.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция — вычисление (1/2)^{-3} через обратную величину 2^3=8; объект — ненулевое основание и целый отрицательный показатель. В каталоге нет узла с таким определением; ближайший literal_6308771d01a6 шире и охватывает подстановку. Вычисление выполнено верно.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Вычислять степень с целым отрицательным показателем&quot;,
+        &quot;definition&quot;: &quot;Для ненулевого основания b и натурального n заменить b^{-n} на (1/b)^n и вычислить. Подстановка аргумента в формулу функции — отдельное действие (literal_6308771d01a6).&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;missing_annotation&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s3:action&quot;
+      ],
+      &quot;description&quot;: &quot;Шаг s3 включает подстановку x=-3 в восстановленную формулу f(x)=(1/2)^x, что соответствует каталожному literal_6308771d01a6; авторская разметка указывает только узкий kc3 (отрицательный показатель), подстановка не размечена отдельно.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc3&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>

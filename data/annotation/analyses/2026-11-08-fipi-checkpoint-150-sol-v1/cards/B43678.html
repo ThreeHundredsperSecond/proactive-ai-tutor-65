@@ -1,0 +1,178 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>B43678</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><a href="../index.html">Сводка</a><h1>B43678</h1><p>historical_editorial50</p><p>Предварительные разборы, внешнего эталона нет.</p><h2>Условие</h2>Дайте развернутый ответ.<div><section>  <p class="MsoNormal">Решите неравенство <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mfrac> <mrow> <mn>2</mn><mo>⋅</mo><msup> <mn>8</mn> <mrow> <mi>x</mi><mtext> </mtext><mo>−</mo><mtext> </mtext><mn>1</mn> </mrow> </msup> </mrow> <mrow> <mn>2</mn><mo>⋅</mo><msup> <mn>8</mn> <mrow> <mi>x</mi><mtext> </mtext><mo>−</mo><mtext> </mtext><mn>1</mn> </mrow> </msup> <mo>−</mo><mn>1</mn> </mrow> </mfrac> <mo>≥</mo><mfrac> <mn>3</mn> <mrow> <msup> <mn>8</mn> <mi>x</mi> </msup> <mo>−</mo><mn>1</mn> </mrow> </mfrac> <mo>+</mo><mfrac> <mn>8</mn> <mrow> <msup> <mrow> <mn>64</mn> </mrow> <mi>x</mi> </msup> <mo>−</mo><mn>5</mn><mo>⋅</mo><msup> <mn>8</mn> <mi>x</mi> </msup> <mo>+</mo><mn>4</mn> </mrow> </mfrac> <mo>.</mo> </mrow> </semantics> </math><span></span></p>  </section></div><h2>Состав и исключения</h2><pre>{
+  &quot;complete&quot;: true,
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;author_mode&quot;: &quot;historical_shared_context&quot;,
+  &quot;author_path&quot;: null,
+  &quot;auditor_path&quot;: null,
+  &quot;feedback_ref&quot;: null,
+  &quot;source_run&quot;: &quot;data/annotation/runs/2026-10-31-fipi-50x1&quot;
+}</pre><h2>Буквальный сохранённый разбор: ответ, шаги, KC, методы</h2><pre>{
+  &quot;task_id&quot;: &quot;B43678&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;x∈(-∞;0) ∪ {1/3} ∪ (2/3;+∞)&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Ввести положительную показательную замену и сохранить запрещённые значения&quot;,
+      &quot;result&quot;: &quot;t=8^x&gt;0. Тогда 2·8^(x-1)=t/4,64^x=t². Знаменатели исключают t=1 и t=4.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k1&quot;,
+        &quot;k2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Привести разность частей к одной дроби&quot;,
+      &quot;result&quot;: &quot;t/(t-4)-3/(t-1)-8/((t-1)(t-4))=(t-2)²/((t-1)(t-4)). Требуется эта дробь ≥0.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Решить рациональное неравенство&quot;,
+      &quot;result&quot;: &quot;При t&gt;0 и t≠1,4 знаменатель положителен на (0;1) и (4;+∞); отдельно числитель обнуляется при t=2. Ответ по t: (0;1)∪{2}∪(4;+∞).&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Вернуться к x по возрастанию 8^x&quot;,
+      &quot;result&quot;: &quot;t&lt;1 ⇒ x&lt;0; t=2 ⇒ x=1/3; t&gt;4 ⇒ x&gt;2/3. Запрещённые границы не включаются.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;k1&quot;,
+      &quot;name&quot;: &quot;Заменять показатели степенной переменной&quot;,
+      &quot;description&quot;: &quot;Ввести t=b^x&gt;0 и выразить согласованные степени через t при положительном b≠1.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k2&quot;,
+      &quot;name&quot;: &quot;Сохранять ограничения знаменателей&quot;,
+      &quot;description&quot;: &quot;Выделить значения, при которых исходные знаменатели равны нулю, и исключить их после преобразований.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k3&quot;,
+      &quot;name&quot;: &quot;Приводить рациональные выражения к общей дроби&quot;,
+      &quot;description&quot;: &quot;Разложить знаменатели и объединить дроби с общим знаменателем, сохранив исходную область.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k4&quot;,
+      &quot;name&quot;: &quot;Решать рациональное неравенство методом интервалов&quot;,
+      &quot;description&quot;: &quot;Установить нули и полюса, определить знак по промежуткам, включить допустимые нули и исключить полюса.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k5&quot;,
+      &quot;name&quot;: &quot;Решать показательное неравенство по монотонности&quot;,
+      &quot;description&quot;: &quot;Перейти от ограничения b^x к ограничению x с учётом того, больше ли основание единицы.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Показательная замена и метод интервалов&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h2>Буквальный независимый аудит</h2><pre>null</pre><h2>Исторические редакторские назначения</h2><pre>[
+  {
+    &quot;task_id&quot;: &quot;B43678&quot;,
+    &quot;local_id&quot;: &quot;k1&quot;,
+    &quot;canonical_id&quot;: &quot;exponential_substitution&quot;,
+    &quot;decision_basis&quot;: &quot;explicit_editorial_operation_group&quot;,
+    &quot;source_name&quot;: &quot;Заменять показатели степенной переменной&quot;,
+    &quot;source_description&quot;: &quot;Ввести t=b^x&gt;0 и выразить согласованные степени через t при положительном b≠1.&quot;,
+    &quot;evidence&quot;: [
+      {
+        &quot;step_id&quot;: &quot;s1&quot;,
+        &quot;action&quot;: &quot;Ввести положительную показательную замену и сохранить запрещённые значения&quot;,
+        &quot;result&quot;: &quot;t=8^x&gt;0. Тогда 2·8^(x-1)=t/4,64^x=t². Знаменатели исключают t=1 и t=4.&quot;
+      }
+    ]
+  },
+  {
+    &quot;task_id&quot;: &quot;B43678&quot;,
+    &quot;local_id&quot;: &quot;k2&quot;,
+    &quot;canonical_id&quot;: &quot;denominator_domain&quot;,
+    &quot;decision_basis&quot;: &quot;explicit_editorial_operation_group&quot;,
+    &quot;source_name&quot;: &quot;Сохранять ограничения знаменателей&quot;,
+    &quot;source_description&quot;: &quot;Выделить значения, при которых исходные знаменатели равны нулю, и исключить их после преобразований.&quot;,
+    &quot;evidence&quot;: [
+      {
+        &quot;step_id&quot;: &quot;s1&quot;,
+        &quot;action&quot;: &quot;Ввести положительную показательную замену и сохранить запрещённые значения&quot;,
+        &quot;result&quot;: &quot;t=8^x&gt;0. Тогда 2·8^(x-1)=t/4,64^x=t². Знаменатели исключают t=1 и t=4.&quot;
+      }
+    ]
+  },
+  {
+    &quot;task_id&quot;: &quot;B43678&quot;,
+    &quot;local_id&quot;: &quot;k3&quot;,
+    &quot;canonical_id&quot;: &quot;literal_67caf017b566&quot;,
+    &quot;decision_basis&quot;: &quot;identical_name_and_description_only&quot;,
+    &quot;source_name&quot;: &quot;Приводить рациональные выражения к общей дроби&quot;,
+    &quot;source_description&quot;: &quot;Разложить знаменатели и объединить дроби с общим знаменателем, сохранив исходную область.&quot;,
+    &quot;evidence&quot;: [
+      {
+        &quot;step_id&quot;: &quot;s2&quot;,
+        &quot;action&quot;: &quot;Привести разность частей к одной дроби&quot;,
+        &quot;result&quot;: &quot;t/(t-4)-3/(t-1)-8/((t-1)(t-4))=(t-2)²/((t-1)(t-4)). Требуется эта дробь ≥0.&quot;
+      }
+    ]
+  },
+  {
+    &quot;task_id&quot;: &quot;B43678&quot;,
+    &quot;local_id&quot;: &quot;k4&quot;,
+    &quot;canonical_id&quot;: &quot;rational_intervals&quot;,
+    &quot;decision_basis&quot;: &quot;explicit_editorial_operation_group&quot;,
+    &quot;source_name&quot;: &quot;Решать рациональное неравенство методом интервалов&quot;,
+    &quot;source_description&quot;: &quot;Установить нули и полюса, определить знак по промежуткам, включить допустимые нули и исключить полюса.&quot;,
+    &quot;evidence&quot;: [
+      {
+        &quot;step_id&quot;: &quot;s3&quot;,
+        &quot;action&quot;: &quot;Решить рациональное неравенство&quot;,
+        &quot;result&quot;: &quot;При t&gt;0 и t≠1,4 знаменатель положителен на (0;1) и (4;+∞); отдельно числитель обнуляется при t=2. Ответ по t: (0;1)∪{2}∪(4;+∞).&quot;
+      }
+    ]
+  },
+  {
+    &quot;task_id&quot;: &quot;B43678&quot;,
+    &quot;local_id&quot;: &quot;k5&quot;,
+    &quot;canonical_id&quot;: &quot;exponential_inequality&quot;,
+    &quot;decision_basis&quot;: &quot;explicit_editorial_operation_group&quot;,
+    &quot;source_name&quot;: &quot;Решать показательное неравенство по монотонности&quot;,
+    &quot;source_description&quot;: &quot;Перейти от ограничения b^x к ограничению x с учётом того, больше ли основание единицы.&quot;,
+    &quot;evidence&quot;: [
+      {
+        &quot;step_id&quot;: &quot;s4&quot;,
+        &quot;action&quot;: &quot;Вернуться к x по возрастанию 8^x&quot;,
+        &quot;result&quot;: &quot;t&lt;1 ⇒ x&lt;0; t=2 ⇒ x=1/3; t&gt;4 ⇒ x&gt;2/3. Запрещённые границы не включаются.&quot;
+      }
+    ]
+  }
+]</pre></html>

@@ -1,0 +1,179 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>7F0767</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><a href="../index.html">Сводка</a><h1>7F0767</h1><p>historical_independent50</p><p>Предварительные разборы, внешнего эталона нет.</p><h2>Условие</h2>Впишите правильный ответ.<div><section>  <p class="MsoNormal">На конференцию приехали учёные из трёх стран: 3 из Дании, 4 из Венгрии <br> и 3 из Болгарии. Каждый из них делает на конференции один доклад. Порядок докладов определяется жеребьёвкой. Найдите вероятность того, <br> что седьмым окажется доклад учёного из Болгарии.<span></span></p>  </section></div><h2>Состав и исключения</h2><pre>{
+  &quot;complete&quot;: true,
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;author_mode&quot;: &quot;standalone_initial&quot;,
+  &quot;author_path&quot;: &quot;raw\\author\\7F0767.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\7F0767.json&quot;,
+  &quot;feedback_ref&quot;: null,
+  &quot;source_run&quot;: &quot;data/annotation/runs/2026-11-02-fipi-extension-150&quot;
+}</pre><h2>Буквальный сохранённый разбор: ответ, шаги, KC, методы</h2><pre>{
+  &quot;task_id&quot;: &quot;7F0767&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;0,3&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Подсчитать общее число участников и число благоприятных кандидатов на седьмое место.&quot;,
+      &quot;result&quot;: &quot;Всего 3+4+3=10 участников; из Болгарии — 3 участника.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Использовать равновероятность попадания каждого участника на фиксированное место при жеребьёвке и вычислить вероятность.&quot;,
+      &quot;result&quot;: &quot;На седьмом месте равновероятно может оказаться любой из 10 участников, поэтому вероятность доклада учёного из Болгарии равна 3/10=0,3.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Подсчитать число исходов по составу непересекающихся групп&quot;,
+      &quot;description&quot;: &quot;По численностям непересекающихся групп сложить их размеры для получения общего числа объектов и выделить число объектов с требуемым признаком.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Вычислить вероятность признака участника на фиксированном месте случайного порядка&quot;,
+      &quot;description&quot;: &quot;При равновероятном случайном порядке участников использовать равновероятность каждого участника на заданном допустимом месте и разделить число участников с требуемым признаком на общее число участников.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Классическая вероятность для фиксированного места в случайном порядке&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h2>Буквальный независимый аудит</h2><pre>{
+  &quot;task_id&quot;: &quot;7F0767&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Подсчитать общее число участников и число благоприятных кандидатов на седьмое место.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;Всего 3+4+3=10 участников; из Болгарии — 3 участника.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+          &quot;reason&quot;: &quot;Определение охватывает вычисление m/n, а не подготовительный подсчёт численностей; в s1 вероятность ещё не вычислена.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+          &quot;reason&quot;: &quot;Подсчёт участников не обосновывает одинаковые вероятности элементарных исходов.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_032c8bc781fd&quot;,
+          &quot;reason&quot;: &quot;Нет моделирования процентной доли, ограничений на целочисленные количества или изменения состава.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдается простой подсчёт общего количества сложением численностей непересекающихся групп и выделение количества объектов нужной группы. Подходящего определения для этого подготовительного действия в полном каталоге нет. Разделять само сложение на арифметические поддействия не требуется.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Подсчитывать общую численность и численность выделенной группы&quot;,
+        &quot;definition&quot;: &quot;По заданным численностям непересекающихся групп получить общую численность суммированием и выделить число объектов с требуемым признаком. Обоснование равновозможности и вычисление вероятности не включаются.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Использовать равновероятность попадания каждого участника на фиксированное место при жеребьёвке и вычислить вероятность.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;На седьмом месте равновероятно может оказаться любой из 10 участников, поэтому вероятность доклада учёного из Болгарии равна 3/10=0,3.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+          &quot;reason&quot;: &quot;Соответствует компоненту выбора участника на фиксированном месте, но явно исключает вычисление m/n, входящее в состав локального кандидата.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+          &quot;reason&quot;: &quot;Соответствует компоненту 3/10=0,3, но не охватывает обоснование равновозможности, явно входящее в локальное определение.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;bernoulli_model&quot;,
+          &quot;reason&quot;: &quot;Не задаётся серия независимых испытаний с постоянной вероятностью; используется один фиксированный номер случайного порядка.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат объединяет построение равновозможной модели и вычисление отношения благоприятных исходов ко всем. В s2 оба компонента выражены явно, а каталог намеренно разводит их. Численности получены в s1, случайный порядок задан условием. Совпадение с одним узким узлом не покрывает весь кандидат.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;name&quot;: &quot;Задать равновозможный исход как участника на фиксированном месте&quot;,
+            &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+            &quot;definition&quot;: &quot;При порядке, определённом жеребьёвкой, рассмотреть каждого участника как возможного обладателя седьмого места и использовать одинаковую вероятность этих исходов.&quot;
+          },
+          {
+            &quot;name&quot;: &quot;Вычислить вероятность по числу благоприятных и всех исходов&quot;,
+            &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+            &quot;definition&quot;: &quot;В установленной конечной равновозможной модели вычислить отношение 3 благоприятных исходов к 10 возможным: 3/10=0,3.&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;boundary&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s2:action&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;description&quot;: &quot;Локальный kc2 соединяет два действия, явно разделённых определениями каталога: обоснование равновозможности и вычисление m/n. Это замечание к границе кандидата, а не математическая ошибка решения.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc2&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre><h2>Исторические редакторские назначения</h2><pre>[]</pre><p><a href="../../../runs/2026-11-02-fipi-extension-150/raw/author/7F0767.json">author raw</a> · <a href="../../../runs/2026-11-02-fipi-extension-150/raw/auditor/7F0767.json">auditor raw</a></p><pre>{
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;source_policy_included&quot;: true,
+  &quot;source_policy_exclusion_reasons&quot;: []
+}</pre></html>

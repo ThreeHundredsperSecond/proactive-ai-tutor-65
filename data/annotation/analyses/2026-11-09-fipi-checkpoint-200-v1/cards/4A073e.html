@@ -1,0 +1,59 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>4A073e</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>148. ФИПИ 4A073e · партия 12</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Даны векторы <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mover accent="true"><mi>a</mi><mo>→</mo></mover><mrow><mo fence="true">(</mo><mrow><mn>8</mn><mo>;</mo><mtext> </mtext><mn>9</mn></mrow><mo fence="true">)</mo></mrow></mrow></mstyle></math></span> и <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mover accent="true"><mi>b</mi><mo stretchy="true">→</mo></mover><mrow><mo fence="true">(</mo><mrow><mn>4</mn><mo>;</mo><mtext> </mtext><mo>−</mo><mn>3</mn></mrow><mo fence="true">)</mo></mrow><mo>.</mo></mrow></mstyle></math></span> Найдите скалярное произведение <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mover accent="true"><mi>a</mi><mo>→</mo></mover><mo>⋅</mo><mover accent="true"><mi>b</mi><mo stretchy="true">→</mo></mover><mo>.</mo></mrow></mstyle></math></span> </p>  </section></div><p>КЭС: 7.5 Координаты и векторы</p><h2>Ответ</h2><p>5</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Вычислить скалярное произведение векторов по координатам как сумму произведений соответствующих координат: 8·4 + 9·(−3)</td><td>32 − 27 = 5</td><td>kc1</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Координатная формула скалярного произведения&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Вычислить скалярное произведение векторов по координатам</h3><p>Вход: координаты двух векторов в одной прямоугольной системе координат. Операция: сложить произведения соответствующих координат. Граница: применимо, когда координаты обоих векторов известны в ортонормированном базисе.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Вычислить скалярное произведение векторов по координатам как сумму произведений соответствующих координат: 8·4 + 9·(−3)&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;32 − 27 = 5&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_609a9966f06a&quot;,
+      &quot;reason&quot;: &quot;Использует скалярное произведение лишь как проверку равенства нулю для параллельности прямой и плоскости; цель и объект другие, общее вычисление скалярного произведения не определено.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_164f29e3d306&quot;,
+      &quot;reason&quot;: &quot;Вычисление угла между прямыми: модуль скалярного произведения делится на произведение длин; здесь угол не ищется, вычисление скалярного произведения лишь компонент того узла.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_aec2af1753c8&quot;,
+      &quot;reason&quot;: &quot;Угол между плоскостями по нормалям; аналогично содержит скалярное произведение лишь как часть.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_68de6fa84846&quot;,
+      &quot;reason&quot;: &quot;Покоординатное сложение векторов даёт вектор, а не число-сумму произведений координат.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_59f2d9499ac1&quot;,
+      &quot;reason&quot;: &quot;Умножение вектора на скаляр, а не произведение двух векторов.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: сумма произведений соответствующих координат двух векторов, заданных координатами в условии (подразумевается прямоугольная система). Результат — число 5 (8·4+9·(−3)=32−27=5, арифметика верна). В каталоге нет узла, определяющего вычисление скалярного произведения по координатам как самостоятельное действие; ближайшие узлы включают его только как компонент более крупного действия (угол, проверка параллельности).&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Вычислять скалярное произведение векторов по координатам&quot;,
+    &quot;definition&quot;: &quot;Для двух векторов, заданных координатами в одной ортонормированной системе, вычислить сумму произведений соответствующих координат. Нахождение угла, проверка ортогональности и вычисление длин — отдельные действия.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/4A073e.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/4A073e.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

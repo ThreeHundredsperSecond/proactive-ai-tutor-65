@@ -1,0 +1,79 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>51EADD</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>47. ФИПИ 51EADD</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Автоматическая линия изготавливает батарейки. Вероятность того, <br> что готовая батарейка неисправна, равна 0,06. Перед упаковкой каждая батарейка проходит систему контроля качества. Вероятность того, <br> что система забракует неисправную батарейку, равна 0,96. Вероятность того, что система по ошибке забракует исправную батарейку, равна 0,01. Найдите вероятность того, что случайно выбранная изготовленная батарейка будет забракована системой контроля.<span></span></p>  </section></div><p>КЭС: 6.2 Вероятность</p><h2>Ответ</h2><p>0,067</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Ввести события неисправности и браковки и найти вероятность исправности как дополнения.</td><td>Пусть D — батарейка неисправна, B — батарейка забракована. P(D)=0,06, P(B|D)=0,96, P(B|не D)=0,01. События D и не D образуют полную группу; P(не D)=1−0,06=0,94.</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Вычислить вероятность браковки по формуле полной вероятности для неисправных и исправных батареек.</td><td>P(B)=P(D)P(B|D)+P(не D)P(B|не D)=0,06·0,96+0,94·0,01=0,067.</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Применение формулы полной вероятности по состоянию изделия&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Вычислить вероятность противоположного события</h3><p>По известной вероятности события вычислить вероятность его дополнения вычитанием из единицы; применяется к двум взаимоисключающим и исчерпывающим исходам.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;События D и не D образуют полную группу; P(не D)=1−0,06=0,94.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;reason&quot;: &quot;Определение требует подсчёта равновозможных исходов и отношения m/n; здесь известная вероятность вычитается из единицы.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;bernoulli_model&quot;,
+      &quot;reason&quot;: &quot;Наличие двух противоположных событий не является моделированием последовательности независимых испытаний с постоянной вероятностью.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдается вычисление вероятности дополнения события неисправности по известной вероятности D. События исчерпывают варианты состояния батарейки и несовместны по смыслу. Кандидат описывает именно это действие, а не всё введение обозначений в s1. После просмотра всего каталога определения вероятности противоположного события не найдено.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Вычислять вероятность противоположного события&quot;,
+    &quot;definition&quot;: &quot;По известной вероятности события A вычислить вероятность его дополнения как P(не A)=1−P(A), установив противоположность рассматриваемых событий.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Вычислить вероятность события по полной группе случаев</h3><p>По вероятностям взаимоисключающих и исчерпывающих случаев и условным вероятностям целевого события в каждом случае вычислить сумму произведений вероятности случая на соответствующую условную вероятность.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;P(B)=P(D)P(B|D)+P(не D)P(B|не D)=0,06·0,96+0,94·0,01=0,067.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+      &quot;reason&quot;: &quot;Определение касается произведения вероятностей независимых событий. Здесь использованы условные вероятности и суммирование по полной группе; независимость B и D не установлена и не требуется.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;reason&quot;: &quot;Вычисления m/n в конечной равновозможной модели нет; используются вероятности случаев и условные вероятности.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;bernoulli_model&quot;,
+      &quot;reason&quot;: &quot;Не строится последовательность независимых испытаний, а рассматривается одно изделие и два случая его состояния.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В s2 наблюдается полное действие вычисления вероятности браковки суммой произведений для двух несовместных исчерпывающих случаев. Полная группа и численные вероятности получены в s1 и используются как вход, без переноса вычисления дополнения в s2. Сумма 0,0576+0,0094=0,067 верна. После проверки полного каталога определения формулы полной вероятности не найдено; операция не сводится к умножению независимых вероятностей.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Вычислять вероятность по полной группе случаев&quot;,
+    &quot;definition&quot;: &quot;При заданной полной группе попарно несовместных событий с известными вероятностями и условных вероятностях целевого события в каждом случае вычислить вероятность целевого события суммой соответствующих произведений.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;source_path&quot;: &quot;data/fipi/2026-10-31-profile/tasks/51EADD.json&quot;,
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\51EADD.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\51EADD.json&quot;
+}</pre></html>

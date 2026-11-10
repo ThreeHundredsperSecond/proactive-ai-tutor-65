@@ -1,0 +1,193 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>E1F91F</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>35. ФИПИ E1F91F</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Найдите все значения параметра <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>a</mi>  </semantics> </mstyle></math>, при каждом из которых уравнение <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <msqrt> <mrow> <msup> <mi>x</mi> <mn>4</mn> </msup> <mo>−</mo><mn>4</mn><msup> <mi>x</mi> <mn>2</mn> </msup> <mo>+</mo><mn>9</mn><msup> <mi>a</mi> <mn>2</mn> </msup> </mrow> </msqrt> <mo>=</mo><msup> <mi>x</mi> <mn>2</mn> </msup> <mo>+</mo><mn>2</mn><mi>x</mi><mo>−</mo><mn>3</mn><mi>a</mi> </mrow>  </semantics> </mstyle></math> имеет ровно 3 решения.<span></span></p>  </section></div><p>КЭС: 2.10 Уравнения, неравенства и системы с параметрами</p><h2>Ответ</h2><p>a ∈ (−∞; −4/3) ∪ (−4/3; 0).</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Задать условия равносильного возведения радикального уравнения в квадрат.</td><td>Исходное уравнение равносильно системе: x²+2x−3a ≥ 0 и x⁴−4x²+9a² = (x²+2x−3a)². При выполнении этой системы подкоренное выражение равно квадрату и потому неотрицательно; отдельное ограничение ОДЗ уже обеспечено.</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Раскрыть квадрат, сократить одинаковые слагаемые и разложить полученное многочленное уравнение на множители.</td><td>0 = 4x³+(8−6a)x²−12ax = 2x(x+2)(2x−3a). Поэтому все возможные корни: x=0, x=−2, x=3a/2.</td><td>kc2</td></tr><tr><td>s3 · s1, s2</td><td>Проверить знак правой части для каждого кандидата и определить условия его допустимости.</td><td>При x=0 и x=−2 правая часть равна −3a, поэтому каждый из этих кандидатов является корнем ровно при a≤0. При x=3a/2 правая часть равна 9a²/4≥0, поэтому этот кандидат является корнем при любом действительном a. Все кандидаты удовлетворяют уравнению квадратов, а значит при выполнении указанного знакового условия удовлетворяют исходному уравнению.</td><td>kc3</td></tr><tr><td>s4 · s2, s3</td><td>Определить значения параметра, при которых три допустимых кандидата попарно различны.</td><td>Для трёх корней необходимо a≤0. Постоянные кандидаты 0 и −2 различны; равенство 3a/2=0 даёт a=0, а равенство 3a/2=−2 даёт a=−4/3. При этих двух значениях остаются только два различных корня. При a&gt;0 допустим только x=3a/2. Следовательно, ровно три решения получаются при a&lt;0 и a≠−4/3, то есть a∈(−∞;−4/3)∪(−4/3;0).</td><td>kc4</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Равносильное возведение в квадрат, факторизация и подсчёт различных допустимых корней&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Заменять радикальное уравнение равносильной системой</h3><p>Для уравнения с арифметическим квадратным корнем в одной части записывать равенство квадратов вместе с неотрицательностью другой части; учитывать, что равенство подкоренного выражения квадрату обеспечивает его область определения.</p><pre>{
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;proposal&quot;: null,
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;blocking&quot;: false,
+  &quot;catalog_kc_id&quot;: &quot;literal_10490f2275e0&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;quote&quot;: &quot;Исходное уравнение равносильно системе: x²+2x−3a ≥ 0 и x⁴−4x²+9a² = (x²+2x−3a)². При выполнении этой системы подкоренное выражение равно квадрату и потому неотрицательно; отдельное ограничение ОДЗ уже обеспечено.&quot;,
+      &quot;ref&quot;: &quot;step:s1:result&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Равенство квадратов записано вместе с неотрицательностью правой части. Радиканд неотрицателен вследствие равенства квадрату, что явно объяснено. Полное соответствие равносильному снятию корня.&quot;,
+  &quot;issue_ids&quot;: [],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0b7ec31b74d9&quot;,
+      &quot;reason&quot;: &quot;Здесь корень лишь в одной части, а не равенство двух корней.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_a5938e1a7fec&quot;,
+      &quot;reason&quot;: &quot;Сохранение радиканда не охватывает переход к квадратам с условием знака другой части.&quot;
+    }
+  ]
+}</pre></section><section id="kc2"><h3>kc2 · Находить кандидатов в корни разложением многочлена на множители</h3><p>После раскрытия скобок и приведения подобных членов представлять многочлен как произведение и применять условие равенства произведения нулю, получая полный список кандидатов, в том числе зависящих от параметра.</p><pre>{
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;note&quot;: &quot;Второй узел возможен только для квадратного сомножителя; отдельная проверка разложения не показана.&quot;,
+        &quot;name&quot;: &quot;Преобразовывать многочлен в произведение&quot;,
+        &quot;definition&quot;: &quot;Раскрыть скобки, привести подобные и получить тождественное разложение многочлена.&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;literal_cab525070130&quot;,
+          &quot;literal_89adef4e8cee&quot;
+        ]
+      },
+      {
+        &quot;name&quot;: &quot;Находить нули произведения&quot;,
+        &quot;definition&quot;: &quot;Приравнять множители нулю и объединить полученные кандидаты, не теряя нулевой корень.&quot;,
+        &quot;possible_catalog_kc_ids&quot;: [
+          &quot;zero_product&quot;
+        ]
+      }
+    ]
+  },
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;blocking&quot;: false,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;quote&quot;: &quot;0 = 4x³+(8−6a)x²−12ax = 2x(x+2)(2x−3a). Поэтому все возможные корни: x=0, x=−2, x=3a/2.&quot;,
+      &quot;ref&quot;: &quot;step:s2:result&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдаются два действия: преобразование и факторизация многочлена, затем получение нулей произведения. Узкий zero_product не покрывает весь кандидат. Допустимость для исходного уравнения установлена позже.&quot;,
+  &quot;issue_ids&quot;: [],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+      &quot;reason&quot;: &quot;Получение нулей множителей — лишь часть кандидата, включающего факторизацию.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+      &quot;reason&quot;: &quot;Определение покрывает представление многочлена произведением, но не последующее решение; название ориентировано на знак.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_89adef4e8cee&quot;,
+      &quot;reason&quot;: &quot;Относится лишь к квадратному сомножителю после вынесения x, а не всему кубическому многочлену.&quot;
+    }
+  ]
+}</pre></section><section id="kc3"><h3>kc3 · Отбирать корни по знаковому условию после возведения в квадрат</h3><p>Подставлять найденные кандидаты в выражение, обязанное быть неотрицательным, и определять значения параметра, при которых каждый кандидат удовлетворяет равносильной системе.</p><pre>{
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Отбирать кандидатов радикального уравнения по знаку другой части&quot;,
+    &quot;definition&quot;: &quot;Для кандидатов, удовлетворяющих равенству квадратов в уравнении √F(x,a)=G(x,a), подстановкой в G определить условия параметра G≥0 и допустимость в исходном уравнении.&quot;
+  },
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;blocking&quot;: false,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;quote&quot;: &quot;При x=0 и x=−2 правая часть равна −3a, поэтому каждый из этих кандидатов является корнем ровно при a≤0. При x=3a/2 правая часть равна 9a²/4≥0, поэтому этот кандидат является корнем при любом действительном a. Все кандидаты удовлетворяют уравнению квадратов, а значит при выполнении указанного знакового условия удовлетворяют исходному уравнению.&quot;,
+      &quot;ref&quot;: &quot;step:s3:result&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;На входе имеется полный список корней уравнения квадратов и оставшееся знаковое условие. Подстановка каждого кандидата в правую часть даёт условия параметра для исходного уравнения. После чтения полного каталога определения для всего этого действия не найдено.&quot;,
+  &quot;issue_ids&quot;: [],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_a5938e1a7fec&quot;,
+      &quot;reason&quot;: &quot;Проверяется знак правой части, а не радиканда.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+      &quot;reason&quot;: &quot;Узел требует физического смысла и условий модели, отсутствующих в этой чистой алгебраической задаче.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+      &quot;reason&quot;: &quot;Определение содержит проверку заданного промежутка, которого здесь нет.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_10490f2275e0&quot;,
+      &quot;reason&quot;: &quot;Переход к квадратам выполнен в s1; здесь подстановка кандидатов и условия параметра.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0cf8af170957&quot;,
+      &quot;reason&quot;: &quot;Линейное неравенство лишь компонент: также проверяется тождественная неотрицательность квадрата и обосновывается допустимость.&quot;
+    }
+  ]
+}</pre></section><section id="kc4"><h3>kc4 · Определять параметр по числу различных допустимых корней</h3><p>Для полного списка допустимых корней с параметром находить условия их существования и совпадения, затем выделять значения параметра с требуемым количеством различных действительных решений.</p><pre>{
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;proposal&quot;: null,
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;,
+    &quot;step:s3:result&quot;
+  ],
+  &quot;blocking&quot;: false,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;quote&quot;: &quot;Для трёх корней необходимо a≤0. Постоянные кандидаты 0 и −2 различны; равенство 3a/2=0 даёт a=0, а равенство 3a/2=−2 даёт a=−4/3. При этих двух значениях остаются только два различных корня. При a&gt;0 допустим только x=3a/2. Следовательно, ровно три решения получаются при a&lt;0 и a≠−4/3, то есть a∈(−∞;−4/3)∪(−4/3;0).&quot;,
+      &quot;ref&quot;: &quot;step:s4:result&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Подсчёт различных корней выполнен согласованно с s2–s3. Два определения каталога перекрываются на этом действии без правила выбора. Ранее выполненный отбор допустимости учитывается как входное состояние, а не повторное действие s4.&quot;,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d93e50c17220&quot;,
+      &quot;reason&quot;: &quot;Подходит по проверке допустимости, совпадений и граничных случаев, но перекрывается со следующим узлом.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_05f53e4cc43a&quot;,
+      &quot;reason&quot;: &quot;Также покрывает подсчёт решений ветвей произведения с исключением совпадений; оснований выбрать один ID нет.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_5dcd4a01af19&quot;,
+      &quot;reason&quot;: &quot;Близок, но указывает собственные области ветвей и общий граничный корень, что здесь выражено иначе.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_e41f0e408b87&quot;,
+      &quot;reason&quot;: &quot;Покрывает запись множества параметров, но не весь подсчёт различных корней.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+      &quot;reason&quot;: &quot;Пересечение ограничений не охватывает выявление совпадений кандидатов.&quot;
+    }
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;description&quot;: &quot;Определения literal_d93e50c17220 и literal_05f53e4cc43a перекрываются для подсчёта различных допустимых корней ветвей с исключением совпадений; однозначный ID для kc4 не определяется.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;refs&quot;: [
+      &quot;step:s4:action&quot;,
+      &quot;step:s4:result&quot;
+    ],
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc4&quot;
+    ],
+    &quot;kind&quot;: &quot;boundary&quot;
+  }
+]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;source_path&quot;: &quot;data/fipi/2026-10-31-profile/tasks/E1F91F.json&quot;,
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\E1F91F.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\E1F91F.json&quot;
+}</pre></html>

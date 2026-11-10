@@ -1,0 +1,326 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>37FD10</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>126. ФИПИ 37FD10 · партия 10</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Найдите все значения <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>a</mi><mo>,</mo> </mrow> </semantics> </math> при каждом из которых система уравнений</p> <p class="MsoNormal" align="center"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mrow><mo>{</mo> <mtable columnalign="left"> <mtr> <mtd> <mrow><mo>(</mo> <mrow> <msup> <mi>x</mi> <mn>2</mn> </msup> <mo>−</mo><mn>5</mn><mi>x</mi><mo>−</mo><mi>y</mi><mo>+</mo><mn>3</mn> </mrow> <mo>)</mo></mrow><mo>⋅</mo><msqrt> <mrow> <mi>x</mi><mo>−</mo><mi>y</mi><mo>+</mo><mn>3</mn> </mrow> </msqrt> <mo>=</mo><mn>0,</mn> </mtd> </mtr> <mtr> <mtd> <mi>y</mi><mo>=</mo><mi>a</mi><mi>x</mi><mo>+</mo><mi>a</mi> </mtd> </mtr> </mtable> </mrow> </mrow> </semantics> </math></p> <p class="MsoNormal">имеет ровно два различных решения.<span></span></p>  </section></div><p>КЭС: 2.10 Уравнения, неравенства и системы с параметрами</p><h2>Ответ</h2><p>a = -1; a = 1; 9/7 ≤ a &lt; 3</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Записать ОДЗ первого уравнения: x - y + 3 ≥ 0, т.е. y ≤ x + 3</td><td>y ≤ x + 3</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Разложить первое уравнение по условию равенства произведения нулю с учётом ОДЗ</td><td>y = x + 3 (любое x) или y = x^2 - 5x + 3 при x^2 - 5x + 3 ≤ x + 3, т.е. x ∈ [0; 6]</td><td>kc2, kc3</td></tr><tr><td>s3 · condition, s2</td><td>Найти пересечения прямой y = a(x+1) с прямой y = x + 3</td><td>При a = 1 общих точек нет; при a ≠ 1 одна точка x = (3 - a)/(a - 1)</td><td>kc4</td></tr><tr><td>s4 · condition, s2</td><td>Выразить параметр из уравнения пересечения с параболой: a = g(x) = (x^2 - 5x + 3)/(x + 1), x ∈ [0; 6]</td><td>Число точек на дуге параболы = число решений g(x) = a на [0; 6]</td><td>kc5</td></tr><tr><td>s5 · s4</td><td>Исследовать g на [0; 6] с помощью производной</td><td>g&#x27;(x) = (x+4)(x-2)/(x+1)^2; g убывает на [0;2] от 3 до -1, возрастает на [2;6] от -1 до 9/7. Решений: 1 при a = -1; 2 при a ∈ (-1; 9/7]; 1 при a ∈ (9/7; 3]; 0 иначе</td><td>kc6</td></tr><tr><td>s6 · s2, s3</td><td>Найти значения a, при которых точка пересечения с прямой y = x + 3 совпадает с концом дуги (0;3) или (6;9)</td><td>a = 3 (точка (0;3)) и a = 9/7 (точка (6;9))</td><td>kc4</td></tr><tr><td>s7 · s3, s5, s6</td><td>Подсчитать число различных решений системы по промежуткам a с учётом совпадений</td><td>a &lt; -1: 1; a = -1: 2; -1 &lt; a &lt; 1: 3; a = 1: 2; 1 &lt; a &lt; 9/7: 3; a = 9/7: 2; 9/7 &lt; a &lt; 3: 2; a ≥ 3: 1</td><td>kc7</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Графико-аналитический метод: разложение на ветви и выражение параметра&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;,
+      &quot;s5&quot;,
+      &quot;s6&quot;,
+      &quot;s7&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Записать ОДЗ подкоренного выражения</h3><p>Вход: уравнение с квадратным корнем чётной степени. Операция: потребовать неотрицательность подкоренного выражения. Граница: корни чётной степени.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_a5938e1a7fec&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Записать ОДЗ первого уравнения: x - y + 3 ≥ 0, т.е. y ≤ x + 3&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;с учётом ОДЗ&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_37584ab15732&quot;,
+      &quot;reason&quot;: &quot;касается совместной области логарифма и корня; логарифма в задаче нет&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: требование неотрицательности радиканда x-y+3 в s1; проверка кандидатов (ветви параболы) по этому условию выполнена в s2. Соответствует определению целиком.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Разложить уравнение-произведение на совокупность</h3><p>Вход: произведение равно нулю. Операция: приравнять каждый множитель к нулю, требуя существования остальных множителей (ОДЗ). Граница: множители определены на общей области.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Разложить первое уравнение по условию равенства произведения нулю с учётом ОДЗ&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;y = x + 3 (любое x) или y = x^2 - 5x + 3 при x^2 - 5x + 3 ≤ x + 3&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_a5938e1a7fec&quot;,
+      &quot;reason&quot;: &quot;даёт только условие на радиканд, а не переход к совокупности&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Нули множителей получены и объединены с учётом общей области (корень определён), нуль корня допускается при любом x. Полное соответствие.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Решить квадратное неравенство</h3><p>Вход: неравенство с квадратным трёхчленом. Операция: найти корни и промежутки знака. Граница: одна переменная, степень 2.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_1b97db4e28e8&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;x^2 - 5x + 3 ≤ x + 3, т.е. x ∈ [0; 6]&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cd64639b0b5a&quot;,
+      &quot;reason&quot;: &quot;неравенство без параметра&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;rational_intervals&quot;,
+      &quot;reason&quot;: &quot;неравенство не рациональное с полюсами&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Нестрогое квадратное неравенство x^2-6x≤0 решено по знаку трёхчлена с включением концов; промежуточные корни 0 и 6 не выписаны, но результат верен.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Найти точку пересечения двух прямых с параметром</h3><p>Вход: две линейные функции, одна с параметром. Операция: приравнять, решить линейное уравнение с разбором случая нулевого коэффициента, найти значения параметра для заданной точки. Граница: линейные уравнения.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;При a = 1 общих точек нет; при a ≠ 1 одна точка x = (3 - a)/(a - 1)&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s6:result&quot;,
+      &quot;quote&quot;: &quot;a = 3 (точка (0;3)) и a = 9/7 (точка (6;9))&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;graph_intersection&quot;,
+      &quot;reason&quot;: &quot;покрывает только составление a(x+1)=x+3&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;коэффициенты зависят от параметра, нужен разбор a=1; определение ограничено числовыми коэффициентами&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+      &quot;reason&quot;: &quot;подстановка точки близка, но нахождение a — отдельная операция&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет составление уравнения пересечения, решение линейного уравнения с параметром с разбором нулевого коэффициента (s3) и нахождение параметра, при котором прямая проходит через заданную точку (s6). Это разные действия в разных шагах.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;составить уравнение пересечения a(x+1)=x+3&quot;,
+        &quot;possible_match&quot;: &quot;graph_intersection&quot;
+      },
+      {
+        &quot;part&quot;: &quot;решить линейное уравнение с параметром, разобрав нулевой коэффициент&quot;,
+        &quot;possible_match&quot;: null,
+        &quot;proposed_definition&quot;: &quot;Решить (a-1)x=3-a: при нулевом коэффициенте исследовать отдельно, иначе x=(3-a)/(a-1)&quot;
+      },
+      {
+        &quot;part&quot;: &quot;найти параметр по точке, через которую проходит прямая y=a(x+1)&quot;,
+        &quot;possible_match&quot;: null,
+        &quot;proposed_definition&quot;: &quot;Подставить координаты заданной точки в уравнение семейства и решить относительно параметра&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc5"><h3>kc5 · Выразить параметр как функцию переменной</h3><p>Вход: уравнение, линейное по параметру. Операция: выразить параметр через переменную, свести вопрос о числе корней к числу пересечений горизонтали с графиком. Граница: коэффициент при параметре не обращается в ноль на рассматриваемом множестве.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc5&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:action&quot;,
+      &quot;quote&quot;: &quot;Выразить параметр из уравнения пересечения с параболой: a = g(x) = (x^2 - 5x + 3)/(x + 1), x ∈ [0; 6]&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;Число точек на дуге параболы = число решений g(x) = a на [0; 6]&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;graph_intersection&quot;,
+      &quot;reason&quot;: &quot;только составление равенства, без выделения параметра&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0a4ebc8382b5&quot;,
+      &quot;reason&quot;: &quot;исключение переменной, а не выделение параметра и сведение к числу прообразов&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+      &quot;reason&quot;: &quot;касается сохранения нулей знаменателя, не самого выражения параметра&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В каталоге нет действия «отделить параметр и свести число корней к числу прообразов значения функции на множестве». Условие x+1≠0 на [0;6] выполнено, но в решении не обосновано явно.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Для уравнения, линейного по параметру, при ненулевом коэффициенте при параметре на рассматриваемом множестве выразить параметр как функцию переменной и свести число решений к числу прообразов значения параметра.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc6"><h3>kc6 · Исследовать функцию на монотонность и область значений на отрезке</h3><p>Вход: дифференцируемая функция на отрезке. Операция: найти производную, промежутки монотонности, значения в концах и экстремумах, определить число прообразов каждого значения. Граница: непрерывная функция на отрезке.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc6&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s5:result&quot;,
+      &quot;quote&quot;: &quot;g&#x27;(x) = (x+4)(x-2)/(x+1)^2; g убывает на [0;2] от 3 до -1, возрастает на [2;6] от -1 до 9/7&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s5:result&quot;,
+      &quot;quote&quot;: &quot;Решений: 1 при a = -1; 2 при a ∈ (-1; 9/7]; 1 при a ∈ (9/7; 3]; 0 иначе&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s4:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;,
+      &quot;reason&quot;: &quot;только часть: вывод о монотонности по знаку g&#x27;&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;stationary_point&quot;,
+      &quot;reason&quot;: &quot;только часть: x=2 из g&#x27;=0 на отрезке&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;global_interval_extreme&quot;,
+      &quot;reason&quot;: &quot;только часть: минимум -1&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+      &quot;reason&quot;: &quot;только вычисление значений g(0), g(2), g(6)&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0efedaf04823&quot;,
+      &quot;reason&quot;: &quot;производная частного не покрывается правилом степени и суммы&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет дифференцирование дроби, поиск стационарной точки, определение монотонности, вычисление значений в концах и подсчёт прообразов. Ни один узел не охватывает целиком.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;производная частного&quot;,
+        &quot;possible_match&quot;: null,
+        &quot;proposed_definition&quot;: &quot;Дифференцировать отношение функций по правилу частного при ненулевом знаменателе&quot;
+      },
+      {
+        &quot;part&quot;: &quot;стационарная точка x=2 на [0;6]&quot;,
+        &quot;possible_match&quot;: &quot;stationary_point&quot;
+      },
+      {
+        &quot;part&quot;: &quot;монотонность по знаку g&#x27;&quot;,
+        &quot;possible_match&quot;: &quot;derivative_monotonicity&quot;
+      },
+      {
+        &quot;part&quot;: &quot;значения g(0)=3, g(2)=-1, g(6)=9/7&quot;,
+        &quot;possible_match&quot;: &quot;literal_6308771d01a6&quot;
+      },
+      {
+        &quot;part&quot;: &quot;число прообразов значения a по монотонным участкам&quot;,
+        &quot;possible_match&quot;: null,
+        &quot;proposed_definition&quot;: &quot;По монотонным участкам непрерывной функции и значениям на их концах определить число решений f(x)=c для каждого c&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc7"><h3>kc7 · Объединить решения совокупности с учётом совпадающих точек</h3><p>Вход: числа решений по каждой ветви в зависимости от параметра. Операция: сложить по промежуткам параметра, вычесть совпадающие решения. Граница: конечные множества решений.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc7&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_05f53e4cc43a&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s7:action&quot;,
+      &quot;quote&quot;: &quot;Подсчитать число различных решений системы по промежуткам a с учётом совпадений&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s7:result&quot;,
+      &quot;quote&quot;: &quot;a = 9/7: 2; 9/7 &lt; a &lt; 3: 2; a ≥ 3: 1&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s3:result&quot;,
+    &quot;step:s5:result&quot;,
+    &quot;step:s6:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_5dcd4a01af19&quot;,
+      &quot;reason&quot;: &quot;близко, но акцент на принадлежности кандидата области ветви; здесь операция — сложение количеств по ветвям с вычетом пересечений&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d93e50c17220&quot;,
+      &quot;reason&quot;: &quot;аналогично, общее определение подсчёта корней&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_e41f0e408b87&quot;,
+      &quot;reason&quot;: &quot;запись итогового множества параметров не оформлена отдельным шагом&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Количества по ветвям складываются по промежуткам параметра, совпадения при a=3 и a=9/7 вычитаются. Проверено: подсчёт и ответ верны. Перекрытие с literal_5dcd4a01af19/literal_d93e50c17220 есть, но определение literal_05f53e4cc43a прямо про объединение ветвей без двойного счёта.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i2&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;coverage&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s4:action&quot;
+    ],
+    &quot;description&quot;: &quot;Деление на x+1 при выражении a не обосновано явно (x+1&gt;0 на [0;6]); на результат не влияет.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc5&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;i2&quot;,
+    &quot;kind&quot;: &quot;missing_annotation&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s7:result&quot;
+    ],
+    &quot;description&quot;: &quot;Отбор итогового множества a с ровно двумя решениями (a=-1, a=1, 9/7≤a&lt;3) выполнен неявно, без шага и KC.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc7&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/37FD10.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/37FD10.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

@@ -1,0 +1,130 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>D28A54</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>141. ФИПИ D28A54 · партия 11</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Найдите корень уравнения <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msup> <mn>4</mn> <mrow> <mi>x</mi><mtext> </mtext><mo>−</mo><mtext> </mtext><mn>4</mn> </mrow> </msup> <mtext>​</mtext><mo>=</mo><mn>64.</mn> </mrow> </semantics> </math> <span></span></p>  </section></div><p>КЭС: 2.4 Показательные и логарифмические уравнения</p><h2>Ответ</h2><p>7</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Представить правую часть как степень основания левой части: 64 = 4^3, получив уравнение 4^(x−4) = 4^3</td><td>4^(x−4) = 4^3</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Приравнять показатели степеней с одинаковым положительным основанием, отличным от 1</td><td>x − 4 = 3</td><td>kc2</td></tr><tr><td>s3 · s2</td><td>Решить линейное уравнение</td><td>x = 7</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Приведение к одному основанию и приравнивание показателей&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Представить число в виде степени заданного основания</h3><p>Вход: число и основание степени. Операция: записать число как степень этого основания с рациональным показателем. Применимо, когда число является точной степенью основания.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;64 = 4^3&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;4^(x−4) = 4^3&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+      &quot;reason&quot;: &quot;Узел объединяет приведение к общему основанию и приравнивание показателей; s1 выполняет только первую часть, т.е. является компонентом, а не полным соответствием.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d66dd830e876&quot;,
+      &quot;reason&quot;: &quot;Близкая операция поиска показателя, но определена для вычисления логарифма; логарифм в решении не вводится.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+      &quot;reason&quot;: &quot;Законы степени степени/произведения/частного не применяются; 64=4^3 — распознавание точной степени.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: записать число 64 как степень заданного основания 4 (точная целая степень). В каталоге нет отдельного узла для этого действия; оно входит как часть в exponential_equation. Match к exponential_equation был бы присвоением составного узла компоненту.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Представить положительное число, являющееся точной степенью заданного основания b&gt;0, b≠1, в виде b^k с найденным рациональным показателем k.&quot;,
+    &quot;note&quot;: &quot;Альтернатива: считать действие внутренней частью exponential_equation без отдельного узла; решение за редактором каталога.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc2"><h3>kc2 · Перейти от равенства степеней к равенству показателей</h3><p>Вход: уравнение a^f(x) = a^g(x) с a &gt; 0, a ≠ 1. Операция: заменить его равносильным уравнением f(x) = g(x) по монотонности показательной функции. Не применимо при основании 1 или неположительном.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Приравнять показатели степеней с одинаковым положительным основанием, отличным от 1&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;x − 4 = 3&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+      &quot;reason&quot;: &quot;Определение включает и приведение к общему основанию (s1/kc1), и приравнивание показателей; s2 покрывает только вторую часть.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_2443f08dda82&quot;,
+      &quot;reason&quot;: &quot;Аналогичный переход по инъективности, но для логарифмов, не для степеней.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Действие корректно (основание 4&gt;0, 4≠1) и является ядром exponential_equation, но граница узла шире: он включает приведение к общему основанию, вынесенное автором в s1. Без решения о границе (s2 отдельно или s1+s2 вместе) полный match не подтверждается.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc3"><h3>kc3 · Решить линейное уравнение с одной переменной</h3><p>Вход: линейное уравнение с числовыми коэффициентами. Операция: перенести слагаемые и разделить на коэффициент при переменной. Граница: ненулевой коэффициент при переменной.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Решить линейное уравнение&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;x = 7&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0cf8af170957&quot;,
+      &quot;reason&quot;: &quot;Относится к неравенствам.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Аффинное уравнение x − 4 = 3 с числовыми коэффициентами решено: x = 7. Снятие степени выполнено ранее (s2) и в действие не входит, что совпадает с границей узла. Проверка: 4^3=64, ответ верен.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s1:action&quot;,
+      &quot;step:s2:action&quot;
+    ],
+    &quot;description&quot;: &quot;Узел каталога exponential_equation охватывает s1 и s2 вместе, тогда как автор разделил их на kc1 и kc2. Нужно решение о гранулярности: либо разделить узел каталога, либо сопоставлять пару s1+s2 одному узлу.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc1&quot;,
+      &quot;kc2&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/D28A54.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/D28A54.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

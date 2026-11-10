@@ -1,0 +1,129 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>198c47</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">В торговом центре два одинаковых автомата продают кофе. Вероятность того, что к концу дня в первом автомате закончится кофе, равна 0,2. Вероятность того, что кофе закончится во втором автомате, такая же. Вероятность того, что кофе закончится в двух автоматах, равна 0,12. Найдите вероятность того, что к концу дня кофе останется в двух автоматах.<span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;198c47&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;0,72&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Найти вероятность объединения событий «кофе закончится в первом автомате» и «во втором» по формуле сложения для совместных событий&quot;,
+      &quot;result&quot;: &quot;P(A∪B)=0,2+0,2−0,12=0,28&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Найти вероятность того, что кофе останется в обоих автоматах, как вероятность противоположного события к объединению&quot;,
+      &quot;result&quot;: &quot;1−0,28=0,72&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Вычислить вероятность объединения совместных событий&quot;,
+      &quot;description&quot;: &quot;Вход: вероятности двух событий и их пересечения. Операция: P(A∪B)=P(A)+P(B)−P(A∩B). Применимо к любым (в т.ч. совместным) событиям одного вероятностного пространства.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Вычислить вероятность противоположного события&quot;,
+      &quot;description&quot;: &quot;Вход: вероятность события. Операция: P(не A)=1−P(A); здесь событие «ни одно не произошло» противоположно объединению. Применимо, когда искомое событие является дополнением известного.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Через объединение и противоположное событие&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;198c47&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;по формуле сложения для совместных событий&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;P(A∪B)=0,2+0,2−0,12=0,28&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+          &quot;reason&quot;: &quot;Пересечение независимых событий через произведение; здесь пересечение дано, а вычисляется объединение по формуле сложения, независимость не используется (0,12≠0,04).&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+          &quot;reason&quot;: &quot;Подсчёт m/n в равновозможной модели; в задаче нет исходов, есть вероятности событий.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: вычисление P(A∪B)=P(A)+P(B)−P(A∩B) по данным вероятностям двух событий и их пересечения. В каталоге нет узла для формулы сложения вероятностей совместных событий.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Вычислять вероятность объединения событий по формуле сложения&quot;,
+        &quot;definition&quot;: &quot;По вероятностям двух событий и их пересечения найти P(A∪B)=P(A)+P(B)−P(A∩B); независимость не требуется, для несовместных событий пересечение равно 0.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;как вероятность противоположного события к объединению&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;1−0,28=0,72&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+          &quot;reason&quot;: &quot;Произведение вероятностей независимых событий; здесь используется дополнение 1−P.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+          &quot;reason&quot;: &quot;Формула m/n не применяется.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: P(¬E)=1−P(E) для E=A∪B; содержательное отождествление «кофе останется в обоих» с дополнением объединения (закон де Моргана) выполнено в действии s2. Узла для противоположного события в каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Вычислять вероятность противоположного события&quot;,
+        &quot;definition&quot;: &quot;Распознать искомое событие как дополнение события с известной вероятностью (в т.ч. «ни одно не произошло» как дополнение объединения) и вычислить 1−P(E).&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>

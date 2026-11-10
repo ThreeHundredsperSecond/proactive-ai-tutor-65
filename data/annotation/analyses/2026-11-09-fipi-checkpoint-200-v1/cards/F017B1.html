@@ -1,0 +1,247 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>F017B1</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>61. ФИПИ F017B1 · партия 5</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Катер в <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mn>10</mn><mo>:</mo><mn>00</mn> </mrow>  </semantics> </mstyle></math> вышел по течению реки из пункта А в пункт В, расположенный в 35 км от А. Пробыв в пункте В 4 часа, катер отправился назад и вернулся в пункт А в <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mn>18</mn><mo>:</mo><mn>00</mn> </mrow>  </semantics> </mstyle></math> того же дня. Определите собственную скорость катера (в км/ч), если известно, что скорость течения <br> реки 3 км/ч.<span></span></p>  </section></div><p>КЭС: 2.1 Целые и дробно-рациональные уравнения</p><h2>Ответ</h2><p>18</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>S1 · condition</td><td>Найти время движения катера: из промежутка между отправлением (10:00) и возвращением (18:00) вычесть время стоянки в пункте В.</td><td>Время в движении: 8 − 4 = 4 ч.</td><td>KC1</td></tr><tr><td>S2 · condition, S1</td><td>Обозначить собственную скорость катера v км/ч (v &gt; 3, иначе катер не сможет идти против течения), выразить скорости по течению и против течения и составить уравнение по суммарному времени движения.</td><td>35/(v + 3) + 35/(v − 3) = 4, v &gt; 3.</td><td>KC2</td></tr><tr><td>S3 · S2</td><td>Умножить обе части дробно-рационального уравнения на общий знаменатель (v + 3)(v − 3), отличный от нуля при v &gt; 3, и привести к квадратному уравнению.</td><td>70v = 4(v² − 9), то есть 2v² − 35v − 18 = 0.</td><td>KC3</td></tr><tr><td>S4 · S3</td><td>Решить квадратное уравнение через дискриминант.</td><td>D = 1225 + 144 = 1369 = 37²; v = 18 или v = −1/2.</td><td>KC4</td></tr><tr><td>S5 · S2, S4</td><td>Отобрать корни, удовлетворяющие ограничению v &gt; 3 из смысла задачи.</td><td>v = −1/2 не подходит; v = 18 удовлетворяет условию. Собственная скорость катера 18 км/ч.</td><td>KC5</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;M1&quot;,
+    &quot;name&quot;: &quot;Составление и решение уравнения по суммарному времени движения&quot;,
+    &quot;step_ids&quot;: [
+      &quot;S1&quot;,
+      &quot;S2&quot;,
+      &quot;S3&quot;,
+      &quot;S4&quot;,
+      &quot;S5&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="KC1"><h3>KC1 · Вычислить чистое время движения по расписанию</h3><p>Вход: моменты начала и окончания поездки в пределах одних суток и длительности остановок. Операция: найти разность моментов времени и вычесть суммарную длительность остановок. Граница: применимо, когда все остановки известны и интервал не переходит через полночь (иначе нужно учесть смену суток).</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC1&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S1:action&quot;,
+      &quot;quote&quot;: &quot;из промежутка между отправлением (10:00) и возвращением (18:00) вычесть время стоянки в пункте В&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S1:result&quot;,
+      &quot;quote&quot;: &quot;Время в движении: 8 − 4 = 4 ч.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_63c80a69a122&quot;,
+      &quot;reason&quot;: &quot;Определение («Использовать скорости v±c и время s/v, отделить стоянку и сохранить положительность скоростей») содержит отделение стоянки как часть составления уравнения времени. S1 выполняет только этот арифметический компонент (8 − 4 = 4) без скоростей v±c, времён s/v и ограничения положительности, поэтому это действие-компонент, а не полное соответствие.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+      &quot;reason&quot;: &quot;Заданной формулы, в которую подставляются величины, нет; выполняется вычитание длительностей по сюжету.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;Уравнение не решается; это прямое арифметическое вычисление.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: разность моментов 18:00 и 10:00 (8 ч, в result указана неявно) и вычитание длительности стоянки 4 ч из условия; объект — моменты одного дня (в условии «того же дня»), получено время движения 4 ч. Арифметика верна. В каталоге это действие входит как компонент узла literal_63c80a69a122 («отделить стоянку»), полного соответствия нет. Как отдельный узел это элементарная арифметика над данными сюжета; по правилам сюжет и числа сами не создают новый KC, и арифметику не следует дробить, поэтому new_candidate не предлагается. Нужно редакционное решение о границе: объединить KC1 с KC2/literal_63c80a69a122 или считать вычисление времени сопутствующей арифметикой без отдельного KC.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="KC2"><h3>KC2 · Составить уравнение движения по реке через время</h3><p>Вход: расстояния участков, скорость течения, известное суммарное время движения, неизвестная собственная скорость судна. Операция: выразить скорость по течению как сумму, против течения как разность собственной скорости и скорости течения, записать время каждого участка как расстояние/скорость и приравнять сумму времён известному значению; зафиксировать ограничение, что собственная скорость больше скорости течения. Граница: равномерное движение на каждом участке, скорость течения постоянна.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_63c80a69a122&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S2:action&quot;,
+      &quot;quote&quot;: &quot;выразить скорости по течению и против течения и составить уравнение по суммарному времени движения&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S2:action&quot;,
+      &quot;quote&quot;: &quot;v &gt; 3, иначе катер не сможет идти против течения&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S2:result&quot;,
+      &quot;quote&quot;: &quot;35/(v + 3) + 35/(v − 3) = 4, v &gt; 3.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:S1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+      &quot;reason&quot;: &quot;Определение исключает вывод модели («Вывод самой физической модели сюда не входит»); в S2 модель движения строится, а не подставляются данные в готовую формулу.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cb48e5bc61de&quot;,
+      &quot;reason&quot;: &quot;Строит неравенство по заданной прикладной формуле; здесь строится уравнение без заданной формулы.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9698b97fef22&quot;,
+      &quot;reason&quot;: &quot;Преобразование рационального уравнения выполняется на следующем шаге S3, а не в S2.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: составление уравнения времени при движении по реке. В S2 наблюдаются скорости v±c (v + 3, v − 3), времена участков s/v (35/(v + 3), 35/(v − 3)), сумма приравнена ко времени движения, явно задано ограничение положительности скорости против течения v &gt; 3 (из него следует и v + 3 &gt; 0). Расстояние 35 км и скорость течения 3 км/ч взяты из condition. Условие «отделить стоянку» выполнено в модели: правая часть равна времени движения 4 ч, а не промежутку 8 ч, но само вычитание сделано в S1 (KC1) и используется как входное состояние step:S1:result, не переносится в S2. Других узлов о составлении уравнения движения в каталоге нет, неоднозначности выбора нет. Узел каталога охватывает S1 и S2; см. i1.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="KC3"><h3>KC3 · Свести дробно-рациональное уравнение к многочленному</h3><p>Вход: уравнение с суммой дробей, знаменатели которых — линейные выражения от неизвестной. Операция: умножить обе части на общий знаменатель, раскрыть скобки и привести подобные, получив многочленное (например, квадратное) уравнение. Граница: допустимо только при значениях неизвестной, где общий знаменатель не равен нулю; эти значения нужно исключить.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_9698b97fef22&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S3:action&quot;,
+      &quot;quote&quot;: &quot;Умножить обе части дробно-рационального уравнения на общий знаменатель (v + 3)(v − 3), отличный от нуля при v &gt; 3&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S3:result&quot;,
+      &quot;quote&quot;: &quot;70v = 4(v² − 9), то есть 2v² − 35v − 18 = 0.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:S2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+      &quot;reason&quot;: &quot;Покрывает только сохранение нулей знаменателей; умножение на общий знаменатель и переход к многочлену не входят, узел уже наблюдаемого действия.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_67caf017b566&quot;,
+      &quot;reason&quot;: &quot;Объединение рациональных выражений в общую дробь в выражении, а не умножение обеих частей уравнения на общий знаменатель.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_b9b755cc8462&quot;,
+      &quot;reason&quot;: &quot;Умножение неравенства на положительное выражение; здесь уравнение.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_a78667313aa3&quot;,
+      &quot;reason&quot;: &quot;Рациональное неравенство, а не уравнение.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: установлена ненулевость общего знаменателя (v + 3)(v − 3) при v &gt; 3 и обе части уравнения умножены на него. Объект — дробно-рациональное уравнение из S2. Проверка: 35(v − 3) + 35(v + 3) = 70v, правая часть 4(v² − 9); перенос и деление на 2 дают 2v² − 35v − 18 = 0, верно. Запрещённые корни не добавлены: полученные корни 18 и −1/2 отличны от ±3. Раскрытие скобок и приведение подобных — сопутствующая арифметика того же действия. Определение покрыто целиком.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="KC4"><h3>KC4 · Решить квадратное уравнение через дискриминант</h3><p>Вход: квадратное уравнение ax² + bx + c = 0 с числовыми коэффициентами, a ≠ 0. Операция: вычислить D = b² − 4ac и при D ≥ 0 найти корни x = (−b ± √D)/(2a). Граница: при D &lt; 0 действительных корней нет.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC4&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S4:action&quot;,
+      &quot;quote&quot;: &quot;Решить квадратное уравнение через дискриминант.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S4:result&quot;,
+      &quot;quote&quot;: &quot;D = 1225 + 144 = 1369 = 37²; v = 18 или v = −1/2.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:S3:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_fe2b4673ac10&quot;,
+      &quot;reason&quot;: &quot;Другой метод — выделение полного квадрата, в решении не применяется.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_57e72251d4a8&quot;,
+      &quot;reason&quot;: &quot;Только уравнения вида x²=c; здесь полное квадратное уравнение.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_7a3b2e2d0b3a&quot;,
+      &quot;reason&quot;: &quot;Условия существования двух положительных корней, а не нахождение корней.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+      &quot;reason&quot;: &quot;Разложения на множители и нулевого произведения в шаге нет.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: для 2v² − 35v − 18 = 0 со старшим коэффициентом 2 ≠ 0 вычислен D = 35² − 4·2·(−18) = 1225 + 144 = 1369 = 37² и найдены действительные корни (35 ± 37)/4, то есть 18 и −1/2. Проверено, верно. Коэффициенты числовые, параметра нет; подсчёт положительных корней с параметром не требуется. Определение покрыто целиком.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="KC5"><h3>KC5 · Отобрать корни по ограничениям задачи</h3><p>Вход: найденные корни уравнения и ограничения на неизвестную (ОДЗ, физический смысл величины). Операция: проверить каждый корень на соответствие всем ограничениям и отбросить посторонние. Граница: ограничения должны быть явно сформулированы до отбора.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC5&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S5:action&quot;,
+      &quot;quote&quot;: &quot;Отобрать корни, удовлетворяющие ограничению v &gt; 3 из смысла задачи.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S5:result&quot;,
+      &quot;quote&quot;: &quot;v = −1/2 не подходит; v = 18 удовлетворяет условию.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:S2:action&quot;,
+    &quot;step:S3:action&quot;,
+    &quot;step:S4:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+      &quot;reason&quot;: &quot;Отбор по области определения и заданному промежутку; здесь ограничение выведено из физического смысла модели, а не задано промежутком в условии.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_8409c9003f48&quot;,
+      &quot;reason&quot;: &quot;Сравнение корней с границами заданного в задаче промежутка с учётом концов; такого промежутка в условии нет.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6ad8f502588e&quot;,
+      &quot;reason&quot;: &quot;Подсчёт точек на заданном промежутке, а не отбор корня по модели.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+      &quot;reason&quot;: &quot;Совмещение множеств ограничений; в S5 выполняется проверка конкретных корней по одному ограничению.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: проверка найденных корней (S4) на соответствие ограничению модели v &gt; 3, установленному в S2 из физического смысла (движение против течения). −1/2 отброшен, 18 принят. ОДЗ исходного уравнения (v ≠ ±3) поглощается условием v &gt; 3. Подстановка в исходное соотношение отдельно не показана, но в S3 умножение выполнено на ненулевой при v &gt; 3 знаменатель, то есть преобразование равносильно на этом множестве (источник — step:S3:action); попутная проверка 35/21 + 35/15 = 5/3 + 7/3 = 4 подтверждает. Узел с отбором по условиям модели подходит точнее узлов с заданной областью/промежутком, поэтому выбор однозначен. Ответ 18 — сама искомая величина, восстанавливать её из вспомогательного параметра не нужно.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i2&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:S1:action&quot;,
+      &quot;step:S1:result&quot;,
+      &quot;step:S2:action&quot;
+    ],
+    &quot;description&quot;: &quot;Узел literal_63c80a69a122 включает отделение стоянки, а в авторской разметке оно вынесено в отдельный шаг S1 с кандидатом KC1, тогда как уравнение составлено в S2 (KC2). Одно действие каталога разделено между двумя локальными кандидатами: KC2 сопоставлен с узлом по ядру действия при входном состоянии step:S1:result, KC1 остаётся арифметическим компонентом без полного соответствия. Нужно редакционное решение, объединять ли KC1 с KC2 или считать вычисление времени сопутствующей арифметикой. Математической ошибки нет.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;KC1&quot;,
+      &quot;KC2&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;i2&quot;,
+    &quot;kind&quot;: &quot;coverage&quot;,
+    &quot;refs&quot;: [
+      &quot;step:S5:action&quot;,
+      &quot;step:S5:result&quot;,
+      &quot;step:S3:action&quot;
+    ],
+    &quot;description&quot;: &quot;В S5 явно проверено только ограничение v &gt; 3; подстановка v = 18 в исходное уравнение не показана. Это допустимо, потому что в S3 обе части умножены на знаменатель, ненулевой при v &gt; 3, и преобразование равносильно на этом множестве; попутная проверка 35/21 + 35/15 = 4 подтверждает корень. Сопоставление KC5 не блокируется.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;KC5&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/F017B1.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/F017B1.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

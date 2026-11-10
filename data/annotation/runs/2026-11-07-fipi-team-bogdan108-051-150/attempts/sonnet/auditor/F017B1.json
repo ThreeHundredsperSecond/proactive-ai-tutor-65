@@ -1,0 +1,83 @@
+{
+  "task_id": "F017B1",
+  "catalog_version": "fipi50-editorial-v1-frozen",
+  "decisions": [
+    {
+      "local_kc_id": "kc1",
+      "status": "new_candidate",
+      "catalog_kc_id": null,
+      "evidence": [
+        {"ref": "step:s1:action", "quote": "от 10:00 до 18:00 прошло 8 часов, стоянка 4 часа"},
+        {"ref": "step:s1:result", "quote": "Время в пути туда и обратно равно 4 ч."}
+      ],
+      "context_refs": ["condition"],
+      "alternatives_checked": [
+        {"catalog_kc_id": "literal_63c80a69a122", "reason": "Определение требует составлять уравнение времени со скоростями v±c; вычитание стоянки из общего времени есть лишь вспомогательная часть и не покрывает всё действие."},
+        {"catalog_kc_id": "literal_6308771d01a6", "reason": "Подстановка в формулу функции, а не вычисление длительности по моментам времени."}
+      ],
+      "rationale": "Из моментов отправления и возвращения и стоянки вычисляется чистое время в пути (8-4=4 ч). Такого узла в каталоге нет; действие простое арифметическое, но самостоятельно наблюдаемое и отдельное от составления уравнения.",
+      "proposal": {"definition": "По моментам начала и конца процесса и длительности остановки вычислить чистое время движения."},
+      "blocking": false,
+      "issue_ids": []
+    },
+    {
+      "local_kc_id": "kc2",
+      "status": "match",
+      "catalog_kc_id": "literal_63c80a69a122",
+      "evidence": [
+        {"ref": "step:s2:action", "quote": "по течению скорость v+3, против v-3, расстояние 35 км в каждую сторону, суммарное время 4 ч."},
+        {"ref": "step:s2:result", "quote": "35/(v+3)+35/(v-3)=4, ОДЗ: v>3."}
+      ],
+      "context_refs": ["condition", "step:s1:result"],
+      "alternatives_checked": [
+        {"catalog_kc_id": "literal_9698b97fef22", "reason": "Это преобразование уже составленного рационального уравнения, а не составление модели."}
+      ],
+      "rationale": "Скорости v±3, время s/v, стоянка отделена в s1 (источник - вход s1), положительность скорости сохранена условием v>3. Уравнение составлено верно.",
+      "proposal": null,
+      "blocking": false,
+      "issue_ids": []
+    },
+    {
+      "local_kc_id": "kc3",
+      "status": "match",
+      "catalog_kc_id": "literal_9698b97fef22",
+      "evidence": [
+        {"ref": "step:s3:action", "quote": "умножив на (v+3)(v-3)≠0"},
+        {"ref": "step:s3:result", "quote": "2v^2-35v-18=0."}
+      ],
+      "context_refs": ["step:s2:result"],
+      "alternatives_checked": [
+        {"catalog_kc_id": "literal_7570fa06d474", "reason": "Сокращение дроби, а не умножение уравнения на общий знаменатель."},
+        {"catalog_kc_id": "denominator_domain", "reason": "Только сохранение ограничений; здесь выполнено ещё и умножение на общий знаменатель."}
+      ],
+      "rationale": "Ненулевые знаменатели установлены (v>3 в s2, ≠0 в s3), уравнение умножено на общий знаменатель; 35(v-3)+35(v+3)=4(v^2-9) даёт 2v^2-35v-18=0, верно. Запрещённые корни не добавляются.",
+      "proposal": null,
+      "blocking": false,
+      "issue_ids": []
+    },
+    {
+      "local_kc_id": "kc4",
+      "status": "needs_split",
+      "catalog_kc_id": null,
+      "evidence": [
+        {"ref": "step:s4:action", "quote": "Решить квадратное уравнение через дискриминант и отобрать корень по ОДЗ."},
+        {"ref": "step:s4:result", "quote": "D=1369=37^2, v=18 или v=-0,5; по условию v>3, подходит v=18."}
+      ],
+      "context_refs": ["step:s2:result", "step:s3:result"],
+      "alternatives_checked": [
+        {"catalog_kc_id": "quadratic_discriminant", "reason": "Покрывает только нахождение корней, но не отбор."},
+        {"catalog_kc_id": "literal_c840012ba3dd", "reason": "Покрывает только отбор по модели, но не решение через дискриминант."},
+        {"catalog_kc_id": "literal_ae9adc80bc91", "reason": "Отбор по области определения или промежутку; здесь ограничение v>3 из модели, поэтому ближе literal_c840012ba3dd."}
+      ],
+      "rationale": "Кандидат смешивает два действия: вычисление корней через дискриминант и отбор корня по ограничению модели. Каждое соответствует отдельному узлу каталога.",
+      "proposal": {"parts": [
+        {"name": "Находить корни через дискриминант", "possible_catalog_kc_id": "quadratic_discriminant", "evidence_quote": "D=1369=37^2, v=18 или v=-0,5"},
+        {"name": "Отбирать корень по ограничению модели", "possible_catalog_kc_id": "literal_c840012ba3dd", "evidence_quote": "по условию v>3, подходит v=18."}
+      ]},
+      "blocking": false,
+      "issue_ids": []
+    }
+  ],
+  "issues": [],
+  "review_scope": "KC mapping with incidental mathematical checks; not expert validation"
+}

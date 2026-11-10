@@ -1,0 +1,132 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>015B20</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>90. ФИПИ 015B20 · партия 7</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal"><a name="_GoBack"></a>а) Решите уравнение</p> <p class="MsoNormal" align="center"><span><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/7b95f6dda76af35b9dbe9478.png" alt="Рисунок ФИПИ"></span></p> <p class="MsoNormal">б) Укажите корни этого уравнения, принадлежащие отрезку <span><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/e693af57e0b60f65f01fb46b.png" alt="Рисунок ФИПИ"></span></p>  </section></div><p>КЭС: 2.3 Тригонометрические уравнения; 2.5 Целые и дробно-рациональные неравенства</p><h2>Ответ</h2><p>а) πk, ±π/4+2πk, k∈Z; б) 3π, 15π/4, 4π</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Перенести 2cos x влево, вынести 2cos x и заменить cos²x−1 на −sin²x</td><td>−2cos x·sin²x+√2 sin²x=0</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Разложить на множители</td><td>sin²x(√2−2cos x)=0</td><td>kc2</td></tr><tr><td>s3 · s2</td><td>Решить sin x=0 и cos x=√2/2</td><td>x=πk; x=±π/4+2πk, k∈Z</td><td>kc3</td></tr><tr><td>s4 · s3, condition</td><td>Отобрать корни на отрезке [5π/2; 4π]</td><td>3π, 15π/4, 4π</td><td>kc4</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Разложение на множители через основное тождество и отбор корней&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Применить основное тригонометрическое тождество</h3><p>Заменить выражение вида cos²x−1 или 1−sin²x эквивалентным через другую функцию для приведения уравнения к общему множителю</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_6d4854d97c9c&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;заменить cos²x−1 на −sin²x&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;−2cos x·sin²x+√2 sin²x=0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;image:assets/7b95f6dda76af35b9dbe9478.png&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;,
+      &quot;reason&quot;: &quot;формулы приведения и двойного угла, а не sin²+cos²=1&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_55d5a6d9eb3c&quot;,
+      &quot;reason&quot;: &quot;то же: приведение и двойной угол&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_3d70ab3eb24a&quot;,
+      &quot;reason&quot;: &quot;только формула двойного угла&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Замена cos²x−1 на −sin²x — прямое применение sin²x+cos²x=1. Перенос слагаемого и вынесение 2cos x в том же шаге — сопутствующие алгебраические операции, в кандидат не входят.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Разложить уравнение на множители</h3><p>Вынести общий множитель в уравнении с нулевой правой частью и перейти к совокупности уравнений, где каждый множитель равен нулю (при определённости всех множителей)</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;sin²x(√2−2cos x)=0&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Решить sin x=0 и cos x=√2/2&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+      &quot;reason&quot;: &quot;факторизация многочлена для исследования знака, а не уравнение с нулевой правой частью&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Вынесение sin²x при нулевой правой части и переход к уравнениям sin x=0 и cos x=√2/2 соответствует получению нулей множителей; оба множителя определены на всей прямой. Переход к совокупности виден только в формулировке s3, отдельной записи нет.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Решить простейшее тригонометрическое уравнение</h3><p>Записать общую серию решений уравнения sin x=a или cos x=a с |a|≤1 через табличные значения</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;elementary_trig_equation&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Решить sin x=0 и cos x=√2/2&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;x=πk; x=±π/4+2πk, k∈Z&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [],
+  &quot;rationale&quot;: &quot;Решены простейшие уравнения sin x=0 и cos x=√2/2 на всей прямой с полными периодическими сериями; серии верны.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Отобрать корни тригонометрического уравнения на отрезке</h3><p>По сериям решений найти все значения параметра серии, при которых корень лежит в заданном отрезке, с учётом концов</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;periodic_interval&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:action&quot;,
+      &quot;quote&quot;: &quot;Отобрать корни на отрезке [5π/2; 4π]&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;3π, 15π/4, 4π&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s3:result&quot;,
+    &quot;image:assets/e693af57e0b60f65f01fb46b.png&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_8409c9003f48&quot;,
+      &quot;reason&quot;: &quot;для конечного набора корней без периодического параметра&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6ad8f502588e&quot;,
+      &quot;reason&quot;: &quot;общая проверка точек без периодических серий&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Отбор из периодических серий на отрезке [5π/2;4π] с включёнными концами; результат 3π, 15π/4, 4π верен (π/4+2πk и 9π/4 вне отрезка). Перебор параметра явно не записан, виден только итог.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/015B20.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/015B20.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

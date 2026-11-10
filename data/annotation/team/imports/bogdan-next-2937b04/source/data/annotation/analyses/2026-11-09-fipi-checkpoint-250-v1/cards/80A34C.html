@@ -1,0 +1,129 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>80A34C</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>42. ФИПИ 80A34C · бронь #4, партия 3</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0"> <tr> <td valign="top"> <p class="MsoNormal">Отрезки <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>C</mi> </mrow> </semantics> </math> и <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>B</mi><mi>D</mi> </mrow> </semantics> </math> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> диаметры окружности <br> с центром <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>O</mi><mo>.</mo> </mrow> </semantics> </math> Угол <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>C</mi><mi>B</mi> </mrow> </semantics> </math> равен <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mn>41</mn><mi>°</mi><mo>.</mo> </mrow> </semantics> </math> Найдите <br> величину угла <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>O</mi><mi>D</mi><mo>.</mo> </mrow> </semantics> </math> Ответ дайте в градусах.</p> </td> <td valign="top"> <p class="MsoNormal" align="right"><img src="../../../runs/2026-11-09-fipi-team-bogdan108-next-100/inputs/assets/8fbc93d29d86bdf668a8e012.png" alt="Рисунок ФИПИ"></p> </td> </tr> </table> <p class="MsoNormal"><span> </span></p>  </section></div><p>КЭС: 7.1 Фигуры на плоскости</p><h2>Ответ</h2><p>98</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>OC и OB — радиусы, треугольник OCB равнобедренный, значит угол OBC равен углу OCB (угол ACB, т.к. O лежит на AC)</td><td>угол OBC = 41°</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>По сумме углов треугольника OCB найти угол COB</td><td>угол COB = 180° − 2·41° = 98°</td><td>kc2</td></tr><tr><td>s3 · condition, s2</td><td>Угол AOD вертикален углу COB (AC и BD — прямые через O)</td><td>угол AOD = 98°</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Равнобедренный треугольник из радиусов, сумма углов и вертикальные углы&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Выявить равнобедренный треугольник из радиусов окружности</h3><p>Вход: треугольник с вершиной в центре окружности и двумя другими вершинами на окружности. Операция: заключить равенство сторон-радиусов и равенство углов при основании. Граница: только когда обе стороны — радиусы одной окружности.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;OC и OB — радиусы, треугольник OCB равнобедренный, значит угол OBC равен углу OCB&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;угол OBC = 41°&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;image:assets/8fbc93d29d86bdf668a8e012.png&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;isosceles_angles&quot;,
+      &quot;reason&quot;: &quot;Покрывает вывод равенства углов при основании из равенства сторон, но не включает установление равенства сторон как радиусов одной окружности и отождествление угла OCB с ACB.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_fe8297102f74&quot;,
+      &quot;reason&quot;: &quot;Равноудалённость от концов отрезка через серединный перпендикуляр — другое основание равенства длин.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет: (а) установление OC=OB как радиусов (центр O из условия, C и B на окружности по рисунку) и (б) равенство углов при основании равнобедренного треугольника. Часть (б) полностью соответствует isosceles_angles; для части (а) узла в каталоге нет. Отождествление угла OCB с ACB опирается на то, что O лежит на диаметре AC (условие).&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Установить равенство отрезков как радиусов одной окружности (центр и точки на окружности)&quot;,
+        &quot;possible_catalog_kc_id&quot;: null
+      },
+      {
+        &quot;part&quot;: &quot;Из равенства сторон вывести равенство углов при основании&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;isosceles_angles&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Найти угол треугольника по сумме углов</h3><p>Вход: два известных угла треугольника. Операция: вычесть их сумму из 180°. Граница: евклидов треугольник.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_f5a787e19d0e&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;По сумме углов треугольника OCB найти угол COB&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;угол COB = 180° − 2·41° = 98°&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;isosceles_angles&quot;,
+      &quot;reason&quot;: &quot;Включает выражение угла при вершине, но здесь известны оба угла при основании из s1/условия; действие — именно сумма углов треугольника.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_adbf18f11761&quot;,
+      &quot;reason&quot;: &quot;Сложение/вычитание углов с общей стороной, не сумма углов треугольника.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдаемое действие — нахождение третьего угла треугольника OCB по сумме углов 180° при двух известных (41° из условия, 41° из s1). Определение узла упоминает сумму углов и смежность; смежность здесь не используется, но кандидат является прямым применением части &#x27;сумма углов треугольника&#x27; без иного узла с более узкой формулировкой.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Применить равенство вертикальных углов</h3><p>Вход: угол, образованный двумя пересекающимися прямыми. Операция: перенести его величину на вертикальный угол. Граница: стороны углов лежат на двух пересекающихся прямых.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Угол AOD вертикален углу COB (AC и BD — прямые через O)&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;угол AOD = 98°&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;image:assets/8fbc93d29d86bdf668a8e012.png&quot;,
+      &quot;region_description&quot;: &quot;Хорды CA и DB проходят через центр O и пересекаются в нём; лучи OC и OA противоположны, OB и OD противоположны, угол COB (вверху справа) и угол AOD (внизу слева) расположены вертикально.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_f5a787e19d0e&quot;,
+      &quot;reason&quot;: &quot;Смежность углов — близко (вертикальность выводима через двойную смежность), но равенство вертикальных углов как отдельное действие в определении не названо.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_adbf18f11761&quot;,
+      &quot;reason&quot;: &quot;Сложение/вычитание углов с общей стороной; у вертикальных углов общей стороны нет.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — перенос величины угла на вертикальный ему угол при пересечении двух прямых (AC и BD — диаметры, пересекаются в O). В каталоге нет узла о вертикальных углах.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Применять равенство вертикальных углов&quot;,
+    &quot;definition&quot;: &quot;Для двух прямых, пересекающихся в точке, установить, что углы, стороны которых являются продолжениями сторон друг друга, равны, и перенести известную величину одного на другой.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/80A34C.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/80A34C.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

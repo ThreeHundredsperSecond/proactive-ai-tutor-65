@@ -1,0 +1,103 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>F4F51D</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>105. ФИПИ F4F51D · партия 9</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <table class="MsoTableGrid" border="0" cellspacing="0" cellpadding="0"> <tr> <td valign="top"> <p class="MsoNormal">Дано два цилиндра. Объём первого цилиндра равен 15. У второго цилиндра высота в 3 раза меньше, <br> а радиус основания в 2 раза больше, чем у первого. Найдите объём второго цилиндра.</p> </td> <td valign="top"> <p class="MsoNormal" align="right"><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/6595afe16ef510bf4487df03.png" alt="Рисунок ФИПИ"></p> </td> </tr> </table> <p class="MsoNormal"><span> </span></p>  </section></div><p>КЭС: 7.4 Тела и поверхности вращения</p><h2>Ответ</h2><p>20</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Выразить отношение объёмов цилиндров через отношения радиусов и высот по формуле V=πr²h</td><td>V2/V1 = 2²·(1/3) = 4/3</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Умножить объём первого цилиндра на найденное отношение</td><td>V2 = 15·4/3 = 20</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Масштабирование объёма цилиндра через отношения размеров&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Найти отношение объёмов цилиндров по отношениям радиусов и высот</h3><p>Вход: во сколько раз изменены радиус основания и высота цилиндра. Операция: по формуле V=πr²h получить множитель объёма как квадрат множителя радиуса, умноженный на множитель высоты. Граница: тела вида цилиндр, известные кратные отношения линейных размеров.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Выразить отношение объёмов цилиндров через отношения радиусов и высот по формуле V=πr²h&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;V2/V1 = 2²·(1/3) = 4/3&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;similar_area&quot;,
+      &quot;reason&quot;: &quot;Квадрат коэффициента подобия для площадей подобных фигур; цилиндры здесь не подобны (радиус ×2, высота ×1/3), речь об объёме с разными множителями по измерениям.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_19971b364ca1&quot;,
+      &quot;reason&quot;: &quot;Объём призмы через площадь основания и высоту; объект — призма, а не цилиндр, и операция — прямое вычисление, а не отношение объёмов.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;cylinder_lateral&quot;,
+      &quot;reason&quot;: &quot;Площадь боковой поверхности S=2πrh, а не объём.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+      &quot;reason&quot;: &quot;Подстановка чисел в заданную формулу; здесь формула объёма не дана в условии, и действие — вывод множителя изменения через степени отношений.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: из V=πr²h получить множитель изменения объёма как (k_r)²·k_h при заданных кратных изменениях радиуса и высоты прямого кругового цилиндра. В каталоге нет узла объёма цилиндра или масштабирования объёма по неравным множителям измерений. Математически верно: 4·(1/3)=4/3.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Находить отношение объёмов цилиндров по отношениям радиусов и высот&quot;,
+    &quot;definition&quot;: &quot;Для прямых круговых цилиндров по V=πr²h выразить V2/V1 как квадрат отношения радиусов, умноженный на отношение высот; применимо и при неподобных цилиндрах.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Вычислить величину по известному значению и коэффициенту отношения</h3><p>Вход: значение одной величины и отношение второй к первой. Операция: умножить значение на коэффициент. Граница: прямое пропорциональное масштабирование.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Умножить объём первого цилиндра на найденное отношение&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;V2 = 15·4/3 = 20&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+      &quot;reason&quot;: &quot;Нет заданной формулы и согласования единиц; это умножение числа на коэффициент.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+      &quot;reason&quot;: &quot;Вычисление значения функции по формуле; здесь нет функции, лишь масштабирование известного значения.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Действие — арифметическое умножение известного значения на отношение (15·4/3=20, верно). По инструкции арифметику не следует дробить в отдельный KC; граница между самостоятельным KC и завершающей частью kc1 неоднозначна, подходящего узла каталога нет.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s2:action&quot;
+    ],
+    &quot;description&quot;: &quot;kc2 описывает тривиальное масштабирование числа коэффициентом; вероятно, это арифметическое завершение действия kc1, а не отдельный навык. Решение о выделении требует согласования.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc2&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/F4F51D.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/F4F51D.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

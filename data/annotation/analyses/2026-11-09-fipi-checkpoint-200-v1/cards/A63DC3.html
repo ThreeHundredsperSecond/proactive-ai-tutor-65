@@ -1,0 +1,127 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>A63DC3</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>112. ФИПИ A63DC3 · партия 9</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Игральную кость бросили два раза. Известно, что пять очков не выпало <br> ни разу. Найдите при этом условии вероятность события «сумма очков <br> равна 9».<span></span></p>  </section></div><p>КЭС: 6.2 Вероятность</p><h2>Ответ</h2><p>0,08</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Определить пространство элементарных исходов при условии: пары очков из {1,2,3,4,6} для двух бросков</td><td>5·5 = 25 равновозможных исходов</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Перечислить благоприятные исходы с суммой 9 среди исходов без пятёрки</td><td>(3,6) и (6,3); пары (4,5),(5,4) исключены условием — 2 исхода</td><td>kc2</td></tr><tr><td>s3 · s1, s2</td><td>Вычислить условную вероятность как отношение числа благоприятных исходов к числу исходов в суженном пространстве</td><td>2/25 = 0,08</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Условная вероятность через суженное пространство равновозможных исходов&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Сузить пространство равновозможных исходов по условию</h3><p>По описанию опыта и известному условию определить множество оставшихся равновозможных исходов и подсчитать их число по правилу произведения; применимо при классической модели вероятности</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Определить пространство элементарных исходов при условии: пары очков из {1,2,3,4,6} для двух бросков&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;5·5 = 25 равновозможных исходов&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+      &quot;reason&quot;: &quot;Покрывает задание элементарных исходов и равновозможность, но не сужение пространства условием и не подсчёт по правилу произведения; равновозможность в шаге заявлена, а не обоснована.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;reason&quot;: &quot;Формула m/n в шаге s1 не применяется; комбинаторный подсчёт узел явно исключает.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет три действия: задание равновозможной модели пар очков, сужение множества исходов по известному условию (условная вероятность) и подсчёт 5·5 по правилу произведения. Только первая часть близка к equiprobable_model; полного соответствия нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Задать пары очков двух бросков как равновозможные исходы&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;equiprobable_model&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Сузить множество равновозможных исходов по известному условию (условная модель)&quot;,
+        &quot;possible_catalog_kc_id&quot;: null
+      },
+      {
+        &quot;part&quot;: &quot;Подсчитать число упорядоченных пар по правилу произведения&quot;,
+        &quot;possible_catalog_kc_id&quot;: null
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Перечислить благоприятные исходы события</h3><p>В заданном конечном множестве исходов перебором выделить исходы, удовлетворяющие условию события, и подсчитать их</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Перечислить благоприятные исходы с суммой 9 среди исходов без пятёрки&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;(3,6) и (6,3); пары (4,5),(5,4) исключены условием — 2 исхода&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;reason&quot;: &quot;Явно не включает комбинаторный подсчёт благоприятных исходов.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;finite_exhaustion&quot;,
+      &quot;reason&quot;: &quot;Относится к доказательству утверждения перебором целочисленных случаев, а не к подсчёту исходов события.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+      &quot;reason&quot;: &quot;Задаёт модель, а не выделяет исходы события.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдается перебор конечного множества упорядоченных пар и отбор удовлетворяющих событию (сумма 9) с учётом условия; в каталоге нет узла подсчёта благоприятных исходов.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;В заданном конечном множестве элементарных исходов перебором выделить исходы, удовлетворяющие событию, учитывая порядок и наложенное условие, и подсчитать их число m.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Вычислить вероятность по классическому определению</h3><p>Разделить число благоприятных исходов на число всех равновозможных исходов (в том числе в суженном условием пространстве) и записать результат десятичной дробью</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Вычислить условную вероятность как отношение числа благоприятных исходов к числу исходов в суженном пространстве&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;2/25 = 0,08&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+      &quot;reason&quot;: &quot;Модель построена в s1; в s3 только m/n.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В конечной равновозможной (суженной) модели вычислено m/n=2/25; m и n получены в предыдущих шагах, что соответствует границам узла. Запись десятичной дробью — арифметика.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/A63DC3.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/A63DC3.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

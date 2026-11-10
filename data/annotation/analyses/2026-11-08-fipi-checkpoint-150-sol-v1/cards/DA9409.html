@@ -1,0 +1,319 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>DA9409</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><a href="../index.html">Сводка</a><h1>DA9409</h1><p>historical_independent50</p><p>Предварительные разборы, внешнего эталона нет.</p><h2>Условие</h2>Дайте развернутый ответ.<div><section>  <p class="MsoNormal">Решите неравенство <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mfrac> <mrow> <msup> <mn>8</mn> <mrow> <mi>x</mi><mtext> </mtext><mo>+</mo><mtext> </mtext><mn>1</mn> </mrow> </msup> <mo>−</mo><mn>40</mn> </mrow> <mrow> <mn>2</mn><mo>⋅</mo><msup> <mrow> <mn>64</mn> </mrow> <mi>x</mi> </msup> <mo>−</mo><mn>32</mn> </mrow> </mfrac> <mo>≤</mo><mn>1.</mn> </mrow> </semantics> </math><span></span></p>  </section></div><h2>Состав и исключения</h2><pre>{
+  &quot;complete&quot;: true,
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;author_mode&quot;: &quot;standalone_initial&quot;,
+  &quot;author_path&quot;: &quot;raw\\author\\DA9409.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\DA9409.json&quot;,
+  &quot;feedback_ref&quot;: null,
+  &quot;source_run&quot;: &quot;data/annotation/runs/2026-11-02-fipi-extension-150&quot;
+}</pre><h2>Буквальный сохранённый разбор: ответ, шаги, KC, методы</h2><pre>{
+  &quot;task_id&quot;: &quot;DA9409&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;{1/3} ∪ (2/3; +∞)&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Ввести t = 8^x и выразить все степени через t; установить ограничения замены и знаменателя.&quot;,
+      &quot;result&quot;: &quot;8^(x+1) = 8t, 64^x = t². Получаем (8t − 40)/(2t² − 32) ≤ 1 при t &gt; 0 и t ≠ 4 (в исходной переменной x ≠ 2/3).&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Перенести единицу влево, привести к общей дроби и разложить числитель на множители.&quot;,
+      &quot;result&quot;: &quot;(−2t² + 8t − 8)/(2t² − 32) ≤ 0, то есть −(t − 2)²/(t² − 16) ≤ 0. Эквивалентно (t − 2)²/((t − 4)(t + 4)) ≥ 0 при прежних ограничениях.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Определить знак рационального выражения на допустимой положительной полуоси, отдельно учесть нуль числителя.&quot;,
+      &quot;result&quot;: &quot;При 0 &lt; t &lt; 4 знаменатель отрицателен, а числитель положителен кроме t = 2; поэтому допустимо только t = 2. При t &gt; 4 дробь положительна. Значение t = 4 исключено. Решение: t ∈ {2} ∪ (4; +∞).&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Вернуться к исходной переменной, используя возрастание показательной функции с основанием больше единицы.&quot;,
+      &quot;result&quot;: &quot;8^x = 2 даёт x = 1/3, а 8^x &gt; 4 даёт x &gt; 2/3. Итог: x ∈ {1/3} ∪ (2/3; +∞); запрещённое значение x = 2/3 не включено.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Выполнить показательную замену в рациональном неравенстве&quot;,
+      &quot;description&quot;: &quot;Для рационального неравенства со степенями общего положительного основания, отличного от единицы, ввести новую переменную как показательную функцию и выразить остальные степени через неё; сохранить положительность новой переменной и исключить нули исходного знаменателя. Применимо при согласованных показателях, позволяющих получить рациональное выражение от новой переменной.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Привести рациональное неравенство к сравнению факторизованной дроби с нулём&quot;,
+      &quot;description&quot;: &quot;Для рационального неравенства перенести все члены в одну часть, привести их к общему знаменателю и разложить полученные многочлены на множители. Сохранять ограничения знаменателей и менять направление неравенства при умножении на отрицательную константу; не умножать на выражение неизвестного знака без разбора случаев.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Решить рациональное неравенство по знакам множителей&quot;,
+      &quot;description&quot;: &quot;Для факторизованной рациональной дроби определить знаки между нулями числителя и знаменателя на заданной области. Учитывать чётную кратность множителей, включать нули числителя при нестрогом сравнении и исключать нули знаменателя.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Обратить показательную замену в множестве решений&quot;,
+      &quot;description&quot;: &quot;Для найденных значений и интервалов положительной переменной, равной показательной функции, решить соответствующие показательные равенства и неравенства. Использовать монотонность функции в зависимости от основания и сохранять строгость границ и исключённые значения.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Показательная замена и анализ знаков рациональной дроби&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h2>Буквальный независимый аудит</h2><pre>{
+  &quot;task_id&quot;: &quot;DA9409&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Ввести t = 8^x и выразить все степени через t; установить ограничения замены и знаменателя.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;8^(x+1) = 8t, 64^x = t².&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;при t &gt; 0 и t ≠ 4 (в исходной переменной x ≠ 2/3).&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+          &quot;reason&quot;: &quot;Покрывает замену и согласование степеней, но не исключение нуля знаменателя.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+          &quot;reason&quot;: &quot;Покрывает исключение t=4 на положительной области, но не замену.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+          &quot;reason&quot;: &quot;Законы степеней являются компонентом согласования замены, а не всем кандидатом.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдаются два действия: показательная замена с положительной областью и ограничение исходного знаменателя. Одного определения для всего составного кандидата нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;definition&quot;: &quot;Ввести t=b^x&gt;0 и согласовать остальные степени с t.&quot;,
+            &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;
+          },
+          {
+            &quot;definition&quot;: &quot;Найти и сохранить исключённые нули исходного знаменателя на области замены.&quot;,
+            &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Перенести единицу влево, привести к общей дроби и разложить числитель на множители.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;(−2t² + 8t − 8)/(2t² − 32) ≤ 0, то есть −(t − 2)²/(t² − 16) ≤ 0.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;Эквивалентно (t − 2)²/((t − 4)(t + 4)) ≥ 0 при прежних ограничениях.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_67caf017b566&quot;,
+          &quot;reason&quot;: &quot;Общая дробь — часть кандидата; определение не включает всю факторизацию и смену направления при умножении на −1.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+          &quot;reason&quot;: &quot;Покрывает факторизацию, но не перенос и объединение рациональных выражений.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_9698b97fef22&quot;,
+          &quot;reason&quot;: &quot;Относится к уравнению и умножению на общий знаменатель; здесь неравенство и знаменатель неизвестного знака не удаляется.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Получение общей дроби, факторизация многочленов и смена направления при умножении на отрицательную константу выполнены в одном шаге и объединены одним кандидатом. Узкие определения покрывают лишь отдельные части.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;definition&quot;: &quot;Перенести члены в одну часть и объединить рациональные выражения в общую дробь с сохранением области.&quot;,
+            &quot;catalog_kc_id&quot;: &quot;literal_67caf017b566&quot;
+          },
+          {
+            &quot;definition&quot;: &quot;Представить многочлены числителя и знаменателя произведением множителей с сохранением кратности.&quot;,
+            &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;
+          },
+          {
+            &quot;definition&quot;: &quot;При умножении обеих частей неравенства на отрицательную числовую константу изменить направление сравнения.&quot;,
+            &quot;catalog_kc_id&quot;: null
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;rational_intervals&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;При 0 &lt; t &lt; 4 знаменатель отрицателен, а числитель положителен кроме t = 2; поэтому допустимо только t = 2. При t &gt; 4 дробь положительна. Значение t = 4 исключено. Решение: t ∈ {2} ∪ (4; +∞).&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_1b97db4e28e8&quot;,
+          &quot;reason&quot;: &quot;Исследуется рациональная дробь с полюсом, а не знак одного квадратного трёхчлена.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_ef3f8c7287d4&quot;,
+          &quot;reason&quot;: &quot;Знаменатель не положителен на всей допустимой области, поэтому свести знак только к числителю нельзя.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;На положительной области определены знаки факторизованной дроби, включён нуль чётной кратности t=2 и исключён полюс t=4. Действие соответствует определению метода интервалов целиком.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;Вернуться к исходной переменной, используя возрастание показательной функции с основанием больше единицы.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;8^x = 2 даёт x = 1/3, а 8^x &gt; 4 даёт x &gt; 2/3.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_inequality&quot;,
+          &quot;reason&quot;: &quot;Соответствует переходу от 8^x&gt;4 к x&gt;2/3, но не ветви равенства.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+          &quot;reason&quot;: &quot;Покрывает снятие степеней при общем основании в ветви равенства, но не неравенство; промежуточное равенство показателей отдельно не выписано.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+          &quot;reason&quot;: &quot;Определение явно исключает обратный переход.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_89184e5e6ac9&quot;,
+          &quot;reason&quot;: &quot;Описывает вычисление искомой функции от параметра; здесь восстанавливаются прообразы множества через равенство и неравенство.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат объединяет обратный переход для изолированного значения и для интервала. В каталоге показательное равенство и неравенство разделены; один узкий узел не соответствует всему кандидату.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;definition&quot;: &quot;Восстановить x из 8^x=2 через общее основание и равенство показателей.&quot;,
+            &quot;catalog_kc_id&quot;: null,
+            &quot;possible_catalog_kc_ids&quot;: [
+              &quot;exponential_equation&quot;,
+              &quot;linear_equation&quot;
+            ],
+            &quot;note&quot;: &quot;Промежуточное линейное равенство явно не показано, поэтому отдельное подтверждённое назначение linear_equation не заявляется.&quot;
+          },
+          {
+            &quot;definition&quot;: &quot;Перейти от 8^x&gt;4 к x&gt;2/3 по возрастанию показательной функции.&quot;,
+            &quot;catalog_kc_id&quot;: &quot;exponential_inequality&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;boundary&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s1:action&quot;,
+        &quot;step:s2:action&quot;,
+        &quot;step:s4:result&quot;
+      ],
+      &quot;description&quot;: &quot;Кандидаты kc1, kc2 и kc4 объединяют действия с отдельными границами в переданном каталоге: замена и ограничения знаменателя; общая дробь и факторизация; равенство и неравенство при обратном переходе. Это мешает полному match к одному узкому узлу, но не указывает на математическую ошибку.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc1&quot;,
+        &quot;kc2&quot;,
+        &quot;kc4&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre><h2>Исторические редакторские назначения</h2><pre>[]</pre></html>

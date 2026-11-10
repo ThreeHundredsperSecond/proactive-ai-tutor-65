@@ -1,0 +1,121 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>586EF2</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>18. ФИПИ 586EF2</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Найдите корень уравнения <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <msub> <mrow> <mi>log</mi> </mrow> <mn>7</mn> </msub> <mrow><mo>(</mo> <mrow> <mn>1</mn><mo>−</mo><mi>x</mi> </mrow> <mo>)</mo></mrow><mo>=</mo><msub> <mrow> <mi>log</mi> </mrow> <mn>7</mn> </msub> <mn>5</mn> </mrow>  </semantics> </mstyle></math>.<span></span></p>  </section></div><p>КЭС: 2.1 Целые и дробно-рациональные уравнения; 2.4 Показательные и логарифмические уравнения</p><h2>Ответ</h2><p>-4</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Определить область допустимых значений логарифмического уравнения.</td><td>Основание 7 положительно и не равно 1; аргумент 5 положителен. Для переменного аргумента требуется 1 − x &gt; 0, то есть x &lt; 1.</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Приравнять аргументы равных логарифмов с одним основанием.</td><td>На ОДЗ равенство log_7(1 − x) = log_7 5 равносильно уравнению 1 − x = 5, поскольку логарифмическая функция с основанием 7 строго возрастает.</td><td>kc2</td></tr><tr><td>s3 · s2</td><td>Решить полученное линейное уравнение.</td><td>Из 1 − x = 5 получаем x = −4.</td><td>kc3</td></tr><tr><td>s4 · s1, s2, s3</td><td>Проверить найденный корень по области допустимых значений.</td><td>−4 &lt; 1, поэтому найденное значение допустимо. Равносильность преобразований обеспечивает полноту: единственный корень равен −4.</td><td>kc4</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Приравнивание аргументов логарифмов с одинаковым основанием&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Определить допустимость логарифмических выражений</h3><p>Для логарифмических выражений потребовать положительность аргументов и положительность основания при его отличии от единицы; получить ограничения на переменную.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_7baedb55a81a&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;Основание 7 положительно и не равно 1; аргумент 5 положителен. Для переменного аргумента требуется 1 − x &gt; 0, то есть x &lt; 1.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0214fc221120&quot;,
+      &quot;reason&quot;: &quot;Определение требует также проверки рассматриваемого промежутка; здесь устанавливается ОДЗ уравнения с проверкой основания и обоих аргументов.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_37584ab15732&quot;,
+      &quot;reason&quot;: &quot;Совместная область логарифма и квадратного корня не рассматривается: радиканда нет.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В s1 явно проверены допустимость постоянного основания, положительность постоянного аргумента и ограничение на переменный аргумент. Это целиком действие определения области логарифмических выражений.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Приравнять аргументы равных логарифмов</h3><p>Для равенства логарифмов с одинаковым допустимым основанием перейти на области допустимых значений к равенству аргументов, используя инъективность логарифмической функции.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_2443f08dda82&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;На ОДЗ равенство log_7(1 − x) = log_7 5 равносильно уравнению 1 − x = 5, поскольку логарифмическая функция с основанием 7 строго возрастает.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9a635e89ccb3&quot;,
+      &quot;reason&quot;: &quot;Определение логарифма с переходом к степени не используется; сравниваются два логарифма одного основания.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;Снятие логарифмов явно исключено из определения; линейное уравнение решается в следующем шаге.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;При допустимом основании 7 и положительных аргументах, установленных в s1, s2 использует строгую монотонность, а значит инъективность, и приравнивает аргументы. Последующее решение не переносится в этот шаг.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Решить линейное уравнение с числовыми коэффициентами</h3><p>Для линейного уравнения с числовыми коэффициентами выполнить равносильные преобразования и определить значение неизвестной при ненулевом коэффициенте при ней.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;Из 1 − x = 5 получаем x = −4.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [],
+  &quot;rationale&quot;: &quot;Вход s3 — уже аффинное равенство одной переменной с числовыми коэффициентами и ненулевым коэффициентом −1. Наблюдаемый результат — его единственное решение; составление модели и снятие логарифма сюда не включены.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Проверить корни по области допустимых значений</h3><p>Сопоставить найденные значения неизвестной с ранее установленными ограничениями исходного уравнения и оставить удовлетворяющие им значения.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;−4 &lt; 1, поэтому найденное значение допустимо.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;step:s3:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+      &quot;reason&quot;: &quot;Помимо области определения определение требует проверки принадлежности заданному промежутку; отдельного заданного промежутка здесь нет.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+      &quot;reason&quot;: &quot;Требует проверки физического смысла и исходного соотношения; здесь проверяется только установленное ограничение ОДЗ.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_8409c9003f48&quot;,
+      &quot;reason&quot;: &quot;Описывает отбор по границам заданного промежутка; здесь ограничение выведено из допустимости логарифма, а не задано как промежуток отбора.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;s4 совмещает множество решений линейного уравнения {−4}, полученное в s3, с ранее установленным ограничением x &lt; 1 из s1. Явная проверка строгой границы сохраняет единственного кандидата. Это частный случай пересечения установленных множеств допустимых значений; дополнительный вывод о полноте опирается на равносильность из s2 и не является содержанием локального kc4.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;source_path&quot;: &quot;data/fipi/2026-10-31-profile/tasks/586EF2.json&quot;,
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\586EF2.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\586EF2.json&quot;
+}</pre></html>

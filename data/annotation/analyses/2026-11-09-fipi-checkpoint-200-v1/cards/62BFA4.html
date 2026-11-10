@@ -1,0 +1,329 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>62BFA4</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>53. ФИПИ 62BFA4 · партия 5</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section> <p class="Basis">Решите неравенство <span><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/9ba530189534907785acf4eb.png" alt="Рисунок ФИПИ"></span></p> </section></div><p>КЭС: 2.1 Целые и дробно-рациональные уравнения; 2.4 Показательные и логарифмические уравнения</p><h2>Ответ</h2><p>(1; 4]</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>S1 · condition</td><td>Найти ОДЗ: аргументы всех логарифмов положительны, т.е. x &gt; 0 и log_2 x &gt; 0.</td><td>ОДЗ: x &gt; 1 (равносильно log_2 x &gt; 0).</td><td>KC1</td></tr><tr><td>S2 · condition, S1</td><td>Упростить первое слагаемое по основному логарифмическому тождеству на ОДЗ.</td><td>2^{log_2(log_2 x)} = log_2 x при x &gt; 1.</td><td>KC2</td></tr><tr><td>S3 · condition</td><td>Привести логарифм по основанию 4 к основанию 2 и возвести в квадрат.</td><td>log_4 x = (1/2)·log_2 x, поэтому log_4^2 x = (1/4)·log_2^2 x.</td><td>KC3</td></tr><tr><td>S4 · S1, S2, S3</td><td>Ввести замену t = log_2 x и записать неравенство как алгебраическое относительно t.</td><td>t + t^2/4 − 3 ≤ 0, т.е. t^2 + 4t − 12 ≤ 0, при t &gt; 0.</td><td>KC4</td></tr><tr><td>S5 · S4</td><td>Решить квадратное неравенство t^2 + 4t − 12 ≤ 0 методом интервалов по корням трёхчлена.</td><td>(t + 6)(t − 2) ≤ 0, откуда −6 ≤ t ≤ 2.</td><td>KC5</td></tr><tr><td>S6 · S1, S5</td><td>Пересечь решение по t с ограничением t &gt; 0, следующим из ОДЗ.</td><td>0 &lt; t ≤ 2.</td><td>KC6</td></tr><tr><td>S7 · S6</td><td>Вернуться к переменной x и решить двойное логарифмическое неравенство 0 &lt; log_2 x ≤ 2, используя возрастание логарифма с основанием 2 &gt; 1.</td><td>1 &lt; x ≤ 4, т.е. x ∈ (1; 4].</td><td>KC7</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;M1&quot;,
+    &quot;name&quot;: &quot;Сведение логарифмического неравенства к квадратному заменой t = log_2 x с учётом ОДЗ&quot;,
+    &quot;step_ids&quot;: [
+      &quot;S1&quot;,
+      &quot;S2&quot;,
+      &quot;S3&quot;,
+      &quot;S4&quot;,
+      &quot;S5&quot;,
+      &quot;S6&quot;,
+      &quot;S7&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="KC1"><h3>KC1 · Найти ОДЗ выражения с вложенными логарифмами</h3><p>Вход: выражение, содержащее логарифмы с постоянным допустимым основанием, в том числе логарифм от логарифма. Операция: потребовать положительности аргумента каждого логарифма (от внутреннего к внешнему) и решить полученную систему условий. Граница: применяется к логарифмам с фиксированным числовым основанием; при переменном основании требуются дополнительные условия на основание.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_7baedb55a81a&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S1:action&quot;,
+      &quot;quote&quot;: &quot;аргументы всех логарифмов положительны, т.е. x &gt; 0 и log_2 x &gt; 0&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S1:result&quot;,
+      &quot;quote&quot;: &quot;ОДЗ: x &gt; 1 (равносильно log_2 x &gt; 0).&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;image:assets/9ba530189534907785acf4eb.png&quot;,
+      &quot;region_description&quot;: &quot;Единственная строка неравенства: в показателе степени с основанием 2 стоит вложенный логарифм log_2(log_2 x); второе слагаемое — log с нижним индексом 4 и верхним индексом 2 от x; затем −3 ≤ 0. Основания всех логарифмов числовые (2 и 4).&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;image:assets/9ba530189534907785acf4eb.png&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0214fc221120&quot;,
+      &quot;reason&quot;: &quot;Ориентирован на область логарифмической функции с проверкой принадлежности рассматриваемого промежутка; здесь промежутка нет, требуется положительность нескольких (вложенных) аргументов выражения — это прямо описано в literal_7baedb55a81a.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_37584ab15732&quot;,
+      &quot;reason&quot;: &quot;Совместная область логарифма и квадратного корня; радикандов в условии нет.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_eae4ca1f2f8b&quot;,
+      &quot;reason&quot;: &quot;Переход log_2 x &gt; 0 ⇒ x &gt; 1 по монотонности — лишь компонент шага S1, а не всё действие установления области.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: потребовать положительность аргумента каждого логарифма — внутреннего (x &gt; 0) и внешнего (log_2 x &gt; 0), — основания числовые (2 и 4) и допустимы; результат — множество x &gt; 1. Объект — логарифмическое выражение из условия (изображение), условия и ожидаемый результат совпадают с определением literal_7baedb55a81a («положительность каждого аргумента логарифма и допустимость оснований; сохранить все исключения»). Сведение системы к x &gt; 1 через возрастание log_2 рассматривается как часть получения области (см. i1), поэтому составной характер кандидата не мешает match. Аргумент log_4 x — тот же x &gt; 0, учтён.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="KC2"><h3>KC2 · Применить основное логарифмическое тождество</h3><p>Вход: степень вида a^{log_a f}, где a &gt; 0, a ≠ 1. Операция: заменить её на f. Граница: замена законна только на множестве, где f &gt; 0; это условие должно быть учтено в ОДЗ.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S2:action&quot;,
+      &quot;quote&quot;: &quot;Упростить первое слагаемое по основному логарифмическому тождеству на ОДЗ.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S2:result&quot;,
+      &quot;quote&quot;: &quot;2^{log_2(log_2 x)} = log_2 x при x &gt; 1.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;image:assets/9ba530189534907785acf4eb.png&quot;,
+    &quot;step:S1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d66dd830e876&quot;,
+      &quot;reason&quot;: &quot;Вычисление числового значения логарифма как показателя степени; здесь не вычисляется число, а сворачивается композиция a^{log_a u} с переменным u — другое направление операции и другой результат.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+      &quot;reason&quot;: &quot;Законы степени степени, произведения и частного; основное логарифмическое тождество (обращение логарифма показательной функцией) в определение не входит.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9a635e89ccb3&quot;,
+      &quot;reason&quot;: &quot;Решение простейшего логарифмического уравнения по определению; здесь нет уравнения, выполняется тождественное преобразование выражения.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_2443f08dda82&quot;,
+      &quot;reason&quot;: &quot;Инъективность логарифма при сравнении двух логарифмов; к упрощению a^{log_a u} не относится.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: замена 2^{log_2(u)} на u при u = log_2 x; существенное условие u &gt; 0 взято из S1 (x &gt; 1). Ни один узел каталога не описывает применение основного логарифмического тождества к выражению: ближайшие узлы либо вычисляют числовой логарифм, либо работают со степенями без логарифма. Предлагается новый узел (только предложение).&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Применять основное логарифмическое тождество&quot;,
+    &quot;definition&quot;: &quot;Заменить выражение a^{log_a u} на u при числовом основании a &gt; 0, a ≠ 1 на множестве, где u &gt; 0; условие u &gt; 0 берётся из установленной области определения, без него замена расширяет область.&quot;,
+    &quot;boundary&quot;: &quot;Вычисление числового значения логарифма по определению и решение логарифмических уравнений — отдельные узлы.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="KC3"><h3>KC3 · Перевести логарифм к основанию, степенью которого является исходное основание</h3><p>Вход: логарифм log_{a^k} f, где a &gt; 0, a ≠ 1, k ≠ 0. Операция: записать его как (1/k)·log_a f и при необходимости преобразовать степени этого логарифма. Граница: используется для приведения логарифмов к общему основанию при f &gt; 0.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_872613285a26&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S3:action&quot;,
+      &quot;quote&quot;: &quot;Привести логарифм по основанию 4 к основанию 2 и возвести в квадрат.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S3:result&quot;,
+      &quot;quote&quot;: &quot;log_4 x = (1/2)·log_2 x&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;image:assets/9ba530189534907785acf4eb.png&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+      &quot;reason&quot;: &quot;Возведение (1/2·log_2 x) в квадрат — рутинная степень произведения, а не самостоятельное действие кандидата; ядро шага — смена основания логарифма.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d66dd830e876&quot;,
+      &quot;reason&quot;: &quot;Значение log_2 4 = 2 (коэффициент 1/2) — компонент внутри перехода, не всё действие.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ad68659d5755&quot;,
+      &quot;reason&quot;: &quot;Разность логарифмов в логарифм частного; в шаге не применяется.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: выразить логарифм с основанием 4 через логарифм с общим основанием 2 с постоянным коэффициентом: log_4 x = log_2 x / log_2 4 = (1/2)·log_2 x. Это формула перехода log_b u = log_c u / log_c b; в определении literal_872613285a26 она записана через ln как один из вариантов промежуточного основания, но операция, объект (логарифм с числовым основанием b = 4, аргумент x &gt; 0), условия и результат (общее основание, сохранённый положительный коэффициент) совпадают. Возведение в квадрат даёт (1/4)·log_2^2 x — арифметика, которую не следует дробить в отдельный KC. Чтение log_4^2 x как (log_4 x)^2 согласуется с изображением (верхний индекс 2 над log с нижним индексом 4) и с предупреждением автора.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="KC4"><h3>KC4 · Ввести замену логарифмического выражения новой переменной</h3><p>Вход: неравенство (уравнение), в котором переменная входит только через одно и то же логарифмическое выражение. Операция: обозначить это выражение новой переменной, переписать задачу как алгебраическую и перенести ограничения ОДЗ на новую переменную. Граница: применимо, когда после преобразований все вхождения выражаются через одну функцию от переменной.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC4&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S4:action&quot;,
+      &quot;quote&quot;: &quot;Ввести замену t = log_2 x и записать неравенство как алгебраическое относительно t.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S4:result&quot;,
+      &quot;quote&quot;: &quot;t + t^2/4 − 3 ≤ 0, т.е. t^2 + 4t − 12 ≤ 0, при t &gt; 0.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:S1:result&quot;,
+    &quot;step:S2:result&quot;,
+    &quot;step:S3:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+      &quot;reason&quot;: &quot;Замена t = b^x с автоматическим t &gt; 0 из области значений показательной функции; здесь замена логарифма, область значений которого — вся прямая, а ограничение t &gt; 0 переносится из ОДЗ (x &gt; 1).&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_a30e088aef8f&quot;,
+      &quot;reason&quot;: &quot;Замена t = √x с t ≥ 0 и восстановлением x = t²; другой объект и другое ограничение.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ab8a29be8367&quot;,
+      &quot;reason&quot;: &quot;Замена u = x² и подсчёт прообразов; к логарифмической замене не относится.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0a4ebc8382b5&quot;,
+      &quot;reason&quot;: &quot;Исключение переменной из линейной связи в системе; здесь не система, а введение новой переменной для одного выражения.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: обозначить log_2 x через t после того, как S2 и S3 выразили все слагаемые через log_2 x, переписать неравенство как квадратное относительно t и перенести ограничение ОДЗ x &gt; 1 в t &gt; 0. Умножение на положительное 4 — рутинная арифметика. Каталог содержит замены только для показательной функции, корня и квадрата; логарифмическая замена отличается объектом и механизмом ограничения (из области определения, а не из области значений), а не только буквами. Предложение не является утверждённым узлом.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Вводить замену логарифмического выражения новой переменной&quot;,
+    &quot;definition&quot;: &quot;При числовом основании a &gt; 0, a ≠ 1, когда переменная входит только через log_a x, положить t = log_a x, переписать уравнение/неравенство как алгебраическое относительно t и перенести на t ограничения области определения (например, x &gt; 1 ⇔ t &gt; 0).&quot;,
+    &quot;boundary&quot;: &quot;Обратный переход к x и решение полученного алгебраического неравенства — отдельные действия; аналог exponential_substitution для логарифма.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i2&quot;
+  ]
+}</pre></section><section id="KC5"><h3>KC5 · Решить квадратное неравенство</h3><p>Вход: неравенство вида квадратный трёхчлен ≤ 0 (или &lt; 0, ≥ 0, &gt; 0) с числовыми коэффициентами. Операция: найти корни трёхчлена, разложить на множители и определить промежутки нужного знака с учётом нестрогости. Граница: применяется к неравенствам второй степени с одной переменной.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC5&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_1b97db4e28e8&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S5:action&quot;,
+      &quot;quote&quot;: &quot;Решить квадратное неравенство t^2 + 4t − 12 ≤ 0 методом интервалов по корням трёхчлена.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S5:result&quot;,
+      &quot;quote&quot;: &quot;(t + 6)(t − 2) ≤ 0, откуда −6 ≤ t ≤ 2.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:S4:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;rational_intervals&quot;,
+      &quot;reason&quot;: &quot;Существенные элементы — полюсы и исключения знаменателя — отсутствуют; объект — квадратный трёхчлен, для которого есть более точный узел, поэтому есть основание выбрать literal_1b97db4e28e8.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+      &quot;reason&quot;: &quot;Только нахождение корней уравнения; знак трёхчлена и множество решений неравенства не входят.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+      &quot;reason&quot;: &quot;Факторизация (t + 6)(t − 2) — компонент шага, не всё действие.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cd64639b0b5a&quot;,
+      &quot;reason&quot;: &quot;Квадратное неравенство с параметром из ограничения на квадрат; параметра нет.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: по корням −6 и 2 трёхчлена t^2 + 4t − 12 (видны в разложении (t + 6)(t − 2)) определить промежуток неположительности и учесть нестрогость — концы включены. Это целиком определение literal_1b97db4e28e8. Разложение проверено: (t + 6)(t − 2) = t^2 + 4t − 12; результат −6 ≤ t ≤ 2 верен. Знаковый анализ по промежуткам явно не расписан, но его итог наблюдаем в результате.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="KC6"><h3>KC6 · Пересечь множество решений с ограничениями ОДЗ</h3><p>Вход: множество решений, полученное после равносильных на ОДЗ преобразований, и ограничения ОДЗ (в том числе перенесённые на новую переменную). Операция: найти пересечение множеств, корректно учитывая строгость концов. Граница: необходимо, когда преобразования выполнялись без постоянного учёта ограничений.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC6&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S6:action&quot;,
+      &quot;quote&quot;: &quot;Пересечь решение по t с ограничением t &gt; 0, следующим из ОДЗ.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S6:result&quot;,
+      &quot;quote&quot;: &quot;0 &lt; t ≤ 2.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:S1:result&quot;,
+    &quot;step:S4:result&quot;,
+    &quot;step:S5:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+      &quot;reason&quot;: &quot;Проверка отдельных кандидатов на область и промежуток; здесь пересекаются промежутки, а не отбираются дискретные корни.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_8409c9003f48&quot;,
+      &quot;reason&quot;: &quot;Отбор конечного набора корней на промежутке; множество решений — промежуток.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+      &quot;reason&quot;: &quot;Отбор по условиям модели/физическому смыслу; здесь чисто множественное пересечение с ОДЗ.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: [−6; 2] ∩ (0; +∞) = (0; 2] с исключением левого конца (строгое t &gt; 0, источник — S1 через перенос в S4) и включением правого (нестрогое ≤ из S5). Определение set_intersection («совместить установленные ограничения пересечением и правильно обработать границы») покрывает действие целиком.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="KC7"><h3>KC7 · Решить двойное простейшее логарифмическое неравенство</h3><p>Вход: неравенство вида c1 &lt; log_a x ≤ c2 с числовым основанием a &gt; 0, a ≠ 1. Операция: представить границы как логарифмы по основанию a и перейти к неравенствам для x, сохраняя знаки при a &gt; 1 и меняя их при 0 &lt; a &lt; 1. Граница: аргумент логарифма — сама переменная или выражение, положительность которого обеспечена.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC7&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_eae4ca1f2f8b&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S7:action&quot;,
+      &quot;quote&quot;: &quot;решить двойное логарифмическое неравенство 0 &lt; log_2 x ≤ 2, используя возрастание логарифма с основанием 2 &gt; 1&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S7:result&quot;,
+      &quot;quote&quot;: &quot;1 &lt; x ≤ 4, т.е. x ∈ (1; 4].&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:S6:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9a635e89ccb3&quot;,
+      &quot;reason&quot;: &quot;Простейшее логарифмическое уравнение; здесь неравенство и решающим является монотонность.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_inequality&quot;,
+      &quot;reason&quot;: &quot;Монотонность показательной функции b^x; здесь логарифм.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_ad66344767ba&quot;,
+      &quot;reason&quot;: &quot;Двойное неравенство для модуля линейного выражения; модуля нет.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: записать границы как log_2 1 и log_2 4 и по возрастанию log_2 (основание 2 &gt; 1) перейти к сравнению аргумента: 1 &lt; x ≤ 4 со строгостью концов, перенесённой без изменения. Аргумент x положителен (x &gt; 1 следует уже из 0 &lt; log_2 x). Двойное неравенство — две однотипные сравнительные операции, это не создаёт отдельного KC, поэтому действие целиком соответствует literal_eae4ca1f2f8b. Обратный переход t → log_2 x в этом шаге — тривиальное переименование (см. i2). Ответ (1; 4] согласован с проверкой x = 4: 2 + 1 − 3 = 0.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i2&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[
+  &quot;Запись log_4^2 x на изображении интерпретирована по стандартной нотации как (log_4 x)^2.&quot;
+]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:S1:action&quot;,
+      &quot;step:S1:result&quot;
+    ],
+    &quot;description&quot;: &quot;Шаг S1 кроме выписывания условий решает log_2 x &gt; 0 ⇒ x &gt; 1 по возрастанию log_2 (компонент, близкий к literal_eae4ca1f2f8b), отдельно не размеченный. Принят как часть установления области определения; соответствие KC1 не меняет.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;KC1&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;i2&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:S4:action&quot;,
+      &quot;step:S7:action&quot;
+    ],
+    &quot;description&quot;: &quot;Обратный переход t → log_2 x включён в шаг S7 вместе с решением двойного логарифмического неравенства и не размечен отдельно ни в KC4, ни в KC7. В каталоге для показательной замены (exponential_substitution) обратный переход вынесен отдельно; здесь он — тривиальное переименование, решения по KC4 и KC7 не меняются, но граница замены/обратного перехода остаётся редакционным вопросом.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;KC4&quot;,
+      &quot;KC7&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/62BFA4.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/62BFA4.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

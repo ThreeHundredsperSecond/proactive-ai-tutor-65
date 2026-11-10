@@ -1,0 +1,114 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>370392</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>79. ФИПИ 370392 · партия 6</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0"> <tr> <td valign="top"> <p class="MsoNormal">Дана правильная треугольная призма <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mi>C</mi><msub> <mi>A</mi> <mn>1</mn> </msub> <msub> <mi>B</mi> <mn>1</mn> </msub> <msub> <mi>C</mi> <mn>1</mn> </msub> </mrow>  </semantics> </mstyle></math>, площадь основания которой равна 4, а боковое ребро равно 6. Найдите объём многогранника, вершинами которого являются точки <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>B</mi>  </semantics> </mstyle></math>, <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>C</mi>  </semantics> </mstyle></math>, <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <msub> <mi>A</mi> <mn>1</mn> </msub> </mrow>  </semantics> </mstyle></math>, <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <msub> <mi>B</mi> <mn>1</mn> </msub> </mrow>  </semantics> </mstyle></math>, <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <msub> <mi>C</mi> <mn>1</mn> </msub> </mrow>  </semantics> </mstyle></math>.<span></span></p> </td> <td valign="top"> <p class="MsoNormal" align="right"><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/9b32a0d521269416ad4dd0c7.png" alt="Рисунок ФИПИ"></p> </td> </tr> </table> <p class="MsoNormal"><span> </span></p>  </section></div><p>КЭС: 7.3 Многогранники</p><h2>Ответ</h2><p>16</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Вычислить объём призмы как произведение площади основания на высоту (боковое ребро правильной призмы перпендикулярно основанию)</td><td>V_призмы = 4·6 = 24</td><td>kc1</td></tr><tr><td>s2 · condition</td><td>Представить многогранник BCA1B1C1 как призму без пирамиды A1ABC</td><td>V = V_призмы − V(A1ABC)</td><td>kc2</td></tr><tr><td>s3 · condition</td><td>Вычислить объём пирамиды A1ABC с основанием ABC и высотой AA1</td><td>V(A1ABC) = (1/3)·4·6 = 8</td><td>kc3</td></tr><tr><td>s4 · s1, s2, s3</td><td>Вычесть объём пирамиды из объёма призмы</td><td>V = 24 − 8 = 16</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Дополнение до призмы: объём призмы минус объём отсечённой пирамиды&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Вычислить объём прямой призмы</h3><p>Вход: площадь основания и высота (боковое ребро прямой призмы); операция: V = S·h; применимо к прямой призме, для наклонной нужна высота.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_19971b364ca1&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Вычислить объём призмы как произведение площади основания на высоту (боковое ребро правильной призмы перпендикулярно основанию)&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;V_призмы = 4·6 = 24&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;pyramid_volume&quot;,
+      &quot;reason&quot;: &quot;относится к пирамиде с множителем 1/3, а не к призме&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция V=S·h для призмы; высота обоснована перпендикулярностью бокового ребра правильной (прямой) призмы, что совпадает с оговоркой определения о перпендикулярной высоте.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Найти объём многогранника через разбиение или дополнение</h3><p>Вход: многогранник, являющийся частью известного тела; операция: представить его как разность (или сумму) тел с известными объёмами и сложить/вычесть объёмы; части не должны перекрываться.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Представить многогранник BCA1B1C1 как призму без пирамиды A1ABC&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;V = V_призмы − V(A1ABC)&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;V = 24 − 8 = 16&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;image:assets/9b32a0d521269416ad4dd0c7.png&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0cd75b4548b3&quot;,
+      &quot;reason&quot;: &quot;распознавание призмы по граням, а не разложение объёма тела на непересекающиеся части&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_19971b364ca1&quot;,
+      &quot;reason&quot;: &quot;вычисляет объём призмы, но не связывает объём многогранника с объёмами частей&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;pyramid_volume&quot;,
+      &quot;reason&quot;: &quot;формула объёма пирамиды, не аддитивность объёма&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В каталоге нет узла об аддитивности объёма: представить тело как разность/сумму непересекающихся тел с известными объёмами. Действие наблюдается в s2 (декомпозиция) и s4 (вычитание); вычитание 24−8 — тривиальная арифметика внутри того же действия.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Находить объём многогранника разбиением или дополнением&quot;,
+    &quot;definition&quot;: &quot;Представить многогранник как объединение или разность непересекающихся (кроме границ) тел с известными объёмами и сложить/вычесть их объёмы, обосновав, что части составляют всё тело без перекрытий.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Вычислить объём пирамиды</h3><p>Вход: площадь основания и высота пирамиды; операция: V = S·h/3; высота — расстояние от вершины до плоскости основания.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;pyramid_volume&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Вычислить объём пирамиды A1ABC с основанием ABC и высотой AA1&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;V(A1ABC) = (1/3)·4·6 = 8&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:action&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_19971b364ca1&quot;,
+      &quot;reason&quot;: &quot;формула призмы без множителя 1/3&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Тетраэдр A1ABC с основанием ABC (площадь 4) и высотой AA1=6, перпендикулярной основанию по s1; применено V=S·h/3 — полное соответствие.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/370392.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/370392.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

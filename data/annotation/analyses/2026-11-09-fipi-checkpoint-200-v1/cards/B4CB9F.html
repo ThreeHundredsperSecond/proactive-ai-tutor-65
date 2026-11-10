@@ -1,0 +1,105 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>B4CB9F</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>108. ФИПИ B4CB9F · партия 9</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Найдите точку максимума функции <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>y</mi><mo>=</mo><msup> <mi>x</mi> <mn>3</mn> </msup> <mo>−</mo><mn>300</mn><mi>x</mi><mo>+</mo><mn>5.</mn> </mrow> </semantics> </math><span></span></p>  </section></div><p>КЭС: 4.1 Производная функции. Производные элементарных функций; 4.2 Применение производной к исследованию функций на монотонность и экстремумы. Нахождение наибольшего и наименьшего значения функции на отрезке</p><h2>Ответ</h2><p>-10</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти производную многочлена y = x^3 - 300x + 5</td><td>y&#x27; = 3x^2 - 300</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Найти критические точки, решив y&#x27; = 0</td><td>3x^2 - 300 = 0, x = -10 или x = 10</td><td>kc2</td></tr><tr><td>s3 · s1, s2</td><td>Определить знаки производной на интервалах и выбрать точку, где знак меняется с плюса на минус</td><td>y&#x27; &gt; 0 при x &lt; -10, y&#x27; &lt; 0 при -10 &lt; x &lt; 10, y&#x27; &gt; 0 при x &gt; 10; точка максимума x = -10</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Исследование функции на экстремум с помощью производной&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Дифференцировать многочлен</h3><p>По заданному многочлену получить его производную, применяя правила дифференцирования степени, суммы и постоянного множителя.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_3a3e1295118b&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Найти производную многочлена y = x^3 - 300x + 5&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;y&#x27; = 3x^2 - 300&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0efedaf04823&quot;,
+      &quot;reason&quot;: &quot;Степенное правило и линейность на общей допустимой области степенных функций; объект шире многочлена. Для многочлена точнее узел literal_3a3e1295118b с тем же объектом.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — дифференцирование; объект — многочлен x^3-300x+5; применены степенное правило и линейность; результат 3x^2-300 верен.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Найти нули производной</h3><p>Решить уравнение f&#x27;(x) = 0 для полученной производной, чтобы найти критические точки функции на области определения.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;stationary_point&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Найти критические точки, решив y&#x27; = 0&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;3x^2 - 300 = 0, x = -10 или x = 10&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_57e72251d4a8&quot;,
+      &quot;reason&quot;: &quot;Решение x²=100 — компонент внутри действия; кандидат описан как нахождение нулей производной в целом, вывод о типе отдельно.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+      &quot;reason&quot;: &quot;Дискриминант не использовался.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Решено f&#x27;=0 на области R (все x допустимы, промежуток не задан); получены стационарные точки ±10, тип экстремума не определяется в этом шаге — совпадает с определением.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Классифицировать критическую точку по смене знака производной</h3><p>По знакам производной на интервалах между критическими точками определить, является ли точка максимумом (смена + на −) или минимумом (смена − на +).</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;local_extreme_sign&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;выбрать точку, где знак меняется с плюса на минус&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;y&#x27; &gt; 0 при x &lt; -10, y&#x27; &lt; 0 при -10 &lt; x &lt; 10, y&#x27; &gt; 0 при x &gt; 10; точка максимума x = -10&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;,
+      &quot;reason&quot;: &quot;Вывод о монотонности функции явно не делается; цель — тип экстремума.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;global_interval_extreme&quot;,
+      &quot;reason&quot;: &quot;Отрезок не задан, вопрос об абсциссе локального максимума.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;По знакам производной установлена смена +→− в x=-10, сделан вывод о максимуме; знаки верны для 3(x-10)(x+10).&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/B4CB9F.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/B4CB9F.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

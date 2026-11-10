@@ -1,0 +1,193 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>D3C577</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><a href="../index.html">Сводка</a><h1>D3C577</h1><p>historical_editorial50</p><p>Предварительные разборы, внешнего эталона нет.</p><h2>Условие</h2>Дайте развернутый ответ.<div><section>  <p class="MsoNormal">В классе больше 10, но не больше 26 учащихся, а доля девочек <br> не превышает 21 %.</p> <p class="MsoNormal">а) Может ли в этом классе быть 5 девочек?</p> <p class="MsoNormal">б) Может ли доля девочек составить 30 %, если в этот класс придёт новая девочка?</p> <p class="MsoNormal">в) В этот класс пришла новая девочка. Доля девочек в классе составила целое число процентов. Какое наибольшее число процентов может составить доля девочек в классе?</p>  </section></div><h2>Состав и исключения</h2><pre>{
+  &quot;complete&quot;: true,
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;author_mode&quot;: &quot;historical_shared_context&quot;,
+  &quot;author_path&quot;: null,
+  &quot;auditor_path&quot;: null,
+  &quot;feedback_ref&quot;: null,
+  &quot;source_run&quot;: &quot;data/annotation/runs/2026-10-31-fipi-50x1&quot;
+}</pre><h2>Буквальный сохранённый разбор: ответ, шаги, KC, методы</h2><pre>{
+  &quot;task_id&quot;: &quot;D3C577&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;а) да; б) нет; в) 25%&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Записать целочисленные ограничения на состав класса&quot;,
+      &quot;result&quot;: &quot;N∈Z,11≤N≤26; g∈Z,0≤g≤floor(0,21N), откуда g≤5. После прихода девочки доля (g+1)/(N+1).&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;а) Предъявить допустимый класс с пятью девочками&quot;,
+      &quot;result&quot;: &quot;N=25,g=5: доля 20%≤21%, численность допустима. Ответ да.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;б) Оценить новую долю сверху&quot;,
+      &quot;result&quot;: &quot;(g+1)/(N+1)≤0,21+0,79/(N+1)≤0,21+0,79/12&lt;0,30. Доля 30% невозможна.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;в) Перебрать все возможные g с минимальными допустимыми N&quot;,
+      &quot;result&quot;: &quot;Для g=0,1,2,3,4,5 минимальные N равны 11,11,11,15,20,24. Новая доля не больше 1/12,2/12,3/12,4/16,5/21,6/25 соответственно; все ≤25%.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s5&quot;,
+      &quot;action&quot;: &quot;в) Проверить достижение целого максимального процента&quot;,
+      &quot;result&quot;: &quot;При N=11,g=2 исходная доля 2/11≤21%; после прихода девочки 3/12=25%. Это целое число процентов и верхняя граница достигнута.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;k2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;k1&quot;,
+      &quot;name&quot;: &quot;Моделировать долю целочисленными количествами&quot;,
+      &quot;description&quot;: &quot;Связать процент с отношением целочисленных численностей, сохранить ограничения на общее число и изменение состава.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k2&quot;,
+      &quot;name&quot;: &quot;Проверять достижимость границы допустимым примером&quot;,
+      &quot;description&quot;: &quot;Предъявить целочисленный объект и проверить все ограничения; для максимума использовать уже доказанную общую границу.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k3&quot;,
+      &quot;name&quot;: &quot;Оценивать дробь с ограниченным числителем и знаменателем&quot;,
+      &quot;description&quot;: &quot;Подставить обоснованную оценку числителя и использовать монотонность при положительном знаменателе, сохраняя направление неравенств.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;k4&quot;,
+      &quot;name&quot;: &quot;Доказывать утверждение полным конечным перебором&quot;,
+      &quot;description&quot;: &quot;Вывести конечный диапазон целочисленных случаев и проверить каждый; перебор нескольких примеров без ограничения диапазона не является полным.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;а) Проверить конкретный состав класса&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;m2&quot;,
+      &quot;name&quot;: &quot;б) Ограничить новую долю сверху&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;m3&quot;,
+      &quot;name&quot;: &quot;в) Ограничить и достичь максимальный целый процент&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s4&quot;,
+        &quot;s5&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h2>Буквальный независимый аудит</h2><pre>null</pre><h2>Исторические редакторские назначения</h2><pre>[
+  {
+    &quot;task_id&quot;: &quot;D3C577&quot;,
+    &quot;local_id&quot;: &quot;k1&quot;,
+    &quot;canonical_id&quot;: &quot;literal_032c8bc781fd&quot;,
+    &quot;decision_basis&quot;: &quot;identical_name_and_description_only&quot;,
+    &quot;source_name&quot;: &quot;Моделировать долю целочисленными количествами&quot;,
+    &quot;source_description&quot;: &quot;Связать процент с отношением целочисленных численностей, сохранить ограничения на общее число и изменение состава.&quot;,
+    &quot;evidence&quot;: [
+      {
+        &quot;step_id&quot;: &quot;s1&quot;,
+        &quot;action&quot;: &quot;Записать целочисленные ограничения на состав класса&quot;,
+        &quot;result&quot;: &quot;N∈Z,11≤N≤26; g∈Z,0≤g≤floor(0,21N), откуда g≤5. После прихода девочки доля (g+1)/(N+1).&quot;
+      }
+    ]
+  },
+  {
+    &quot;task_id&quot;: &quot;D3C577&quot;,
+    &quot;local_id&quot;: &quot;k2&quot;,
+    &quot;canonical_id&quot;: &quot;literal_f6b803c5f9c2&quot;,
+    &quot;decision_basis&quot;: &quot;identical_name_and_description_only&quot;,
+    &quot;source_name&quot;: &quot;Проверять достижимость границы допустимым примером&quot;,
+    &quot;source_description&quot;: &quot;Предъявить целочисленный объект и проверить все ограничения; для максимума использовать уже доказанную общую границу.&quot;,
+    &quot;evidence&quot;: [
+      {
+        &quot;step_id&quot;: &quot;s2&quot;,
+        &quot;action&quot;: &quot;а) Предъявить допустимый класс с пятью девочками&quot;,
+        &quot;result&quot;: &quot;N=25,g=5: доля 20%≤21%, численность допустима. Ответ да.&quot;
+      },
+      {
+        &quot;step_id&quot;: &quot;s5&quot;,
+        &quot;action&quot;: &quot;в) Проверить достижение целого максимального процента&quot;,
+        &quot;result&quot;: &quot;При N=11,g=2 исходная доля 2/11≤21%; после прихода девочки 3/12=25%. Это целое число процентов и верхняя граница достигнута.&quot;
+      }
+    ]
+  },
+  {
+    &quot;task_id&quot;: &quot;D3C577&quot;,
+    &quot;local_id&quot;: &quot;k3&quot;,
+    &quot;canonical_id&quot;: &quot;literal_31eed356b5e1&quot;,
+    &quot;decision_basis&quot;: &quot;identical_name_and_description_only&quot;,
+    &quot;source_name&quot;: &quot;Оценивать дробь с ограниченным числителем и знаменателем&quot;,
+    &quot;source_description&quot;: &quot;Подставить обоснованную оценку числителя и использовать монотонность при положительном знаменателе, сохраняя направление неравенств.&quot;,
+    &quot;evidence&quot;: [
+      {
+        &quot;step_id&quot;: &quot;s3&quot;,
+        &quot;action&quot;: &quot;б) Оценить новую долю сверху&quot;,
+        &quot;result&quot;: &quot;(g+1)/(N+1)≤0,21+0,79/(N+1)≤0,21+0,79/12&lt;0,30. Доля 30% невозможна.&quot;
+      }
+    ]
+  },
+  {
+    &quot;task_id&quot;: &quot;D3C577&quot;,
+    &quot;local_id&quot;: &quot;k4&quot;,
+    &quot;canonical_id&quot;: &quot;finite_exhaustion&quot;,
+    &quot;decision_basis&quot;: &quot;explicit_editorial_operation_group&quot;,
+    &quot;source_name&quot;: &quot;Доказывать утверждение полным конечным перебором&quot;,
+    &quot;source_description&quot;: &quot;Вывести конечный диапазон целочисленных случаев и проверить каждый; перебор нескольких примеров без ограничения диапазона не является полным.&quot;,
+    &quot;evidence&quot;: [
+      {
+        &quot;step_id&quot;: &quot;s4&quot;,
+        &quot;action&quot;: &quot;в) Перебрать все возможные g с минимальными допустимыми N&quot;,
+        &quot;result&quot;: &quot;Для g=0,1,2,3,4,5 минимальные N равны 11,11,11,15,20,24. Новая доля не больше 1/12,2/12,3/12,4/16,5/21,6/25 соответственно; все ≤25%.&quot;
+      }
+    ]
+  }
+]</pre><p><a href="../../../runs/2026-10-31-fipi-50x1/raw/D3C577.json">author raw</a></p><pre>{
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;source_policy_included&quot;: true,
+  &quot;source_policy_exclusion_reasons&quot;: []
+}</pre></html>

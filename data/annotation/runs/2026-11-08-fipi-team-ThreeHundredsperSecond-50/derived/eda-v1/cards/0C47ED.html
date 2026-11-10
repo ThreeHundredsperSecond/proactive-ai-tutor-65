@@ -1,0 +1,163 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>0C47ED</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>45. ФИПИ 0C47ED</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">а) Решите уравнение</p> <p class="MsoNormal" align="center"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mn>9</mn><mo>⋅</mo><msup> <mrow> <mn>81</mn> </mrow> <mrow> <mi>cos</mi><mi>x</mi> </mrow> </msup> <mtext>​</mtext><mo>−</mo><mn>28</mn><mo>⋅</mo><msup> <mn>9</mn> <mrow> <mi>cos</mi><mi>x</mi> </mrow> </msup> <mtext>​</mtext><mo>+</mo><mn>3</mn><mo>=</mo><mn>0</mn> </mrow>  </semantics> </mstyle></math>.</p> <p class="MsoNormal">б) Укажите корни этого уравнения, принадлежащие отрезку <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mrow><mo>[</mo> <mrow> <mfrac> <mrow> <mn>5</mn><mtext>π</mtext> </mrow> <mn>2</mn> </mfrac> <mo>;</mo><mtext> </mtext><mn>4</mn><mtext>π</mtext> </mrow> <mo>]</mo></mrow> </mrow>  </semantics> </mstyle></math>.<span></span></p>  </section></div><p>КЭС: 2.1 Целые и дробно-рациональные уравнения; 2.3 Тригонометрические уравнения; 2.4 Показательные и логарифмические уравнения; 2.9 Системы и совокупности уравнений и неравенств</p><h2>Ответ</h2><p>а) x = ±π/3 + 2πn или x = π + 2πn, n ∈ ℤ. б) 3π; 11π/3.</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Привести показательные выражения к общему основанию и ввести положительную переменную t = 9^(cos x).</td><td>81^(cos x) = (9^(cos x))², поэтому исходное уравнение равносильно 9t² − 28t + 3 = 0 при t = 9^(cos x) &gt; 0. Исходное уравнение определено при всех действительных x.</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Решить квадратное уравнение относительно введённой переменной.</td><td>D = 28² − 4·9·3 = 676 = 26²; t = (28 ± 26)/18, то есть t = 3 или t = 1/9. Оба значения положительны.</td><td>kc2</td></tr><tr><td>s3 · s1, s2</td><td>Вернуться к показательной переменной и приравнять показатели одинакового основания.</td><td>9^(cos x) = 3 = 9^(1/2) даёт cos x = 1/2; 9^(cos x) = 1/9 = 9^(−1) даёт cos x = −1. Основание 9 положительно и отлично от 1, поэтому переходы равносильны. Оба значения косинуса лежат в [−1; 1].</td><td>kc3</td></tr><tr><td>s4 · s3</td><td>Записать все решения полученных простейших тригонометрических уравнений.</td><td>Для cos x = 1/2 получаем x = π/3 + 2πn или x = −π/3 + 2πn; для cos x = −1 получаем x = π + 2πn, где n ∈ ℤ. Объединение этих серий является полным решением пункта а).</td><td>kc4</td></tr><tr><td>s5 · condition, s4</td><td>Отобрать элементы каждой серии по условию принадлежности заданному замкнутому отрезку.</td><td>Для x = π/3 + 2πn условие 5π/2 ≤ x ≤ 4π равносильно 13/12 ≤ n ≤ 11/6, целых n нет. Для x = −π/3 + 2πn получаем 17/12 ≤ n ≤ 13/6, откуда n = 2 и x = 11π/3. Для x = π + 2πn получаем 3/4 ≤ n ≤ 3/2, откуда n = 1 и x = 3π. Таким образом, все корни на отрезке: 3π и 11π/3.</td><td>kc5</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Решить показательно-тригонометрическое уравнение через квадратную замену&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;m2&quot;,
+    &quot;name&quot;: &quot;Отобрать корни на отрезке по целочисленным параметрам серий&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s5&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Свести показательное уравнение к квадратному заменой переменной</h3><p>Для уравнения с показательными выражениями, основания которых являются степенями общего положительного основания, преобразовать степени и заменить повторяющееся выражение переменной, сохранив её положительность; применяется, когда получается квадратный многочлен.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;81^(cos x) = (9^(cos x))², поэтому исходное уравнение равносильно 9t² − 28t + 3 = 0 при t = 9^(cos x) &gt; 0.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+      &quot;reason&quot;: &quot;Описывает компонент преобразования степени, но не введение положительной переменной и согласование выражений с ней.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+      &quot;reason&quot;: &quot;Требует приравнивания показателей; в s1 выполняется замена, а не этот переход.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдается введение t=9^(cos x)&gt;0 и представление второй степени через t, дающее квадратное уравнение. Показатель cos x вместо обозначения x в определении не меняет операцию замены показательного выражения; квадратный вид результата является частным случаем согласования остальных степеней с t. Решение и обратный переход в соответствие не включены.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Решить квадратное уравнение через дискриминант</h3><p>По коэффициентам квадратного уравнения с ненулевым старшим коэффициентом вычислить дискриминант и найти все действительные корни с проверкой ограничений переменной.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;D = 28² − 4·9·3 = 676 = 26²; t = (28 ± 26)/18, то есть t = 3 или t = 1/9. Оба значения положительны.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_fe2b4673ac10&quot;,
+      &quot;reason&quot;: &quot;Выделение полного квадрата не выполнялось; использованы дискриминант и формула корней.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_7a3b2e2d0b3a&quot;,
+      &quot;reason&quot;: &quot;Не задаются условия на коэффициенты для двух различных положительных корней; решается конкретное уравнение без параметра.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Для квадратного уравнения с коэффициентом 9 при t² вычислен дискриминант и найдены оба действительных корня. Проверка их положительности относится к уже введённой области t&gt;0 и не превращает действие в исследование числа положительных корней с параметром.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Приравнять показатели степеней общего основания</h3><p>В равенстве степеней одного положительного основания, отличного от единицы, использовать инъективность показательной функции для равносильного перехода к равенству показателей.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;9^(cos x) = 3 = 9^(1/2) даёт cos x = 1/2; 9^(cos x) = 1/9 = 9^(−1) даёт cos x = −1. Основание 9 положительно и отлично от 1, поэтому переходы равносильны.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+      &quot;reason&quot;: &quot;Представление констант степенями входит в действие, но этот узел не включает снятие равенства степеней по инъективности.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+      &quot;reason&quot;: &quot;Замена уже введена в s1; здесь выполняется обратный переход с приравниванием показателей.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Из значений t и его определения получены два показательных равенства, обе правые части представлены степенями 9 и показатели приравнены при явно указанном допустимом основании. Решение тригонометрических уравнений остаётся в s4.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Решить простейшее уравнение для косинуса</h3><p>Для уравнения с заданным допустимым значением косинуса записать все действительные решения с учётом симметрии и периода, в том числе случая граничного значения.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;elementary_trig_equation&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;Для cos x = 1/2 получаем x = π/3 + 2πn или x = −π/3 + 2πn; для cos x = −1 получаем x = π + 2πn, где n ∈ ℤ.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s3:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;periodic_interval&quot;,
+      &quot;reason&quot;: &quot;В s4 выписываются полные серии на прямой; отбор по границам выполнен позднее.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;,
+      &quot;reason&quot;: &quot;Формулы приведения и двойного угла для преобразования выражения здесь не применяются.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Для двух допустимых значений косинуса, включая граничное −1, записаны полные периодические серии на действительной прямой. Это в точности частный случай определения для cos x=c.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc5"><h3>kc5 · Отобрать корни периодических серий на отрезке</h3><p>Для серий решений с целочисленным параметром подставить их в двойное неравенство границ замкнутого отрезка, найти все допустимые целые параметры и соответствующие корни.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc5&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;periodic_interval&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s5:result&quot;,
+      &quot;quote&quot;: &quot;Для x = π/3 + 2πn условие 5π/2 ≤ x ≤ 4π равносильно 13/12 ≤ n ≤ 11/6, целых n нет. Для x = −π/3 + 2πn получаем 17/12 ≤ n ≤ 13/6, откуда n = 2 и x = 11π/3. Для x = π + 2πn получаем 3/4 ≤ n ≤ 3/2, откуда n = 1 и x = 3π.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s4:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_8409c9003f48&quot;,
+      &quot;reason&quot;: &quot;Исходные кандидаты заданы бесконечными периодическими сериями, а не готовым конечным набором.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0cf8af170957&quot;,
+      &quot;reason&quot;: &quot;Преобразование линейных неравенств является компонентом; определение не охватывает отбор целых параметров периодических серий и восстановление корней.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Каждая из трёх серий подставлена в замкнутые границы, найдены все целые параметры и соответствующие корни. Полученные границы и корни согласуются с периодическими сериями; отдельного соответствия лишь узкому действию решения неравенства не требуется.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[
+  &quot;Предварительная предметная интерпретация, не эталон и не оценка ученика.&quot;
+]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;source_path&quot;: &quot;data/fipi/2026-10-31-profile/tasks/0C47ED.json&quot;,
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\0C47ED.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\0C47ED.json&quot;
+}</pre></html>

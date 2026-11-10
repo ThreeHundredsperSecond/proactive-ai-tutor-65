@@ -1,0 +1,125 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>F9EA20</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>129. ФИПИ F9EA20 · партия 10</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">На рисунке изображены график функции<span> <span class="apple-converted-space"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>y</mi><mo>=</mo><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo> </mrow>  </semantics> </mstyle></math></span> </span>и касательная к нему <br> в точке с абсциссой<span> <span class="apple-converted-space"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <msub> <mi>x</mi> <mn>0</mn> </msub> </mrow>  </semantics> </mstyle></math></span></span>. Найдите значение производной функции<span> <span class="apple-converted-space"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo> </mrow>  </semantics> </mstyle></math></span> <br> </span>в точке<span> <span class="apple-converted-space"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <msub> <mi>x</mi> <mn>0</mn> </msub> </mrow>  </semantics> </mstyle></math></span></span>.</p> <p class="MsoNormal" align="center"><span><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/74902bcfcc9e340c62724175.png" alt="Рисунок ФИПИ"></span></p>  </section></div><p>КЭС: 4.2 Применение производной к исследованию функций на монотонность и экстремумы. Нахождение наибольшего и наименьшего значения функции на отрезке</p><h2>Ответ</h2><p>-3</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти на касательной две точки с целочисленными координатами по сетке рисунка</td><td>Касательная проходит через точки (-4; 4) и (-2; -2)</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Вычислить угловой коэффициент касательной как отношение приращения ординаты к приращению абсциссы</td><td>k = (-2 - 4)/(-2 - (-4)) = -3</td><td>kc2</td></tr><tr><td>s3 · s2, condition</td><td>Применить геометрический смысл производной: значение производной в точке касания равно угловому коэффициенту касательной</td><td>f&#x27;(x0) = -3</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Производная через угловой коэффициент касательной по рисунку&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Определить точки прямой по координатной сетке</h3><p>По изображению прямой на клетчатой координатной плоскости выбрать точки, координаты которых однозначно читаются по узлам сетки; применимо, когда прямая проходит через узлы.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Найти на касательной две точки с целочисленными координатами по сетке рисунка&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;image:assets/74902bcfcc9e340c62724175.png&quot;,
+      &quot;region_description&quot;: &quot;Левая часть рисунка: прямая-касательная, круто убывающая, касается параболоподобного графика около отмеченной абсциссы x0 (между -4 и -3); узлы сетки на прямой специально не отмечены&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;graph_coordinates&quot;,
+      &quot;reason&quot;: &quot;Определение про считывание отмеченных точек и пересечений с осями по масштабу; здесь требуется самостоятельно выбрать неотмеченные узлы сетки, через которые проходит прямая, — близко, но шире/иное&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Действие — выбор на прямой двух узлов сетки и чтение их координат; каталог покрывает только отмеченные точки. Предложение не утверждено.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;По изображению прямой на клетчатой координатной плоскости выбрать узлы сетки, через которые прямая проходит однозначно, и считать их координаты&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc2"><h3>kc2 · Вычислить угловой коэффициент прямой по двум точкам</h3><p>По координатам двух различных точек невертикальной прямой найти k как отношение разности ординат к разности абсцисс.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;k = (-2 - 4)/(-2 - (-4)) = -3&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_f253b50b98a1&quot;,
+      &quot;reason&quot;: &quot;Требует найти оба коэффициента k и b уравнения y=kx+b; здесь вычислен только k — действие-компонент&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;direct_proportion&quot;,
+      &quot;reason&quot;: &quot;Касается y=kx по одной точке, не разностного отношения по двум точкам&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдаемое действие — угловой коэффициент как отношение приращений по двум точкам; ближайший узел шире (восстановление всей линейной функции), поэтому match не ставится.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;По двум точкам с разными абсциссами вычислить угловой коэффициент прямой k=(y2-y1)/(x2-x1)&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Связать производную в точке с угловым коэффициентом касательной</h3><p>Для функции, дифференцируемой в точке касания, приравнять значение производной в этой точке угловому коэффициенту невертикальной касательной к графику.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;значение производной в точке касания равно угловому коэффициенту касательной&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;f&#x27;(x0) = -3&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9aee0783618d&quot;,
+      &quot;reason&quot;: &quot;Чтение знака производной по графику производной, а не значения через касательную&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;stationary_point&quot;,
+      &quot;reason&quot;: &quot;Нуль производной, не геометрический смысл производной&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В каталоге нет узла о геометрическом смысле производной (f&#x27;(x0) равна угловому коэффициенту касательной).&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Для функции, дифференцируемой в точке касания, приравнять f&#x27;(x0) угловому коэффициенту невертикальной касательной в этой точке&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[
+  &quot;Узлы сетки, через которые проходит касательная, считаны по маленькому изображению (204x244); положение (-4; 4) и (-2; -2) оценено по пиксельной разметке, наклон -3 согласуется с общим ходом прямой.&quot;
+]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;input&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s1:result&quot;,
+      &quot;image:assets/74902bcfcc9e340c62724175.png&quot;
+    ],
+    &quot;description&quot;: &quot;Рисунок мелкий (204x244); узлы (-4; 4) и (-2; -2) визуально правдоподобны (крутой спуск касательной согласуется с k≈-3), но точное прохождение через узлы по изображению подтвердить уверенно не удалось. Ответ -3 не перепроверен экспертно.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc1&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/F9EA20.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/F9EA20.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

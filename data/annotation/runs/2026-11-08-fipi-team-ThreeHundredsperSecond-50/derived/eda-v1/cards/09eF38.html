@@ -1,0 +1,96 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>09eF38</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>17. ФИПИ 09eF38</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Технически завершена: True; в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">На рисунке изображён график функции вида <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>f</mi><mrow><mo>(</mo> <mi>x</mi> <mo>)</mo></mrow><mo>=</mo><mi>a</mi><msqrt> <mi>x</mi> </msqrt> <mo>.</mo> </mrow> </semantics> </math> Найдите значение <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>f</mi><mrow><mo>(</mo> <mrow> <mn>49</mn> </mrow> <mo>)</mo></mrow><mo>.</mo> </mrow> </semantics> </math></p> <p class="MsoNormal" align="center"><img src="../../../inputs/assets/a85a2a1c717b105226b11e36.png" alt="Рисунок ФИПИ"><span></span></p>  </section></div><p>КЭС: 3.3 Степенная функция с натуральным и целым показателем. Её свойства и график. Свойства и график корня n-ой степени</p><h2>Ответ</h2><p>21</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Определить координаты отмеченной точки графика по единичной сетке.</td><td>На графике отмечена точка (1; 3), следовательно f(1)=3.</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Подставить координаты точки в формулу функции и определить коэффициент.</td><td>3=a√1, откуда a=3; f(x)=3√x при x≥0.</td><td>kc2</td></tr><tr><td>s3 · condition, s2</td><td>Вычислить значение найденной функции при заданном аргументе.</td><td>49≥0, поэтому f(49)=3√49=3·7=21.</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Восстановить коэффициент по отмеченной точке и подставить аргумент&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Считать координаты точки графика</h3><p>По положению отмеченной точки относительно координатных осей и масштабной сетки определить её абсциссу и ординату.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;graph_coordinates&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;На графике отмечена точка (1; 3), следовательно f(1)=3.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;image:assets/a85a2a1c717b105226b11e36.png&quot;,
+      &quot;region_description&quot;: &quot;На единичной координатной сетке выделена точка кривой на вертикали x=1 и горизонтали y=3; подписи 1 на оси x и 1, 3, 6 на оси y задают масштаб.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [],
+  &quot;alternatives_checked&quot;: [],
+  &quot;rationale&quot;: &quot;В s1 выполнено именно чтение координат отмеченной точки по установленной сетке. Восстановление формулы здесь не приписывается.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Определить коэффициент корневой функции по точке</h3><p>Для функции вида y=a√x подставить координаты принадлежащей графику точки с положительной абсциссой и решить полученное линейное уравнение относительно коэффициента.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_51a8c0abd718&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Подставить координаты точки в формулу функции и определить коэффициент.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;3=a√1, откуда a=3; f(x)=3√x при x≥0.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;Решение числового линейного уравнения является компонентом восстановления коэффициента, но не охватывает подстановку точки в заданную корневую зависимость.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;direct_proportion&quot;,
+      &quot;reason&quot;: &quot;Здесь зависимость от √x, а не прямая пропорциональность y=kx в исходной переменной.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Условие задаёт y=a√x, а s1 даёт принадлежащую графику точку с x=1&gt;0. В s2 по ней найден a=3; это целиком соответствует специализированному определению восстановления коэффициента, включая вычисление a=y/√x.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Вычислить значение корневой функции</h3><p>Для функции вида y=a√x проверить неотрицательность заданного аргумента, извлечь арифметический квадратный корень и умножить его на коэффициент.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;49≥0, поэтому f(49)=3√49=3·7=21.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_a5938e1a7fec&quot;,
+      &quot;reason&quot;: &quot;Проверка неотрицательности аргумента — лишь компонент текущего вычисления; этот узел не охватывает подстановку и получение значения функции.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+      &quot;reason&quot;: &quot;Речь о значении математической функции по восстановленной формуле, а не о сопоставлении физических величин и единиц в заданной формуле.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В s3 аргумент 49 подставлен в установленную в s2 формулу, явно проверена область и выполнено вычисление. Корневая функция является частным случаем общего определения, а проверка области входит в его границы; дробить вычисление корня и умножение не требуется.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Происхождение активных попыток</h2><pre>{
+  &quot;source_path&quot;: &quot;data/fipi/2026-10-31-profile/tasks/09eF38.json&quot;,
+  &quot;technical_errors&quot;: [],
+  &quot;author_path&quot;: &quot;raw\\author\\09eF38.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\09eF38.json&quot;
+}</pre></html>

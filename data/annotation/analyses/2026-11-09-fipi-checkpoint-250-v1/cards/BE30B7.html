@@ -1,0 +1,364 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>BE30B7</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><a href="../index.html">Сводка</a><h1>BE30B7</h1><p>Opus100</p><p>Предварительные разборы, внешнего эталона нет.</p><h2>Условие</h2>Дайте развернутый ответ.<div><section>  <p class="MsoNormal">Решите неравенство <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mfrac> <mrow> <msub> <mrow> <mi>log</mi> </mrow> <mn>2</mn> </msub> <mrow><mo>(</mo> <mrow> <mn>2</mn><mo>−</mo><mi>x</mi> </mrow> <mo>)</mo></mrow><mo>−</mo><msub> <mrow> <mi>log</mi> </mrow> <mn>2</mn> </msub> <mrow><mo>(</mo> <mrow> <mi>x</mi><mo>+</mo><mn>1</mn> </mrow> <mo>)</mo></mrow> </mrow> <mrow> <msubsup> <mrow> <mi>log</mi> </mrow> <mn>2</mn> <mn>2</mn> </msubsup> <msup> <mi>x</mi> <mn>2</mn> </msup> <mo>+</mo><msub> <mrow> <mi>log</mi> </mrow> <mn>2</mn> </msub> <msup> <mi>x</mi> <mn>4</mn> </msup> <mo>+</mo><mn>1</mn> </mrow> </mfrac> <mo>≥</mo><mn>0.</mn> </mrow> </semantics> </math><span></span></p>  </section></div><h2>Состав и исключения</h2><pre>{
+  &quot;complete&quot;: true,
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;author_mode&quot;: &quot;standalone_initial&quot;,
+  &quot;author_path&quot;: &quot;data\\annotation\\runs\\2026-11-07-fipi-team-bogdan108-051-150\\raw\\author\\BE30B7.json&quot;,
+  &quot;auditor_path&quot;: &quot;data\\annotation\\runs\\2026-11-07-fipi-team-bogdan108-051-150\\raw\\auditor\\BE30B7.json&quot;,
+  &quot;feedback_ref&quot;: null,
+  &quot;source_run&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150&quot;
+}</pre><h2>Буквальный сохранённый разбор: ответ, шаги, KC, методы</h2><pre>{
+  &quot;task_id&quot;: &quot;BE30B7&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;(-1; -1/√2) ∪ (-1/√2; 0) ∪ (0; 1/2]&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Найти ОДЗ: 2−x&gt;0, x+1&gt;0, x^2&gt;0 (аргументы логарифмов положительны)&quot;,
+      &quot;result&quot;: &quot;-1&lt;x&lt;2, x≠0&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Сделать замену t=log_2(x^2), учитывая log_2(x^4)=2log_2(x^2), и свернуть знаменатель в полный квадрат&quot;,
+      &quot;result&quot;: &quot;знаменатель = (log_2(x^2)+1)^2 ≥ 0&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;,
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Найти нули знаменателя: log_2(x^2)=−1, и исключить их; на остальных x знаменатель положителен&quot;,
+      &quot;result&quot;: &quot;x^2=1/2, x≠±1/√2; знаменатель &gt;0 при прочих x из ОДЗ&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;При положительном знаменателе свести неравенство к числителю ≥ 0 и, по монотонности log_2 (основание &gt;1), перейти к неравенству аргументов&quot;,
+      &quot;result&quot;: &quot;2−x ≥ x+1, т.е. x ≤ 1/2&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s3&quot;,
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s5&quot;,
+      &quot;action&quot;: &quot;Пересечь с ОДЗ и исключить нули знаменателя&quot;,
+      &quot;result&quot;: &quot;x∈(−1;−1/√2)∪(−1/√2;0)∪(0;1/2]&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc6&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Найти ОДЗ логарифмического выражения&quot;,
+      &quot;description&quot;: &quot;Вход: выражение с логарифмами; операция: потребовать положительности аргументов (и допустимости основания), решить систему; граница: ограничения, а не решение неравенства.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Преобразовать логарифм степени&quot;,
+      &quot;description&quot;: &quot;Вход: логарифм степени выражения; операция: вынести показатель или выразить через другой логарифм того же аргумента, учитывая знак/чётность; граница: свойство log_a(b^k).&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Свернуть квадратный трёхчлен в полный квадрат&quot;,
+      &quot;description&quot;: &quot;Вход: квадратное выражение относительно новой переменной; операция: распознать формулу (t+a)^2 и определить знак; граница: только знаковый анализ выражения.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Решить простейшее логарифмическое уравнение&quot;,
+      &quot;description&quot;: &quot;Вход: уравнение log_a(f)=c; операция: перейти к f=a^c и решить; граница: с учётом ОДЗ.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc5&quot;,
+      &quot;name&quot;: &quot;Перейти от неравенства логарифмов к неравенству аргументов&quot;,
+      &quot;description&quot;: &quot;Вход: log_a f ≥ log_a g при одинаковом основании; операция: использовать монотонность (сохранить знак при a&gt;1, сменить при 0&lt;a&lt;1); граница: на ОДЗ.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc6&quot;,
+      &quot;name&quot;: &quot;Пересечь найденное множество с ограничениями&quot;,
+      &quot;description&quot;: &quot;Вход: решение промежуточного неравенства, ОДЗ и выколотые точки; операция: взять пересечение и записать ответ промежутками; граница: финальная сборка множества.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Метод знакопостоянного знаменателя: ОДЗ, выделение полного квадрата в знаменателе, сведение к неравенству числителя&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;,
+        &quot;s5&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: [
+    &quot;log_2^2 x^2 интерпретировано как (log_2(x^2))^2&quot;
+  ]
+}</pre><h2>Буквальный независимый аудит</h2><pre>{
+  &quot;task_id&quot;: &quot;BE30B7&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_7baedb55a81a&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;2−x&gt;0, x+1&gt;0, x^2&gt;0 (аргументы логарифмов положительны)&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;-1&lt;x&lt;2, x≠0&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_0214fc221120&quot;,
+          &quot;reason&quot;: &quot;Определение для функции с проверкой рассматриваемого промежутка; здесь несколько аргументов логарифмов в выражении без заданного промежутка.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_37584ab15732&quot;,
+          &quot;reason&quot;: &quot;Корней в выражении нет.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Потребована положительность каждого аргумента логарифмов (основание 2 постоянно) и сохранено исключение x≠0; совпадает с определением целиком.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;учитывая log_2(x^4)=2log_2(x^2)&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_ad68659d5755&quot;,
+          &quot;reason&quot;: &quot;Разность логарифмов в логарифм частного, а не логарифм степени.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_872613285a26&quot;,
+          &quot;reason&quot;: &quot;Смена основания, не вынесение показателя.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+          &quot;reason&quot;: &quot;Законы степеней без логарифма.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Использовано свойство log_a(u^k)=k·log_a(u) при u=x^2&gt;0; в каталоге узла для логарифма степени нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Выносить показатель степени из-под логарифма&quot;,
+        &quot;definition&quot;: &quot;При положительном аргументе u и допустимом основании заменить log_a(u^k) на k·log_a(u); для чётной степени выражения с переменным знаком учитывать модуль.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;свернуть знаменатель в полный квадрат&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;знаменатель = (log_2(x^2)+1)^2 ≥ 0&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fe2b4673ac10&quot;,
+          &quot;reason&quot;: &quot;Выделение квадрата для решения уравнения, а здесь — для знакового анализа выражения.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_b1bcbe4b4f6b&quot;,
+          &quot;reason&quot;: &quot;Максимум квадратной функции, не знак выражения.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_1b97db4e28e8&quot;,
+          &quot;reason&quot;: &quot;Решение квадратного неравенства по корням, не свёртка в квадрат.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Распознан t^2+2t+1=(t+1)^2 и сделан вывод о неотрицательности; ни одно определение каталога не описывает эту операцию.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Сворачивать трёхчлен в полный квадрат для определения знака&quot;,
+        &quot;definition&quot;: &quot;Распознать выражение вида t^2±2at+a^2 как (t±a)^2 и заключить о его неотрицательности с нулём только при t=∓a.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;log_2(x^2)=−1&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;x^2=1/2, x≠±1/√2&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_9a635e89ccb3&quot;,
+          &quot;reason&quot;: &quot;Покрывает переход log_2(x^2)=−1 → x^2=1/2, но не решение x^2=1/2.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_57e72251d4a8&quot;,
+          &quot;reason&quot;: &quot;Покрывает x^2=1/2 → ±1/√2, но не логарифмический шаг.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат «перейти к f=a^c и решить» включает два наблюдаемых действия: снятие логарифма по определению и решение x^2=c.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;action&quot;: &quot;log_2(x^2)=−1 → x^2=1/2&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;literal_9a635e89ccb3&quot;
+          },
+          {
+            &quot;action&quot;: &quot;x^2=1/2 → x=±1/√2&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;literal_57e72251d4a8&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc5&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_eae4ca1f2f8b&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;по монотонности log_2 (основание &gt;1), перейти к неравенству аргументов&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;2−x ≥ x+1&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_2443f08dda82&quot;,
+          &quot;reason&quot;: &quot;Равенство логарифмов, не неравенство.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_inequality&quot;,
+          &quot;reason&quot;: &quot;Показательное, не логарифмическое неравенство.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Неравенство log_2(2−x) ≥ log_2(x+1) при основании &gt;1 заменено неравенством положительных аргументов (положительность из ОДЗ s1). Сведение дроби к числителю в том же шаге — отдельное действие, см. i1.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc6&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s5:action&quot;,
+          &quot;quote&quot;: &quot;Пересечь с ОДЗ и исключить нули знаменателя&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s5:result&quot;,
+          &quot;quote&quot;: &quot;x∈(−1;−1/√2)∪(−1/√2;0)∪(0;1/2]&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s3:result&quot;,
+        &quot;step:s4:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+          &quot;reason&quot;: &quot;Только сохранение нулей знаменателя, без пересечения с ОДЗ и решением.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+          &quot;reason&quot;: &quot;Отбор отдельных кандидатов, а не пересечение промежутков.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Пересечение x≤1/2 с (−1;2)\\{0} и исключение −1/√2 (1/√2&gt;1/2 вне множества); границы обработаны верно.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;missing_annotation&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s4:action&quot;
+      ],
+      &quot;description&quot;: &quot;Сведение неравенства дроби к неравенству числителя при положительном знаменателе (близко к literal_ef3f8c7287d4) выполнено в s4, но не размечено отдельным KC; также не размечено решение линейного неравенства 2−x ≥ x+1 (literal_0cf8af170957). На сопоставление kc5 не влияет.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc5&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre><h2>Исторические редакторские назначения</h2><pre>[]</pre><p><a href="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/BE30B7.json">author raw</a> · <a href="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/BE30B7.json">auditor raw</a></p><pre>{
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;source_policy_included&quot;: true,
+  &quot;source_policy_exclusion_reasons&quot;: []
+}</pre></html>

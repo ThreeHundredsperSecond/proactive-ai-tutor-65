@@ -1,0 +1,287 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>70530E</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><a href="../index.html">Сводка</a><h1>70530E</h1><p>Opus100</p><p>Предварительные разборы, внешнего эталона нет.</p><h2>Условие</h2>Дайте развернутый ответ.<div><section> <p class="Basis">Решите неравенство <span><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/b93f1bf059fba7cc9b7c6bfb.png" alt="Рисунок ФИПИ"></span>.</p>
+<p class="Basis"><span lang="EN-US"> </span></p> </section></div><h2>Состав и исключения</h2><pre>{
+  &quot;complete&quot;: true,
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;author_mode&quot;: &quot;standalone_initial&quot;,
+  &quot;author_path&quot;: &quot;data\\annotation\\runs\\2026-11-07-fipi-team-bogdan108-051-150\\raw\\author\\70530E.json&quot;,
+  &quot;auditor_path&quot;: &quot;data\\annotation\\runs\\2026-11-07-fipi-team-bogdan108-051-150\\raw\\auditor\\70530E.json&quot;,
+  &quot;feedback_ref&quot;: null,
+  &quot;source_run&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150&quot;
+}</pre><h2>Буквальный сохранённый разбор: ответ, шаги, KC, методы</h2><pre>{
+  &quot;task_id&quot;: &quot;70530E&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;[-2√2; 2√2] ∪ [5; 6)&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Найти ОДЗ: 6−x&gt;0 и x²−12x+36=(x−6)²&gt;0&quot;,
+      &quot;result&quot;: &quot;x&lt;6&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Привести логарифмы к основанию 5: log_625(6−x)=(1/4)log_5(6−x), log_5((x−6)²)=2log_5(6−x) при x&lt;6&quot;,
+      &quot;result&quot;: &quot;(x²/4)log_5(6−x) ≤ 2log_5(6−x)&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Перенести в одну часть и вынести общий множитель&quot;,
+      &quot;result&quot;: &quot;(x²−8)·log_5(6−x) ≤ 0&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Решить неравенство-произведение с учётом знака log_5(6−x) (положителен при x&lt;5, ноль при x=5, отрицателен при 5&lt;x&lt;6) и ОДЗ&quot;,
+      &quot;result&quot;: &quot;x∈[−2√2; 2√2] ∪ [5; 6)&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;,
+        &quot;kc5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Найти область допустимых значений логарифмического выражения&quot;,
+      &quot;description&quot;: &quot;По выражению с логарифмами записать условия положительности аргументов (и допустимости оснований) и решить их.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Преобразовать логарифмы к общему основанию&quot;,
+      &quot;description&quot;: &quot;Используя переход к основанию — степени другого основания и вынос показателя степени аргумента (с модулем/учётом знака по ОДЗ), привести логарифмы к одному основанию.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Разложить неравенство на множители вынесением общего множителя&quot;,
+      &quot;description&quot;: &quot;Перенести члены неравенства в одну часть и вынести общий множитель, получив сравнение произведения с нулём.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Определить знак логарифма по положению аргумента относительно единицы&quot;,
+      &quot;description&quot;: &quot;Для логарифма с основанием больше 1 установить промежутки, где он положителен, равен нулю и отрицателен.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc5&quot;,
+      &quot;name&quot;: &quot;Решить неравенство вида произведение ≤ 0 по знакам множителей&quot;,
+      &quot;description&quot;: &quot;По знакам каждого множителя на промежутках (методом интервалов или разбором случаев) отобрать решения с учётом ОДЗ и нестрогости.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Приведение к общему основанию и метод интервалов для произведения&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h2>Буквальный независимый аудит</h2><pre>{
+  &quot;task_id&quot;: &quot;70530E&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_7baedb55a81a&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Найти ОДЗ: 6−x&gt;0 и x²−12x+36=(x−6)²&gt;0&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;x&lt;6&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;image:assets/b93f1bf059fba7cc9b7c6bfb.png&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_0214fc221120&quot;,
+          &quot;reason&quot;: &quot;касается области одной логарифмической функции и промежутка, здесь два аргумента логарифмов в выражении&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_37584ab15732&quot;,
+          &quot;reason&quot;: &quot;нет квадратного корня&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Записаны условия положительности обоих аргументов логарифмов (основания 625 и 5 числовые, допустимы) и получено их совместное решение x&lt;6; совпадает с определением узла.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;log_625(6−x)=(1/4)log_5(6−x), log_5((x−6)²)=2log_5(6−x) при x&lt;6&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_872613285a26&quot;,
+          &quot;reason&quot;: &quot;переход через log_b u=ln u/ln b; здесь используется правило основания-степени, без ln, и дополнительно вынос показателя аргумента&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат объединяет два разных преобразования: замену основания 625=5^4 и вынос чётного показателя аргумента с учётом знака (|x−6|=6−x при x&lt;6). Ни один узел каталога не покрывает их целиком.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;action&quot;: &quot;Преобразовать логарифм по основанию-степени: log_{b^k}u=(1/k)log_b u&quot;,
+            &quot;possible_match&quot;: &quot;literal_872613285a26 (близко, но формулировка через ln; требует решения редакции)&quot;
+          },
+          {
+            &quot;action&quot;: &quot;Выносить чётный показатель аргумента логарифма: log_b(u²)=2log_b|u| и раскрыть модуль по ОДЗ&quot;,
+            &quot;possible_match&quot;: null
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;Перенести в одну часть и вынести общий множитель&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;(x²−8)·log_5(6−x) ≤ 0&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+          &quot;reason&quot;: &quot;факторизация многочлена; здесь общий множитель — логарифмическое выражение, не многочлен&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+          &quot;reason&quot;: &quot;относится к уравнению и решению, а не к факторизации неравенства&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Перенос членов и вынос общего неполиномиального множителя без деления на него (чтобы не потерять знак/нуль) не описан в каталоге.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Перенести члены неравенства в одну часть и вынести общий множитель-выражение, получив сравнение произведения с нулём без деления на множитель неизвестного знака.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;положителен при x&lt;5, ноль при x=5, отрицателен при 5&lt;x&lt;6&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_eae4ca1f2f8b&quot;,
+          &quot;reason&quot;: &quot;переход от сравнения логарифмов к аргументам целиком для неравенства; здесь требуется знаковая таблица логарифма как множителя&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_d66dd830e876&quot;,
+          &quot;reason&quot;: &quot;вычисление значения логарифма, а не знака на промежутках&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Определение знака log_5(6−x) по сравнению 6−x с 1 при основании &gt;1 наблюдается, но в каталоге узла для знака логарифма нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Для логарифма с основанием b&gt;1 (или 0&lt;b&lt;1) определить промежутки, где он положителен, равен нулю и отрицателен, сравнивая положительный аргумент с 1.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc5&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;Решить неравенство-произведение с учётом знака log_5(6−x)&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;x∈[−2√2; 2√2] ∪ [5; 6)&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;rational_intervals&quot;,
+          &quot;reason&quot;: &quot;для рациональных неравенств с нулями и полюсами; здесь один множитель логарифмический, полюсов нет&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_1b97db4e28e8&quot;,
+          &quot;reason&quot;: &quot;покрывает только подзадачу x²−8 по знаку, не произведение целиком&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+          &quot;reason&quot;: &quot;учёт ОДЗ — лишь часть действия&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Отбор решений нестрогого неравенства произведения по знакам разнородных множителей с учётом ОДЗ; ближайшие узлы ограничены рациональными функциями или квадратным трёхчленом. Ответ проверен: при x&lt;5 нужно x²≤8, x=5 даёт 0, при 5&lt;x&lt;6 x²&gt;8 выполняется.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Решать неравенство вида f·g≤0 (≥0) для неоднородных множителей по знакам каждого на промежутках области определения, включая нули множителей при нестрогом знаке.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre><h2>Исторические редакторские назначения</h2><pre>[]</pre><p><a href="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/70530E.json">author raw</a> · <a href="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/70530E.json">auditor raw</a></p><pre>{
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;source_policy_included&quot;: true,
+  &quot;source_policy_exclusion_reasons&quot;: []
+}</pre></html>

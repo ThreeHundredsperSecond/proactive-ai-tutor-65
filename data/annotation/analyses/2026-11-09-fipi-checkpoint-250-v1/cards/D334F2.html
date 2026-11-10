@@ -1,0 +1,258 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>D334F2</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><a href="../index.html">Сводка</a><h1>D334F2</h1><p>historical_independent50</p><p>Предварительные разборы, внешнего эталона нет.</p><h2>Условие</h2>Дайте развернутый ответ.<div><section>  <p class="MsoNormal">В июле 2026 года планируется взять кредит в банке на сумму 177 120 рублей. Условия его возврата таковы:</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> каждый январь долг увеличивается на 25 % по сравнению с концом предыдущего года;</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> с февраля по июнь каждого года необходимо выплатить одним платежом часть долга.</p> <p class="MsoNormal">Сколько рублей составит общая сумма платежей, если известно, что кредит будет полностью погашен четырьмя равными платежами (то есть за четыре года)?<span></span></p>  </section></div><h2>Состав и исключения</h2><pre>{
+  &quot;complete&quot;: true,
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;author_mode&quot;: &quot;standalone_initial&quot;,
+  &quot;author_path&quot;: &quot;raw\\author\\D334F2.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\D334F2.json&quot;,
+  &quot;feedback_ref&quot;: null,
+  &quot;source_run&quot;: &quot;data/annotation/runs/2026-11-02-fipi-extension-150&quot;
+}</pre><h2>Буквальный сохранённый разбор: ответ, шаги, KC, методы</h2><pre>{
+  &quot;task_id&quot;: &quot;D334F2&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;300000 рублей&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Обозначить равный ежегодный платеж через x и построить рекуррентную модель остатка долга после платежа.&quot;,
+      &quot;result&quot;: &quot;Пусть D_0=177120 — долг в июле 2026 года, а D_k — долг после платежа в году 2026+k. Начисление 25% предшествует платежу, поэтому D_k=(5/4)D_{k-1}-x для k=1,2,3,4; условие полного погашения дает D_4=0.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Последовательно раскрыть рекуррентную формулу до четвертого платежа и подставить условие погашения.&quot;,
+      &quot;result&quot;: &quot;D_4=177120(5/4)^4-x[1+5/4+(5/4)^2+(5/4)^3]=0. Следовательно, 177120·625/256=(369/64)x; после умножения на 256 получаем 1476x=110700000.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Решить линейное уравнение относительно ежегодного платежа и проверить допустимость графика погашения.&quot;,
+      &quot;result&quot;: &quot;x=110700000/1476=75000 рублей. По рекуррентной формуле остатки после первых трех платежей равны 146400, 108000 и 60000 рублей; все положительны. В четвертый год долг с процентами равен 75000 рублей и погашается последним платежом, так что кредит действительно выплачивается за четыре года.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;,
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Вычислить общую сумму четырех равных платежей.&quot;,
+      &quot;result&quot;: &quot;4·75000=300000 рублей.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Построить рекуррентную модель долга с процентами и платежами&quot;,
+      &quot;description&quot;: &quot;По начальному долгу, процентной ставке и порядку начисления процентов и внесения платежей выразить остаток долга следующего периода через предыдущий остаток и платеж. Модель применима при заданном порядке финансовых операций и учитывает условие полного погашения.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Развернуть рекуррентное соотношение за конечное число периодов&quot;,
+      &quot;description&quot;: &quot;По рекуррентному соотношению с постоянным множителем и постоянным вычитаемым последовательно выразить конечное значение через начальное и неизвестный платеж, затем использовать заданное конечное значение для построения уравнения.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Решить линейное уравнение с числовыми коэффициентами&quot;,
+      &quot;description&quot;: &quot;По линейному уравнению с одной неизвестной и ненулевым коэффициентом при ней найти неизвестную равносильными преобразованиями.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Проверить срок погашения по последовательности остатков долга&quot;,
+      &quot;description&quot;: &quot;По найденному платежу и модели начислений вычислить промежуточные остатки, проверить их положительность до последнего периода и нулевой остаток после последнего платежа. Применяется при требовании погашения за заданное число периодов.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc5&quot;,
+      &quot;name&quot;: &quot;Вычислить сумму равных платежей&quot;,
+      &quot;description&quot;: &quot;По размеру одинаковых платежей и их количеству найти общую сумму умножением размера платежа на количество.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Модель ежегодных остатков долга с равными платежами&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h2>Буквальный независимый аудит</h2><pre>{
+  &quot;task_id&quot;: &quot;D334F2&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;Начисление 25% предшествует платежу, поэтому D_k=(5/4)D_{k-1}-x для k=1,2,3,4; условие полного погашения дает D_4=0.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+          &quot;reason&quot;: &quot;Процентный множитель входит в модель, но определение части и целого не покрывает последовательность начисления, вычитание платежа и остаток долга.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+          &quot;reason&quot;: &quot;Здесь строится модель по финансовому условию, а не подставляются данные в уже заданную формулу.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_33060533660f&quot;,
+          &quot;reason&quot;: &quot;Определение относится к выручке, затратам, выпуску и инвестициям, а не к динамике кредитного долга.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдается перевод порядка финансовых операций в переход между остатками долга с начальным и конечным состояниями. Полного определения такой операции в просмотренном каталоге нет; процентная доля покрывает только компонент.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Строить рекуррентную модель долга&quot;,
+        &quot;definition&quot;: &quot;По начальному долгу, ставке и порядку начисления процентов и платежей выразить остаток следующего периода через предыдущий остаток и платеж, зафиксировав заданные начальное и конечное состояния.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;D_4=177120(5/4)^4-x[1+5/4+(5/4)^2+(5/4)^3]=0.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_0a4ebc8382b5&quot;,
+          &quot;reason&quot;: &quot;Подстановка линейной связи является компонентом развёртывания; определение не описывает конечное развёртывание рекурсии с накоплением слагаемых и использованием конечного состояния.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;arithmetic_series&quot;,
+          &quot;reason&quot;: &quot;Коэффициенты платежа образуют геометрическую, а не арифметическую последовательность; формула суммы арифметической прогрессии не применяется.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+          &quot;reason&quot;: &quot;Кандидат строит конечное уравнение из рекурсии; нахождение неизвестной относится к следующему кандидату.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Из переходного соотношения получено выражение конечного остатка через начальный долг и постоянный платёж, затем наложено конечное условие. Это единая операция конечного развёртывания, не совпадающая целиком с ближайшими определениями каталога.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Разворачивать аффинную рекурсию за заданное число периодов&quot;,
+        &quot;definition&quot;: &quot;Последовательной подстановкой выразить конечное значение рекурсии с постоянным множителем и постоянным вычитаемым через начальное значение и неизвестную величину, затем использовать заданное конечное состояние для составления уравнения.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;x=110700000/1476=75000 рублей.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [],
+      &quot;rationale&quot;: &quot;Из уже построенного аффинного равенства 1476x=110700000 получено единственное решение делением на ненулевой числовой коэффициент. Построение модели и проверка срока сюда не включаются.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;По рекуррентной формуле остатки после первых трех платежей равны 146400, 108000 и 60000 рублей; все положительны. В четвертый год долг с процентами равен 75000 рублей и погашается последним платежом, так что кредит действительно выплачивается за четыре года.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a873d91378ab&quot;,
+          &quot;reason&quot;: &quot;Здесь проверяется найденный корень кредитной модели, а не достижение граничного ответа; оснований считать платёж границей нет.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Найденный алгебраический платёж проверен по исходному рекуррентному соотношению и финансовому смыслу: долг положителен до последнего года и погашается в требуемый срок. Это проверка решения по условиям модели целиком.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc5&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_89184e5e6ac9&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;Вычислить общую сумму четырех равных платежей.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;4·75000=300000 рублей.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;arithmetic_series&quot;,
+          &quot;reason&quot;: &quot;В решении использовано умножение одинакового платежа на количество, без действия суммирования прогрессии по крайним членам.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Ежегодный платёж x — вспомогательная величина, тогда как вопрос требует общей суммы. Вычисление 4x после нахождения x соответствует восстановлению требуемой величины из введённого параметра; числа и кредитный сюжет нового узла не требуют.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre><h2>Исторические редакторские назначения</h2><pre>[]</pre><p><a href="../../../runs/2026-11-02-fipi-extension-150/raw/author/D334F2.json">author raw</a> · <a href="../../../runs/2026-11-02-fipi-extension-150/raw/auditor/D334F2.json">auditor raw</a></p><pre>{
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;source_policy_included&quot;: true,
+  &quot;source_policy_exclusion_reasons&quot;: []
+}</pre></html>

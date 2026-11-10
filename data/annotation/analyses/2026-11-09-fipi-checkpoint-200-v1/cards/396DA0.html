@@ -1,0 +1,110 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>396DA0</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>84. ФИПИ 396DA0 · партия 7</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">На рисунке изображён график <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>y</mi><mo>=</mo><mi>f</mi><mo>'</mo><mrow><mo>(</mo> <mi>x</mi> <mo>)</mo></mrow> </mrow> </semantics> </math> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> производной функции <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>f</mi><mrow><mo>(</mo> <mi>x</mi> <mo>)</mo></mrow><mo>,</mo> </mrow> </semantics> </math> определённой на интервале <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mrow><mo>(</mo> <mrow> <mo>−</mo><mtext> </mtext><mn>10</mn><mo>;</mo><mtext> </mtext><mn>7</mn> </mrow> <mo>)</mo></mrow><mo>.</mo> </mrow> </semantics> </math> Найдите количество точек минимума функции <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>f</mi><mrow><mo>(</mo> <mi>x</mi> <mo>)</mo></mrow><mo>,</mo> </mrow> </semantics> </math> принадлежащих отрезку <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mrow><mo>[</mo> <mrow> <mo>−</mo><mtext> </mtext><mn>2</mn><mo>;</mo><mtext> </mtext><mn>6</mn> </mrow> <mo>]</mo></mrow><mo>.</mo> </mrow> </semantics> </math></p> <p class="MsoNormal" align="center"><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/919ded8c0bdd210e0e49d0a4.png" alt="Рисунок ФИПИ"><span></span></p>  </section></div><p>КЭС: 4.2 Применение производной к исследованию функций на монотонность и экстремумы. Нахождение наибольшего и наименьшего значения функции на отрезке</p><h2>Ответ</h2><p>1</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>По графику производной найти на отрезке [-2; 6] точки, где f&#x27;(x) обращается в ноль со сменой знака, и определить направление смены знака</td><td>На [-2; 6] f&#x27; меняет знак с «−» на «+» в одной точке (около x≈2,5); смена с «+» на «−» около x≈5 — точка максимума; ближайшие смены знака слева (около x≈−3) и справа (около x≈6,3) лежат вне отрезка; касание без смены знака около x=1 отсутствует (f&#x27;&lt;0)</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Классифицировать найденные нули производной как точки минимума (смена знака с «−» на «+») и подсчитать их на отрезке</td><td>1 точка минимума</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Поиск точек минимума по знакам производной на графике f&#x27;&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Определить по графику производной нули и знаки производной на промежутке</h3><p>Вход: график y=f&#x27;(x) и промежуток; операция: найти точки пересечения графика с осью абсцисс и знак f&#x27; по обе стороны от каждой, отбрасывая точки вне промежутка и нули без смены знака</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;найти на отрезке [-2; 6] точки, где f&#x27;(x) обращается в ноль со сменой знака, и определить направление смены знака&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;ближайшие смены знака слева (около x≈−3) и справа (около x≈6,3) лежат вне отрезка&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;image:assets/919ded8c0bdd210e0e49d0a4.png&quot;,
+      &quot;region_description&quot;: &quot;Кривая y=f&#x27;(x) на сетке от x=-10 до x=7: пересечения оси абсцисс около x≈-0,3 (сверху вниз), x≈2,5–3 (снизу вверх), x≈5,2 (сверху вниз), x≈6,3 (снизу вверх); локальный максимум ниже оси около x=1&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;image:assets/919ded8c0bdd210e0e49d0a4.png&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9aee0783618d&quot;,
+      &quot;reason&quot;: &quot;Покрывает чтение знака f&#x27; по графику и направление смены знака в нулях, но не отбор по отрезку&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6ad8f502588e&quot;,
+      &quot;reason&quot;: &quot;Покрывает проверку принадлежности кандидатов промежутку, но не чтение графика&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;stationary_point&quot;,
+      &quot;reason&quot;: &quot;Предполагает решение f&#x27;=0 аналитически по формуле, а не чтение графика&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет два действия: чтение нулей и знаков производной по графику и отбор точек по отрезку [-2; 6]. Оба есть в каталоге отдельными узлами; match к одному узкому KC неверен.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Считать по графику f&#x27; нули и направление смены знака&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_9aee0783618d&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Отобрать найденные точки, принадлежащие отрезку [-2; 6]&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_6ad8f502588e&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc2"><h3>kc2 · Классифицировать точки экстремума по смене знака производной</h3><p>Вход: точки смены знака f&#x27;; операция: смена «−» на «+» — минимум, «+» на «−» — максимум; применимо к функции, дифференцируемой на интервале</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;local_extreme_sign&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Классифицировать найденные нули производной как точки минимума (смена знака с «−» на «+»)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;,
+      &quot;reason&quot;: &quot;Вывод о монотонности на промежутках, а не о типе экстремума в точке&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;global_interval_extreme&quot;,
+      &quot;reason&quot;: &quot;Глобальный экстремум на отрезке, а вопрос о локальных минимумах&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — определение типа локального экстремума по направлению смены знака f&#x27; (−→+ минимум), что целиком соответствует определению local_extreme_sign. Подсчёт на отрезке опирается на отбор из s1.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[
+  &quot;Абсциссы нулей производной считаны с рисунка приблизительно; ноль около x≈6,3 считан как лежащий правее 6&quot;
+]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;coverage&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s1:result&quot;,
+      &quot;image:assets/919ded8c0bdd210e0e49d0a4.png&quot;
+    ],
+    &quot;description&quot;: &quot;В s1 не упомянут ноль производной со сменой «+» на «−» около x≈-0,3, лежащий в [-2; 6] (точка максимума). На ответ (1 минимум около x≈2,5–3) не влияет; абсциссы считаны приблизительно.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc1&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/396DA0.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/396DA0.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

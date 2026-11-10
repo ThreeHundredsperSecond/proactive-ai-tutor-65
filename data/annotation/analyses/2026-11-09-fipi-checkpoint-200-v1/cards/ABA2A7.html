@@ -1,0 +1,106 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>ABA2A7</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>130. ФИПИ ABA2A7 · партия 10</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">На рисунке изображён график функции вида <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>f</mi><mrow><mo fence="true">(</mo><mi>x</mi><mo fence="true">)</mo></mrow><mo>=</mo><mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi><mo>.</mo></mrow></mstyle></math></span> Найдите значение <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>f</mi><mrow><mo fence="true">(</mo><mrow><mo>−</mo><mtext> </mtext><mn>2</mn></mrow><mo fence="true">)</mo></mrow><mo>.</mo></mrow></mstyle></math></span> </p> <p class="MsoNormal" align="center"><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/34ad389edbe2ccf480e5d3c6.png" alt="Рисунок ФИПИ"></p> <p class="MsoNormal"><span> </span></p>  </section></div><p>КЭС: 3.1 Функция, способы задания функции. График функции. Взаимно обратные функции. Чётные и нечётные функции. Периодические функции; 3.3 Степенная функция с натуральным и целым показателем. Её свойства и график. Свойства и график корня n-ой степени</p><h2>Ответ</h2><p>18</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Считать с графика нули функции и точку пересечения с осью Oy</td><td>f(1)=0, f(4)=0, f(0)=4</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Записать квадратичную функцию в разложенном виде через нули и найти старший коэффициент по известной точке</td><td>f(x)=a(x-1)(x-4), 4a=4, a=1, f(x)=(x-1)(x-4)</td><td>kc2</td></tr><tr><td>s3 · s2, condition</td><td>Вычислить значение функции в заданной точке</td><td>f(-2)=(-3)(-6)=18</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Восстановление формулы квадратичной функции по графику и подстановка&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Считать координаты характерных точек с графика</h3><p>По графику функции на клетчатой сетке определить точки пересечения с осями и другие точки с целыми координатами; применимо, когда точки отмечены или явно лежат в узлах сетки.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;graph_coordinates&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Считать с графика нули функции и точку пересечения с осью Oy&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;f(1)=0, f(4)=0, f(0)=4&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;image:assets/34ad389edbe2ccf480e5d3c6.png&quot;,
+      &quot;region_description&quot;: &quot;Парабола на клетчатой сетке; на оси Ox отмечены точки с подписями 1 и 4, на оси Oy отмечена точка с подписью 4 — пересечения графика с осями отмечены жирными точками&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;image:assets/34ad389edbe2ccf480e5d3c6.png&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9aee0783618d&quot;,
+      &quot;reason&quot;: &quot;касается знака производной по графику, а не координат точек&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — считывание координат отмеченных пересечений графика с осями по масштабу сетки; точки отмечены и подписаны. Восстановление формулы выполнено отдельно в s2, что соответствует границе определения.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Восстановить квадратичную функцию по нулям и дополнительной точке</h3><p>По двум нулям квадратичной функции записать её как a(x-x1)(x-x2) и найти a из координат ещё одной точки графика; применимо при известных действительных нулях.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_6241f0b09502&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Записать квадратичную функцию в разложенном виде через нули и найти старший коэффициент по известной точке&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;f(x)=a(x-1)(x-4), 4a=4, a=1, f(x)=(x-1)(x-4)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_f253b50b98a1&quot;,
+      &quot;reason&quot;: &quot;линейная функция по двум точкам, не квадратичная&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;решение 4a=4 — тривиальный компонент внутри восстановления, не самостоятельное действие кандидата&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Нули 1 и 4 и дополнительная точка (0;4) вне нулей из s1; запись a(x-r1)(x-r2) и нахождение a=1 полностью соответствуют определению узла.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Вычислить значение функции, заданной формулой</h3><p>Подставить значение аргумента в формулу функции и выполнить арифметические действия.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Вычислить значение функции в заданной точке&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;f(-2)=(-3)(-6)=18&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;,
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+      &quot;reason&quot;: &quot;относится к прикладной формуле с единицами величин, здесь — математическая функция&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Подстановка аргумента -2 в установленную в s2 формулу и вычисление (-3)(-6)=18; область определения — вся прямая. Арифметика проверена.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/ABA2A7.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/ABA2A7.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

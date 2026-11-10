@@ -1,0 +1,120 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>5B3F1A</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>144. ФИПИ 5B3F1A · партия 11</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0"> <tr> <td valign="top"> <p class="MsoNormal">Площадь треугольника <span><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/b9c89e1b871db00e83f3f4ed.gif" alt="Рисунок ФИПИ"></span> равна 24, <span><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/4303292b4f89a516fcda3b7e.gif" alt="Рисунок ФИПИ"></span> — средняя линия, параллельная стороне <span><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/a30e13c6a89899a2bad277fd.gif" alt="Рисунок ФИПИ"></span>. Найдите площадь трапеции <span><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/75df9fd4617d92fcb3a21d95.gif" alt="Рисунок ФИПИ"></span>.</p> </td> <td valign="top"> <p class="MsoNormal" align="right"><span lang="EN-US"><img src="../../../runs/2026-11-07-fipi-team-bogdan108-051-150/inputs/assets/6fa7132a104fc5a70b661a75.gif" alt="Рисунок ФИПИ"></span></p> </td> </tr> </table> <p class="MsoNormal"> </p>  </section></div><p>КЭС: 7.1 Фигуры на плоскости</p><h2>Ответ</h2><p>18</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Установить подобие треугольников CDE и CAB: средняя линия DE параллельна AB и равна её половине, коэффициент подобия 1/2</td><td>Треугольник CDE подобен треугольнику CAB с коэффициентом 1/2</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Найти площадь треугольника CDE через квадрат коэффициента подобия</td><td>S(CDE) = 24·(1/2)^2 = 6</td><td>kc2</td></tr><tr><td>s3 · condition, s2</td><td>Найти площадь трапеции ABED как разность площадей треугольников ABC и CDE</td><td>S(ABED) = 24 − 6 = 18</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Площадь трапеции через подобие отсечённого треугольника и вычитание&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Установить подобие треугольников, отсекаемых средней линией</h3><p>Вход: треугольник и его средняя линия. Операция: обосновать подобие отсечённого треугольника исходному и указать коэффициент 1/2. Граница: средняя линия соединяет середины двух сторон.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Установить подобие треугольников CDE и CAB: средняя линия DE параллельна AB и равна её половине, коэффициент подобия 1/2&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;image:assets/6fa7132a104fc5a70b661a75.gif&quot;,
+      &quot;region_description&quot;: &quot;Треугольник ABC с вершиной C сверху; на AC точка D с одинарными штрихами на AD и DC, на CB точка E с двойными штрихами на CE и EB; отрезок DE параллелен основанию AB&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;image:assets/6fa7132a104fc5a70b661a75.gif&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;similarity_AA&quot;,
+      &quot;reason&quot;: &quot;Требует явного установления двух пар равных углов; в шаге подобие выводится из свойства средней линии (параллельность и половина длины), углы не названы&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d5e287608dd5&quot;,
+      &quot;reason&quot;: &quot;Использует подобие для составления пропорции отрезков/высот; здесь цель — установить подобие и коэффициент, пропорция для неизвестной длины не составляется&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_b58390338050&quot;,
+      &quot;reason&quot;: &quot;Пропорция соответствующих сторон из уже установленного подобия, а не установление подобия&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: по средней линии треугольника (середины CA и CB, отмечены штрихами на рисунке) установить подобие отсечённого треугольника CDE исходному с коэффициентом 1/2. В каталоге нет узла о средней линии или подобии, отсекаемом параллельной прямой; AA требует явных углов.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Для средней линии треугольника, соединяющей середины двух сторон, использовать её параллельность третьей стороне и равенство половине её длины, чтобы установить подобие отсечённого треугольника исходному с коэффициентом 1/2.&quot;,
+    &quot;nearest&quot;: [
+      &quot;similarity_AA&quot;,
+      &quot;literal_d5e287608dd5&quot;
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Вычислить площадь подобной фигуры по коэффициенту подобия</h3><p>Вход: площадь фигуры и коэффициент подобия. Операция: умножить площадь на квадрат коэффициента. Граница: фигуры подобны.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;similar_area&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Найти площадь треугольника CDE через квадрат коэффициента подобия&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;S(CDE) = 24·(1/2)^2 = 6&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_b58390338050&quot;,
+      &quot;reason&quot;: &quot;Пропорция длин, а не площадей&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Коэффициент подобия соответствующих длин 1/2 (из s1) возводится в квадрат, отношение площадей применяется к известной площади 24. Умножение на данную площадь — тривиальная арифметика в пределах того же действия.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Найти площадь фигуры как разность площадей</h3><p>Вход: площади целой фигуры и отсекаемой части. Операция: вычесть площадь части из площади целого. Граница: часть лежит внутри целого без наложений.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Найти площадь трапеции ABED как разность площадей треугольников ABC и CDE&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;S(ABED) = 24 − 6 = 18&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s2:result&quot;,
+    &quot;image:assets/6fa7132a104fc5a70b661a75.gif&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;right_triangle_area&quot;,
+      &quot;reason&quot;: &quot;Формула площади прямоугольного треугольника, не аддитивность площади&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;pyramid_volume&quot;,
+      &quot;reason&quot;: &quot;Объём, другой объект&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Действие — аддитивность площади: трапеция ABED и треугольник CDE разбивают треугольник ABC без наложений (видно на рисунке), площадь трапеции = разность. Узла об аддитивности/разбиении площадей в каталоге нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Если фигура вместе с другой фигурой без наложений составляет целую фигуру, найти её площадь как разность площади целого и площади дополнительной части.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/5B3F1A.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/5B3F1A.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

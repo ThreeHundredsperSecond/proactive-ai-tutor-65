@@ -1,0 +1,3867 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>F59F55</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal"><span>На конференцию </span>приехали учёные из трёх стран: <span>9 из Португалии, <br> 7 из Финляндии и 4 из Болгарии. Каждый из них делает на конференции один доклад. Порядок докладов определяется жеребьёвкой. Найдите вероятность того, что седьмым окажется доклад учёного из Португалии.</span><span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;F59F55&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;0,45&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Найти общее число учёных как число равновозможных кандидатов на седьмое место: 9+7+4&quot;,
+      &quot;result&quot;: &quot;20&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;По симметрии жеребьёвки вероятность, что на фиксированном месте доклад учёного из Португалии, равна доле португальских учёных: 9/20&quot;,
+      &quot;result&quot;: &quot;0,45&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Подсчитать общее число равновозможных исходов&quot;,
+      &quot;description&quot;: &quot;По условию с несколькими группами объектов найти суммарное число объектов, каждый из которых равновозможно занимает рассматриваемую позицию; применимо, когда группы не пересекаются.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Применить симметрию случайной перестановки к фиксированной позиции&quot;,
+      &quot;description&quot;: &quot;При случайном равновероятном порядке объектов вероятность того, что на заданной позиции окажется объект из группы, равна отношению размера группы к общему числу объектов; позиция в очереди не влияет на ответ.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Классическая вероятность через симметрию позиции&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;F59F55&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;uncertain&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Найти общее число учёных как число равновозможных кандидатов на седьмое место: 9+7+4&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;20&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+          &quot;reason&quot;: &quot;Узел требует задать элементарные исходы и обосновать равновозможность; в s1 исходы (кандидат на седьмое место) названы, но обоснование равновозможности появляется только в s2 («По симметрии жеребьёвки»). Наблюдаемое в s1 действие — сложение численностей непересекающихся групп, т.е. лишь компонент модели.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+          &quot;reason&quot;: &quot;Вычисление m/n в s1 не выполняется; находится только n.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция s1 — суммирование 9+7+4 как подсчёт n элементарных исходов. Это часть построения равновозможной модели, но без обоснования равновозможности в этом шаге; отдельный KC для простого сложения не оправдан (арифметику не дробить). Граница между kc1 и equiprobable_model неоднозначна, поэтому соответствие не подтверждено; возможное решение — объединить kc1 с обоснующей частью kc2 под equiprobable_model.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;По симметрии жеребьёвки вероятность, что на фиксированном месте доклад учёного из Португалии, равна доле португальских учёных: 9/20&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;0,45&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+          &quot;reason&quot;: &quot;Покрывает обоснование того, что каждый из 20 учёных равновозможно оказывается седьмым (симметрия жеребьёвки), но не вычисление 9/20.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+          &quot;reason&quot;: &quot;Покрывает вычисление m/n=9/20, но явно не включает обоснование равновозможности.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат объединяет два действия: (1) редукцию случайной перестановки к равновозможному выбору учёного на фиксированную позицию по симметрии; (2) вычисление классической вероятности 9/20=0,45. Каталог разводит эти действия по двум узлам, поэтому целый кандидат не совпадает ни с одним из них.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;part&quot;: &quot;Обосновать по симметрии случайной перестановки, что на фиксированной (седьмой) позиции каждый объект равновозможен&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;equiprobable_model&quot;
+          },
+          {
+            &quot;part&quot;: &quot;Вычислить вероятность как 9/20&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;classical_probability&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;boundary&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s1:action&quot;,
+        &quot;step:s2:action&quot;
+      ],
+      &quot;description&quot;: &quot;Построение равновозможной модели распределено между s1 (подсчёт исходов) и s2 (обоснование симметрией), а s2 дополнительно содержит вычисление m/n. Границы локальных KC не совпадают с границами equiprobable_model и classical_probability. Математически ответ 9/20=0,45 верен.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc1&quot;,
+        &quot;kc2&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>e6Ac01</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">В треугольнике <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mi>C</mi> </mrow> </semantics> </math> угол <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>C</mi><mi>B</mi> </mrow> </semantics> </math> равен <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mn>30</mn><mi>°</mi><mtext>​</mtext><mo>,</mo> </mrow> </semantics> </math> отрезки <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>H</mi> </mrow> </semantics> </math> и <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>M</mi> </mrow> </semantics> </math> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> высота <br> и медиана соответственно, причём точка <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mi>H</mi> </semantics> </math> лежит на отрезке <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>B</mi><mi>M</mi><mo>.</mo> </mrow> </semantics> </math> <br> Отрезок <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>M</mi><mi>Q</mi> </mrow> </semantics> </math> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> высота треугольника <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>M</mi><mi>C</mi><mo>,</mo> </mrow> </semantics> </math> а прямые <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>H</mi> </mrow> </semantics> </math> и <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>M</mi><mi>Q</mi> </mrow> </semantics> </math> пересекаются в точке <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>F</mi><mtext>​</mtext><mo>.</mo> </mrow> </semantics> </math> Известно, что луч <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>M</mi> </mrow> </semantics> </math> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> биссектриса угла <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>C</mi><mi>A</mi><mi>H</mi><mtext>​</mtext><mo>.</mo> </mrow> </semantics> </math></p> <p class="MsoNormal">а) Докажите, что треугольник <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mi>C</mi> </mrow> </semantics> </math> прямоугольный.</p> <p class="MsoNormal">б) Найдите площадь треугольника <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>C</mi><mi>M</mi><mi>F</mi><mtext>​</mtext><mo>,</mo> </mrow> </semantics> </math> если <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mo>=</mo><mn>8.</mn> </mrow> </semantics> </math><span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;e6Ac01&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;а) доказано: угол BAC = 90°; б) 16√3&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Из прямоугольного треугольника AHC (угол AHC = 90°, угол C = 30°) найти угол HAC&quot;,
+      &quot;result&quot;: &quot;∠HAC = 60°&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;По биссектрисе AM разделить угол HAC пополам&quot;,
+      &quot;result&quot;: &quot;∠MAC = ∠HAM = 30°&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Из равенства углов MAC и MCA заключить, что треугольник AMC равнобедренный&quot;,
+      &quot;result&quot;: &quot;MA = MC&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Так как M — середина BC и MA = MB = MC, медиана равна половине стороны, значит угол при A прямой&quot;,
+      &quot;result&quot;: &quot;∠BAC = 90°, треугольник ABC прямоугольный&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s5&quot;,
+      &quot;action&quot;: &quot;В прямоугольном треугольнике с углом 30° найти гипотенузу BC и катет AC по катету AB = 8&quot;,
+      &quot;result&quot;: &quot;BC = 16, AC = 8√3, MC = 8&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s4&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s6&quot;,
+      &quot;action&quot;: &quot;Ввести координаты A(0,0), B(8,0), C(0,8√3) и найти M; так как высота MQ равнобедренного треугольника AMC является медианой, Q — середина AC&quot;,
+      &quot;result&quot;: &quot;M(4; 4√3), Q(0; 4√3), прямая MQ: y = 4√3&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc6&quot;,
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s3&quot;,
+        &quot;s5&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s7&quot;,
+      &quot;action&quot;: &quot;Составить уравнение прямой AH, перпендикулярной BC через A, и найти её пересечение с MQ&quot;,
+      &quot;result&quot;: &quot;AH: y = x/√3; F(12; 4√3)&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc6&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s6&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s8&quot;,
+      &quot;action&quot;: &quot;Вычислить площадь треугольника CMF как половину произведения основания MF на высоту из C к прямой MF&quot;,
+      &quot;result&quot;: &quot;MF = 8, высота 4√3, S = 16√3&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc7&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s6&quot;,
+        &quot;s7&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Найти острый угол прямоугольного треугольника&quot;,
+      &quot;description&quot;: &quot;Вход: прямоугольный треугольник и один острый угол; операция: дополнить до 90°; применимо при известном прямом угле.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Применить определение биссектрисы угла&quot;,
+      &quot;description&quot;: &quot;Вход: величина угла и его биссектриса; операция: получить равные половины угла.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Использовать свойства равнобедренного треугольника&quot;,
+      &quot;description&quot;: &quot;Вход: равные углы при основании или равные боковые стороны; операция: вывести равенство сторон, или что высота к основанию является медианой.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Установить прямой угол по медиане, равной половине стороны&quot;,
+      &quot;description&quot;: &quot;Вход: медиана треугольника равна половине стороны, к которой проведена; операция: заключить, что противолежащий угол прямой (вершина на окружности с диаметром этой стороны).&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc5&quot;,
+      &quot;name&quot;: &quot;Вычислить стороны прямоугольного треугольника с углом 30°&quot;,
+      &quot;description&quot;: &quot;Вход: прямоугольный треугольник с углом 30° и одна сторона; операция: использовать катет против 30° равен половине гипотенузы и тригонометрические отношения.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc6&quot;,
+      &quot;name&quot;: &quot;Найти точку пересечения прямых методом координат&quot;,
+      &quot;description&quot;: &quot;Вход: координаты точек, условия перпендикулярности/параллельности; операция: составить уравнения прямых и решить систему.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc7&quot;,
+      &quot;name&quot;: &quot;Вычислить площадь треугольника через основание и высоту&quot;,
+      &quot;description&quot;: &quot;Вход: длина стороны и расстояние от противолежащей вершины до прямой этой стороны; операция: S = половина произведения.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;а) Подсчёт углов, равнобедренный треугольник AMC и признак прямого угла по медиане&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;m2&quot;,
+      &quot;name&quot;: &quot;б) Метрические соотношения и метод координат для нахождения F и площади&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s5&quot;,
+        &quot;s6&quot;,
+        &quot;s7&quot;,
+        &quot;s8&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: [
+    &quot;Точка F лежит на продолжении отрезка MQ за M, что согласуется с условием о пересечении прямых.&quot;
+  ]
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;e6Ac01&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_f5a787e19d0e&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Из прямоугольного треугольника AHC (угол AHC = 90°, угол C = 30°) найти угол HAC&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;∠HAC = 60°&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_adbf18f11761&quot;,
+          &quot;reason&quot;: &quot;вычитание углов с общей стороной, а здесь используется сумма углов треугольника&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Третий угол треугольника AHC найден по сумме углов при известных 90° и 30°; положение H на BM из условия обеспечивает, что угол C треугольника AHC совпадает с ∠ACB. Дополнение до 90° — частный случай суммы углов треугольника.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_57221556b432&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;По биссектрисе AM разделить угол HAC пополам&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;∠MAC = ∠HAM = 30°&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [],
+      &quot;rationale&quot;: &quot;Деление угла HAC=60° биссектрисой AM (из условия) на два равных угла полностью соответствует определению.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;Из равенства углов MAC и MCA заключить, что треугольник AMC равнобедренный&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;MA = MC&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s6:action&quot;,
+          &quot;quote&quot;: &quot;так как высота MQ равнобедренного треугольника AMC является медианой, Q — середина AC&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;isosceles_angles&quot;,
+          &quot;reason&quot;: &quot;обратное направление: от равенства сторон к равенству углов; здесь от углов к сторонам&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fd27eefef432&quot;,
+          &quot;reason&quot;: &quot;только равносторонний треугольник&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fe8297102f74&quot;,
+          &quot;reason&quot;: &quot;серединный перпендикуляр — близкая идея для s6, но в решении используется свойство высоты равнобедренного треугольника, а не ГМТ&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат объединяет два разных действия в разных шагах: признак равнобедренного треугольника по равным углам (s3) и свойство высоты к основанию как медианы (s6).&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;part&quot;: &quot;Из равенства двух углов треугольника вывести равенство противолежащих сторон&quot;,
+            &quot;where&quot;: &quot;s3&quot;,
+            &quot;possible_mapping&quot;: &quot;new_candidate (обратно к isosceles_angles)&quot;
+          },
+          {
+            &quot;part&quot;: &quot;В равнобедренном треугольнике высота к основанию является медианой&quot;,
+            &quot;where&quot;: &quot;s6&quot;,
+            &quot;possible_mapping&quot;: &quot;new_candidate&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;uncertain&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;Так как M — середина BC и MA = MB = MC, медиана равна половине стороны, значит угол при A прямой&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;∠BAC = 90°, треугольник ABC прямоугольный&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_5140d12e0e85&quot;,
+          &quot;reason&quot;: &quot;прямое утверждение: из прямого угла следует медиана = половине гипотенузы; здесь обратное&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;diameter_angle&quot;,
+          &quot;reason&quot;: &quot;подходит, если явно установить, что A лежит на окружности с диаметром BC; в шаге это не сформулировано, вывод сделан сразу из равенства медианы половине стороны&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Действие — обратная теорема о медиане. Граница между diameter_angle (через окружность) и отдельным новым узлом неоднозначна; выбрать одно определение без основания нельзя. Вероятный вариант — новый узел &#x27;по медиане, равной половине стороны, установить прямой угол&#x27;.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc5&quot;,
+      &quot;status&quot;: &quot;uncertain&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s5:action&quot;,
+          &quot;quote&quot;: &quot;В прямоугольном треугольнике с углом 30° найти гипотенузу BC и катет AC по катету AB = 8&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s5:result&quot;,
+          &quot;quote&quot;: &quot;BC = 16, AC = 8√3, MC = 8&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s4:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_38dfd2a1aa18&quot;,
+          &quot;reason&quot;: &quot;подходит по смыслу (известный острый угол и сторона)&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_db53e3ae2119&quot;,
+          &quot;reason&quot;: &quot;перекрывающееся определение с тем же названием&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_79a8fac1b83f&quot;,
+          &quot;reason&quot;: &quot;требует известной гипотенузы, а дан катет&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;pythagoras&quot;,
+          &quot;reason&quot;: &quot;в шаге теорема Пифагора не показана&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Нахождение сторон прямоугольного треугольника по углу 30° и катету соответствует двум перекрывающимся узлам literal_38dfd2a1aa18 и literal_db53e3ae2119 без основания выбрать один. MC = 8 — дополнительное действие (середина гипотенузы), не входящее в определение.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i2&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc6&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s6:action&quot;,
+          &quot;quote&quot;: &quot;Ввести координаты A(0,0), B(8,0), C(0,8√3) и найти M&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s6:result&quot;,
+          &quot;quote&quot;: &quot;M(4; 4√3), Q(0; 4√3), прямая MQ: y = 4√3&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s7:action&quot;,
+          &quot;quote&quot;: &quot;Составить уравнение прямой AH, перпендикулярной BC через A, и найти её пересечение с MQ&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s7:result&quot;,
+          &quot;quote&quot;: &quot;AH: y = x/√3; F(12; 4√3)&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s5:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a1cdbef72a14&quot;,
+          &quot;reason&quot;: &quot;задание пространственной фигуры, здесь плоская&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_4af504d61511&quot;,
+          &quot;reason&quot;: &quot;подходит только к нахождению середин M и Q&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;graph_intersection&quot;,
+          &quot;reason&quot;: &quot;близко к приравниванию y=x/√3 и y=4√3, но не включает составление уравнения перпендикулярной прямой&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+          &quot;reason&quot;: &quot;только решение x/√3=4√3&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_f253b50b98a1&quot;,
+          &quot;reason&quot;: &quot;прямая AH строится по точке и перпендикулярному направлению, а не по двум точкам&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат приписан к s6 и s7 и объединяет введение плоских координат, нахождение середин, составление уравнения прямой по точке и перпендикулярному направлению и нахождение пересечения прямых.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;part&quot;: &quot;Ввести декартовы координаты плоской фигуры&quot;,
+            &quot;where&quot;: &quot;s6&quot;,
+            &quot;possible_mapping&quot;: &quot;new_candidate (плоский аналог literal_a1cdbef72a14)&quot;
+          },
+          {
+            &quot;part&quot;: &quot;Найти координаты середины отрезка&quot;,
+            &quot;where&quot;: &quot;s6&quot;,
+            &quot;possible_mapping&quot;: &quot;literal_4af504d61511&quot;
+          },
+          {
+            &quot;part&quot;: &quot;Составить уравнение прямой через точку перпендикулярно заданной&quot;,
+            &quot;where&quot;: &quot;s7&quot;,
+            &quot;possible_mapping&quot;: &quot;new_candidate&quot;
+          },
+          {
+            &quot;part&quot;: &quot;Найти пересечение прямых приравниванием и решить линейное уравнение&quot;,
+            &quot;where&quot;: &quot;s7&quot;,
+            &quot;possible_mapping&quot;: &quot;graph_intersection + linear_equation&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc7&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s8:action&quot;,
+          &quot;quote&quot;: &quot;Вычислить площадь треугольника CMF как половину произведения основания MF на высоту из C к прямой MF&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s8:result&quot;,
+          &quot;quote&quot;: &quot;MF = 8, высота 4√3, S = 16√3&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s6:result&quot;,
+        &quot;step:s7:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;right_triangle_area&quot;,
+          &quot;reason&quot;: &quot;только половина произведения катетов прямоугольного треугольника; CMF не прямоугольный&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Площадь произвольного треугольника через сторону и проведённую к ней высоту в каталоге отсутствует. Нахождение MF и высоты по координатам (разности координат при горизонтальной прямой) — входные вычисления.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Вычислять площадь треугольника через сторону и высоту&quot;,
+        &quot;definition&quot;: &quot;По длине стороны и расстоянию от противолежащей вершины до прямой этой стороны вычислить S = половина произведения.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;missing_annotation&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s6:action&quot;,
+        &quot;step:s6:result&quot;
+      ],
+      &quot;description&quot;: &quot;s6 размечен kc6 (пересечение прямых), но в нём пересечения нет: выполнены введение координат, нахождение середин M и Q и уравнение горизонтальной прямой MQ; эти действия не имеют собственной разметки.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc6&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;i2&quot;,
+      &quot;kind&quot;: &quot;missing_annotation&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s5:result&quot;
+      ],
+      &quot;description&quot;: &quot;MC = 8 получено как половина BC (M — середина), это отдельное действие, не покрытое kc5.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc5&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>530858</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal"><span>В случайном эксперименте симметричную монету бросают дважды. Найдите вероятность того, что орёл не выпадет ни разу.</span><span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;530858&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;0,25&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Перечислить равновозможные элементарные исходы двух бросков симметричной монеты&quot;,
+      &quot;result&quot;: &quot;4 исхода: ОО, ОР, РО, РР&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Выбрать благоприятные исходы (орёл не выпал ни разу) и вычислить вероятность как отношение числа благоприятных исходов к общему&quot;,
+      &quot;result&quot;: &quot;1 благоприятный исход (РР); P = 1/4 = 0,25&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Перечислить элементарные исходы серии независимых испытаний&quot;,
+      &quot;description&quot;: &quot;Вход: описание эксперимента из нескольких повторений испытания с равновозможными исходами. Операция: составить полный список упорядоченных комбинаций исходов. Граница: малое число исходов, допускающее явное перечисление.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Вычислить классическую вероятность события&quot;,
+      &quot;description&quot;: &quot;Вход: полный набор равновозможных исходов и условие события. Операция: отобрать благоприятные исходы и разделить их число на общее число исходов. Граница: только для конечного пространства равновозможных исходов.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Классическое определение вероятности через перечисление исходов&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;530858&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Перечислить равновозможные элементарные исходы двух бросков симметричной монеты&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;4 исхода: ОО, ОР, РО, РР&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;bernoulli_model&quot;,
+          &quot;reason&quot;: &quot;Узел задаёт последовательность испытаний с постоянной вероятностью и независимостью; в шаге наблюдается явное перечисление элементарных исходов, а не модель Бернулли с вероятностями успеха.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+          &quot;reason&quot;: &quot;Формула m/n выполняется в s2, не в s1.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_8e6b7abd8340&quot;,
+          &quot;reason&quot;: &quot;Подсчёт сочетаниями C(n,k) не используется.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: задать полный набор элементарных исходов эксперимента (4 упорядоченные пары) и принять их равновозможность. Основание равновозможности — симметричность монеты из условия; обоснование дано кратко словом «симметричной», без явного аргумента о независимости бросков. Определение узла говорит о «случайном выбора», но по смыслу охватывает построение равновозможной модели эксперимента; формула m/n не включена, что соответствует границе кандидата.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Выбрать благоприятные исходы (орёл не выпал ни разу) и вычислить вероятность как отношение числа благоприятных исходов к общему&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;1 благоприятный исход (РР); P = 1/4 = 0,25&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+          &quot;reason&quot;: &quot;Построение модели выполнено в s1; здесь используется готовая модель.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+          &quot;reason&quot;: &quot;Альтернативный путь 1/2·1/2 через независимость в решении не применяется.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;В конечной равновозможной модели из s1 отобран один благоприятный исход и вычислено m/n = 1/4. Отбор благоприятного исхода из явного списка тривиален и не требует отдельного комбинаторного подсчёта; действие целиком соответствует определению. Ответ 0,25 верен.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;boundary&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s1:action&quot;
+      ],
+      &quot;description&quot;: &quot;Равновозможность четырёх упорядоченных исходов опирается на симметричность монеты и неявную независимость бросков; независимость в решении не названа. Формулировка equiprobable_model ориентирована на «случайный выбор», что делает границу с bernoulli_model для повторных испытаний не вполне чёткой.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc1&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>720230</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Теплоход проходит по течению реки до пункта назначения 180 км и после стоянки возвращается в пункт отправления. Найдите скорость теплохода <br> в неподвижной воде, если скорость течения равна 1 км/ч, стоянка длится <br> 1 час, а в пункт отправления теплоход возвращается через 20 часов. Ответ дайте в км/ч.<span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;720230&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;19&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Найти время движения: общее время минус стоянка&quot;,
+      &quot;result&quot;: &quot;20 - 1 = 19 ч в пути&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Составить уравнение времени движения по и против течения с неизвестной собственной скоростью v (v &gt; 1)&quot;,
+      &quot;result&quot;: &quot;180/(v+1) + 180/(v-1) = 19&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Привести дробно-рациональное уравнение к квадратному при v ≠ ±1&quot;,
+      &quot;result&quot;: &quot;19v^2 - 360v - 19 = 0&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Решить квадратное уравнение и отобрать корень с учётом v &gt; 1&quot;,
+      &quot;result&quot;: &quot;D = 362^2; v = 19 или v = -1/19; подходит v = 19&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;,
+        &quot;kc5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s3&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Составить уравнение движения по воде&quot;,
+      &quot;description&quot;: &quot;По расстояниям, скорости течения и суммарному времени выразить время по и против течения через собственную скорость и составить уравнение; применимо, когда скорости по и против течения равны сумме и разности собственной скорости и скорости течения.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Вычесть время остановки из общего времени&quot;,
+      &quot;description&quot;: &quot;По общему времени рейса и длительности стоянки найти время фактического движения.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Привести дробно-рациональное уравнение к квадратному&quot;,
+      &quot;description&quot;: &quot;Умножить уравнение на общий знаменатель, отличный от нуля на допустимой области, и получить многочлен второй степени.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Решить квадратное уравнение через дискриминант&quot;,
+      &quot;description&quot;: &quot;Для уравнения второй степени с числовыми коэффициентами вычислить дискриминант и корни.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc5&quot;,
+      &quot;name&quot;: &quot;Отобрать корни по смысловым ограничениям&quot;,
+      &quot;description&quot;: &quot;Исключить корни, не удовлетворяющие ОДЗ и условиям задачи (например, положительность скорости против течения).&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Уравнение по суммарному времени движения&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;720230&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_63c80a69a122&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Составить уравнение времени движения по и против течения с неизвестной собственной скоростью v (v &gt; 1)&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;180/(v+1) + 180/(v-1) = 19&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+          &quot;reason&quot;: &quot;здесь строится модель движения, а не подстановка в заданную формулу&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+          &quot;reason&quot;: &quot;уравнение нелинейное и речь о составлении модели&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Скорости v±1, времена s/(v±1), стоянка отделена (входное состояние из s1), условие v&gt;1 сохраняет положительность скорости против течения; всё совпадает с определением узла.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;uncertain&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Найти время движения: общее время минус стоянка&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;20 - 1 = 19 ч в пути&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_63c80a69a122&quot;,
+          &quot;reason&quot;: &quot;«отделить стоянку» входит в определение как компонент; самостоятельно s1 не содержит скоростей v±c и уравнения&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Действие — компонент составного узла literal_63c80a69a122, а не полное его выполнение; отдельный узел ради вычитания времени стоянки дробил бы арифметику. Граница между компонентом и самостоятельным KC неоднозначна.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_9698b97fef22&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;Привести дробно-рациональное уравнение к квадратному при v ≠ ±1&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;19v^2 - 360v - 19 = 0&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_67caf017b566&quot;,
+          &quot;reason&quot;: &quot;речь о преобразовании выражений к общей дроби, а не об уравнении с умножением на знаменатель&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+          &quot;reason&quot;: &quot;только сохранение ограничений, без преобразования уравнения&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Установлены ненулевые знаменатели (v ≠ ±1) и выполнено умножение на общий знаменатель; результат проверен: 360v = 19(v^2-1).&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;D = 362^2; v = 19 или v = -1/19&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fe2b4673ac10&quot;,
+          &quot;reason&quot;: &quot;выделение полного квадрата не используется&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Старший коэффициент 19≠0, D=129600+1444=131044=362^2, корни (360±362)/38 = 19 и -1/19 — верно.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc5&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;отобрать корень с учётом v &gt; 1&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;подходит v = 19&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:action&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+          &quot;reason&quot;: &quot;касается области определения и заданного промежутка, а не физического смысла модели&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_8409c9003f48&quot;,
+          &quot;reason&quot;: &quot;нет промежутка из условия задачи&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Отбор по физическому смыслу (скорость против течения положительна, v&gt;1) из модели s2; соответствует определению.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>68B0E4</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal"><span>В чемпионате по гимнастике участвуют 45 спортсменок: 6 из России, <br> 21 из США, остальные — из Китая. Порядок, в котором выступают гимнастки, определяется жребием. Найдите вероятность того, <br> что спортсменка, выступающая первой, окажется из Китая.</span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;68B0E4&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;0,4&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Найти число спортсменок из Китая как разность общего числа и числа спортсменок из других стран: 45 − 6 − 21&quot;,
+      &quot;result&quot;: &quot;18&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Найти вероятность по классическому определению как отношение числа благоприятных исходов (спортсменка из Китая первая) к числу равновозможных исходов: 18/45&quot;,
+      &quot;result&quot;: &quot;0,4&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Вычислить численность оставшейся группы&quot;,
+      &quot;description&quot;: &quot;Вход: общее число объектов и численности известных непересекающихся групп. Операция: вычесть сумму известных групп из общего числа. Граница: группы не пересекаются и вместе с искомой покрывают всё множество.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Вычислить классическую вероятность&quot;,
+      &quot;description&quot;: &quot;Вход: число равновозможных элементарных исходов и число благоприятных исходов. Операция: найти их отношение. Граница: исходы равновозможны (например, жребий) и конечны.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Классическое определение вероятности через подсчёт благоприятных исходов&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;68B0E4&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Найти число спортсменок из Китая как разность общего числа и числа спортсменок из других стран: 45 − 6 − 21&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;18&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+          &quot;reason&quot;: &quot;Вычисляет m/n; подсчёт благоприятных исходов явно не включается автоматически.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+          &quot;reason&quot;: &quot;Задаёт исходы и обосновывает равновозможность, а не находит численность подмножества.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+          &quot;reason&quot;: &quot;Уравнение не составляется и не решается; это прямое вычитание.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_032c8bc781fd&quot;,
+          &quot;reason&quot;: &quot;Связывает процент с численностями, процентов в задаче нет.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: найти численность дополнительной части разбиения конечного множества вычитанием известных непересекающихся частей из целого (45−6−21=18). Шаг арифметически верен. В каталоге нет узла подсчёта числа благоприятных исходов через дополнение разбиения. Граница сомнительна: действие близко к простой арифметике, которую не следует дробить; предложение оставлено как кандидат для решения редактора.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Находить численность части по целому и остальным частям разбиения&quot;,
+        &quot;definition&quot;: &quot;Для разбиения конечного множества на непересекающиеся группы вычислить численность искомой группы как разность общего числа и суммы известных групп; используется как подсчёт благоприятных исходов. Возможна трактовка как простая арифметика без отдельного KC.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i2&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Найти вероятность по классическому определению как отношение числа благоприятных исходов (спортсменка из Китая первая) к числу равновозможных исходов: 18/45&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;0,4&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+          &quot;reason&quot;: &quot;Обоснование равновозможности (жребий) в шаге лишь упомянуто, отдельным действием не выполнено; узел явно отделяет формулу m/n.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+          &quot;reason&quot;: &quot;Произведение вероятностей независимых событий не используется.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдаемое действие — вычисление m/n=18/45=0,4 в конечной равновозможной модели; совпадает с определением classical_probability. Число m взято из s1, n — из условия. Ответ 0,4 верен.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;missing_annotation&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s2:action&quot;,
+        &quot;condition&quot;
+      ],
+      &quot;description&quot;: &quot;Построение равновозможной модели (первой выступает любая из 45 спортсменок с равной вероятностью по жребию) не выделено отдельным шагом/KC; в каталоге для этого есть equiprobable_model. Описание kc2 включает равновозможность в границу, но само обоснование не наблюдается как действие.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;i2&quot;,
+      &quot;kind&quot;: &quot;boundary&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s1:action&quot;
+      ],
+      &quot;description&quot;: &quot;kc1 — элементарное вычитание; по правилу не дробить арифметику его выделение в отдельный KC спорно. Возможна трактовка как часть подсчёта благоприятных исходов.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc1&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>EA6B32</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">В основании пирамиды <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>S</mi><mi>A</mi><mi>B</mi><mi>C</mi><mi>D</mi> </mrow>  </semantics> </mstyle></math> лежит прямоугольник <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mi>C</mi><mi>D</mi> </mrow>  </semantics> </mstyle></math> со стороной <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mo>=</mo><mn>5</mn> </mrow>  </semantics> </mstyle></math> и диагональю <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>B</mi><mi>D</mi><mo>=</mo><mn>9</mn> </mrow>  </semantics> </mstyle></math>. Все боковые рёбра пирамиды равны 5. <br> На диагонали <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>B</mi><mi>D</mi> </mrow>  </semantics> </mstyle></math> основания <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mi>C</mi><mi>D</mi> </mrow>  </semantics> </mstyle></math> отмечена точка <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>E</mi>  </semantics> </mstyle></math>, а на ребре <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>S</mi> </mrow>  </semantics> </mstyle></math> <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mo>—</mo>  </semantics> </mstyle></math> точка <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>F</mi>  </semantics> </mstyle></math> так, что <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>S</mi><mi>F</mi><mo>=</mo><mi>B</mi><mi>E</mi><mo>=</mo><mn>4</mn> </mrow>  </semantics> </mstyle></math>.</p> <p class="MsoNormal">а) Докажите, что плоскость <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>C</mi><mi>E</mi><mi>F</mi> </mrow>  </semantics> </mstyle></math> параллельна ребру <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>S</mi><mi>B</mi> </mrow>  </semantics> </mstyle></math>.</p> <p class="MsoNormal">б) Плоскость <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>C</mi><mi>E</mi><mi>F</mi> </mrow>  </semantics> </mstyle></math> пересекает ребро <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>S</mi><mi>D</mi> </mrow>  </semantics> </mstyle></math> в точке <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>Q</mi>  </semantics> </mstyle></math>. Найдите расстояние от точки <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>Q</mi>  </semantics> </mstyle></math> до плоскости <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mi>C</mi> </mrow>  </semantics> </mstyle></math>.<span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;EA6B32&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;а) доказано; б) 5√19/18&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Прямая CE в плоскости основания пересекает AB в точке K; из подобия треугольников BEK и DEC (AB ∥ CD) BK/DC = BE/ED&quot;,
+      &quot;result&quot;: &quot;ED = 5, BK = 4, AK = 1, K лежит на отрезке AB, AK:KB = 1:4&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Сравнить отношения AF:FS и AK:KB в треугольнике ASB и применить обратную теорему о пропорциональных отрезках&quot;,
+      &quot;result&quot;: &quot;AF:FS = 1:4 = AK:KB, значит FK ∥ SB&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Применить признак параллельности прямой и плоскости: FK лежит в плоскости CEF, SB не лежит в ней&quot;,
+      &quot;result&quot;: &quot;SB ∥ (CEF), п. а) доказан&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Плоскость SBD содержит SB ∥ (CEF) и точку E, поэтому пересекает (CEF) по прямой EQ ∥ SB; из подобия в треугольнике SBD найти DQ:DS&quot;,
+      &quot;result&quot;: &quot;DQ/DS = DE/DB = 5/9&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;,
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s3&quot;,
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s5&quot;,
+      &quot;action&quot;: &quot;Из равенства боковых рёбер вершина проецируется в центр O описанной окружности прямоугольника; найти высоту по теореме Пифагора&quot;,
+      &quot;result&quot;: &quot;OD = 9/2, SO = √(25 − 81/4) = √19/2&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s6&quot;,
+      &quot;action&quot;: &quot;Расстояние от Q до плоскости основания пропорционально расстоянию по прямой DS от точки D&quot;,
+      &quot;result&quot;: &quot;d = (5/9)·√19/2 = 5√19/18&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc6&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s4&quot;,
+        &quot;s5&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Найти отношение отрезков из подобия треугольников при параллельных прямых&quot;,
+      &quot;description&quot;: &quot;Вход: две параллельные прямые и секущие, пересекающиеся в точке; операция: установить подобие треугольников и вывести отношения соответственных отрезков; применимо, когда параллельность прямых известна&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Доказать параллельность прямых по пропорциональности отрезков&quot;,
+      &quot;description&quot;: &quot;Вход: точки на двух сторонах треугольника с известными отношениями деления; операция: применить обратную теорему о пропорциональных отрезках; граница: точки делят стороны в одном отношении от общей вершины&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Доказать параллельность прямой и плоскости по признаку&quot;,
+      &quot;description&quot;: &quot;Вход: прямая вне плоскости и параллельная ей прямая, лежащая в плоскости; операция: применить признак параллельности прямой и плоскости&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Построить линию пересечения плоскости с плоскостью, содержащей параллельную ей прямую&quot;,
+      &quot;description&quot;: &quot;Вход: прямая, параллельная плоскости, и другая плоскость через эту прямую и общую точку; операция: провести через общую точку прямую, параллельную данной, как линию пересечения&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc5&quot;,
+      &quot;name&quot;: &quot;Найти высоту пирамиды с равными боковыми рёбрами&quot;,
+      &quot;description&quot;: &quot;Вход: длины боковых рёбер и радиус описанной окружности основания; операция: проецировать вершину в центр описанной окружности и применить теорему Пифагора&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc6&quot;,
+      &quot;name&quot;: &quot;Найти расстояние от точки отрезка до плоскости через отношение деления&quot;,
+      &quot;description&quot;: &quot;Вход: отрезок с концом в плоскости, расстояние от другого конца до плоскости и отношение деления; операция: умножить расстояние на соответствующую долю отрезка&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Пункт а): построить в плоскости CEF прямую, параллельную SB, через точку пересечения CE с AB&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;m2&quot;,
+      &quot;name&quot;: &quot;Пункт б): найти положение Q через сечение плоскостью SBD и вычислить расстояние через долю высоты&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s4&quot;,
+        &quot;s5&quot;,
+        &quot;s6&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;EA6B32&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_d5e287608dd5&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;из подобия треугольников BEK и DEC (AB ∥ CD) BK/DC = BE/ED&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;из подобия в треугольнике SBD найти DQ:DS&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_b58390338050&quot;,
+          &quot;reason&quot;: &quot;предполагает уже установленное подобие; здесь подобие выводится из параллельности, что охватывает literal_d5e287608dd5&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;similarity_AA&quot;,
+          &quot;reason&quot;: &quot;явного доказательства двух пар равных углов нет, основание — параллельность&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: из параллельности (AB ∥ CD, EQ ∥ SB) установить подобие треугольников и составить пропорцию длин; совпадает с определением literal_d5e287608dd5 целиком. Вычисление ED = 9 − 4 — тривиальная арифметика.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;применить обратную теорему о пропорциональных отрезках&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;AF:FS = 1:4 = AK:KB, значит FK ∥ SB&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_d5e287608dd5&quot;,
+          &quot;reason&quot;: &quot;прямое направление: из параллельности к пропорции; здесь обратный вывод параллельности из равенства отношений&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a776d95ccb64&quot;,
+          &quot;reason&quot;: &quot;только перевод доли в отношение частей, без вывода о параллельности&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;В каталоге нет действия вывода параллельности прямых из равного отношения деления двух сторон треугольника от общей вершины.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Для точек на двух сторонах треугольника, делящих их в одинаковом отношении от общей вершины, вывести параллельность соединяющей прямой третьей стороне (обратная теорема о пропорциональных отрезках).&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;Применить признак параллельности прямой и плоскости: FK лежит в плоскости CEF, SB не лежит в ней&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_609a9966f06a&quot;,
+          &quot;reason&quot;: &quot;координатная проверка через нормаль и скалярное произведение; здесь синтетический признак через параллельную прямую в плоскости&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Синтетический признак параллельности прямой и плоскости в каталоге отсутствует.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Доказать параллельность прямой и плоскости, указав в плоскости прямую, параллельную данной, и проверив, что данная прямая не лежит в плоскости.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;Плоскость SBD содержит SB ∥ (CEF) и точку E, поэтому пересекает (CEF) по прямой EQ ∥ SB&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_6f2cb1731d16&quot;,
+          &quot;reason&quot;: &quot;определение типа сечения по рёбрам, а не построение линии пересечения через параллельную прямую&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_91697073f741&quot;,
+          &quot;reason&quot;: &quot;про вертикальную проекцию, не про линию пересечения плоскостей&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Свойство: если прямая параллельна плоскости, то плоскость через эту прямую пересекает данную по параллельной ей прямой; в каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Если прямая параллельна плоскости α, то любая плоскость через эту прямую, имеющая с α общую точку, пересекает α по прямой через эту точку, параллельной данной.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc5&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s5:action&quot;,
+          &quot;quote&quot;: &quot;Из равенства боковых рёбер вершина проецируется в центр O описанной окружности прямоугольника; найти высоту по теореме Пифагора&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s5:result&quot;,
+          &quot;quote&quot;: &quot;SO = √(25 − 81/4) = √19/2&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;pythagoras&quot;,
+          &quot;reason&quot;: &quot;покрывает только вычисление SO в прямоугольном треугольнике SOD, но не вывод положения проекции&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_5140d12e0e85&quot;,
+          &quot;reason&quot;: &quot;OD = BD/2 опирается на центр описанной окружности прямоугольника, но это не медиана к гипотенузе как таковая&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат объединяет (1) вывод, что при равных боковых рёбрах вершина проецируется в центр описанной окружности основания (O — точка пересечения диагоналей, OD = 9/2), и (2) вычисление высоты по теореме Пифагора.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;part&quot;: &quot;При равных боковых рёбрах установить, что основание высоты пирамиды — центр описанной окружности основания, и найти её радиус&quot;,
+            &quot;catalog_kc_id&quot;: null
+          },
+          {
+            &quot;part&quot;: &quot;Найти высоту SO по теореме Пифагора в треугольнике SOD&quot;,
+            &quot;catalog_kc_id&quot;: &quot;pythagoras&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc6&quot;,
+      &quot;status&quot;: &quot;uncertain&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s6:action&quot;,
+          &quot;quote&quot;: &quot;Расстояние от Q до плоскости основания пропорционально расстоянию по прямой DS от точки D&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s6:result&quot;,
+          &quot;quote&quot;: &quot;d = (5/9)·√19/2 = 5√19/18&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s4:result&quot;,
+        &quot;step:s5:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_d5e287608dd5&quot;,
+          &quot;reason&quot;: &quot;название упоминает отношение высот через подобие, но подобие треугольников (перпендикуляр из Q и SO) в шаге явно не установлено&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_91697073f741&quot;,
+          &quot;reason&quot;: &quot;про проекцию в перпендикулярных плоскостях, а не масштабирование по отношению деления&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Действие — масштабирование расстояния до плоскости по доле отрезка от точки в плоскости. Это может быть частным случаем literal_d5e287608dd5, но обоснование (параллельность перпендикуляров, подобие) не выписано; граница между узлами неоднозначна, поэтому подтвердить match нельзя.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>B3c1B7</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">На столе лежит <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>N</mi></mstyle></math></span> монет по 2 рубля и <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mo stretchy="false">(</mo><mn>1200</mn><mo>−</mo><mi>N</mi><mo stretchy="false">)</mo></mrow></mstyle></math></span> монет по 5 рублей (<span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>N</mi></mstyle></math></span> — натуральное число от 1 до 1199). Оказалось, что если взять любые 500 монет, то сумма денег, набранная этими монетами, будет не меньше четверти от общей суммы денег на столе.</p> <p class="MsoNormal">а) Может ли <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>N</mi></mstyle></math></span> равняться 400?</p> <p class="MsoNormal">б) Может ли <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>N</mi></mstyle></math></span> равняться 600?</p> <p class="MsoNormal">в) Сколько различных значений может принимать число <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>N</mi><mo>?</mo></mrow></mstyle></math></span><span> </span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;B3c1B7&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;а) да; б) нет; в) 977&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Выразить общую сумму денег через N&quot;,
+      &quot;result&quot;: &quot;S = 2N + 5(1200−N) = 6000 − 3N&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Свести условие «любые 500 монет» к условию на минимальную сумму 500 монет: минимум достигается при выборе самых дешёвых монет&quot;,
+      &quot;result&quot;: &quot;Условие равносильно: минимальная сумма 500 монет ≥ S/4; при N ≥ 500 минимум 1000, при N &lt; 500 минимум 2N + 5(500−N) = 2500 − 3N&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;,
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Решить неравенство для случая N &lt; 500&quot;,
+      &quot;result&quot;: &quot;2500 − 3N ≥ (6000 − 3N)/4 ⇔ 9N ≤ 4000 ⇔ N ≤ 444 (N натуральное)&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Решить неравенство для случая N ≥ 500&quot;,
+      &quot;result&quot;: &quot;1000 ≥ (6000 − 3N)/4 ⇔ 3N ≥ 2000 ⇔ N ≥ 667 (N натуральное)&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s5&quot;,
+      &quot;action&quot;: &quot;Проверить N = 400 и N = 600 по полученным условиям&quot;,
+      &quot;result&quot;: &quot;N = 400: 400 ≤ 444, минимум 1300 ≥ 4800/4 = 1200 — может; N = 600: 500 ≤ 600 &lt; 667, минимум 1000 &lt; 4200/4 = 1050 — не может&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s6&quot;,
+      &quot;action&quot;: &quot;Подсчитать число натуральных N из [1;1199], удовлетворяющих условию&quot;,
+      &quot;result&quot;: &quot;N ∈ {1,…,444} ∪ {667,…,1199}: 444 + 533 = 977 значений&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc6&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s3&quot;,
+        &quot;s4&quot;,
+        &quot;condition&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Составить выражение суммы по количествам и номиналам&quot;,
+      &quot;description&quot;: &quot;По количествам предметов каждого вида и их стоимостям записать общую сумму как линейное выражение от параметра.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Свести условие «для любого выбора» к экстремальному случаю&quot;,
+      &quot;description&quot;: &quot;Утверждение, которое должно выполняться для всех подмножеств заданного размера, заменить эквивалентным условием на подмножество с экстремальным (минимальным) значением величины.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Найти минимальную сумму выбора заданного числа элементов&quot;,
+      &quot;description&quot;: &quot;Для набора элементов с разными стоимостями определить минимальную сумму k элементов, выбирая самые дешёвые; при необходимости разобрать случаи по соотношению k и количества дешёвых элементов.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Решить линейное неравенство в натуральных числах&quot;,
+      &quot;description&quot;: &quot;Решить линейное неравенство относительно целого параметра с учётом области рассмотрения случая и округлить границу до ближайшего допустимого целого.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc5&quot;,
+      &quot;name&quot;: &quot;Проверить конкретное значение параметра по полученному критерию&quot;,
+      &quot;description&quot;: &quot;Подставить значение параметра в найденное необходимое и достаточное условие и сделать вывод о возможности, подтвердив прямым вычислением.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc6&quot;,
+      &quot;name&quot;: &quot;Подсчитать количество целых чисел в объединении промежутков&quot;,
+      &quot;description&quot;: &quot;Найти число целых значений в объединении непересекающихся целочисленных промежутков, суммируя длины промежутков.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Сведение к худшему случаю и решение неравенств по случаям&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;,
+        &quot;s5&quot;,
+        &quot;s6&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;B3c1B7&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;S = 2N + 5(1200−N) = 6000 − 3N&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_44188b61870f&quot;,
+          &quot;reason&quot;: &quot;Строит бюджетное ограничение по технологической зависимости и ставкам, а не выражение общей суммы по количествам и номиналам.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+          &quot;reason&quot;: &quot;Подстановка в заданную формулу; здесь формула составляется самостоятельно.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция — составление линейной модели суммы по количествам двух видов предметов и их стоимостям с параметром N; в каталоге нет узла составления такого выражения.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;По количествам предметов каждого вида и их стоимостям записать общую стоимость как выражение от параметра и упростить его.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Свести условие «любые 500 монет» к условию на минимальную сумму 500 монет&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;Условие равносильно: минимальная сумма 500 монет ≥ S/4&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;optimal_bound_attainment&quot;,
+          &quot;reason&quot;: &quot;Доказательство оптимальности оценкой и примером, а не замена квантора «для любого» экстремальным случаем.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_29920cf036ec&quot;,
+          &quot;reason&quot;: &quot;Контрпример для проверки необходимости, а не эквивалентное сведение универсального условия.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция — замена условия для всех подмножеств фиксированного размера равносильным условием на минимум; подходящего определения в каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Условие, которое должно выполняться для всех выборов из допустимого множества, заменить равносильным условием на выбор с экстремальным значением величины.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;при N ≥ 500 минимум 1000, при N &lt; 500 минимум 2N + 5(500−N) = 2500 − 3N&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;минимум достигается при выборе самых дешёвых монет&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_af302473a16f&quot;,
+          &quot;reason&quot;: &quot;Нижняя оценка суммы различных кратных, а не выбор k самых дешёвых из мультимножества двух номиналов.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_de250a7de0bb&quot;,
+          &quot;reason&quot;: &quot;Минимальные различные представители классов остатков; объект другой.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция — нахождение минимальной суммы k элементов из набора двух номиналов с разбором случаев по числу дешёвых; в каталоге близкие узлы касаются других объектов.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Для набора предметов с известными количествами и стоимостями найти минимальную сумму k предметов, выбирая самые дешёвые, с разбором случаев по соотношению k и числа дешёвых предметов.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;2500 − 3N ≥ (6000 − 3N)/4 ⇔ 9N ≤ 4000 ⇔ N ≤ 444 (N натуральное)&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;1000 ≥ (6000 − 3N)/4 ⇔ 3N ≥ 2000 ⇔ N ≥ 667 (N натуральное)&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_0cf8af170957&quot;,
+          &quot;reason&quot;: &quot;Покрывает решение аффинного неравенства, но не округление до целого и учёт области случая.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+          &quot;reason&quot;: &quot;Может покрыть совмещение с областью случая и диапазоном N, но не само решение неравенства.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат объединяет решение линейного неравенства с числовыми коэффициентами и переход к целочисленной границе с учётом области случая; это разные действия.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;part&quot;: &quot;Решить линейное неравенство с числовыми коэффициентами&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;literal_0cf8af170957&quot;
+          },
+          {
+            &quot;part&quot;: &quot;Перевести вещественную границу в целочисленную и совместить с областью случая (N&lt;500 или N≥500) и 1≤N≤1199&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;set_intersection&quot;,
+            &quot;note&quot;: &quot;соответствие неполное; округление до целого в каталоге отдельно не описано&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc5&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s5:result&quot;,
+          &quot;quote&quot;: &quot;N = 400: 400 ≤ 444, минимум 1300 ≥ 4800/4 = 1200 — может; N = 600: 500 ≤ 600 &lt; 667, минимум 1000 &lt; 4200/4 = 1050 — не может&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s3:result&quot;,
+        &quot;step:s4:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a873d91378ab&quot;,
+          &quot;reason&quot;: &quot;Касается проверки граничного ответа в модели, а не произвольного значения параметра по критерию.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+          &quot;reason&quot;: &quot;Вычисление значения функции по формуле — лишь компонент; вывод о выполнимости условия не входит.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция — проверка принадлежности конкретного значения параметра найденному множеству и вывод да/нет с прямой проверкой; точного узла нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Проверить, удовлетворяет ли заданное значение параметра найденному необходимому и достаточному условию, и сделать вывод о возможности, подтвердив прямым вычислением.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc6&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s6:result&quot;,
+          &quot;quote&quot;: &quot;N ∈ {1,…,444} ∪ {667,…,1199}: 444 + 533 = 977 значений&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s3:result&quot;,
+        &quot;step:s4:result&quot;,
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_6ad8f502588e&quot;,
+          &quot;reason&quot;: &quot;Отбор и подсчёт конечного числа кандидатов-точек, а не подсчёт целых в промежутках по длинам.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_05f53e4cc43a&quot;,
+          &quot;reason&quot;: &quot;Подсчёт решений объединения ветвей уравнения с проверкой совпадений; объект другой.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция — подсчёт целых чисел в объединении непересекающихся целочисленных отрезков через b−a+1; в каталоге такого узла нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Найти число целых чисел в объединении непересекающихся целочисленных отрезков [a;b], суммируя b−a+1 по отрезкам.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;boundary&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s3:result&quot;,
+        &quot;step:s4:result&quot;
+      ],
+      &quot;description&quot;: &quot;Совмещение полученных границ с областями случаев (N ≤ 444 с N &lt; 500; N ≥ 667 с N ≥ 500 и N ≤ 1199) в шагах явно не записано, хотя выполняется тривиально; итог 977 по выборочной проверке верен.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc4&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>A22E40</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Найдите все значения <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>a</mi>  </semantics> </mstyle></math>, при каждом из которых уравнение</p> <p class="MsoNormal" align="center"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <msqrt> <mrow> <mn>2</mn><mo>−</mo><mn>3</mn><mi>x</mi> </mrow> </msqrt> <mo>⋅</mo><mi>ln</mi><mrow><mo>(</mo> <mrow> <mn>16</mn><msup> <mi>x</mi> <mn>2</mn> </msup> <mo>−</mo><msup> <mi>a</mi> <mn>2</mn> </msup> </mrow> <mo>)</mo></mrow><mo>=</mo><msqrt> <mrow> <mn>2</mn><mo>−</mo><mn>3</mn><mi>x</mi> </mrow> </msqrt> <mo>⋅</mo><mi>ln</mi><mrow><mo>(</mo> <mrow> <mn>4</mn><mi>x</mi><mo>+</mo><mi>a</mi> </mrow> <mo>)</mo></mrow> </mrow>  </semantics> </mstyle></math></p> <p class="MsoNormal">имеет ровно один корень.<span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;A22E40&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;a ∈ (-8/3; -1/2] ∪ [5/3; 8/3)&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Записать ОДЗ уравнения: 2-3x≥0, 16x²-a²&gt;0, 4x+a&gt;0&quot;,
+      &quot;result&quot;: &quot;x≤2/3, 16x²-a²&gt;0, 4x+a&gt;0&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Перенести всё в одну часть и разложить на множители: √(2-3x)·(ln(16x²-a²)-ln(4x+a))=0; произведение равно нулю, когда один из множителей равен нулю при сохранении ОДЗ&quot;,
+      &quot;result&quot;: &quot;x=2/3 либо ln(16x²-a²)=ln(4x+a) с учётом ОДЗ&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Определить, при каких a значение x=2/3 удовлетворяет ОДЗ&quot;,
+      &quot;result&quot;: &quot;64/9-a²&gt;0 и 8/3+a&gt;0 ⇔ -8/3&lt;a&lt;8/3&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Перейти от равенства логарифмов к равенству аргументов и, используя 4x+a&gt;0, разложить 16x²-a²=(4x-a)(4x+a) и сократить на 4x+a&quot;,
+      &quot;result&quot;: &quot;4x-a=1, x=(a+1)/4&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;,
+        &quot;kc5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s5&quot;,
+      &quot;action&quot;: &quot;Подставить x=(a+1)/4 в условия ОДЗ: 4x+a&gt;0 (тогда и 16x²-a²=4x+a&gt;0) и x≤2/3; учесть случай совпадения с x=2/3&quot;,
+      &quot;result&quot;: &quot;2a+1&gt;0 ⇔ a&gt;-1/2; (a+1)/4&lt;2/3 ⇔ a&lt;5/3 даёт корень, отличный от 2/3; при a=5/3 корень совпадает с 2/3&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s4&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s6&quot;,
+      &quot;action&quot;: &quot;Объединить условия: ровно один корень, если корень x=2/3 существует, а второй отличный корень отсутствует, или наоборот&quot;,
+      &quot;result&quot;: &quot;Корень 2/3 при a∈(-8/3;8/3), отличный корень при a∈(-1/2;5/3)⊂(-8/3;8/3); ровно один корень при a∈(-8/3;-1/2]∪[5/3;8/3)&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc6&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s3&quot;,
+        &quot;s5&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Записать область допустимых значений уравнения&quot;,
+      &quot;description&quot;: &quot;По уравнению с корнями и логарифмами выписать условия неотрицательности подкоренных выражений и положительности аргументов логарифмов.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Свести уравнение к совокупности через равенство произведения нулю&quot;,
+      &quot;description&quot;: &quot;Вынести общий множитель и записать, что произведение равно нулю, когда хотя бы один множитель равен нулю, а остальные определены.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Проверить принадлежность найденного корня ОДЗ в зависимости от параметра&quot;,
+      &quot;description&quot;: &quot;Подставить выражение корня через параметр в условия ОДЗ и получить множество значений параметра, при которых корень допустим.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Перейти от равенства логарифмов к равенству аргументов&quot;,
+      &quot;description&quot;: &quot;При одинаковом основании и положительных аргументах заменить равенство логарифмов равенством их аргументов.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc5&quot;,
+      &quot;name&quot;: &quot;Упростить уравнение разложением на множители и сокращением на ненулевой множитель&quot;,
+      &quot;description&quot;: &quot;Разложить выражение (например, разность квадратов) и сократить на множитель, ненулевой в силу ОДЗ, сводя уравнение к линейному.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc6&quot;,
+      &quot;name&quot;: &quot;Подсчитать число различных корней в зависимости от параметра&quot;,
+      &quot;description&quot;: &quot;Объединить множества значений параметра, при которых существует каждый корень совокупности, учитывая совпадение корней, и выбрать значения с требуемым числом корней.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Разложение на множители с исследованием корней совокупности по параметру&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;,
+        &quot;s5&quot;,
+        &quot;s6&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;A22E40&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_37584ab15732&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Записать ОДЗ уравнения: 2-3x≥0, 16x²-a²&gt;0, 4x+a&gt;0&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_7baedb55a81a&quot;,
+          &quot;reason&quot;: &quot;только логарифмы, без радиканда&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a5938e1a7fec&quot;,
+          &quot;reason&quot;: &quot;только корни и последующая проверка кандидатов&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция — выписать совместную область: неотрицательность радиканда 2-3x и положительность аргументов двух логарифмов; это целиком определение совместной области логарифма и корня.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;uncertain&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;произведение равно нулю, когда один из множителей равен нулю при сохранении ОДЗ&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;x=2/3 либо ln(16x²-a²)=ln(4x+a) с учётом ОДЗ&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+          &quot;reason&quot;: &quot;определение включает получение нулей и объединение допустимых корней; в s2 выполнен лишь переход к совокупности, второй множитель решается в s4, отбор и объединение — в s3, s5, s6&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат — компонент действия zero_product (вынесение множителя и запись совокупности), а не всё действие; отдельного узла для перехода к совокупности в каталоге нет. Граница неоднозначна.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;64/9-a²&gt;0 и 8/3+a&gt;0 ⇔ -8/3&lt;a&lt;8/3&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s5:result&quot;,
+          &quot;quote&quot;: &quot;2a+1&gt;0 ⇔ a&gt;-1/2&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s4:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+          &quot;reason&quot;: &quot;проверка конкретных кандидатов на область, без получения условия на параметр&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+          &quot;reason&quot;: &quot;отбор по условиям модели, без параметра&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_5dcd4a01af19&quot;,
+          &quot;reason&quot;: &quot;подсчёт различных корней, а не вывод множества параметра для допустимости&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Действие — подставить корень, выраженный через a, в условия ОДЗ и решить полученные неравенства относительно a; результат — множество значений параметра. В каталоге отбор кандидатов дан только для числовых корней.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Находить значения параметра, при которых корень принадлежит ОДЗ&quot;,
+        &quot;definition&quot;: &quot;Подставить выражение корня через параметр в условия области и решить получившиеся неравенства относительно параметра, получив множество допустимых значений.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_2443f08dda82&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;Перейти от равенства логарифмов к равенству аргументов&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_9a635e89ccb3&quot;,
+          &quot;reason&quot;: &quot;по определению логарифма, а не равенство двух логарифмов&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Равенство ln u=ln v при положительных аргументах (из ОДЗ s1) заменено равенством аргументов — полное определение.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc5&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;используя 4x+a&gt;0, разложить 16x²-a²=(4x-a)(4x+a) и сократить на 4x+a&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;4x-a=1, x=(a+1)/4&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_7570fa06d474&quot;,
+          &quot;reason&quot;: &quot;сокращение дроби, а не деление обеих частей уравнения на ненулевой множитель&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_89adef4e8cee&quot;,
+          &quot;reason&quot;: &quot;факторизация трёхчлена с проверкой раскрытием; здесь разность квадратов и сокращение&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+          &quot;reason&quot;: &quot;нуль множителя не ищется, множитель ненулевой по ОДЗ&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+          &quot;reason&quot;: &quot;4x-a=1 содержит параметр, коэффициенты не только числовые&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Разложение разности квадратов и деление уравнения на множитель, ненулевой в силу ОДЗ, без потери корней; подходящего узла нет. Выражение x через a из 4x-a=1 входит в шаг без отдельной разметки.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Делить уравнение на множитель, ненулевой по ОДЗ&quot;,
+        &quot;definition&quot;: &quot;Разложить выражение на множители и разделить обе части уравнения на множитель, ненулевость которого обоснована условиями области, сводя уравнение к более простому без потери корней.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc6&quot;,
+      &quot;status&quot;: &quot;uncertain&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s6:action&quot;,
+          &quot;quote&quot;: &quot;ровно один корень, если корень x=2/3 существует, а второй отличный корень отсутствует, или наоборот&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s6:result&quot;,
+          &quot;quote&quot;: &quot;ровно один корень при a∈(-8/3;-1/2]∪[5/3;8/3)&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s3:result&quot;,
+        &quot;step:s5:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_05f53e4cc43a&quot;,
+          &quot;reason&quot;: &quot;подсчёт различных решений объединения ветвей с учётом совпадений — подходит&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_5dcd4a01af19&quot;,
+          &quot;reason&quot;: &quot;тоже подходит: допустимость, совпадения, граничный корень&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_d93e50c17220&quot;,
+          &quot;reason&quot;: &quot;почти дубликат предыдущего&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_e41f0e408b87&quot;,
+          &quot;reason&quot;: &quot;запись множества параметров с граничными случаями — перекрывающийся компонент&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Действие — подсчёт различных корней совокупности как функции параметра с учётом совпадения при a=5/3. Несколько перекрывающихся определений каталога подходят без основания выбрать одно, поэтому uncertain.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;missing_annotation&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s4:result&quot;
+      ],
+      &quot;description&quot;: &quot;Решение уравнения 4x-a=1 относительно x (x=(a+1)/4) выполнено внутри s4 без отдельной разметки; ответ при выборочной проверке совпадает с независимым пересчётом, математических ошибок не замечено.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc5&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>97C4EA</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">На рисунке изображён график функции вида <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>f</mi><mrow><mo>(</mo> <mi>x</mi> <mo>)</mo></mrow><mo>=</mo><msub> <mrow> <mi>log</mi> </mrow> <mi>a</mi> </msub> <mi>x</mi> </mrow> </semantics> </math>. Найдите <br> значение <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>f</mi><mrow><mo>(</mo> <mrow> <mn>16</mn> </mrow> <mo>)</mo></mrow> </mrow> </semantics> </math>.</p> <p class="MsoNormal" align="center"><img src="file:///Users/bogdanlukancuk/proactive-ai-tutor-65/data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/inputs/assets/f556f51b295dc4bc6b7692dd.png" alt="Рисунок ФИПИ"></p> <p class="MsoNormal"><span> </span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;97C4EA&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;4&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Считать с графика точку с целыми координатами, через которую проходит график&quot;,
+      &quot;result&quot;: &quot;График проходит через точку (2; 1), т.е. f(2)=1&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Подставить координаты точки в формулу f(x)=log_a x и найти основание&quot;,
+      &quot;result&quot;: &quot;log_a 2 = 1, откуда a = 2&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Вычислить значение функции в заданной точке&quot;,
+      &quot;result&quot;: &quot;f(16)=log_2 16 = 4&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Определить по графику координаты точки на нём&quot;,
+      &quot;description&quot;: &quot;Вход: график функции на клетчатой сетке. Операция: найти точку графика с однозначно читаемыми (целыми) координатами. Граница: только точки, которые точно читаются по узлам сетки.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Найти параметр функции по известной точке графика&quot;,
+      &quot;description&quot;: &quot;Вход: формула функции с неизвестным параметром и точка графика. Операция: подставить координаты и решить полученное уравнение относительно параметра с учётом ограничений на параметр (для логарифма a&gt;0, a≠1).&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Вычислить значение логарифма&quot;,
+      &quot;description&quot;: &quot;Вход: логарифм с известным основанием от числа, являющегося степенью основания. Операция: найти показатель степени по определению логарифма.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Восстановление формулы функции по точке графика и вычисление значения&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;97C4EA&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;graph_coordinates&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;График проходит через точку (2; 1), т.е. f(2)=1&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;image:assets/f556f51b295dc4bc6b7692dd.png&quot;,
+          &quot;region_description&quot;: &quot;Отмеченная жирная точка графика над делением 2 оси x на уровне деления 1 оси y; пунктирные линии к осям, единичная клетчатая сетка&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;image:assets/f556f51b295dc4bc6b7692dd.png&quot;
+      ],
+      &quot;alternatives_checked&quot;: [],
+      &quot;rationale&quot;: &quot;Считывание координат отмеченной точки по масштабу сетки; восстановление формулы выполнено отдельно в s2, что соответствует границе определения.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Подставить координаты точки в формулу f(x)=log_a x и найти основание&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;log_a 2 = 1, откуда a = 2&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_3ac0ecd3cd49&quot;,
+          &quot;reason&quot;: &quot;Восстановление основания по точке, но только для показательной функции y=a^x, а не логарифмической.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_9a635e89ccb3&quot;,
+          &quot;reason&quot;: &quot;Решение простейшего логарифмического уравнения относительно аргумента; здесь неизвестно основание, и есть этап подстановки точки в формулу функции.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;direct_proportion&quot;,
+          &quot;reason&quot;: &quot;Другой класс функций (y=kx).&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_51a8c0abd718&quot;,
+          &quot;reason&quot;: &quot;Другой класс функций (y=a√x).&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Подстановка точки графика в y=log_a x и нахождение основания с учётом a&gt;0, a≠1; в каталоге есть аналоги для других классов функций, но не для логарифмической.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Восстанавливать основание логарифмической функции по точке&quot;,
+        &quot;definition&quot;: &quot;Для y=log_a x по точке (x0;y0) с x0&gt;0, x0≠1, y0≠0 найти a=x0^(1/y0) с проверкой a&gt;0, a≠1. Считывание точки с графика и последующее вычисление значения отдельно.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_d66dd830e876&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;f(16)=log_2 16 = 4&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+          &quot;reason&quot;: &quot;Подстановка аргумента в формулу функции присутствует в s3, но кандидат kc3 описан как вычисление логарифма по определению, что точнее соответствует literal_d66dd830e876.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Нахождение показателя степени основания 2, равной 16, по определению логарифма.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;missing_annotation&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s3:action&quot;
+      ],
+      &quot;description&quot;: &quot;Подстановка аргумента 16 в восстановленную формулу (literal_6308771d01a6) в s3 не размечена отдельно; kc3 покрывает только вычисление логарифма.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc3&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>1cce7c</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Найдите все значения <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>a</mi><mo>,</mo> </mrow> </semantics> </math> при каждом из которых уравнение</p> <p class="MsoNormal" align="center"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msup> <mrow> <mrow><mo>(</mo> <mrow> <mn>4</mn><mi>x</mi><mo>+</mo><mrow><mo>|</mo> <mrow> <mi>x</mi><mo>−</mo><mi>a</mi> </mrow> <mo>|</mo></mrow><mo>−</mo><mrow><mo>|</mo> <mrow> <mn>3</mn><mi>x</mi><mo>+</mo><mn>1</mn> </mrow> <mo>|</mo></mrow> </mrow> <mo>)</mo></mrow> </mrow> <mn>2</mn> </msup> <mo>−</mo><mrow><mo>(</mo> <mrow> <mi>a</mi><mo>+</mo><mn>1</mn> </mrow> <mo>)</mo></mrow><mrow><mo>(</mo> <mrow> <mn>4</mn><mi>x</mi><mo>+</mo><mrow><mo>|</mo> <mrow> <mi>x</mi><mo>−</mo><mi>a</mi> </mrow> <mo>|</mo></mrow><mo>−</mo><mrow><mo>|</mo> <mrow> <mn>3</mn><mi>x</mi><mo>+</mo><mn>1</mn> </mrow> <mo>|</mo></mrow> </mrow> <mo>)</mo></mrow><mo>+</mo><mn>1</mn><mo>=</mo><mn>0</mn> </mrow> </semantics> </math></p> <p class="MsoNormal">имеет ровно два различных корня.<span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;1cce7c&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;a ∈ (−∞; −3) ∪ (1; 3/2) ∪ (3/2; +∞)&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Ввести замену t = 4x + |x−a| − |3x+1| и свести уравнение к квадратному относительно t&quot;,
+      &quot;result&quot;: &quot;t^2 − (a+1)t + 1 = 0&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Исследовать монотонность и множество значений кусочно-линейной функции f(x)=4x+|x−a|−|3x+1| по наклонам на промежутках&quot;,
+      &quot;result&quot;: &quot;Наклоны 0, 2, 6, 8; f неубывающая, область значений R; при a &gt; −1/3 f постоянна на [−1/3; a] и равна a−1, иначе строго возрастает; значит, каждое значение t ≠ a−1 даёт ровно один x, а t = a−1 (при a &gt; −1/3) — бесконечно много&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Найти условие двух различных корней квадратного уравнения по дискриминанту&quot;,
+      &quot;result&quot;: &quot;(a+1)^2 − 4 &gt; 0 ⇔ a &lt; −3 или a &gt; 1; при a = 1 и a = −3 один корень t, т.е. один x&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Исключить значения a, при которых корень квадратного уравнения совпадает со значением t = a−1 на участке постоянства (при a &gt; −1/3)&quot;,
+      &quot;result&quot;: &quot;Подстановка t = a−1: −2(a−1)+1 = 0 ⇒ a = 3/2 (&gt; −1/3) — исключить; при a &lt; −3 участка постоянства нет&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s5&quot;,
+      &quot;action&quot;: &quot;Объединить условия и записать множество значений параметра&quot;,
+      &quot;result&quot;: &quot;a &lt; −3, 1 &lt; a &lt; 3/2, a &gt; 3/2&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Ввести замену повторяющегося выражения&quot;,
+      &quot;description&quot;: &quot;Вход: уравнение, где одно выражение с переменной входит несколько раз. Операция: обозначить его новой переменной и получить более простое (например, квадратное) уравнение. Граница: требует последующего учёта числа прообразов каждого значения новой переменной.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Исследовать кусочно-линейную функцию с модулями по наклонам&quot;,
+      &quot;description&quot;: &quot;Вход: сумма линейных функций и модулей линейных выражений. Операция: найти возможные угловые коэффициенты на промежутках, сделать вывод о монотонности, участках постоянства и множестве значений. Граница: для кусочно-линейных непрерывных функций.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Определить число корней квадратного уравнения с параметром по дискриминанту&quot;,
+      &quot;description&quot;: &quot;Вход: квадратное уравнение с параметром в коэффициентах. Операция: составить и решить неравенство или уравнение для дискриминанта. Граница: старший коэффициент не равен нулю.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Подсчитать число решений исходного уравнения через корни вспомогательного&quot;,
+      &quot;description&quot;: &quot;Вход: корни вспомогательного уравнения и число прообразов каждого значения у функции замены. Операция: просуммировать количества прообразов, исключить значения параметра, при которых корень попадает в особое значение, и объединить условия. Граница: метод замены с известной структурой прообразов.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Замена и анализ числа прообразов монотонной кусочно-линейной функции&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;,
+        &quot;s5&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;1cce7c&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Ввести замену t = 4x + |x−a| − |3x+1| и свести уравнение к квадратному относительно t&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;t^2 − (a+1)t + 1 = 0&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+          &quot;reason&quot;: &quot;только замена t=b^x&gt;0 для показательных выражений&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a30e088aef8f&quot;,
+          &quot;reason&quot;: &quot;только неотрицательная замена квадратного корня&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_ab8a29be8367&quot;,
+          &quot;reason&quot;: &quot;подсчёт решений после замены u=x², а не введение замены произвольного повторяющегося выражения&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция — обозначение повторяющегося выражения с модулями новой переменной и получение квадратного уравнения относительно неё. В каталоге есть только частные замены (показательная, корень, квадрат); общей замены повторяющегося выражения нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Обозначить повторяющееся в уравнении выражение новой переменной и переписать уравнение относительно неё; множество значений и число прообразов замены исследуются отдельно.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Исследовать монотонность и множество значений кусочно-линейной функции f(x)=4x+|x−a|−|3x+1| по наклонам на промежутках&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;Наклоны 0, 2, 6, 8; f неубывающая, область значений R&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:action&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;,
+          &quot;reason&quot;: &quot;монотонность выводится по знаку производной, здесь — по угловым коэффициентам без дифференцирования&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_b0359174295e&quot;,
+          &quot;reason&quot;: &quot;раскрытие модуля по знаку — лишь компонент; вывод о монотонности, участке постоянства и множестве значений не входит&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Действие: по возможным наклонам непрерывной кусочно-линейной функции с параметром определить монотонность, участок постоянства (значение a−1 на [−1/3; a]) и множество значений. Проверено: наклоны 4±1±3 дают 0,2,6,8; значение на участке постоянства a−1 верно. Подходящего узла нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Для непрерывной кусочно-линейной функции с модулями линейных выражений найти угловые коэффициенты на промежутках и вывести монотонность, участки постоянства с их значением и множество значений.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;(a+1)^2 − 4 &gt; 0 ⇔ a &lt; −3 или a &gt; 1&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+          &quot;reason&quot;: &quot;нахождение корней при конкретных коэффициентах; подсчёт корней с параметром определение явно выносит отдельно&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_7a3b2e2d0b3a&quot;,
+          &quot;reason&quot;: &quot;дополнительно требует положительность корней, здесь её нет&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_1b97db4e28e8&quot;,
+          &quot;reason&quot;: &quot;решение неравенства (a+1)^2&gt;4 — компонент, а не составление условия на число корней&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция — составить условие D&gt;0 для квадратного уравнения с параметром (старший коэффициент 1) и решить его относительно параметра. Каталог покрывает лишь соседние узлы.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Для квадратного уравнения с параметром при ненулевом старшем коэффициенте составить условие на дискриминант (D&gt;0, D=0, D&lt;0) по требуемому числу различных корней и решить его относительно параметра.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;Подстановка t = a−1: −2(a−1)+1 = 0 ⇒ a = 3/2 (&gt; −1/3) — исключить&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s5:action&quot;,
+          &quot;quote&quot;: &quot;Объединить условия и записать множество значений параметра&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s5:result&quot;,
+          &quot;quote&quot;: &quot;a &lt; −3, 1 &lt; a &lt; 3/2, a &gt; 3/2&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;,
+        &quot;step:s3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_ab8a29be8367&quot;,
+          &quot;reason&quot;: &quot;подсчёт прообразов только для u=x²&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_e41f0e408b87&quot;,
+          &quot;reason&quot;: &quot;соответствует только объединению случаев в s5&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+          &quot;reason&quot;: &quot;исключение значения 3/2 из найденного множества — компонент; перекрывается с literal_e41f0e408b87&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат объединяет (1) подсчёт решений исходного уравнения по числу прообразов корней вспомогательного, (2) нахождение параметра, при котором корень попадает в особое значение t=a−1 (подстановкой), (3) объединение/исключение для записи ответа. Части размечены на разных шагах s4 и s5. Расчёт a=3/2 проверен: (a−1)^2−(a+1)(a−1)+1=−2(a−1)+1.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;part&quot;: &quot;Подсчитать число решений исходного уравнения как сумму числа прообразов корней вспомогательного&quot;,
+            &quot;possible_catalog_kc_id&quot;: null
+          },
+          {
+            &quot;part&quot;: &quot;Найти значения параметра, при которых корень вспомогательного уравнения равен особому значению (подстановкой)&quot;,
+            &quot;possible_catalog_kc_id&quot;: null
+          },
+          {
+            &quot;part&quot;: &quot;Объединить случаи и исключить значения параметра в записи ответа&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;literal_e41f0e408b87 или set_intersection (неоднозначно)&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>F7B7A1</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">В основании прямой треугольной призмы <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mi>C</mi><msub> <mi>A</mi> <mn>1</mn> </msub> <msub> <mi>B</mi> <mn>1</mn> </msub> <msub> <mi>C</mi> <mn>1</mn> </msub> </mrow>  </semantics> </mstyle></math> лежит равнобедренный ( <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mo>=</mo><mi>B</mi><mi>C</mi> </mrow>  </semantics> </mstyle></math> ) треугольник <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mi>C</mi> </mrow>  </semantics> </mstyle></math>. Точка <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>K</mi>  </semantics> </mstyle></math> <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mo>—</mo>  </semantics> </mstyle></math> середина ребра <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <msub> <mi>A</mi> <mn>1</mn> </msub> <msub> <mi>B</mi> <mn>1</mn> </msub> </mrow>  </semantics> </mstyle></math>, а точка <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>M</mi>  </semantics> </mstyle></math> делит ребро <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>C</mi> </mrow>  </semantics> </mstyle></math> в отношении <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>M</mi><mo>:</mo><mi>M</mi><mi>C</mi><mo>=</mo><mn>1</mn><mo>:</mo><mn>3</mn> </mrow>  </semantics> </mstyle></math>.</p> <p class="MsoNormal" align="left">а) Докажите, что  <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>K</mi><mi>M</mi><mo>⊥</mo><mi>A</mi><mi>C</mi> </mrow>  </semantics> </mstyle></math>.</p> <p class="MsoNormal">б) Найдите угол между прямой <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>K</mi><mi>M</mi> </mrow>  </semantics> </mstyle></math> и плоскостью <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>B</mi><msub> <mi>B</mi> <mn>1</mn> </msub> </mrow>  </semantics> </mstyle></math>, если <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mo>=</mo><mn>6</mn> </mrow>  </semantics> </mstyle></math>, <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>C</mi><mo>=</mo><mn>8</mn> </mrow>  </semantics> </mstyle></math> и <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><msub> <mi>A</mi> <mn>1</mn> </msub> <mo>=</mo><mn>3</mn> </mrow>  </semantics> </mstyle></math>.<span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;F7B7A1&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;а) доказано; б) arcsin(√70/21)&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Спроецировать K на плоскость основания: в прямой призме проекция середины A1B1 — середина K&#x27; ребра AB, KK&#x27; ⊥ ABC.&quot;,
+      &quot;result&quot;: &quot;K&#x27; — середина AB, KK&#x27; ⊥ (ABC)&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Найти проекцию K&#x27; на AC: в равнобедренном треугольнике высота BH делит AC пополам; K&#x27;P — средняя линия треугольника ABH, параллельная BH, поэтому AP = AH/2 = AC/4 = AM.&quot;,
+      &quot;result&quot;: &quot;P = M, K&#x27;M ⊥ AC&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;,
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Применить теорему о трёх перпендикулярах: проекция K&#x27;M наклонной KM перпендикулярна AC, значит KM ⊥ AC.&quot;,
+      &quot;result&quot;: &quot;KM ⊥ AC (пункт а)&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Вычислить длину KM по теореме Пифагора: K&#x27;M = BH/2 (средняя линия треугольника ABH), BH = √(36−16) = 2√5, K&#x27;M = √5, KK&#x27; = 3.&quot;,
+      &quot;result&quot;: &quot;KM = √(5+9) = √14&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s5&quot;,
+      &quot;action&quot;: &quot;Найти расстояние от M до плоскости ABB1: плоскость ABB1 перпендикулярна основанию, поэтому расстояние равно расстоянию от M до прямой AB в основании: AM·sin∠A, sin∠A = BH/AB = √5/3.&quot;,
+      &quot;result&quot;: &quot;d = 2√5/3&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc6&quot;,
+        &quot;kc5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s4&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s6&quot;,
+      &quot;action&quot;: &quot;Найти угол между прямой и плоскостью через синус: sin φ = d/KM (M лежит на прямой KM, K лежит в плоскости ABB1).&quot;,
+      &quot;result&quot;: &quot;sin φ = (2√5/3)/√14 = √70/21, φ = arcsin(√70/21)&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc7&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s4&quot;,
+        &quot;s5&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Проецировать точку боковой грани прямой призмы на основание&quot;,
+      &quot;description&quot;: &quot;Вход: точка на ребре или грани прямой призмы. Операция: использовать перпендикулярность боковых рёбер основанию для нахождения ортогональной проекции. Граница: только прямая призма.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Использовать свойство высоты-медианы равнобедренного треугольника&quot;,
+      &quot;description&quot;: &quot;Вход: равнобедренный треугольник. Операция: высота к основанию делит основание пополам. Граница: высота к основанию.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Применять среднюю линию или теорему Фалеса для деления отрезка&quot;,
+      &quot;description&quot;: &quot;Вход: середина стороны и прямая, параллельная другой стороне. Операция: найти точку пересечения и отношение отрезков. Граница: параллельные прямые в треугольнике.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Применять теорему о трёх перпендикулярах&quot;,
+      &quot;description&quot;: &quot;Вход: наклонная, её проекция и прямая в плоскости. Операция: перпендикулярность проекции прямой влечёт перпендикулярность наклонной, и обратно. Граница: прямая лежит в плоскости проекции.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc5&quot;,
+      &quot;name&quot;: &quot;Вычислять отрезки по теореме Пифагора и тригонометрии прямоугольного треугольника&quot;,
+      &quot;description&quot;: &quot;Вход: прямоугольный треугольник с известными элементами. Операция: найти катет, гипотенузу или синус угла. Граница: прямой угол установлен.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc6&quot;,
+      &quot;name&quot;: &quot;Сводить расстояние до перпендикулярной плоскости к расстоянию до линии пересечения&quot;,
+      &quot;description&quot;: &quot;Вход: точка в плоскости α и плоскость β ⊥ α. Операция: расстояние от точки до β равно расстоянию до прямой α∩β в α. Граница: плоскости перпендикулярны.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc7&quot;,
+      &quot;name&quot;: &quot;Находить угол между прямой и плоскостью через расстояние&quot;,
+      &quot;description&quot;: &quot;Вход: отрезок прямой с концом в плоскости и расстояние от другого конца до плоскости. Операция: sin угла = расстояние / длина отрезка. Граница: один конец лежит в плоскости.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Доказательство перпендикулярности через проекцию и теорему о трёх перпендикулярах&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;m2&quot;,
+      &quot;name&quot;: &quot;Угол прямой с плоскостью через расстояние от точки до плоскости&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s4&quot;,
+        &quot;s5&quot;,
+        &quot;s6&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: [
+    &quot;Рисунок не приложен; конфигурация восстановлена по условию.&quot;
+  ]
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;F7B7A1&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;в прямой призме проекция середины A1B1 — середина K&#x27; ребра AB, KK&#x27; ⊥ ABC&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_91697073f741&quot;,
+          &quot;reason&quot;: &quot;связывает высоту точки с перпендикуляром к линии пересечения вертикальной плоскости и основания; здесь же нахождение проекции точки верхнего ребра через перпендикулярность боковых рёбер основанию&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_0cd75b4548b3&quot;,
+          &quot;reason&quot;: &quot;распознавание призмы, а не ортогональное проецирование&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: ортогональная проекция точки верхнего основания прямой призмы на нижнее по боковому ребру; точного узла в каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Для точки на верхнем основании/боковой грани прямой призмы найти её ортогональную проекцию на основание, используя перпендикулярность боковых рёбер основанию (соответствующая точка нижнего основания).&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;в равнобедренном треугольнике высота BH делит AC пополам&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;isosceles_angles&quot;,
+          &quot;reason&quot;: &quot;касается равенства углов, не высоты-медианы&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fd27eefef432&quot;,
+          &quot;reason&quot;: &quot;только равносторонний треугольник и длина высоты&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Использовано свойство: высота к основанию равнобедренного треугольника является медианой. В каталоге нет узла для равнобедренного случая.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;В равнобедренном треугольнике высота, проведённая к основанию, является медианой (и биссектрисой): делит основание пополам.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_d5e287608dd5&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;K&#x27;P — средняя линия треугольника ABH, параллельная BH, поэтому AP = AH/2 = AC/4 = AM&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a776d95ccb64&quot;,
+          &quot;reason&quot;: &quot;восстановление отношения частей по доле целого, а не через параллельность&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_b58390338050&quot;,
+          &quot;reason&quot;: &quot;требует уже установленного подобия; здесь основание — параллельность и средняя линия&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Из параллельности K&#x27;P∥BH и середины K&#x27; стороны AB получена пропорция отрезков AP=AH/2; это соответствует определению &#x27;установить подобие или параллельность соответствующих отрезков и составить пропорцию длин&#x27;.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;Применить теорему о трёх перпендикулярах: проекция K&#x27;M наклонной KM перпендикулярна AC, значит KM ⊥ AC.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_71811f9f6a63&quot;,
+          &quot;reason&quot;: &quot;доказательство перпендикулярности прямой плоскости по двум прямым, иная теорема&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_cdb2863ad1e6&quot;,
+          &quot;reason&quot;: &quot;сравнение углов через перпендикуляры, не наклонная/проекция&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдается применение теоремы о трёх перпендикулярах; в каталоге узла нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Для наклонной к плоскости, её ортогональной проекции и прямой в этой плоскости: прямая перпендикулярна наклонной тогда и только тогда, когда перпендикулярна проекции.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc5&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;BH = √(36−16) = 2√5&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;KM = √(5+9) = √14&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s5:action&quot;,
+          &quot;quote&quot;: &quot;AM·sin∠A, sin∠A = BH/AB = √5/3&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;pythagoras&quot;,
+          &quot;reason&quot;: &quot;покрывает только вычисления BH и KM в s4&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_be5764a81415&quot;,
+          &quot;reason&quot;: &quot;покрывает выбор sin∠A = BH/AB в s5&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_38dfd2a1aa18&quot;,
+          &quot;reason&quot;: &quot;покрывает катет d = AM·sin∠A по углу; перекрывается с literal_db53e3ae2119 и literal_79a8fac1b83f&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат объединяет теорему Пифагора (s4) и тригонометрию прямоугольного треугольника (s5); составной кандидат не сводится к одному узлу.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;part&quot;: &quot;Теорема Пифагора для BH (треугольник ABH) и KM (треугольник KK&#x27;M)&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;pythagoras&quot;
+          },
+          {
+            &quot;part&quot;: &quot;Нахождение sin∠A как отношения BH/AB&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;literal_be5764a81415&quot;
+          },
+          {
+            &quot;part&quot;: &quot;Нахождение катета AM·sin∠A по гипотенузе AM и углу&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;literal_38dfd2a1aa18 (перекрывается с literal_db53e3ae2119, literal_79a8fac1b83f)&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc6&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s5:action&quot;,
+          &quot;quote&quot;: &quot;плоскость ABB1 перпендикулярна основанию, поэтому расстояние равно расстоянию от M до прямой AB в основании&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_91697073f741&quot;,
+          &quot;reason&quot;: &quot;близко (перпендикулярные плоскости и линия пересечения), но определение о высоте точки вертикальной плоскости, а не о расстоянии от точки основания до вертикальной плоскости&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: расстояние от точки плоскости α до перпендикулярной плоскости β сведено к расстоянию до α∩β. Ближайший узел описывает иное направление перехода.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Для точки плоскости α и плоскости β ⊥ α расстояние от точки до β равно расстоянию от неё до прямой α∩β в плоскости α.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc7&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s6:action&quot;,
+          &quot;quote&quot;: &quot;sin φ = d/KM (M лежит на прямой KM, K лежит в плоскости ABB1)&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s6:result&quot;,
+          &quot;quote&quot;: &quot;sin φ = (2√5/3)/√14 = √70/21, φ = arcsin(√70/21)&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s4:result&quot;,
+        &quot;step:s5:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_aec2af1753c8&quot;,
+          &quot;reason&quot;: &quot;угол между плоскостями по нормалям&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_164f29e3d306&quot;,
+          &quot;reason&quot;: &quot;угол между прямыми через векторы&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_be5764a81415&quot;,
+          &quot;reason&quot;: &quot;тригонометрическое отношение в плоском треугольнике, но без определения угла прямой с плоскостью&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Угол прямой с плоскостью найден как arcsin(расстояние/длина отрезка с концом в плоскости); узла нет. Вычисление проверено: 2√5/(3√14)=√70/21.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Если отрезок прямой имеет один конец в плоскости, а расстояние от другого конца до плоскости равно d, то синус угла между прямой и плоскостью равен d, делённому на длину отрезка.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;missing_annotation&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s4:action&quot;
+      ],
+      &quot;description&quot;: &quot;В s4 K&#x27;M = BH/2 получено через среднюю линию треугольника ABH, но шаг размечен только kc5; использование средней линии (kc3) не отмечено.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc3&quot;,
+        &quot;kc5&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>C7D60A</h2><p>Впишите правильный ответ.</p><div><section>  <table class="MsoTableGrid" border="0" cellspacing="0" cellpadding="0"> <tr> <td valign="top"> <p class="MsoNormal">Четырёхугольник <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mi>C</mi><mi>D</mi> </mrow> </semantics> </math> вписан в окружность. Угол <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mi>C</mi> </mrow> </semantics> </math> равен <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mn>103</mn><mi>°</mi><mo>,</mo> </mrow> </semantics> </math> угол <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>C</mi><mi>A</mi><mi>D</mi> </mrow> </semantics> </math> равен <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mn>42</mn><mi>°</mi><mo>.</mo> </mrow> </semantics> </math> Найдите угол <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mi>D</mi><mo>.</mo> </mrow> </semantics> </math> Ответ дайте в градусах.</p> </td> <td valign="top"> <p class="MsoNormal" align="right"><img src="file:///Users/bogdanlukancuk/proactive-ai-tutor-65/data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/inputs/assets/84bcfbf410ddd1e2f417e82c.png" alt="Рисунок ФИПИ"></p> </td> </tr> </table> <p class="MsoNormal"><span> </span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;C7D60A&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;61&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Угол DBC и угол CAD вписанные и опираются на одну дугу CD, поэтому равны&quot;,
+      &quot;result&quot;: &quot;∠DBC = ∠CAD = 42°&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Луч BD лежит внутри угла ABC (по рисунку), поэтому ∠ABD = ∠ABC − ∠DBC&quot;,
+      &quot;result&quot;: &quot;∠ABD = 103° − 42° = 61°&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Приравнять вписанные углы, опирающиеся на одну дугу&quot;,
+      &quot;description&quot;: &quot;Вход: два вписанных угла окружности, опирающиеся на одну и ту же дугу (вершины по одну сторону от хорды). Операция: заключить их равенство и перенести известную величину.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Найти часть угла как разность углов&quot;,
+      &quot;description&quot;: &quot;Вход: угол, разбитый внутренним лучом на два угла, известны целый угол и одна часть. Операция: вычесть известную часть из целого. Граница: луч должен лежать внутри угла.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Перенос угла через вписанные углы на одну дугу и вычитание&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: [
+    &quot;Положение луча BD внутри угла ABC взято с рисунка.&quot;
+  ]
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;C7D60A&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Угол DBC и угол CAD вписанные и опираются на одну дугу CD, поэтому равны&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;∠DBC = ∠CAD = 42°&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;image:assets/84bcfbf410ddd1e2f417e82c.png&quot;,
+          &quot;region_description&quot;: &quot;Точки A (слева), B (сверху), C (справа), D (снизу справа) на окружности; хорды AC и BD проведены, вершины A и B лежат по одну сторону от хорды CD&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;image:assets/84bcfbf410ddd1e2f417e82c.png&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;diameter_angle&quot;,
+          &quot;reason&quot;: &quot;Касается только прямого угла, опирающегося на диаметр; здесь дуга CD произвольная&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_f5a787e19d0e&quot;,
+          &quot;reason&quot;: &quot;Сумма углов треугольника и смежность, а не свойство вписанных углов&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;isosceles_angles&quot;,
+          &quot;reason&quot;: &quot;Равенство углов из равенства сторон, не из общей дуги&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Действие: установить равенство двух вписанных углов, опирающихся на одну дугу CD с вершинами по одну сторону хорды, и перенести величину 42°. В каталоге нет общего узла о вписанных углах; diameter_angle — лишь частный случай.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Приравнивать вписанные углы, опирающиеся на одну дугу&quot;,
+        &quot;definition&quot;: &quot;Для двух вписанных углов с вершинами на окружности по одну сторону от общей хорды заключить их равенство (половина общей дуги); для вершин по разные стороны углы дополняют друг друга до 180°, это отдельный случай.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_adbf18f11761&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Луч BD лежит внутри угла ABC (по рисунку), поэтому ∠ABD = ∠ABC − ∠DBC&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;∠ABD = 103° − 42° = 61°&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;image:assets/84bcfbf410ddd1e2f417e82c.png&quot;,
+          &quot;region_description&quot;: &quot;Из вершины B выходят лучи BA, BD, BC; луч BD расположен между BA и BC&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;,
+        &quot;image:assets/84bcfbf410ddd1e2f417e82c.png&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_f5a787e19d0e&quot;,
+          &quot;reason&quot;: &quot;Сумма углов треугольника/смежность не используются; здесь вычитание углов с общей стороной BC&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Сопоставлено положение лучей BA, BD, BC с общей вершиной B и вычтен известный угол DBC из ABC — совпадает с определением целиком. Положение луча обосновано рисунком (вписанный четырёхугольник ABCD с порядком вершин также это подтверждает).&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>13D60B</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">В цилиндре образующая перпендикулярна плоскости основания. <br> На окружности одного из оснований цилиндра выбраны точки <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>A</mi>  </semantics> </mstyle></math> и <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>B</mi>  </semantics> </mstyle></math>, <br> а на окружности другого основания <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mo>—</mo>  </semantics> </mstyle></math> точки <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <msub> <mi>B</mi> <mn>1</mn> </msub> </mrow>  </semantics> </mstyle></math> и <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <msub> <mi>C</mi> <mn>1</mn> </msub> </mrow>  </semantics> </mstyle></math>, причём <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>B</mi><msub> <mi>B</mi> <mn>1</mn> </msub> </mrow>  </semantics> </mstyle></math> <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mo>—</mo>  </semantics> </mstyle></math> образующая цилиндра, а отрезок <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><msub> <mi>C</mi> <mn>1</mn> </msub> </mrow>  </semantics> </mstyle></math> пересекает ось цилиндра.</p> <p class="MsoNormal">а) Докажите, что угол <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>B</mi><msub> <mi>C</mi> <mn>1</mn> </msub> </mrow>  </semantics> </mstyle></math> прямой.</p> <p class="MsoNormal">б) Найдите объём цилиндра, если <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mo>=</mo><mn>7</mn> </mrow>  </semantics> </mstyle></math>, <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>B</mi><msub> <mi>B</mi> <mn>1</mn> </msub> <mo>=</mo><mn>24</mn> </mrow>  </semantics> </mstyle></math>, <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <msub> <mi>B</mi> <mn>1</mn> </msub> <msub> <mi>C</mi> <mn>1</mn> </msub> <mo>=</mo><mn>10</mn> </mrow>  </semantics> </mstyle></math>.</p> <p class="MsoNormal"><span> </span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;13D60B&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;а) доказано; б) 894π&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Спроецировать C1 вдоль образующей на основание с A, B: получить точку C на окружности, CC1 — образующая; проекция отрезка AC1 есть AC и проходит через проекцию точки пересечения с осью, т.е. через центр основания&quot;,
+      &quot;result&quot;: &quot;AC — диаметр основания, BB1C1C — прямоугольник&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Применить свойство вписанного угла, опирающегося на диаметр&quot;,
+      &quot;result&quot;: &quot;∠ABC = 90°, AB ⊥ BC&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Из перпендикулярности образующей плоскости основания и AB ⊥ BC вывести AB ⊥ плоскости BB1C1C по признаку перпендикулярности прямой и плоскости, откуда AB ⊥ BC1&quot;,
+      &quot;result&quot;: &quot;∠ABC1 = 90°&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Найти BC как противоположную сторону прямоугольника BB1C1C и вычислить диаметр AC по теореме Пифагора в треугольнике ABC&quot;,
+      &quot;result&quot;: &quot;BC = 10, AC = √149, R² = 149/4&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s5&quot;,
+      &quot;action&quot;: &quot;Вычислить объём цилиндра V = πR²h при h = BB1&quot;,
+      &quot;result&quot;: &quot;V = π·149/4·24 = 894π&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Проецировать точку и отрезок одного основания цилиндра на другое вдоль образующей&quot;,
+      &quot;description&quot;: &quot;Вход: точки на окружностях оснований цилиндра. Операция: ортогональная проекция вдоль образующей, сохранение длин параллельных основаниям отрезков и прохождения через ось. Граница: прямой цилиндр.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Применять свойство вписанного угла, опирающегося на диаметр&quot;,
+      &quot;description&quot;: &quot;Вход: вписанный угол, стороны которого проходят через концы диаметра. Операция: заключить, что угол прямой. Граница: точки лежат на одной окружности.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Доказывать перпендикулярность прямых через признак перпендикулярности прямой и плоскости&quot;,
+      &quot;description&quot;: &quot;Вход: прямая, перпендикулярная двум пересекающимся прямым плоскости. Операция: вывести перпендикулярность прямой плоскости и любой прямой в ней. Граница: прямые в плоскости должны пересекаться.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Находить сторону прямоугольного треугольника по теореме Пифагора&quot;,
+      &quot;description&quot;: &quot;Вход: две стороны прямоугольного треугольника. Операция: вычислить третью сторону. Граница: прямой угол обоснован.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc5&quot;,
+      &quot;name&quot;: &quot;Вычислять объём цилиндра по радиусу основания и высоте&quot;,
+      &quot;description&quot;: &quot;Вход: радиус (или его квадрат) и высота цилиндра. Операция: V = πR²h. Граница: прямой круговой цилиндр.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Доказательство через проекцию на основание и перпендикулярность прямой плоскости&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;m2&quot;,
+      &quot;name&quot;: &quot;Вычисление объёма через диаметр основания из прямоугольного треугольника&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s4&quot;,
+        &quot;s5&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;13D60B&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Спроецировать C1 вдоль образующей на основание с A, B: получить точку C на окружности, CC1 — образующая&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;AC — диаметр основания, BB1C1C — прямоугольник&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_91697073f741&quot;,
+          &quot;reason&quot;: &quot;Связывает высоту точки с перпендикуляром к линии пересечения вертикальной плоскости и основания; не охватывает проекцию отрезка между основаниями цилиндра и прохождение проекции через центр.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_1c069a073c08&quot;,
+          &quot;reason&quot;: &quot;Относится к осевому сечению конуса, а не к проекции точек цилиндра вдоль образующей.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: ортогональная проекция точки и отрезка одного основания прямого цилиндра на плоскость другого вдоль образующей с выводом, что проекция AC1 проходит через центр (проекцию оси), т.е. AC — диаметр. Подходящего определения в каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;В прямом круговом цилиндре проецировать точки и отрезки вдоль образующей на плоскость основания: проекция точки окружности одного основания лежит на окружности другого, проекция точки оси — центр основания; получать прямоугольники из пар образующих.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;diameter_angle&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Применить свойство вписанного угла, опирающегося на диаметр&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;∠ABC = 90°, AB ⊥ BC&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [],
+      &quot;rationale&quot;: &quot;Точка B на окружности основания, AC — диаметр (из s1); вывод прямого угла ABC полностью соответствует определению diameter_angle.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;вывести AB ⊥ плоскости BB1C1C по признаку перпендикулярности прямой и плоскости, откуда AB ⊥ BC1&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;∠ABC1 = 90°&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_71811f9f6a63&quot;,
+          &quot;reason&quot;: &quot;Покрывает только доказательство перпендикулярности прямой плоскости по двум пересекающимся прямым; вывод перпендикулярности AB и BC1 из определения перпендикулярности прямой и плоскости в него не входит.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат объединяет (1) признак перпендикулярности прямой и плоскости (AB ⊥ BC и AB ⊥ BB1, BB1 ⊥ основанию по условию) и (2) использование определения: прямая, перпендикулярная плоскости, перпендикулярна любой прямой в ней (BC1).&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;part&quot;: &quot;Доказать AB ⊥ плоскости BB1C1C по двум пересекающимся прямым BC и BB1&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;literal_71811f9f6a63&quot;
+          },
+          {
+            &quot;part&quot;: &quot;Из AB ⊥ плоскости вывести AB ⊥ BC1, лежащей в плоскости&quot;,
+            &quot;possible_catalog_kc_id&quot;: null
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;pythagoras&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;вычислить диаметр AC по теореме Пифагора в треугольнике ABC&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;AC = √149&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_d4dd6695995d&quot;,
+          &quot;reason&quot;: &quot;Длина вектора по координатам; координаты не используются.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Прямой угол ABC установлен в s2; AC² = 7² + 10² = 149, положительный корень. Соответствует pythagoras целиком.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i2&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc5&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s5:action&quot;,
+          &quot;quote&quot;: &quot;Вычислить объём цилиндра V = πR²h при h = BB1&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s5:result&quot;,
+          &quot;quote&quot;: &quot;V = π·149/4·24 = 894π&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s4:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;cylinder_lateral&quot;,
+          &quot;reason&quot;: &quot;Площадь боковой поверхности S=2πrh, а не объём.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_19971b364ca1&quot;,
+          &quot;reason&quot;: &quot;Объём призмы по многоугольному основанию; цилиндр не входит.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+          &quot;reason&quot;: &quot;Подстановка в заданную прикладную формулу; здесь стандартная геометрическая формула объёма.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Вычисление объёма прямого кругового цилиндра V=πR²h с обоснованными R² и высотой; в каталоге узла нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Вычислять объём прямого кругового цилиндра V=πR²h при обоснованных радиусе основания и высоте, перпендикулярной основаниям.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;coverage&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s3:action&quot;
+      ],
+      &quot;description&quot;: &quot;В s3 явно не указано, что AB ⊥ BB1 (BB1 ⊥ плоскости основания по условию, AB лежит в ней) и что BC и BB1 пересекаются; это вторая прямая для признака, сказано лишь косвенно.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;i2&quot;,
+      &quot;kind&quot;: &quot;missing_annotation&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s4:action&quot;
+      ],
+      &quot;description&quot;: &quot;Получение BC = B1C1 = 10 как противоположной стороны прямоугольника BB1C1C выполнено в s4, но не размечено отдельным KC; kc4 покрывает только теорему Пифагора. Вычисления (AC²=149, V=894π) проверены и верны.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc4&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>0B2322</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">На рисунке изображён график функции <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>y</mi><mo>=</mo><mi>f</mi><mrow><mo>(</mo> <mi>x</mi> <mo>)</mo></mrow><mo>.</mo> </mrow> </semantics> </math> На оси абсцисс отмечено семь точек: <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msub> <mi>x</mi> <mn>1</mn> </msub> <mo>,</mo> </mrow> </semantics> </math> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msub> <mi>x</mi> <mn>2</mn> </msub> <mo>,</mo> </mrow> </semantics> </math> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msub> <mi>x</mi> <mn>3</mn> </msub> <mo>,</mo> </mrow> </semantics> </math> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msub> <mi>x</mi> <mn>4</mn> </msub> <mo>,</mo> </mrow> </semantics> </math> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msub> <mi>x</mi> <mn>5</mn> </msub> <mo>,</mo> </mrow> </semantics> </math> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msub> <mi>x</mi> <mn>6</mn> </msub> <mo>,</mo> </mrow> </semantics> </math> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msub> <mi>x</mi> <mn>7</mn> </msub> <mo>.</mo> </mrow> </semantics> </math> Найдите количество отмеченных точек, в которых производная функции <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>f</mi><mrow><mo>(</mo> <mi>x</mi> <mo>)</mo></mrow> </mrow> </semantics> </math> положительна.</p> <p class="MsoNormal" align="center"><img src="file:///Users/bogdanlukancuk/proactive-ai-tutor-65/data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/inputs/assets/c1b4cd62c40f42af682dc6cd.png" alt="Рисунок ФИПИ"></p> <p class="MsoNormal"><span> </span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;0B2322&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;3&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;По графику определить характер монотонности функции в каждой отмеченной точке (возрастает, убывает или точка экстремума)&quot;,
+      &quot;result&quot;: &quot;x1 — точка минимума; x2, x3, x5 — на участках возрастания; x4 — около точки минимума/на убывании; x6, x7 — на участках убывания&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Связать знак производной с монотонностью: f&#x27;(x)&gt;0 там, где функция возрастает, и подсчитать такие точки&quot;,
+      &quot;result&quot;: &quot;f&#x27;&gt;0 в точках x2, x3, x5; количество 3&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Определить по графику функции характер монотонности в заданной точке&quot;,
+      &quot;description&quot;: &quot;Вход: график функции и точка на оси абсцисс. Операция: установить, лежит ли точка на участке возрастания, убывания или в точке экстремума. Граница: только визуальное чтение графика.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Определить знак производной по монотонности функции&quot;,
+      &quot;description&quot;: &quot;Вход: характер монотонности функции в точке. Операция: применить связь возрастание — f&#x27;&gt;0, убывание — f&#x27;&lt;0, гладкий экстремум — f&#x27;=0. Граница: дифференцируемая функция.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Знак производной через монотонность по графику функции&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: [
+    &quot;Положение x3, x4 и x6 относительно экстремумов определено визуально по рисунку и близко к экстремумам; классификация x3 как возрастания и x4, x6 как не-возрастания требует сверки.&quot;
+  ]
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;0B2322&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;По графику определить характер монотонности функции в каждой отмеченной точке&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;image:assets/c1b4cd62c40f42af682dc6cd.png&quot;,
+          &quot;region_description&quot;: &quot;График y=f(x) с семью пунктирными отметками x1..x7 на оси абсцисс; в каждой отметке нужно определить, поднимается или опускается кривая&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;image:assets/c1b4cd62c40f42af682dc6cd.png&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;graph_coordinates&quot;,
+          &quot;reason&quot;: &quot;Считывание координат точек, а не направления изменения функции&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_9aee0783618d&quot;,
+          &quot;reason&quot;: &quot;Чтение знака по графику производной, здесь дан график самой функции&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;,
+          &quot;reason&quot;: &quot;Вывод монотонности из знака производной, а не визуальное чтение графика функции&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: визуально определить возрастание/убывание/экстремум графика функции в заданной точке. В каталоге нет узла чтения монотонности по графику самой функции.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Определять по графику функции возрастание/убывание в заданной точке&quot;,
+        &quot;definition&quot;: &quot;По графику y=f(x) установить, лежит ли отмеченная абсцисса на участке возрастания, убывания или в точке экстремума; без вычисления производной.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Связать знак производной с монотонностью: f&#x27;(x)&gt;0 там, где функция возрастает, и подсчитать такие точки&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;,
+          &quot;reason&quot;: &quot;Обратное направление вывода: от знака производной к монотонности; здесь от монотонности к знаку производной&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;local_extreme_sign&quot;,
+          &quot;reason&quot;: &quot;Классифицирует экстремум по смене знака, а не знак производной в точке&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_6ad8f502588e&quot;,
+          &quot;reason&quot;: &quot;Отбор по промежутку, а не по знаку производной; подсчёт здесь тривиален&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: по характеру монотонности в точке заключить знак f&#x27; (возрастание — f&#x27;&gt;0 при строгом наклоне, экстремум — f&#x27;=0) и посчитать точки. Близкий узел derivative_monotonicity описывает обратную импликацию; совпадения определения нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Определять знак производной по монотонности функции в точке&quot;,
+        &quot;definition&quot;: &quot;Для дифференцируемой функции по участку строгого возрастания/убывания или гладкому экстремуму в точке заключить f&#x27;&gt;0, f&#x27;&lt;0 или f&#x27;=0.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;math&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s2:result&quot;,
+        &quot;image:assets/c1b4cd62c40f42af682dc6cd.png&quot;
+      ],
+      &quot;description&quot;: &quot;На рисунке отметка x3 визуально совпадает с локальным максимумом (f&#x27;=0), а x6 лежит между двумя пиками на нисходящем участке; если x3 — экстремум, положительна производная только в x2 и x5 и ответ 2, а не 3. Классификация x3 и x5 требует сверки с эталоном; на тип KC это не влияет.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc1&quot;,
+        &quot;kc2&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>FEE4C3</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">На рисунке изображены график функции<span> <span class="apple-converted-space"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>y</mi><mo>=</mo><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo> </mrow>  </semantics> </mstyle></math></span> </span>и касательная к нему <br> в точке с абсциссой<span> <span class="apple-converted-space"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <msub> <mi>x</mi> <mn>0</mn> </msub> </mrow>  </semantics> </mstyle></math></span></span>. Найдите значение производной функции<span> <span class="apple-converted-space"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo> </mrow>  </semantics> </mstyle></math></span> <br> </span>в точке<span> <span class="apple-converted-space"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <msub> <mi>x</mi> <mn>0</mn> </msub> </mrow>  </semantics> </mstyle></math></span></span>.</p> <p class="MsoNormal" align="center"><span><img src="file:///Users/bogdanlukancuk/proactive-ai-tutor-65/data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/inputs/assets/b59265763b0887452c0152ea.png" alt="Рисунок ФИПИ"></span><span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;FEE4C3&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;1,4&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Определить по рисунку две точки касательной с целочисленными координатами на сетке&quot;,
+      &quot;result&quot;: &quot;Касательная проходит через точки (-6; -2) и (-1; 5)&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Вычислить угловой коэффициент касательной по двум точкам и отождествить его со значением производной в точке касания&quot;,
+      &quot;result&quot;: &quot;k = (5-(-2))/(-1-(-6)) = 7/5 = 1,4; f&#x27;(x0) = k = 1,4&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;,
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Считать координаты точек прямой по клетчатому графику&quot;,
+      &quot;description&quot;: &quot;По изображению прямой на координатной сетке выбрать точки, лежащие на прямой в узлах сетки, и записать их координаты; применимо, когда такие узлы различимы на рисунке.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Вычислить угловой коэффициент прямой по двум точкам&quot;,
+      &quot;description&quot;: &quot;По координатам двух различных точек невертикальной прямой найти k как отношение приращения ординаты к приращению абсциссы.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Применить геометрический смысл производной&quot;,
+      &quot;description&quot;: &quot;Значение производной функции в точке касания приравнять к угловому коэффициенту касательной к графику в этой точке; требует, чтобы касательная была невертикальной.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Производная через угловой коэффициент касательной по графику&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: [
+    &quot;Координаты точек считаны с растрового рисунка по узлам сетки; масштаб определён по подписям осей.&quot;
+  ]
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;FEE4C3&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;uncertain&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Определить по рисунку две точки касательной с целочисленными координатами на сетке&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;Касательная проходит через точки (-6; -2) и (-1; 5)&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;image:assets/b59265763b0887452c0152ea.png&quot;,
+          &quot;region_description&quot;: &quot;Прямая-касательная от левого нижнего угла сетки (около x=-6, y=-2) вверх вправо через узлы сетки к верхнему краю левее оси y; подписи осей -6, -1, 0, 1, 2, -2, 1, 5, 7&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;image:assets/b59265763b0887452c0152ea.png&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;graph_coordinates&quot;,
+          &quot;reason&quot;: &quot;Определение покрывает считывание отмеченных точек и пересечений с осями по масштабу; здесь точки не отмечены, а выбираются как узлы сетки на прямой. Близко, но граница определения не включает выбор неотмеченных узлов явно.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция — считывание координат по масштабу сетки, объект — неотмеченные узлы, через которые проходит изображённая прямая. Это близко к graph_coordinates, но условие отмеченности точки не выполнено; неясно, расширять ли узел или выделять отдельный. По рисунку прочтение (-6;-2) и (-1;5) правдоподобно и согласуется с наклоном.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;k = (5-(-2))/(-1-(-6)) = 7/5 = 1,4&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_f253b50b98a1&quot;,
+          &quot;reason&quot;: &quot;Требует найти оба коэффициента y=kx+b; здесь найден только k, b не вычисляется — это компонент, не полное действие.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;direct_proportion&quot;,
+          &quot;reason&quot;: &quot;Касается y=kx по одной точке, а не приращений по двум точкам.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдаемое действие — отношение приращений Δy/Δx по двум точкам невертикальной прямой. Полного соответствия в каталоге нет: ближайший узел шире (включает b).&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Вычислять угловой коэффициент прямой по двум точкам&quot;,
+        &quot;definition&quot;: &quot;По двум точкам невертикальной прямой с разными абсциссами найти k=(y2-y1)/(x2-x1); нахождение свободного члена не входит.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;отождествить его со значением производной в точке касания&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;f&#x27;(x0) = k = 1,4&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_9aee0783618d&quot;,
+          &quot;reason&quot;: &quot;Считывание знака производной по графику производной, а не значение по касательной.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;stationary_point&quot;,
+          &quot;reason&quot;: &quot;Касается нулей производной, не связи с наклоном касательной.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Действие — использовать равенство f&#x27;(x0) угловому коэффициенту касательной в точке x0. Узлов о геометрическом смысле производной в каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Применять геометрический смысл производной&quot;,
+        &quot;definition&quot;: &quot;Значение производной функции в точке касания приравнять к угловому коэффициенту невертикальной касательной к графику в этой точке.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>

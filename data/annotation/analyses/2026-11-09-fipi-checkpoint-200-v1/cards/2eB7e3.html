@@ -1,0 +1,88 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>2eB7e3</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>142. ФИПИ 2eB7e3 · партия 11</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">В соревнованиях по толканию ядра участвуют спортсмены из четырёх стран: 18 из <span>Эстонии</span>, 11 из <span>Латвии</span>, 15 из <span>Литвы </span>и 6 из <span>Польши</span>. Порядок, <br> в котором выступают спортсмены, определяется жребием. Найдите вероятность того, что спортсмен, выступающий первым, окажется из <span>Литвы</span>.<span></span></p>  </section></div><p>КЭС: 6.2 Вероятность</p><h2>Ответ</h2><p>0,3</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти общее число равновозможных исходов как сумму числа спортсменов всех стран</td><td>18+11+15+6=50</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Вычислить вероятность как отношение числа благоприятных исходов (спортсмены из Литвы) к общему числу</td><td>15/50=0,3</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Классическое определение вероятности&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Подсчитать число равновозможных исходов</h3><p>По описанию случайного выбора одного объекта из совокупности групп найти общее число исходов суммированием численностей групп; применимо, когда каждый объект выбирается с равной вероятностью.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Найти общее число равновозможных исходов как сумму числа спортсменов всех стран&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;18+11+15+6=50&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+      &quot;reason&quot;: &quot;Определение требует задать элементарные исходы и обосновать одинаковые вероятности; в s1 исходы (кто выступает первым) заданы неявно, равновозможность лишь названа словом, обоснование через жребий не записано; сам подсчёт n суммированием — арифметика, не отдельное действие модели.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;reason&quot;: &quot;Узел явно не включает подсчёт исходов; s1 выполняет только нахождение n.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдаемое действие — нахождение n=50 сложением численностей групп. Ближайший узел equiprobable_model покрывает выбор пространства исходов и обоснование равновозможности, но обоснование в шаге не наблюдается, а суммирование чисел само по себе не создаёт KC. Граница между частичным равновозможным моделированием и тривиальной арифметикой неоднозначна, поэтому соответствие не подтверждено.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc2"><h3>kc2 · Вычислить классическую вероятность</h3><p>По числу благоприятных и общему числу равновозможных исходов найти вероятность события как их отношение; применимо только при равновозможности исходов.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Вычислить вероятность как отношение числа благоприятных исходов (спортсмены из Литвы) к общему числу&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;15/50=0,3&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+      &quot;reason&quot;: &quot;Это узел построения модели; формула m/n в нём явно исключена.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция m/n в конечной равновозможной модели: m=15 из условия, n=50 из s1, результат 0,3 верен. Соответствует определению целиком; обоснование равновозможности узел не включает.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;missing_annotation&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s1:action&quot;
+    ],
+    &quot;description&quot;: &quot;Равновозможность исходов (первым выступает любой спортсмен с одинаковой вероятностью из-за жребия) в решении только названа, но не обоснована отдельным шагом; действие построения равновозможной модели не размечено явно.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc1&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/2eB7e3.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/2eB7e3.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

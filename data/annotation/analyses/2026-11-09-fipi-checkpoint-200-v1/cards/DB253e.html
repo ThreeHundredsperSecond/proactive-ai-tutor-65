@@ -1,0 +1,91 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>DB253e</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>94. ФИПИ DB253e · партия 7</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">В соревнованиях по толканию ядра участвуют спортсмены из четырёх стран: 9 из <span>Швейцарии</span>, 7 из <span>Чехии</span>, 8 из <span>Словакии </span>и 11 из <span>Австрии</span>. Порядок, <br> в котором выступают спортсмены, определяется жребием. Найдите вероятность того, что спортсмен, выступающий первым, окажется из <span>Чехии</span>.<span></span></p>  </section></div><p>КЭС: 6.2 Вероятность</p><h2>Ответ</h2><p>0,2</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти общее число спортсменов как сумму участников всех стран</td><td>9+7+8+11=35</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Вычислить вероятность того, что первый выступающий из Чехии, как отношение числа чешских спортсменов к общему числу при равновозможных исходах жребия</td><td>7/35=0,2</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Классическое определение вероятности&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Подсчитать общее число равновозможных исходов</h3><p>По данным о численности непересекающихся групп найти общее число элементарных исходов сложением; применимо, когда каждый объект соответствует одному исходу.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Найти общее число спортсменов как сумму участников всех стран&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;9+7+8+11=35&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+      &quot;reason&quot;: &quot;Определение требует задать элементарные исходы и обосновать равные вероятности; в s1 выполнен только подсчёт их числа сложением, обоснования равновозможности здесь нет.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;reason&quot;: &quot;Покрывает вычисление m/n; комбинаторный подсчёт n явно не включается автоматически.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — подсчёт общего числа исходов (n) сложением численностей непересекающихся групп. В каталоге нет узла для подсчёта числа исходов конечной модели. Действие арифметически тривиально; возможно, при консолидации его стоит отнести к общему подсчёту исходов, а не выделять отдельно.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Подсчитывать число исходов по непересекающимся группам&quot;,
+    &quot;definition&quot;: &quot;Найти число элементарных исходов конечной модели как сумму численностей непересекающихся групп, когда каждому объекту соответствует ровно один исход.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Вычислить классическую вероятность</h3><p>По числу благоприятных и общему числу равновозможных исходов найти вероятность как их отношение; применимо только при равновозможности исходов (случайный жребий).</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;как отношение числа чешских спортсменов к общему числу при равновозможных исходах жребия&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;7/35=0,2&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+      &quot;reason&quot;: &quot;Равновозможность лишь констатирована в s2, а не построена и обоснована; формула m/n относится к classical_probability.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В конечной равновозможной модели вычислено m/n: m=7 из условия, n=35 из s1. Результат 0,2 верен. Обоснование равновозможности в узел не входит.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;missing_annotation&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s2:action&quot;
+    ],
+    &quot;description&quot;: &quot;Предпосылка равновозможности (жребий: любой спортсмен с равной вероятностью выступает первым) лишь упомянута внутри s2 и не выделена как шаг с KC equiprobable_model. На соответствие kc2 не влияет.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc2&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/author/DB253e.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-07-fipi-team-bogdan108-051-150/raw/auditor/DB253e.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

@@ -1,0 +1,220 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>858BD4</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><a href="../index.html">Сводка</a><h1>858BD4</h1><p>sol50</p><p>Предварительные разборы, внешнего эталона нет.</p><h2>Условие</h2>Дайте развернутый ответ.<div><section>  <p class="MsoNormal"><a name="_GoBack"></a>а) Решите уравнение</p> <p class="MsoNormal" align="center"><span><img src="../../../runs/2026-11-08-fipi-team-ThreeHundredsperSecond-50/inputs/assets/2447313e58d2d7053f75b909.png" alt="Рисунок ФИПИ"></span></p> <p class="MsoNormal">б) Укажите корни этого уравнения, принадлежащие отрезку <span><img src="../../../runs/2026-11-08-fipi-team-ThreeHundredsperSecond-50/inputs/assets/312c1d49c05dc6099a52aac4.png" alt="Рисунок ФИПИ"></span></p>  </section></div><h2>Состав и исключения</h2><pre>{
+  &quot;complete&quot;: true,
+  &quot;included&quot;: true,
+  &quot;exclusion_reasons&quot;: [],
+  &quot;author_mode&quot;: &quot;standalone_initial&quot;,
+  &quot;author_path&quot;: &quot;raw\\author\\858BD4.json&quot;,
+  &quot;auditor_path&quot;: &quot;raw\\auditor\\858BD4.json&quot;,
+  &quot;feedback_ref&quot;: null,
+  &quot;source_run&quot;: &quot;data/annotation/runs/2026-11-08-fipi-team-ThreeHundredsperSecond-50&quot;
+}</pre><h2>Буквальный сохранённый разбор: ответ, шаги, KC, методы</h2><pre>{
+  &quot;task_id&quot;: &quot;858BD4&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;а) x = πn, n ∈ ℤ, или x = ±3π/4 + 2πk, k ∈ ℤ. б) −2π, −5π/4, −π.&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Перенести слагаемые в одну часть и применить формулу косинуса двойного угла.&quot;,
+      &quot;result&quot;: &quot;Уравнение cos x · cos 2x = √2 sin² x + cos x определено при всех действительных x. Оно равносильно cos x(cos 2x − 1) − √2 sin² x = 0, то есть sin² x(2 cos x + √2) = 0, поскольку cos 2x − 1 = −2 sin² x.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Приравнять к нулю множители и решить полученные простейшие тригонометрические уравнения.&quot;,
+      &quot;result&quot;: &quot;sin² x = 0 или 2 cos x + √2 = 0. Отсюда sin x = 0 или cos x = −√2/2. Все корни: x = πn, n ∈ ℤ, или x = ±3π/4 + 2πk, k ∈ ℤ. Деления на выражение с переменной не было, поэтому корни не потеряны.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;,
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Ограничить целые параметры серий корней заданным отрезком.&quot;,
+      &quot;result&quot;: &quot;Для πn ∈ [−5π/2; −π] имеем −5/2 ≤ n ≤ −1, поэтому n = −2, −1 и корни −2π, −π. Для 3π/4 + 2πk получаем −13/8 ≤ k ≤ −7/8, то есть k = −1 и корень −5π/4. Для −3π/4 + 2πk получаем −7/8 ≤ k ≤ −1/8; целых k нет. Итак, на отрезке находятся ровно −2π, −5π/4, −π.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Разложить тригонометрическое выражение на множители через формулу двойного угла&quot;,
+      &quot;description&quot;: &quot;Для выражения, содержащего косинус двойного аргумента и квадрат синуса того же аргумента, применить тождество cos 2t − 1 = −2 sin² t и вынести общий множитель; преобразование тождественно для действительных аргументов.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Свести уравнение с произведением к совокупности уравнений&quot;,
+      &quot;description&quot;: &quot;Если произведение определённых действительных выражений равно нулю, приравнять каждый множитель к нулю и объединить множества решений без деления на потенциально нулевой множитель.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Решить простейшие тригонометрические уравнения по табличным значениям&quot;,
+      &quot;description&quot;: &quot;Для равенства синуса или косинуса известному табличному значению определить все углы с этим значением и записать полные серии решений с целыми параметрами, учитывая периодичность.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Отобрать корни периодических серий на отрезке&quot;,
+      &quot;description&quot;: &quot;Подставить каждую серию корней с целым параметром в двойное неравенство границ отрезка, найти допустимые целые параметры и объединить соответствующие корни с включением концов отрезка.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Разложение через формулу двойного угла с последующим отбором корней&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h2>Буквальный независимый аудит</h2><pre>{
+  &quot;decisions&quot;: [
+    {
+      &quot;rationale&quot;: &quot;Кандидат смешивает применение формулы двойного угла и вынесение общего множителя. Ни один узел не покрывает обе операции целиком. Близкие определения тождеств перекрываются и требуют сведения к одной функции; здесь остаются sin x и cos x.&quot;,
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;quote&quot;: &quot;Уравнение cos x · cos 2x = √2 sin² x + cos x определено при всех действительных x. Оно равносильно cos x(cos 2x − 1) − √2 sin² x = 0, то есть sin² x(2 cos x + √2) = 0, поскольку cos 2x − 1 = −2 sin² x.&quot;,
+          &quot;ref&quot;: &quot;step:s1:result&quot;
+        }
+      ],
+      &quot;blocking&quot;: false,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;limitation&quot;: &quot;Перекрывающиеся определения и условие сведения к одной функции не позволяют подтвердить полный match.&quot;,
+            &quot;action&quot;: &quot;Применить cos 2x − 1 = −2 sin² x&quot;,
+            &quot;possible_catalog_kc_ids&quot;: [
+              &quot;literal_cc7d68a38f29&quot;,
+              &quot;literal_55d5a6d9eb3c&quot;
+            ]
+          },
+          {
+            &quot;definition&quot;: &quot;Представить сумму тригонометрических выражений произведением посредством вынесения общего множителя с сохранением равносильности уравнения.&quot;,
+            &quot;action&quot;: &quot;Вынести общий множитель sin² x&quot;,
+            &quot;possible_catalog_kc_ids&quot;: []
+          }
+        ]
+      },
+      &quot;issue_ids&quot;: [],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;reason&quot;: &quot;Тождества не охватывают факторизацию; результат содержит две функции.&quot;,
+          &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;
+        },
+        {
+          &quot;reason&quot;: &quot;Перекрывается с предыдущим узлом и также требует сведения к одной функции.&quot;,
+          &quot;catalog_kc_id&quot;: &quot;literal_55d5a6d9eb3c&quot;
+        },
+        {
+          &quot;reason&quot;: &quot;Определение ограничено произведением sin и cos или sin двойного аргумента, здесь cos двойного аргумента.&quot;,
+          &quot;catalog_kc_id&quot;: &quot;literal_3d70ab3eb24a&quot;
+        },
+        {
+          &quot;reason&quot;: &quot;Описывает многочлен для исследования знака, здесь тригонометрическое уравнение.&quot;,
+          &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;
+        },
+        {
+          &quot;reason&quot;: &quot;Решение через нули множителей выполняется в s2, а не при факторизации s1.&quot;,
+          &quot;catalog_kc_id&quot;: &quot;zero_product&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;image:assets/2447313e58d2d7053f75b909.png&quot;
+      ],
+      &quot;status&quot;: &quot;needs_split&quot;
+    },
+    {
+      &quot;rationale&quot;: &quot;В s2 произведение сведено к нулям множителей, найдены нули и объединены полные серии. В s1 выражения определены на всей прямой; деления на потенциально нулевой множитель нет.&quot;,
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;quote&quot;: &quot;sin² x = 0 или 2 cos x + √2 = 0. Отсюда sin x = 0 или cos x = −√2/2. Все корни: x = πn, n ∈ ℤ, или x = ±3π/4 + 2πk, k ∈ ℤ. Деления на выражение с переменной не было, поэтому корни не потеряны.&quot;,
+          &quot;ref&quot;: &quot;step:s2:result&quot;
+        }
+      ],
+      &quot;blocking&quot;: false,
+      &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+      &quot;proposal&quot;: null,
+      &quot;issue_ids&quot;: [],
+      &quot;alternatives_checked&quot;: [],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;status&quot;: &quot;match&quot;
+    },
+    {
+      &quot;rationale&quot;: &quot;В s2 для sin x = 0 и cos x = −√2/2 правильно записаны все периодические серии на действительной прямой.&quot;,
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;quote&quot;: &quot;sin² x = 0 или 2 cos x + √2 = 0. Отсюда sin x = 0 или cos x = −√2/2. Все корни: x = πn, n ∈ ℤ, или x = ±3π/4 + 2πk, k ∈ ℤ. Деления на выражение с переменной не было, поэтому корни не потеряны.&quot;,
+          &quot;ref&quot;: &quot;step:s2:result&quot;
+        }
+      ],
+      &quot;blocking&quot;: false,
+      &quot;catalog_kc_id&quot;: &quot;elementary_trig_equation&quot;,
+      &quot;proposal&quot;: null,
+      &quot;issue_ids&quot;: [],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;reason&quot;: &quot;Описывает объединение нулей множителей; здесь непосредственно решаются простейшие тригонометрические уравнения.&quot;,
+          &quot;catalog_kc_id&quot;: &quot;zero_product&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;status&quot;: &quot;match&quot;
+    },
+    {
+      &quot;rationale&quot;: &quot;Все три периодические серии ограничены отрезком, найденным на изображении; правильно получены все целые параметры и соответствующие корни, включая правый конец.&quot;,
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;quote&quot;: &quot;Для πn ∈ [−5π/2; −π] имеем −5/2 ≤ n ≤ −1, поэтому n = −2, −1 и корни −2π, −π. Для 3π/4 + 2πk получаем −13/8 ≤ k ≤ −7/8, то есть k = −1 и корень −5π/4. Для −3π/4 + 2πk получаем −7/8 ≤ k ≤ −1/8; целых k нет. Итак, на отрезке находятся ровно −2π, −5π/4, −π.&quot;,
+          &quot;ref&quot;: &quot;step:s3:result&quot;
+        }
+      ],
+      &quot;blocking&quot;: false,
+      &quot;catalog_kc_id&quot;: &quot;periodic_interval&quot;,
+      &quot;proposal&quot;: null,
+      &quot;issue_ids&quot;: [],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;reason&quot;: &quot;Конечный набор без периодического параметра, тогда как здесь ограничиваются бесконечные серии.&quot;,
+          &quot;catalog_kc_id&quot;: &quot;literal_8409c9003f48&quot;
+        },
+        {
+          &quot;reason&quot;: &quot;Линейные неравенства лишь компонент отбора периодических корней.&quot;,
+          &quot;catalog_kc_id&quot;: &quot;literal_0cf8af170957&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;,
+        &quot;image:assets/312c1d49c05dc6099a52aac4.png&quot;
+      ],
+      &quot;status&quot;: &quot;match&quot;
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;task_id&quot;: &quot;858BD4&quot;,
+  &quot;issues&quot;: []
+}</pre><h2>Исторические редакторские назначения</h2><pre>[]</pre></html>
