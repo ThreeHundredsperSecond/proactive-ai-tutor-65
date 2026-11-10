@@ -1,4 +1,5 @@
 """Build the one-page practical-value brief from its Markdown source."""
+import re
 from pathlib import Path
 from xml.sax.saxutils import escape
 from reportlab.pdfgen import canvas
@@ -7,12 +8,20 @@ from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.colors import HexColor
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.lib.fonts import addMapping
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'docs/eda/05-analysis/checkpoint-2-practical-value.md'
 TARGET = ROOT / 'output/pdf/checkpoint-2-practical-value.pdf'
 INK, TEAL, MUTED = map(HexColor, ['#223B44', '#086B70', '#647780'])
 WIDTH = 511.276
+FONTS = {
+    'Body': ['C:/Windows/Fonts/arial.ttf', '/System/Library/Fonts/Supplemental/Arial.ttf', '/Library/Fonts/Arial.ttf'],
+    'BodyBold': ['C:/Windows/Fonts/arialbd.ttf', '/System/Library/Fonts/Supplemental/Arial Bold.ttf', '/Library/Fonts/Arial Bold.ttf'],
+}
+
+def inline(text):
+    return re.sub(r'\*\*(.+?)\*\*', r'<b>\1</b>', escape(text))
 
 class Cycle(Flowable):
     def __init__(self):
@@ -41,14 +50,17 @@ class Cycle(Flowable):
                 c.line(a + 6, y - 3, a + 9, y)
 
 def build():
-    fonts = Path('C:/Windows/Fonts')
-    for name, file in [('Body', 'arial.ttf'), ('BodyBold', 'arialbd.ttf')]:
-        pdfmetrics.registerFont(TTFont(name, str(fonts / file)))
-    body = ParagraphStyle('body', fontName='Body', fontSize=10.2, leading=14.3, spaceAfter=7, textColor=INK)
-    title = ParagraphStyle('title', parent=body, fontName='BodyBold', fontSize=25, leading=30, spaceAfter=7, textColor=TEAL)
-    heading = ParagraphStyle('heading', parent=body, fontName='BodyBold', fontSize=11.3, leading=15, spaceBefore=9, spaceAfter=6, textColor=TEAL, keepWithNext=True)
-    subtitle = ParagraphStyle('subtitle', parent=body, fontSize=9, leading=12, spaceAfter=13, textColor=MUTED)
-    bullet = ParagraphStyle('bullet', parent=body, leftIndent=11, bulletIndent=0, spaceAfter=6)
+    for name, candidates in FONTS.items():
+        file = next((f for f in candidates if Path(f).is_file()), None)
+        assert file, f'Arial not found for {name}: {candidates}'
+        pdfmetrics.registerFont(TTFont(name, file))
+    addMapping('Body', 0, 0, 'Body')
+    addMapping('Body', 1, 0, 'BodyBold')
+    body = ParagraphStyle('body', fontName='Body', fontSize=9.4, leading=12.6, spaceAfter=5, textColor=INK)
+    title = ParagraphStyle('title', parent=body, fontName='BodyBold', fontSize=22, leading=26, spaceAfter=4, textColor=TEAL)
+    heading = ParagraphStyle('heading', parent=body, fontName='BodyBold', fontSize=10.8, leading=14, spaceBefore=6, spaceAfter=4, textColor=TEAL, keepWithNext=True)
+    subtitle = ParagraphStyle('subtitle', parent=body, fontSize=9, leading=12, spaceAfter=8, textColor=MUTED)
+    bullet = ParagraphStyle('bullet', parent=body, leftIndent=11, bulletIndent=0, spaceAfter=3)
     note = ParagraphStyle('note', parent=body, fontSize=8, leading=11, textColor=MUTED, spaceBefore=6, spaceAfter=0)
     story = []
     blocks = SOURCE.read_text(encoding='utf-8').strip().split('\n\n')
@@ -57,11 +69,11 @@ def build():
             story.append(Cycle())
         elif block.startswith('- '):
             for line in block.splitlines():
-                story.append(Paragraph(escape(line.removeprefix('- ')), bullet, bulletText='•'))
+                story.append(Paragraph(inline(line.removeprefix('- ')), bullet, bulletText='•'))
         else:
             style = title if block.startswith('# ') else heading if block.startswith('## ') else subtitle if i == 1 else note if block.startswith('Основание:') else body
             text = block.removeprefix('## ').removeprefix('# ').replace('\n', ' ')
-            story.append(Paragraph(escape(text), style))
+            story.append(Paragraph(inline(text), style))
     def footer(c, doc):
         c.setStrokeColor(HexColor('#D4E3E4'))
         c.line(42, 33, 553.276, 33)
@@ -79,7 +91,8 @@ def build():
     pdf = PdfReader(TARGET)
     assert len(pdf.pages) == 1, f'Expected one page, got {len(pdf.pages)}'
     text = pdf.pages[0].extract_text()
-    for token in ['1148', '315', '312', '20', '280', '71%', '83%', 'KC', 'Целая задача', 'рабочей версией']:
+    for token in ['1148', '315', '312', '20', '280', '71%', '83%', 'KC', 'Целая задача', 'рабочей версией',
+                  'Трудности и их серьёзность', 'Как оценивать качество']:
         assert token in text, f'Missing text: {token}'
     print(TARGET)
 
