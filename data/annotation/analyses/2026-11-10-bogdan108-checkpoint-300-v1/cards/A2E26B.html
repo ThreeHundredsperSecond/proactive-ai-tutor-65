@@ -1,0 +1,114 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>A2E26B</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>72. ФИПИ A2E26B · бронь #4, партия 6</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal"><span>На рисунке изображён график функции </span><span><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <mrow> <mi>y</mi><mo>=</mo><mi>f</mi><mrow> <mo fence="true">(</mo><mi>x</mi> <mo fence="true">)</mo></mrow></mrow> </mstyle></math></span><span>. На оси абсцисс отмечены точки 1, 2, 3, 4. В какой из этих точек значение производной <br> функции <span><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <mrow> <mi>f</mi><mrow> <mo fence="true">(</mo><mi>x</mi> <mo fence="true">)</mo></mrow></mrow> </mstyle></math></span> наименьшее? В ответе укажите эту точку.</span></p> <p class="MsoNormal" align="center"><img src="../../../runs/2026-11-09-fipi-team-bogdan108-next-100/inputs/assets/c618fad0f004feacda64e77f.png" alt="Рисунок ФИПИ"></p> <p class="MsoNormal"><span> </span></p>  </section></div><p>КЭС: 4.2 Применение производной к исследованию функций на монотонность и экстремумы. Нахождение наибольшего и наименьшего значения функции на отрезке</p><h2>Ответ</h2><p>2</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>S1 · condition</td><td>По графику определить характер монотонности функции в каждой из отмеченных точек 1, 2, 3, 4 и тем самым знак производной</td><td>В точках 1 и 4 функция возрастает (f&#x27;&gt;0); в точках 2 и 3 убывает (f&#x27;&lt;0)</td><td>KC1</td></tr><tr><td>S2 · S1, condition</td><td>Сравнить крутизну убывания графика в точках с отрицательной производной</td><td>В точке 2 график убывает круто (между локальным максимумом около 1,8 и локальным минимумом около 2,2), в точке 3 — полого вблизи максимума около 2,8; наименьшая производная в точке 2</td><td>KC2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;M1&quot;,
+    &quot;name&quot;: &quot;Отбор по знаку производной, затем сравнение наклона&quot;,
+    &quot;step_ids&quot;: [
+      &quot;S1&quot;,
+      &quot;S2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="KC1"><h3>KC1 · Определить знак производной по участку монотонности графика функции</h3><p>Вход: график функции и точка абсциссы. Операция: установить, возрастает или убывает функция в окрестности точки, и вывести знак производной. Граница: точки дифференцируемости вне экстремумов.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S1:action&quot;,
+      &quot;quote&quot;: &quot;По графику определить характер монотонности функции в каждой из отмеченных точек 1, 2, 3, 4 и тем самым знак производной&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S1:result&quot;,
+      &quot;quote&quot;: &quot;В точках 1 и 4 функция возрастает (f&#x27;&gt;0); в точках 2 и 3 убывает (f&#x27;&lt;0)&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;image:assets/c618fad0f004feacda64e77f.png&quot;,
+      &quot;region_description&quot;: &quot;График y=f(x) на [-2;4,2]: около x=1 кривая поднимается от минимума около (0,4;-3); около x=2 спускается от локального максимума около (1,8;0,9) к минимуму около (2,2;0,5); около x=3 спускается после максимума около (2,8;2); около x=4 поднимается от минимума около (3,7;0)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;image:assets/c618fad0f004feacda64e77f.png&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;,
+      &quot;reason&quot;: &quot;Обратное направление вывода: узел выводит монотонность из знака производной, а здесь знак производной выводится из наблюдаемой по графику функции монотонности.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9aee0783618d&quot;,
+      &quot;reason&quot;: &quot;Относится к графику производной (выше/ниже оси), а в задаче дан график самой функции.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;graph_coordinates&quot;,
+      &quot;reason&quot;: &quot;Считывание координат точек, а не направления изменения функции и знака производной.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: по графику функции установить возрастание/убывание в окрестности отмеченной точки и вывести знак производной. Объект — график f, не f&#x27;. Ни одно определение каталога не описывает этот переход от монотонности к знаку производной.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Определять знак производной по монотонности графика функции&quot;,
+    &quot;definition&quot;: &quot;По графику функции y=f(x) установить, возрастает или убывает функция в окрестности точки дифференцируемости, и сделать вывод о знаке f&#x27;(x0) (неотрицательна/неположительна; строгий знак — при видимом ненулевом наклоне).&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="KC2"><h3>KC2 · Сравнить значения производной по крутизне графика</h3><p>Вход: график функции и несколько точек с известным знаком производной. Операция: сравнить наклон касательных, учитывая знак, и выбрать наименьшее/наибольшее значение. Граница: качественное сравнение при визуально различимом наклоне.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S2:action&quot;,
+      &quot;quote&quot;: &quot;Сравнить крутизну убывания графика в точках с отрицательной производной&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S2:result&quot;,
+      &quot;quote&quot;: &quot;В точке 2 график убывает круто (между локальным максимумом около 1,8 и локальным минимумом около 2,2), в точке 3 — полого вблизи максимума около 2,8; наименьшая производная в точке 2&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;image:assets/c618fad0f004feacda64e77f.png&quot;,
+      &quot;region_description&quot;: &quot;Участок у x=2: резкий спуск между пиком около (1,8;0,9) и впадиной около (2,2;0,5); участок у x=3: пологий спуск вскоре после вершины около (2,8;2)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:S1:result&quot;,
+    &quot;image:assets/c618fad0f004feacda64e77f.png&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9aee0783618d&quot;,
+      &quot;reason&quot;: &quot;Даёт только знак по графику производной, без сравнения величин наклона.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;derivative_monotonicity&quot;,
+      &quot;reason&quot;: &quot;Связывает знак и монотонность, но не сравнивает значения производной.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: сравнить значения производной в точках как угловые коэффициенты касательных к графику функции с учётом знака и выбрать наименьшее. В каталоге нет узла о геометрическом смысле производной как наклона касательной.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Сравнивать значения производной по наклону касательных к графику&quot;,
+    &quot;definition&quot;: &quot;Интерпретировать f&#x27;(x0) как угловой коэффициент касательной к графику f и качественно сравнить значения производной в нескольких точках с учётом знака; применимо при визуально различимом наклоне.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[
+  &quot;Сравнение наклона в точках 2 и 3 выполнено визуально по рисунку&quot;
+]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:S2:result&quot;,
+      &quot;image:assets/c618fad0f004feacda64e77f.png&quot;
+    ],
+    &quot;description&quot;: &quot;Сравнение наклона в точках 2 и 3 только визуальное; по рисунку спуск у x=2 заметно круче, чем у x=3, ответ 2 согласуется с рисунком. Неточность: S2 описывает точку 2 как лежащую между максимумом около 1,8 и минимумом около 2,2 — на рисунке это верно, но точка 3 названа «вблизи максимума около 2,8», что тоже условно; на соответствие не влияет.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;KC2&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/A2E26B.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/A2E26B.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

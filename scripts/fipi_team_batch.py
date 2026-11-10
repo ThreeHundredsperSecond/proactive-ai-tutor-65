@@ -8,6 +8,9 @@ Historical runs and scripts are read, never modified.
 
 Commands (from the repository root):
   prepare        --run DIR --issue URL --owner LOGIN --from-order N --to-order M --model ID
+  sample-plan    --run DIR --selection FILE --sample-seed S   (control tasks of a selection, before any answer)
+  prepare        --run DIR --issue URL --owner LOGIN --model ID --selection FILE [--base BRANCH]
+                 (IDs outside the frozen queue; needs checks/batch-NN-sample-plan.json and -math-expected.json first)
   reserve        --run DIR --confirmed-by NAME --comment-url URL   (record coordinator's `reserved`)
   verify         --run DIR
   audit-request  --run DIR --task ID
@@ -119,22 +122,131 @@ def same_request_except_images(old, new):
     return op == np_ and oj == nj and names(oi) == names(ni)
 
 
-def prepare(a):
-    run = run_dir(a.run)
-    if (run / 'manifest.json').exists():
-        verify(a)
-        print('Already prepared; nothing re-selected or rewritten.')
-        return
-    registry = read(TEAM / 'registry.json')
-    assert registry['method_version'] == METHOD_VERSION
-    methodology = []
-    for name in METHOD_FILES:
-        src = SRC / name
-        want = registry['methodology_sha256'][rel(src)]
-        assert fsha(src) == want, f'methodology drift: {name}'
-        freeze(run / name, src.read_bytes())
-        methodology.append({'path': name, 'sha256': want, 'source': rel(src)})
+def selection_items(path):
+    """Tasks of a separately reserved selection file (outside the frozen queue), with the queue's descriptive fields."""
+    sel = read(path)
+    bank = bank_records()
+    assert sel['bank_tasks_sha256'] == fsha(BANK / 'tasks.jsonl'), 'selection made on another bank snapshot'
+    items = []
+    for t in sel['tasks']:
+        r = bank[t['task_id']]
+        items.append({'order': t['order'], 'task_id': t['task_id'], 'batch': t['batch'],
+                      'primary_kes': fx.meta(r, 'КЭС:')[0].split()[0], 'response_type': fx.meta(r, 'Тип ответа:')[0],
+                      'images': len(r['assets']), 'mathml': r['mathml_count']})
+    assert [t['order'] for t in items] == list(range(1, len(items) + 1))
+    return sel, items
 
+
+def check_extra_claim(registry, claims, ids):
+    """Preflight for IDs outside the frozen queue: unprocessed, no source issue, not in the queue, not occupied."""
+    errors = [] if len(set(ids)) == len(ids) else ['Repeated ID in selection']
+    tasks = {x['task_id']: x for x in registry['tasks']}
+    occupied = {tid: c['issue_url'] for c in claims['claims']
+                if c['status'] in ('reserved', 'in_progress', 'submitted', 'accepted') for tid in c['task_ids']}
+    for tid in ids:
+        task = tasks.get(tid)
+        if task is None:
+            errors.append(f'Unknown ID (case-sensitive): {tid}')
+        elif task['processing_status'] != 'not_started':
+            errors.append(f'Already processed: {tid}')
+        elif task['source_issues']:
+            errors.append(f'Source issue: {tid}')
+        elif task['queue_order'] is not None:
+            errors.append(f'Inside the frozen queue: {tid}')
+        if tid in occupied:
+            errors.append(f'Occupied: {tid}: {occupied[tid]}')
+    return errors
+
+
+def sample_ids(seed, ids, k=3):
+    """Deterministic control tasks of a batch: first k by SHA256(seed + ':' + task_id)."""
+    return sorted(ids, key=lambda t: sha((seed + ':' + t).encode()))[:k]
+
+
+def sample_plan(a):
+    """Write checks/batch-NN-sample-plan.json for every batch of a selection file, before any author answer."""
+    run = run_dir(a.run)
+    assert a.selection and a.sample_seed, '--selection and --sample-seed are required'
+    assert not (run / 'raw').exists(), 'author answers already exist: control tasks must be fixed before them'
+    _, items = selection_items(ROOT / a.selection)
+    for b in sorted({t['batch'] for t in items}):
+        ids = [t['task_id'] for t in items if t['batch'] == b]
+        freeze(run / 'checks' / f'batch-{b:02}-sample-plan.json', {
+            'batch': b, 'task_ids': sample_ids(a.sample_seed, ids), 'seed': a.sample_seed,
+            'rule': "first 3 task IDs of the batch by SHA256(seed + ':' + task_id); fixed before any author answer"})
+        print(b, sample_ids(a.sample_seed, ids))
+
+
+def prepare_selection(a, run, registry, methodology):
+    """prepare for a selection file outside the frozen queue (e.g. issue #4). Same packets, own predeclared checks."""
+    sel_path = ROOT / a.selection
+    sel, items = selection_items(sel_path)
+    ids = [t['task_id'] for t in items]
+    errors = check_extra_claim(registry, read(TEAM / 'claims.json'), ids)
+    assert not errors, errors
+    queue = read(SRC / 'selection.json')
+    excluded = {x['task_id'] for x in read(SRC / 'exclusions.json')}
+    assert not set(ids) & ({t['task_id'] for t in queue['tasks']} | excluded), 'overlap with frozen queue or exclusions'
+    # Method part of every request must equal the frozen queue's (prompt + wrapper); only the task data differ.
+    ref = (SRC / 'requests/author' / (queue['tasks'][0]['task_id'] + '.txt')).read_text(encoding='utf-8')
+    ref_method, ref_json = ref.split(SEP, 1)
+    batches = sorted({t['batch'] for t in items})
+    checks = []
+    for b in batches:
+        plan = run / 'checks' / f'batch-{b:02}-sample-plan.json'
+        expected = run / 'checks' / f'batch-{b:02}-math-expected.json'
+        assert plan.exists() and expected.exists(), f'write {plan.name} and {expected.name} before prepare'
+        assert set(read(plan)['task_ids']) <= {t['task_id'] for t in items if t['batch'] == b}
+        assert {c['task_id'] for c in read(expected)['checks']} == set(read(plan)['task_ids']), expected.name
+        for p in (plan, expected):
+            checks.append({'path': 'checks/' + p.name, 'sha256': fsha(p), 'source': 'written in this run before any author answer'})
+
+    bank = bank_records()
+    tasks = []
+    for t in items:
+        tid = t['task_id']
+        r = bank[tid]
+        src_input = BANK / 'tasks' / (tid + '.json')
+        assert read(src_input)['id'] == tid
+        freeze(run / 'inputs/tasks' / (tid + '.json'), src_input.read_bytes())
+        assets = []
+        for asset in r['assets']:
+            data = (BANK / asset['path']).read_bytes()
+            if asset.get('sha256'):
+                assert sha(data) == asset['sha256'], f'asset hash mismatch: {asset["path"]}'
+            freeze(run / 'inputs' / asset['path'], data)
+            assets.append({'path': asset['path'], 'sha256': sha(data)})
+        packet = author_packet(run, r)
+        method, body = packet.split(SEP, 1)
+        assert method == ref_method and list(json.loads(body)) == list(json.loads(ref_json)), tid
+        req = run / 'requests/author' / (tid + '.txt')
+        freeze(req, packet)
+        tasks.append({**t, 'input_sha256': fsha(src_input), 'request_sha256': fsha(req), 'assets': assets})
+
+    freeze(run / 'active-attempts.json', {})
+    commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT).decode().strip()
+    branch = subprocess.check_output(['git', 'branch', '--show-current'], cwd=ROOT).decode().strip()
+    base = subprocess.check_output(['git', 'rev-parse', a.base], cwd=ROOT).decode().strip()
+    freeze(run / 'manifest.json', {
+        'schema_version': 1, 'method_version': METHOD_VERSION, 'issue_url': a.issue, 'owner': a.owner,
+        'base_branch': a.base, 'base_commit': base, 'head_at_prepare': commit, 'branch': branch, 'source_run': rel(SRC),
+        'selection': {'path': rel(sel_path), 'sha256': fsha(sel_path), 'seed': sel['seed'], 'rule': sel['rule'],
+                      'pool_size': sel['pool_size']},
+        'queue_orders': [items[0]['order'], items[-1]['order']],
+        'batches': {str(b): [t['task_id'] for t in items if t['batch'] == b] for b in batches},
+        'sources': {rel(p): fsha(p) for p in [BANK / 'tasks.jsonl', sel_path, SRC / 'selection.json',
+                                              SRC / 'exclusions.json', TEAM / 'registry.json', TEAM / 'claims.json']},
+        'code': {rel(p): fsha(p) for p in [ROOT / 'scripts/fipi_team_batch.py']},
+        'methodology': methodology, 'predeclared_checks': checks,
+        'check_scope': 'Predeclared primary-assistant spot expectation written in this run before any author answer; not full expert proof',
+        'request_equivalence': ('author requests built by the same code as the 2026-11-07 run; the method part (author prompt + wrapper) '
+                                'is identical to the frozen queue requests, only the task data and image paths differ'),
+        'tasks': tasks})
+    return ids, commit, branch, tasks, checks
+
+
+def prepare_queue(a, run, registry, methodology):
+    """Original prepare: a range of the frozen 2026-11-02 queue with its predeclared checks."""
     from fipi_team_registry import check_claim
     selection = read(SRC / 'selection.json')
     items = [t for t in selection['tasks'] if a.from_order <= t['order'] <= a.to_order]
@@ -186,6 +298,29 @@ def prepare(a):
         'methodology': methodology, 'predeclared_checks': checks,
         'request_equivalence': 'author requests identical to the frozen queue requests except absolute image_files paths',
         'tasks': tasks})
+    return ids, commit, branch, tasks, checks
+
+
+def prepare(a):
+    run = run_dir(a.run)
+    if (run / 'manifest.json').exists():
+        verify(a)
+        print('Already prepared; nothing re-selected or rewritten.')
+        return
+    registry = read(TEAM / 'registry.json')
+    assert registry['method_version'] == METHOD_VERSION
+    methodology = []
+    for name in METHOD_FILES:
+        src = SRC / name
+        want = registry['methodology_sha256'][rel(src)]
+        assert fsha(src) == want, f'methodology drift: {name}'
+        freeze(run / name, src.read_bytes())
+        methodology.append({'path': name, 'sha256': want, 'source': rel(src)})
+
+    if a.selection:
+        ids, commit, branch, tasks, checks = prepare_selection(a, run, registry, methodology)
+    else:
+        ids, commit, branch, tasks, checks = prepare_queue(a, run, registry, methodology)
     packages = {}
     for p in ['lxml', 'Pillow', 'numpy', 'matplotlib', 'nbformat', 'nbclient']:
         try:
@@ -472,6 +607,8 @@ def health_math(a):
     """Compare predeclared expectations (written before any author answer) with active author answers."""
     run = run_dir(a.run); b = a.batch
     plan = read(run / 'checks' / f'batch-{b:02}-sample-plan.json')
+    scope = read(run / 'manifest.json').get('check_scope',
+                                            'Predeclared primary-assistant spot expectation from the 2026-11-02 run; not full expert proof')
     expected = {}
     for kind in ['math-expected', 'math-supplement']:
         p = run / 'checks' / f'batch-{b:02}-{kind}.json'
@@ -498,7 +635,7 @@ def health_math(a):
         checks.append({'task_id': t, 'status': status, 'expected_answer': e.get('expected_answer'), 'author_answer': ans,
                        'calculation': e.get('calculation'), 'expectation_source': e['source'],
                        'prepared_before_new_author_answers': e.get('prepared_before_new_author_answers', False),
-                       'scope': 'Predeclared primary-assistant spot expectation from the 2026-11-02 run; not full expert proof',
+                       'scope': scope,
                        **({'post_hoc_review': review} if review else {})})
     out = run / 'checks' / f'batch-{b:02}{sfx(a.attempt)}-math.json'
     freeze(out, {'batch': b, 'attempt': a.attempt, 'checks': checks,
@@ -574,7 +711,7 @@ def health_finish(a):
 
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument('command', choices=['prepare', 'reserve', 'verify', 'audit-request', 'attempt-init', 'exec-start', 'attach',
+    p.add_argument('command', choices=['prepare', 'sample-plan', 'reserve', 'verify', 'audit-request', 'attempt-init', 'exec-start', 'attach',
                                        'exec-finish', 'validate', 'status', 'health-render', 'health-math', 'health-visual',
                                        'health-finish', 'activate'])
     p.add_argument('--attempt'); p.add_argument('--reason')
@@ -586,11 +723,12 @@ def main():
     p.add_argument('--confirmed-by'); p.add_argument('--comment-url')
     p.add_argument('--role', choices=['author', 'auditor']); p.add_argument('--task')
     p.add_argument('--agent-id'); p.add_argument('--message')
+    p.add_argument('--selection'); p.add_argument('--sample-seed'); p.add_argument('--base', default='docs/full-ege-math-scope')
     a = p.parse_args()
     if a.command == 'audit-request':
         print(rel(audit_request(run_dir(a.run), a.task)))
     else:
-        {'prepare': prepare, 'reserve': reserve, 'verify': verify, 'exec-start': exec_start, 'attach': attach,
+        {'prepare': prepare, 'sample-plan': sample_plan, 'reserve': reserve, 'verify': verify, 'exec-start': exec_start, 'attach': attach,
          'exec-finish': exec_finish, 'validate': validate, 'status': status,
          'health-render': health_render, 'health-math': health_math, 'health-visual': health_visual,
          'health-finish': health_finish, 'attempt-init': attempt_init, 'activate': activate}[a.command](a)

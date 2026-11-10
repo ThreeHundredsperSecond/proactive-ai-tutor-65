@@ -1,0 +1,147 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>9017F9</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>59. ФИПИ 9017F9 · бронь #4, партия 5</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal"><span>Найдите значение выражения<span class="apple-converted-space"> </span></span><a name="MTBlankEqn"><span><img src="../../../runs/2026-11-09-fipi-team-bogdan108-next-100/inputs/assets/3f95291559dd455e5e6f714c.gif" alt="Рисунок ФИПИ"></span></a><span>.</span></p>  </section></div><p>КЭС: 1.5 Синус, косинус и тангенс числового аргумента. Арксинус, арккосинус, арктангенс числового аргумента; 1.8 Преобразование выражений</p><h2>Ответ</h2><p>-13</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти табличное значение cos(π/4)</td><td>cos(π/4)=√2/2</td><td>kc1</td></tr><tr><td>s2 · condition</td><td>Найти cos(4π/3) через формулу приведения: 4π/3=π+π/3, угол в III четверти, косинус отрицателен</td><td>cos(4π/3)=-cos(π/3)=-1/2</td><td>kc2, kc1</td></tr><tr><td>s3 · condition, s1, s2</td><td>Подставить значения и вычислить произведение</td><td>26√2·(√2/2)·(-1/2)=-13</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Вычисление значений тригонометрических функций и подстановка&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Определить табличное значение тригонометрической функции</h3><p>Вход: стандартный угол (0, π/6, π/4, π/3, π/2). Операция: указать точное значение sin/cos/tg по таблице. Граница: только стандартные углы первой четверти.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Найти табличное значение cos(π/4)&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;cos(π/4)=√2/2&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;-cos(π/3)=-1/2&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;image:assets/3f95291559dd455e5e6f714c.gif&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+      &quot;reason&quot;: &quot;Подстановка аргумента в установленную формулу функции; не описывает знание точного значения тригонометрической функции стандартного угла.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_be5764a81415&quot;,
+      &quot;reason&quot;: &quot;Отношение сторон в прямоугольном треугольнике; здесь треугольника нет, значение берётся по таблице.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;,
+      &quot;reason&quot;: &quot;Тождественные преобразования (приведение, двойной угол), а не вычисление значения стандартного угла.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: указать точное значение cos для стандартного угла первой четверти (π/4 в s1, π/3 внутри s2). В каталоге нет узла о табличных значениях тригонометрических функций.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Определять табличное значение тригонометрической функции стандартного угла&quot;,
+    &quot;definition&quot;: &quot;Для угла 0, π/6, π/4, π/3, π/2 указать точное значение sin, cos или tg (при определённости). Приведение угла из других четвертей — отдельное действие.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Применить формулу приведения</h3><p>Вход: угол вида πk/2±α. Операция: свести значение тригонометрической функции к функции острого угла, определив знак по четверти и смену функции. Граница: углы, представимые через кратные π/2 и стандартный острый угол.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Найти cos(4π/3) через формулу приведения: 4π/3=π+π/3, угол в III четверти, косинус отрицателен&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;cos(4π/3)=-cos(π/3)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;image:assets/3f95291559dd455e5e6f714c.gif&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;,
+      &quot;reason&quot;: &quot;Включает формулы приведения, но определение шире (вместе с двойным углом) и описывает сведение выражения к функции одного аргумента; дублируется узлом literal_55d5a6d9eb3c.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_55d5a6d9eb3c&quot;,
+      &quot;reason&quot;: &quot;Почти идентичное определение (приведение и двойной угол); нет основания выбрать один из двух перекрывающихся узлов.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_534413234aa8&quot;,
+      &quot;reason&quot;: &quot;Выбор знака по четверти при извлечении корня из квадрата функции; здесь знак определяется в формуле приведения, а не при извлечении корня.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдаемое действие — применение формулы приведения cos(π+α)=-cos α с определением знака по четверти. Оно является компонентом двух перекрывающихся узлов каталога (literal_cc7d68a38f29 и literal_55d5a6d9eb3c), которые к тому же объединяют приведение и двойной угол; по правилу о двух перекрывающихся определениях ставится uncertain.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc3"><h3>kc3 · Вычислить произведение с иррациональными множителями</h3><p>Вход: числовое выражение с корнями и дробями. Операция: перемножить, используя (√a)²=a, и упростить. Граница: произведения без сложения корней.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Подставить значения и вычислить произведение&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;26√2·(√2/2)·(-1/2)=-13&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;image:assets/3f95291559dd455e5e6f714c.gif&quot;,
+    &quot;step:s1:result&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+      &quot;reason&quot;: &quot;Законы степеней положительного основания; здесь умножение корней √2·√2=2 без явного степенного преобразования.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+      &quot;reason&quot;: &quot;Вычисление значения функции по формуле; здесь числовое выражение без функции.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+      &quot;reason&quot;: &quot;Подстановка величин в прикладную формулу с единицами; не относится к числовому выражению.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция: подставить найденные значения и перемножить числа с иррациональным множителем, используя √2·√2=2 (26·2/2·(-1/2)=-13). Подходящего узла о действиях с корнями в каталоге нет. Действие близко к рутинной арифметике; выделение отдельного KC — предложение, возможно его стоит объединить с более общим узлом преобразования числовых выражений с корнями.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Вычислять произведение числовых выражений с квадратными корнями&quot;,
+    &quot;definition&quot;: &quot;Перемножить числовые множители с корнями и дробями, используя √a·√a=a при a≥0, и упростить до числа. Сложение подобных корней и рационализация знаменателя не входят.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s2:action&quot;
+    ],
+    &quot;description&quot;: &quot;Шаг s2 объединяет формулу приведения (kc2) и табличное значение cos(π/3) (kc1); разметка корректна, но в каталоге формулы приведения представлены только в двух дублирующих узлах, смешанных с формулой двойного угла, что не даёт однозначного match.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc2&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/9017F9.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/9017F9.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

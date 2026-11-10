@@ -1,0 +1,92 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>C7D60A</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>27. ФИПИ C7D60A · бронь #4, партия 2</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <table class="MsoTableGrid" border="0" cellspacing="0" cellpadding="0"> <tr> <td valign="top"> <p class="MsoNormal">Четырёхугольник <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mi>C</mi><mi>D</mi> </mrow> </semantics> </math> вписан в окружность. Угол <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mi>C</mi> </mrow> </semantics> </math> равен <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mn>103</mn><mi>°</mi><mo>,</mo> </mrow> </semantics> </math> угол <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>C</mi><mi>A</mi><mi>D</mi> </mrow> </semantics> </math> равен <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mn>42</mn><mi>°</mi><mo>.</mo> </mrow> </semantics> </math> Найдите угол <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mi>D</mi><mo>.</mo> </mrow> </semantics> </math> Ответ дайте в градусах.</p> </td> <td valign="top"> <p class="MsoNormal" align="right"><img src="../../../runs/2026-11-09-fipi-team-bogdan108-next-100/inputs/assets/84bcfbf410ddd1e2f417e82c.png" alt="Рисунок ФИПИ"></p> </td> </tr> </table> <p class="MsoNormal"><span> </span></p>  </section></div><p>КЭС: 7.1 Фигуры на плоскости</p><h2>Ответ</h2><p>61</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Угол DBC и угол CAD вписанные и опираются на одну дугу CD, поэтому равны</td><td>∠DBC = ∠CAD = 42°</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Луч BD лежит внутри угла ABC (по рисунку), поэтому ∠ABD = ∠ABC − ∠DBC</td><td>∠ABD = 103° − 42° = 61°</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Перенос угла через вписанные углы на одну дугу и вычитание&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Приравнять вписанные углы, опирающиеся на одну дугу</h3><p>Вход: два вписанных угла окружности, опирающиеся на одну и ту же дугу (вершины по одну сторону от хорды). Операция: заключить их равенство и перенести известную величину.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Угол DBC и угол CAD вписанные и опираются на одну дугу CD, поэтому равны&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;∠DBC = ∠CAD = 42°&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;image:assets/84bcfbf410ddd1e2f417e82c.png&quot;,
+      &quot;region_description&quot;: &quot;Точки A (слева), B (сверху), C (справа), D (снизу справа) на окружности; хорды AC и BD проведены, вершины A и B лежат по одну сторону от хорды CD&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;image:assets/84bcfbf410ddd1e2f417e82c.png&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;diameter_angle&quot;,
+      &quot;reason&quot;: &quot;Касается только прямого угла, опирающегося на диаметр; здесь дуга CD произвольная&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_f5a787e19d0e&quot;,
+      &quot;reason&quot;: &quot;Сумма углов треугольника и смежность, а не свойство вписанных углов&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;isosceles_angles&quot;,
+      &quot;reason&quot;: &quot;Равенство углов из равенства сторон, не из общей дуги&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Действие: установить равенство двух вписанных углов, опирающихся на одну дугу CD с вершинами по одну сторону хорды, и перенести величину 42°. В каталоге нет общего узла о вписанных углах; diameter_angle — лишь частный случай.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Приравнивать вписанные углы, опирающиеся на одну дугу&quot;,
+    &quot;definition&quot;: &quot;Для двух вписанных углов с вершинами на окружности по одну сторону от общей хорды заключить их равенство (половина общей дуги); для вершин по разные стороны углы дополняют друг друга до 180°, это отдельный случай.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Найти часть угла как разность углов</h3><p>Вход: угол, разбитый внутренним лучом на два угла, известны целый угол и одна часть. Операция: вычесть известную часть из целого. Граница: луч должен лежать внутри угла.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_adbf18f11761&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Луч BD лежит внутри угла ABC (по рисунку), поэтому ∠ABD = ∠ABC − ∠DBC&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;∠ABD = 103° − 42° = 61°&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;image:assets/84bcfbf410ddd1e2f417e82c.png&quot;,
+      &quot;region_description&quot;: &quot;Из вершины B выходят лучи BA, BD, BC; луч BD расположен между BA и BC&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;,
+    &quot;image:assets/84bcfbf410ddd1e2f417e82c.png&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_f5a787e19d0e&quot;,
+      &quot;reason&quot;: &quot;Сумма углов треугольника/смежность не используются; здесь вычитание углов с общей стороной BC&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Сопоставлено положение лучей BA, BD, BC с общей вершиной B и вычтен известный угол DBC из ABC — совпадает с определением целиком. Положение луча обосновано рисунком (вписанный четырёхугольник ABCD с порядком вершин также это подтверждает).&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[
+  &quot;Положение луча BD внутри угла ABC взято с рисунка.&quot;
+]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/C7D60A.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/C7D60A.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

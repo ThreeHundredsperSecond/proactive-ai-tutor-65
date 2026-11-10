@@ -1,0 +1,120 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>B1EBED</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>78. ФИПИ B1EBED · бронь #4, партия 6</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0"> <tr> <td valign="top"> <p class="MsoNormal">В прямоугольном параллелепипеде <span><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <mrow> <mi>A</mi><mi>B</mi><mi>C</mi><mi>D</mi><msub> <mi>A</mi> <mn>1</mn> </msub> <msub> <mi>B</mi> <mn>1</mn> </msub> <msub> <mi>C</mi> <mn>1</mn> </msub> <msub> <mi>D</mi> <mn>1</mn> </msub> </mrow> </mstyle></math></span> известно, что <span><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <mrow> <mi>A</mi><mi>B</mi><mo>=</mo><mn>7</mn></mrow> </mstyle></math></span>, <span><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <mrow> <mi>B</mi><mi>C</mi><mo>=</mo><mn>6</mn></mrow> </mstyle></math></span>, <span><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <mrow> <mi>A</mi><msub> <mi>A</mi> <mn>1</mn> </msub> <mo>=</mo><mn>5</mn></mrow> </mstyle></math></span>. Найдите объём многогранника, вершинами которого являются точки <i><span lang="EN-US">A</span></i>, <i><span lang="EN-US">B</span></i>, <i><span lang="EN-US">C</span></i>, <i><span lang="EN-US">A</span></i><sub>1</sub>, <i><span lang="EN-US">B</span></i><sub>1</sub>, <i><span lang="EN-US">C</span></i><sub>1</sub>.</p> </td> <td valign="top"> <p class="MsoNormal" align="right"><span><img src="../../../runs/2026-11-09-fipi-team-bogdan108-next-100/inputs/assets/ce03de60714763e9b695cb2c.png" alt="Рисунок ФИПИ"></span></p> </td> </tr> </table> <p class="MsoNormal"><span> </span></p>  </section></div><p>КЭС: 7.3 Многогранники</p><h2>Ответ</h2><p>105</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>S1 · condition</td><td>Определить многогранник ABCA1B1C1 как прямую треугольную призму, отсекаемую от прямоугольного параллелепипеда плоскостью ACC1A1, с основанием ABC и боковым ребром AA1, перпендикулярным основанию</td><td>ABCA1B1C1 — прямая призма с основанием ABC и высотой AA1 = 5</td><td>KC1</td></tr><tr><td>S2 · condition, S1</td><td>Вычислить площадь прямоугольного треугольника ABC (угол B прямой) как половину произведения катетов AB и BC</td><td>S(ABC) = 7·6/2 = 21</td><td>KC2</td></tr><tr><td>S3 · S1, S2</td><td>Вычислить объём призмы как произведение площади основания на высоту</td><td>V = 21·5 = 105</td><td>KC3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;M1&quot;,
+    &quot;name&quot;: &quot;Объём части параллелепипеда как прямой призмы: определить призму, найти площадь основания, умножить на высоту&quot;,
+    &quot;step_ids&quot;: [
+      &quot;S1&quot;,
+      &quot;S2&quot;,
+      &quot;S3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="KC1"><h3>KC1 · Распознать часть многогранника, заданную набором вершин</h3><p>По списку вершин, выбранных среди вершин известного многогранника, определить тип получившегося тела (например, призма или пирамида), его основание и высоту, используя свойства исходного многогранника (перпендикулярность рёбер, параллельность граней).</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC1&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S1:action&quot;,
+      &quot;quote&quot;: &quot;Определить многогранник ABCA1B1C1 как прямую треугольную призму, отсекаемую от прямоугольного параллелепипеда плоскостью ACC1A1, с основанием ABC и боковым ребром AA1, перпендикулярным основанию&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S1:result&quot;,
+      &quot;quote&quot;: &quot;ABCA1B1C1 — прямая призма с основанием ABC и высотой AA1 = 5&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;image:assets/ce03de60714763e9b695cb2c.png&quot;,
+      &quot;region_description&quot;: &quot;Прямоугольный параллелепипед: нижнее основание ABCD, верхнее A1B1C1D1, вертикальные рёбра AA1, BB1, CC1, DD1; в верхней грани проведена диагональ A1C1; диагональ AC нижнего основания не проведена&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;image:assets/ce03de60714763e9b695cb2c.png&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0cd75b4548b3&quot;,
+      &quot;reason&quot;: &quot;Покрывает распознавание призмы по двум параллельным равным основаниям и направлению боковых рёбер, что наблюдается в S1; но кандидат KC1 шире: общий выбор типа тела (призма или пирамида) по набору вершин и определение высоты через перпендикулярность рёбер. Граница между узким KC каталога и составным кандидатом неоднозначна&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6f2cb1731d16&quot;,
+      &quot;reason&quot;: &quot;Касается типа сечения плоскостью по пересечённым рёбрам, а не типа тела по набору вершин&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;pyramid_volume&quot;,
+      &quot;reason&quot;: &quot;Вычисление объёма пирамиды, не распознавание тела&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В S1 наблюдается распознавание прямой треугольной призмы ABCA1B1C1 с основаниями ABC и A1B1C1 и боковым ребром AA1 как высотой. Это действие близко к literal_0cd75b4548b3, но авторский кандидат сформулирован как общее распознавание любого тела по вершинам с определением основания и высоты; включение установления высоты (перпендикулярность AA1 основанию) выходит за определение каталога. Полное совпадение не подтверждено; возможна трактовка как match к literal_0cd75b4548b3 при сужении кандидата до призмы.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="KC2"><h3>KC2 · Вычислить площадь прямоугольного треугольника по катетам</h3><p>Если в треугольнике известны длины двух сторон, образующих прямой угол, найти площадь как половину их произведения; применимо только при подтверждённом прямом угле между этими сторонами.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;right_triangle_area&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S2:action&quot;,
+      &quot;quote&quot;: &quot;Вычислить площадь прямоугольного треугольника ABC (угол B прямой) как половину произведения катетов AB и BC&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S2:result&quot;,
+      &quot;quote&quot;: &quot;S(ABC) = 7·6/2 = 21&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [],
+  &quot;rationale&quot;: &quot;Операция — половина произведения катетов AB=7 и BC=6 при прямом угле B (следует из того, что ABCD — прямоугольник основания прямоугольного параллелепипеда). Распознавание прямого угла по определению узла отдельно и здесь взято из условия. Других близких узлов площади в каталоге нет.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="KC3"><h3>KC3 · Вычислить объём призмы</h3><p>По площади основания и высоте призмы (расстоянию между плоскостями оснований) найти объём как их произведение; для прямой призмы высота равна боковому ребру.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;KC3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_19971b364ca1&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:S3:action&quot;,
+      &quot;quote&quot;: &quot;Вычислить объём призмы как произведение площади основания на высоту&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:S3:result&quot;,
+      &quot;quote&quot;: &quot;V = 21·5 = 105&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:S1:result&quot;,
+    &quot;step:S2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;pyramid_volume&quot;,
+      &quot;reason&quot;: &quot;Тело — призма, множитель 1/3 не применяется&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Объём призмы как произведение площади основания 21 на перпендикулярную высоту AA1=5 (прямая призма, высота установлена в S1). Полностью соответствует определению узла. Ответ 105 = половина объёма параллелепипеда 7·6·5=210, что согласуется.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:S1:action&quot;
+    ],
+    &quot;description&quot;: &quot;Кандидат KC1 объединяет выбор типа тела (призма/пирамида) по набору вершин и установление высоты; каталожный literal_0cd75b4548b3 охватывает только распознавание призмы по основаниям и рёбрам. Граница не позволяет подтвердить match.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;KC1&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/B1EBED.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/B1EBED.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

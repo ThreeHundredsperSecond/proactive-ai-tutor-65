@@ -1,0 +1,199 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>e76FF5</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>10. ФИПИ e76FF5 · бронь #4, партия 1</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal"><a name="_GoBack"></a>Найдите все значения <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>a</mi><mo>,</mo></mrow></mstyle></math></span> при каждом из которых уравнение</p> <p class="MsoNormal" align="center"><span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mrow><mo fence="true">(</mo><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mi>x</mi></mrow><mo fence="true">)</mo></mrow><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><mrow><mo fence="true">(</mo><mrow><msup><mi>x</mi><mn>4</mn></msup><mo>−</mo><msup><mi>x</mi><mn>3</mn></msup><mo>−</mo><mi>x</mi><mo>+</mo><mn>1</mn></mrow><mo fence="true">)</mo></mrow><mi>a</mi><mo>−</mo><msup><mi>x</mi><mn>3</mn></msup><mo>+</mo><msup><mi>x</mi><mn>2</mn></msup><mo>=</mo><mn>0</mn></mrow></mstyle></math></span> </p> <p class="MsoNormal">имеет ровно два различных корня.</p>  </section></div><p>КЭС: 2.1 Целые и дробно-рациональные уравнения</p><h2>Ответ</h2><p>a ∈ {−1} ∪ [0; 1) ∪ (1; +∞)</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Разложить коэффициенты на множители: x^4−x^3−x+1=(x−1)^2(x^2+x+1), x^2−x=x(x−1), −x^3+x^2=−x^2(x−1); вынести общий множитель (x−1)</td><td>(x−1)(a^2x+a(x^3−1)−x^2)=0</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Разложить второй множитель группировкой</td><td>(x−1)(ax−1)(x^2+a)=0</td><td>kc1</td></tr><tr><td>s3 · s2</td><td>Выписать корни каждого множителя с условиями существования</td><td>x=1 при всех a; x=1/a при a≠0; x=±√(−a) при a≤0 (при a=0 корень x=0)</td><td>kc2</td></tr><tr><td>s4 · s3</td><td>Подсчитать различные корни при a&gt;0 с учётом совпадения 1/a=1</td><td>при a&gt;0 корни 1 и 1/a; два различных корня при a≠1, при a=1 один корень</td><td>kc3</td></tr><tr><td>s5 · s3</td><td>Подсчитать различные корни при a=0</td><td>корни 1 и 0 — два корня, a=0 подходит</td><td>kc3</td></tr><tr><td>s6 · s3</td><td>Подсчитать различные корни при a&lt;0, найдя значения a, при которых корни совпадают (√(−a)=1, −√(−a)=1/a)</td><td>совпадения только при a=−1: корни {1,−1} — два; при остальных a&lt;0 четыре различных корня</td><td>kc3</td></tr><tr><td>s7 · s4, s5, s6</td><td>Объединить подходящие значения параметра</td><td>a ∈ {−1} ∪ [0;1) ∪ (1;+∞)</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Разложение на множители и перебор случаев параметра с учётом совпадения корней&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;,
+      &quot;s5&quot;,
+      &quot;s6&quot;,
+      &quot;s7&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Разложить многочлен с параметром на множители</h3><p>Вход: полиномиальное уравнение с параметром; операция: разложение коэффициентов, вынесение общего множителя и группировка до произведения простых множителей; граница: применимо при наличии общего множителя или удачной группировки</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;вынести общий множитель (x−1)&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;(x−1)(a^2x+a(x^3−1)−x^2)=0&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Разложить второй множитель группировкой&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;(x−1)(ax−1)(x^2+a)=0&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_89adef4e8cee&quot;,
+      &quot;reason&quot;: &quot;ограничен квадратным трёхчленом с параметром; здесь многочлен четвёртой степени по x с параметром, разложение через общий множитель и группировку&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+      &quot;reason&quot;: &quot;цель — исследование знака с учётом кратности; здесь цель — решение уравнения, объект параметрический&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+      &quot;reason&quot;: &quot;факторизация без решения прямо исключена из этого узла&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдается разложение многочлена от x с параметром a на множители (общий множитель x−1 и группировка до (ax−1)(x^2+a)); разложение проверено раскрытием и верно. Ни одно определение каталога не покрывает факторизацию многочлена выше второй степени с параметром для решения уравнения.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Разложить многочленное уравнение с параметром на множители (выделение общего множителя, группировка) так, чтобы каждый множитель был простым относительно переменной; тождество проверяется раскрытием.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Найти корни каждого множителя с условиями на параметр</h3><p>Вход: произведение множителей, равное нулю (без ОДЗ-ограничений); операция: выразить корни каждого множителя через параметр и указать значения параметра, при которых они существуют</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Выписать корни каждого множителя с условиями существования&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;x=1 при всех a; x=1/a при a≠0; x=±√(−a) при a≤0 (при a=0 корень x=0)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+      &quot;reason&quot;: &quot;покрывает переход к нулям множителей, но не решение параметрических множителей&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_57e72251d4a8&quot;,
+      &quot;reason&quot;: &quot;покрывает x^2=−a с условием знака, но лишь для одного множителя&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;только числовые коэффициенты; ax=1 с параметром и условием a≠0 не входит&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет переход по нулевому произведению, решение линейного уравнения с параметром ax=1 (условие a≠0) и решение x^2=−a (условие a≤0). Это разные действия с разными каталожными соответствиями.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Переход к совокупности нулей множителей&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;zero_product&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Решение ax=1 с разбором a≠0/a=0&quot;,
+        &quot;possible_catalog_kc_id&quot;: null,
+        &quot;note&quot;: &quot;кандидат: решать линейное уравнение с параметром&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Решение x^2=−a в зависимости от знака a&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_57e72251d4a8&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Подсчитать число различных корней семейства в зависимости от параметра</h3><p>Вход: корни, выраженные через параметр; операция: разбить область параметра на случаи, найти значения совпадения корней и посчитать различные корни в каждом случае, объединить подходящие значения</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;два различных корня при a≠1, при a=1 один корень&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s6:action&quot;,
+      &quot;quote&quot;: &quot;найдя значения a, при которых корни совпадают (√(−a)=1, −√(−a)=1/a)&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s6:result&quot;,
+      &quot;quote&quot;: &quot;совпадения только при a=−1: корни {1,−1} — два; при остальных a&lt;0 четыре различных корня&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s7:action&quot;,
+      &quot;quote&quot;: &quot;Объединить подходящие значения параметра&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s7:result&quot;,
+      &quot;quote&quot;: &quot;a ∈ {−1} ∪ [0;1) ∪ (1;+∞)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s3:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_05f53e4cc43a&quot;,
+      &quot;reason&quot;: &quot;покрывает подсчёт различных решений объединения ветвей с учётом совпадений (s4–s6), но не объединение множества параметров&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_5dcd4a01af19&quot;,
+      &quot;reason&quot;: &quot;перекрывающееся определение подсчёта различных корней с границами; без основания выбрать одно&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_d93e50c17220&quot;,
+      &quot;reason&quot;: &quot;то же перекрытие&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_e41f0e408b87&quot;,
+      &quot;reason&quot;: &quot;покрывает только итоговое объединение множества параметров (s7)&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат смешивает разбор случаев параметра, решение уравнений совпадения корней, подсчёт различных корней и запись итогового множества параметров. Части имеют разные (и частично перекрывающиеся) узлы каталога.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Подсчёт различных корней в каждом случае параметра с учётом совпадений (s4, s5, s6)&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_05f53e4cc43a&quot;,
+        &quot;note&quot;: &quot;перекрывается с literal_5dcd4a01af19 и literal_d93e50c17220&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Решение условий совпадения корней √(−a)=1, −√(−a)=1/a&quot;,
+        &quot;possible_catalog_kc_id&quot;: null,
+        &quot;note&quot;: &quot;нелинейное уравнение относительно a, решение не показано&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Объединение подходящих значений параметра (s7)&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_e41f0e408b87&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;coverage&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s6:action&quot;,
+      &quot;step:s6:result&quot;
+    ],
+    &quot;description&quot;: &quot;Решение уравнений совпадения (в т.ч. −√(−a)=1/a ⇒ −a=1/a^2 ⇒ a=−1 с проверкой знаков) не выписано; также не проверено совпадение 1/a с √(−a) (невозможно при a&lt;0 по знаку). Итог a=−1 верен, ответ верен.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc3&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/e76FF5.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/e76FF5.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

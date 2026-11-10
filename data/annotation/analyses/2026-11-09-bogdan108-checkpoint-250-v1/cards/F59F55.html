@@ -1,0 +1,107 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>F59F55</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>16. ФИПИ F59F55 · бронь #4, партия 2</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal"><span>На конференцию </span>приехали учёные из трёх стран: <span>9 из Португалии, <br> 7 из Финляндии и 4 из Болгарии. Каждый из них делает на конференции один доклад. Порядок докладов определяется жеребьёвкой. Найдите вероятность того, что седьмым окажется доклад учёного из Португалии.</span><span></span></p>  </section></div><p>КЭС: 6.2 Вероятность</p><h2>Ответ</h2><p>0,45</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Найти общее число учёных как число равновозможных кандидатов на седьмое место: 9+7+4</td><td>20</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>По симметрии жеребьёвки вероятность, что на фиксированном месте доклад учёного из Португалии, равна доле португальских учёных: 9/20</td><td>0,45</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Классическая вероятность через симметрию позиции&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Подсчитать общее число равновозможных исходов</h3><p>По условию с несколькими группами объектов найти суммарное число объектов, каждый из которых равновозможно занимает рассматриваемую позицию; применимо, когда группы не пересекаются.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Найти общее число учёных как число равновозможных кандидатов на седьмое место: 9+7+4&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;20&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+      &quot;reason&quot;: &quot;Узел требует задать элементарные исходы и обосновать равновозможность; в s1 исходы (кандидат на седьмое место) названы, но обоснование равновозможности появляется только в s2 («По симметрии жеребьёвки»). Наблюдаемое в s1 действие — сложение численностей непересекающихся групп, т.е. лишь компонент модели.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;reason&quot;: &quot;Вычисление m/n в s1 не выполняется; находится только n.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция s1 — суммирование 9+7+4 как подсчёт n элементарных исходов. Это часть построения равновозможной модели, но без обоснования равновозможности в этом шаге; отдельный KC для простого сложения не оправдан (арифметику не дробить). Граница между kc1 и equiprobable_model неоднозначна, поэтому соответствие не подтверждено; возможное решение — объединить kc1 с обоснующей частью kc2 под equiprobable_model.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc2"><h3>kc2 · Применить симметрию случайной перестановки к фиксированной позиции</h3><p>При случайном равновероятном порядке объектов вероятность того, что на заданной позиции окажется объект из группы, равна отношению размера группы к общему числу объектов; позиция в очереди не влияет на ответ.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;По симметрии жеребьёвки вероятность, что на фиксированном месте доклад учёного из Португалии, равна доле португальских учёных: 9/20&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;0,45&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+      &quot;reason&quot;: &quot;Покрывает обоснование того, что каждый из 20 учёных равновозможно оказывается седьмым (симметрия жеребьёвки), но не вычисление 9/20.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;reason&quot;: &quot;Покрывает вычисление m/n=9/20, но явно не включает обоснование равновозможности.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет два действия: (1) редукцию случайной перестановки к равновозможному выбору учёного на фиксированную позицию по симметрии; (2) вычисление классической вероятности 9/20=0,45. Каталог разводит эти действия по двум узлам, поэтому целый кандидат не совпадает ни с одним из них.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Обосновать по симметрии случайной перестановки, что на фиксированной (седьмой) позиции каждый объект равновозможен&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;equiprobable_model&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Вычислить вероятность как 9/20&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;classical_probability&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s1:action&quot;,
+      &quot;step:s2:action&quot;
+    ],
+    &quot;description&quot;: &quot;Построение равновозможной модели распределено между s1 (подсчёт исходов) и s2 (обоснование симметрией), а s2 дополнительно содержит вычисление m/n. Границы локальных KC не совпадают с границами equiprobable_model и classical_probability. Математически ответ 9/20=0,45 верен.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc1&quot;,
+      &quot;kc2&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/F59F55.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/F59F55.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

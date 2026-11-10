@@ -1,0 +1,108 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>379055</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>33. ФИПИ 379055 · бронь #4, партия 3</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">На чемпионате по прыжкам в воду выступают 60 спортсменов, среди них <br> 19 спортсменов из <span>Голландии </span>и 24 спортсмена из <span>Дании</span>. Порядок выступлений определяется жеребьёвкой. Найдите вероятность того, что четвёртым будет выступать спортсмен из <span>Дании</span>.<span></span></p>  </section></div><p>КЭС: 6.2 Вероятность</p><h2>Ответ</h2><p>0,4</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Обосновать равновозможность: при жеребьёвке на четвёртом месте с равной вероятностью может оказаться любой из 60 спортсменов, поэтому вероятность равна доле спортсменов из Дании среди всех</td><td>P = 24/60</td><td>kc1</td></tr><tr><td>s2 · s1, condition</td><td>Вычислить отношение числа благоприятных исходов к числу всех исходов</td><td>24/60 = 0,4</td><td>kc2</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Классическая вероятность через симметрию позиций&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Свести вероятность события для фиксированной позиции при случайном порядке к доле объектов нужного типа</h3><p>Вход: случайная равновозможная перестановка конечного множества объектов и событие «на заданной позиции объект данного типа». Операция: по симметрии считать, что на позиции равновозможен любой объект, и выразить вероятность как отношение числа объектов типа к общему числу. Граница: только при равновозможности всех порядков и без дополнительных условий на другие позиции.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;при жеребьёвке на четвёртом месте с равной вероятностью может оказаться любой из 60 спортсменов&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;поэтому вероятность равна доле спортсменов из Дании среди всех&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;P = 24/60&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+      &quot;reason&quot;: &quot;Покрывает обоснование равновозможности исходов (кто на 4-м месте), но не запись вероятности как отношения 24/60.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+      &quot;reason&quot;: &quot;Покрывает m/n, но явно исключает обоснование равновозможности.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет построение равновозможной модели по симметрии позиций (исходы — спортсмен на 4-м месте, 60 равновозможных) и сведение вероятности к отношению 24/60. Каталог разделяет эти действия на два узла, поэтому одно соответствие неуместно.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;По симметрии жеребьёвки считать любого из 60 спортсменов равновозможным на 4-м месте&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;equiprobable_model&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Выразить вероятность как отношение числа датчан к числу всех спортсменов&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;classical_probability&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc2"><h3>kc2 · Вычислить классическую вероятность как отношение числа благоприятных исходов к числу всех</h3><p>Вход: числа благоприятных и всех равновозможных исходов. Операция: найти их отношение и записать в виде десятичной дроби. Граница: исходы конечны и равновозможны.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Вычислить отношение числа благоприятных исходов к числу всех исходов&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;24/60 = 0,4&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;equiprobable_model&quot;,
+      &quot;reason&quot;: &quot;Обоснование равновозможности выполнено в s1, не в s2.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;В конечной равновозможной модели (из s1) вычислено m/n = 24/60 = 0,4; совпадает с определением classical_probability.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><h2>Предупреждения автора</h2><pre>[
+  &quot;Число спортсменов из Голландии в решении не используется.&quot;
+]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s1:result&quot;,
+      &quot;step:s2:action&quot;
+    ],
+    &quot;description&quot;: &quot;Формирование отношения 24/60 уже выполнено в s1, а s2 лишь вычисляет его значение; граница между kc1 и kc2 частично перекрывается. Математически ответ 0,4 верен.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc1&quot;,
+      &quot;kc2&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/379055.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/379055.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

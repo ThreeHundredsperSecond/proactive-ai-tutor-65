@@ -1,0 +1,234 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>B3c1B7</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>22. ФИПИ B3c1B7 · бронь #4, партия 2</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">На столе лежит <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>N</mi></mstyle></math></span> монет по 2 рубля и <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mo stretchy="false">(</mo><mn>1200</mn><mo>−</mo><mi>N</mi><mo stretchy="false">)</mo></mrow></mstyle></math></span> монет по 5 рублей (<span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>N</mi></mstyle></math></span> — натуральное число от 1 до 1199). Оказалось, что если взять любые 500 монет, то сумма денег, набранная этими монетами, будет не меньше четверти от общей суммы денег на столе.</p> <p class="MsoNormal">а) Может ли <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>N</mi></mstyle></math></span> равняться 400?</p> <p class="MsoNormal">б) Может ли <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>N</mi></mstyle></math></span> равняться 600?</p> <p class="MsoNormal">в) Сколько различных значений может принимать число <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>N</mi><mo>?</mo></mrow></mstyle></math></span><span> </span></p>  </section></div><p>КЭС: 1.1 Натуральные и целые числа. Признаки делимости целых чисел; 2.10 Уравнения, неравенства и системы с параметрами</p><h2>Ответ</h2><p>а) да; б) нет; в) 977</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Выразить общую сумму денег через N</td><td>S = 2N + 5(1200−N) = 6000 − 3N</td><td>kc1</td></tr><tr><td>s2 · condition</td><td>Свести условие «любые 500 монет» к условию на минимальную сумму 500 монет: минимум достигается при выборе самых дешёвых монет</td><td>Условие равносильно: минимальная сумма 500 монет ≥ S/4; при N ≥ 500 минимум 1000, при N &lt; 500 минимум 2N + 5(500−N) = 2500 − 3N</td><td>kc2, kc3</td></tr><tr><td>s3 · s1, s2</td><td>Решить неравенство для случая N &lt; 500</td><td>2500 − 3N ≥ (6000 − 3N)/4 ⇔ 9N ≤ 4000 ⇔ N ≤ 444 (N натуральное)</td><td>kc4</td></tr><tr><td>s4 · s1, s2</td><td>Решить неравенство для случая N ≥ 500</td><td>1000 ≥ (6000 − 3N)/4 ⇔ 3N ≥ 2000 ⇔ N ≥ 667 (N натуральное)</td><td>kc4</td></tr><tr><td>s5 · s3, s4</td><td>Проверить N = 400 и N = 600 по полученным условиям</td><td>N = 400: 400 ≤ 444, минимум 1300 ≥ 4800/4 = 1200 — может; N = 600: 500 ≤ 600 &lt; 667, минимум 1000 &lt; 4200/4 = 1050 — не может</td><td>kc5</td></tr><tr><td>s6 · s3, s4, condition</td><td>Подсчитать число натуральных N из [1;1199], удовлетворяющих условию</td><td>N ∈ {1,…,444} ∪ {667,…,1199}: 444 + 533 = 977 значений</td><td>kc6</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Сведение к худшему случаю и решение неравенств по случаям&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;,
+      &quot;s5&quot;,
+      &quot;s6&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Составить выражение суммы по количествам и номиналам</h3><p>По количествам предметов каждого вида и их стоимостям записать общую сумму как линейное выражение от параметра.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;S = 2N + 5(1200−N) = 6000 − 3N&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_44188b61870f&quot;,
+      &quot;reason&quot;: &quot;Строит бюджетное ограничение по технологической зависимости и ставкам, а не выражение общей суммы по количествам и номиналам.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+      &quot;reason&quot;: &quot;Подстановка в заданную формулу; здесь формула составляется самостоятельно.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — составление линейной модели суммы по количествам двух видов предметов и их стоимостям с параметром N; в каталоге нет узла составления такого выражения.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;По количествам предметов каждого вида и их стоимостям записать общую стоимость как выражение от параметра и упростить его.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Свести условие «для любого выбора» к экстремальному случаю</h3><p>Утверждение, которое должно выполняться для всех подмножеств заданного размера, заменить эквивалентным условием на подмножество с экстремальным (минимальным) значением величины.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Свести условие «любые 500 монет» к условию на минимальную сумму 500 монет&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;Условие равносильно: минимальная сумма 500 монет ≥ S/4&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;optimal_bound_attainment&quot;,
+      &quot;reason&quot;: &quot;Доказательство оптимальности оценкой и примером, а не замена квантора «для любого» экстремальным случаем.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_29920cf036ec&quot;,
+      &quot;reason&quot;: &quot;Контрпример для проверки необходимости, а не эквивалентное сведение универсального условия.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — замена условия для всех подмножеств фиксированного размера равносильным условием на минимум; подходящего определения в каталоге нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Условие, которое должно выполняться для всех выборов из допустимого множества, заменить равносильным условием на выбор с экстремальным значением величины.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Найти минимальную сумму выбора заданного числа элементов</h3><p>Для набора элементов с разными стоимостями определить минимальную сумму k элементов, выбирая самые дешёвые; при необходимости разобрать случаи по соотношению k и количества дешёвых элементов.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;при N ≥ 500 минимум 1000, при N &lt; 500 минимум 2N + 5(500−N) = 2500 − 3N&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;минимум достигается при выборе самых дешёвых монет&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_af302473a16f&quot;,
+      &quot;reason&quot;: &quot;Нижняя оценка суммы различных кратных, а не выбор k самых дешёвых из мультимножества двух номиналов.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_de250a7de0bb&quot;,
+      &quot;reason&quot;: &quot;Минимальные различные представители классов остатков; объект другой.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — нахождение минимальной суммы k элементов из набора двух номиналов с разбором случаев по числу дешёвых; в каталоге близкие узлы касаются других объектов.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Для набора предметов с известными количествами и стоимостями найти минимальную сумму k предметов, выбирая самые дешёвые, с разбором случаев по соотношению k и числа дешёвых предметов.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Решить линейное неравенство в натуральных числах</h3><p>Решить линейное неравенство относительно целого параметра с учётом области рассмотрения случая и округлить границу до ближайшего допустимого целого.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;2500 − 3N ≥ (6000 − 3N)/4 ⇔ 9N ≤ 4000 ⇔ N ≤ 444 (N натуральное)&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;1000 ≥ (6000 − 3N)/4 ⇔ 3N ≥ 2000 ⇔ N ≥ 667 (N натуральное)&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;,
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_0cf8af170957&quot;,
+      &quot;reason&quot;: &quot;Покрывает решение аффинного неравенства, но не округление до целого и учёт области случая.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+      &quot;reason&quot;: &quot;Может покрыть совмещение с областью случая и диапазоном N, но не само решение неравенства.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет решение линейного неравенства с числовыми коэффициентами и переход к целочисленной границе с учётом области случая; это разные действия.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Решить линейное неравенство с числовыми коэффициентами&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;literal_0cf8af170957&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Перевести вещественную границу в целочисленную и совместить с областью случая (N&lt;500 или N≥500) и 1≤N≤1199&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;set_intersection&quot;,
+        &quot;note&quot;: &quot;соответствие неполное; округление до целого в каталоге отдельно не описано&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc5"><h3>kc5 · Проверить конкретное значение параметра по полученному критерию</h3><p>Подставить значение параметра в найденное необходимое и достаточное условие и сделать вывод о возможности, подтвердив прямым вычислением.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc5&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s5:result&quot;,
+      &quot;quote&quot;: &quot;N = 400: 400 ≤ 444, минимум 1300 ≥ 4800/4 = 1200 — может; N = 600: 500 ≤ 600 &lt; 667, минимум 1000 &lt; 4200/4 = 1050 — не может&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s3:result&quot;,
+    &quot;step:s4:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_a873d91378ab&quot;,
+      &quot;reason&quot;: &quot;Касается проверки граничного ответа в модели, а не произвольного значения параметра по критерию.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+      &quot;reason&quot;: &quot;Вычисление значения функции по формуле — лишь компонент; вывод о выполнимости условия не входит.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — проверка принадлежности конкретного значения параметра найденному множеству и вывод да/нет с прямой проверкой; точного узла нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Проверить, удовлетворяет ли заданное значение параметра найденному необходимому и достаточному условию, и сделать вывод о возможности, подтвердив прямым вычислением.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc6"><h3>kc6 · Подсчитать количество целых чисел в объединении промежутков</h3><p>Найти число целых значений в объединении непересекающихся целочисленных промежутков, суммируя длины промежутков.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc6&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s6:result&quot;,
+      &quot;quote&quot;: &quot;N ∈ {1,…,444} ∪ {667,…,1199}: 444 + 533 = 977 значений&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s3:result&quot;,
+    &quot;step:s4:result&quot;,
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6ad8f502588e&quot;,
+      &quot;reason&quot;: &quot;Отбор и подсчёт конечного числа кандидатов-точек, а не подсчёт целых в промежутках по длинам.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_05f53e4cc43a&quot;,
+      &quot;reason&quot;: &quot;Подсчёт решений объединения ветвей уравнения с проверкой совпадений; объект другой.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — подсчёт целых чисел в объединении непересекающихся целочисленных отрезков через b−a+1; в каталоге такого узла нет.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Найти число целых чисел в объединении непересекающихся целочисленных отрезков [a;b], суммируя b−a+1 по отрезкам.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s3:result&quot;,
+      &quot;step:s4:result&quot;
+    ],
+    &quot;description&quot;: &quot;Совмещение полученных границ с областями случаев (N ≤ 444 с N &lt; 500; N ≥ 667 с N ≥ 500 и N ≤ 1199) в шагах явно не записано, хотя выполняется тривиально; итог 977 по выборочной проверке верен.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc4&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/B3c1B7.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/B3c1B7.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

@@ -1,0 +1,62 @@
+{
+  "task_id": "62A335",
+  "catalog_version": "fipi50-editorial-v1-frozen",
+  "decisions": [
+    {
+      "local_kc_id": "kc1",
+      "status": "match",
+      "catalog_kc_id": "literal_3ac0ecd3cd49",
+      "evidence": [
+        {"ref": "step:s1:action", "quote": "составить и решить уравнение a^(-1)=4 для основания"},
+        {"ref": "step:s1:result", "quote": "a=1/4, f(x)=(1/4)^x"}
+      ],
+      "context_refs": ["condition", "image:assets/7fa3bff10326ab1014522713.png"],
+      "alternatives_checked": [
+        {"catalog_kc_id": "graph_coordinates", "reason": "Считывание точки (-1; 4) — входное состояние кандидата, а не его операция; узел определения явно отделяет восстановление формулы."},
+        {"catalog_kc_id": "exponential_equation", "reason": "Неизвестно основание, а не показатель; приравнивание показателей не выполняется."},
+        {"catalog_kc_id": "direct_proportion", "reason": "Относится к y=kx, а не к a^x."}
+      ],
+      "rationale": "Операция — нахождение основания a>0, a≠1 функции a^x по известной точке с ненулевой абсциссой -1; это целиком соответствует определению узла. Точка взята с рисунка (входное состояние), вид функции — из условия.",
+      "proposal": null,
+      "blocking": false,
+      "issue_ids": []
+    },
+    {
+      "local_kc_id": "kc2",
+      "status": "uncertain",
+      "catalog_kc_id": null,
+      "evidence": [
+        {"ref": "step:s2:action", "quote": "Вычислить значение найденной функции при x=-2"},
+        {"ref": "step:s2:result", "quote": "f(-2)=(1/4)^(-2)=16"}
+      ],
+      "context_refs": ["step:s1:result"],
+      "alternatives_checked": [
+        {"catalog_kc_id": "literal_6308771d01a6", "reason": "Шаг s2 соответствует подстановке аргумента в найденную формулу, но кандидат определён уже: только вычисление степени с отрицательным показателем; границы не совпадают."},
+        {"catalog_kc_id": "power_laws", "reason": "Законы степени степени/произведения/частного; переход к обратному основанию при отрицательном показателе прямо не назван."}
+      ],
+      "rationale": "Наблюдаемое действие s2 — вычисление значения функции (подстановка x=-2) с вычислением (1/4)^(-2)=16. Кандидат описывает только компонент — степень с отрицательным показателем; узел literal_6308771d01a6 шире, power_laws лишь частично перекрывает. Однозначной границы для match нет.",
+      "proposal": null,
+      "blocking": false,
+      "issue_ids": ["i2"]
+    }
+  ],
+  "issues": [
+    {
+      "id": "i1",
+      "kind": "missing_annotation",
+      "refs": ["step:s1:action", "image:assets/7fa3bff10326ab1014522713.png"],
+      "description": "Считывание точки (-1; 4) с графика (узел graph_coordinates) выполняется, но не размечено отдельным кандидатом. На рисунке отмечены точки на кривой при x=-1 (y=4, подпись 4 на оси y) и при x=0 (y=1); прочтение автора согласуется с рисунком, ответ 16 верен.",
+      "blocking": false,
+      "affected_local_kc_ids": ["kc1"]
+    },
+    {
+      "id": "i2",
+      "kind": "boundary",
+      "refs": ["step:s2:action"],
+      "description": "Название шага (значение функции по формуле) и кандидат kc2 (степень с отрицательным показателем) описывают разные уровни действия.",
+      "blocking": false,
+      "affected_local_kc_ids": ["kc2"]
+    }
+  ],
+  "review_scope": "KC mapping with incidental mathematical checks; not expert validation"
+}

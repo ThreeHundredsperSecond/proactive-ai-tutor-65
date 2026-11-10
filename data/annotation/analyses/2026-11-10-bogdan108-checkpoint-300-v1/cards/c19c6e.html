@@ -1,0 +1,248 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>c19c6e</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>51. ФИПИ c19c6e · бронь #4, партия 5</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">а) Решите уравнение <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <msup> <mrow> <mi>cos</mi> </mrow> <mn>2</mn> </msup> <mi>x</mi><mo>+</mo><msup> <mrow> <mi>sin</mi> </mrow> <mn>2</mn> </msup> <mrow><mo>(</mo> <mrow> <mi>x</mi><mo>−</mo><mfrac> <mi>π</mi> <mn>4</mn> </mfrac> </mrow> <mo>)</mo></mrow><mo>=</mo><mfrac> <mn>1</mn> <mn>2</mn> </mfrac> <mo>.</mo> </mrow> </semantics> </math> </p> <p class="MsoNormal">б) Найдите все корни этого уравнения, принадлежащие отрезку <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mrow><mo>[</mo> <mrow> <mn>5</mn><mi>π</mi><mo>;</mo><mtext> </mtext><mtext> </mtext><mn>6</mn><mi>π</mi> </mrow> <mo>]</mo></mrow><mo>.</mo> </mrow> </semantics> </math><span></span></p>  </section></div><p>КЭС: 2.3 Тригонометрические уравнения; 2.5 Целые и дробно-рациональные неравенства</p><h2>Ответ</h2><p>а) π/4 + πk, −π/2 + πk, k ∈ Z; б) 21π/4, 11π/2</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Понизить степень: cos²x = (1+cos2x)/2, sin²(x−π/4) = (1−cos(2x−π/2))/2 и применить формулу приведения cos(2x−π/2) = sin2x</td><td>(1+cos2x)/2 + (1−sin2x)/2 = 1/2</td><td>kc1, kc2</td></tr><tr><td>s2 · s1</td><td>Упростить уравнение</td><td>cos2x − sin2x = −1</td><td>kc3</td></tr><tr><td>s3 · s2</td><td>Преобразовать линейную комбинацию cos и sin методом вспомогательного угла</td><td>cos(2x+π/4) = −√2/2</td><td>kc4</td></tr><tr><td>s4 · s3</td><td>Решить простейшее тригонометрическое уравнение относительно 2x+π/4 и выразить x</td><td>2x+π/4 = ±3π/4 + 2πk; x = π/4 + πk или x = −π/2 + πk, k ∈ Z</td><td>kc5</td></tr><tr><td>s5 · s4, condition</td><td>Отобрать корни на отрезке [5π; 6π] через двойные неравенства для целого k</td><td>π/4+πk ∈ [5π;6π] ⇒ k=5, x=21π/4; −π/2+πk ∈ [5π;6π] ⇒ k=6, x=11π/2</td><td>kc6</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Понижение степени, сведение к a·cos+b·sin и метод вспомогательного угла (пункт а)&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;m2&quot;,
+    &quot;name&quot;: &quot;Отбор корней двойным неравенством по параметру (пункт б)&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s5&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Понизить степень квадрата синуса или косинуса</h3><p>Вход: выражение sin²α или cos²α. Операция: замена на (1∓cos2α)/2. Граница: квадраты тригонометрических функций одного аргумента.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;Понизить степень: cos²x = (1+cos2x)/2, sin²(x−π/4) = (1−cos(2x−π/2))/2&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;,
+      &quot;reason&quot;: &quot;Формулы приведения и двойного угла для сведения к функции одного аргумента; понижение степени (квадрат → косинус удвоенного аргумента) явно не названо, граница неочевидна.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_55d5a6d9eb3c&quot;,
+      &quot;reason&quot;: &quot;Аналогичная формулировка (приведение и двойной угол), без явного понижения степени.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_3d70ab3eb24a&quot;,
+      &quot;reason&quot;: &quot;Ограничен произведением sin·cos или sin удвоенного аргумента.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6d4854d97c9c&quot;,
+      &quot;reason&quot;: &quot;Основное тождество не используется.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — замена sin²α и cos²α на (1∓cos2α)/2 для двух слагаемых с разными аргументами. Это следствие формулы двойного угла, но каталог её как действие понижения степени не описывает; вариант уточнения границы литеральных узлов тождеств также возможен.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Понижать степень квадрата синуса или косинуса&quot;,
+    &quot;definition&quot;: &quot;Заменить sin²α или cos²α на (1−cos2α)/2 или (1+cos2α)/2, переходя к первой степени косинуса удвоенного аргумента.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Применить формулу приведения</h3><p>Вход: тригонометрическая функция аргумента вида α ± πn/2. Операция: заменить на ±функцию (или кофункцию) от α по правилу приведения.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;uncertain&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;применить формулу приведения cos(2x−π/2) = sin2x&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;,
+      &quot;reason&quot;: &quot;Включает формулы приведения, подходит по смыслу.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_55d5a6d9eb3c&quot;,
+      &quot;reason&quot;: &quot;Почти идентичное определение с формулами приведения; нет основания выбрать одно из двух.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Наблюдаемое действие — формула приведения cos(t−π/2)=sin t. Два перекрывающихся узла каталога с одинаковым именем покрывают его; по правилу перекрытия — uncertain, не из-за содержания.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc3"><h3>kc3 · Привести тригонометрическое уравнение к линейному виду относительно sin и cos</h3><p>Вход: уравнение после тождественных преобразований. Операция: раскрыть, собрать подобные, получить a·cos t + b·sin t = c.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;cos2x − sin2x = −1&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;Относится к решению аффинного уравнения одной переменной, а здесь лишь собираются слагаемые относительно cos2x и sin2x без решения.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Тождественное упрощение (домножение на 2, сбор констант) до вида a·cos t + b·sin t = c. Действие близко к рутинной арифметике; отдельный узел оправдан лишь как распознавание целевой формы для метода вспомогательного угла.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Приводить тригонометрическое уравнение к виду a·cos t + b·sin t = c&quot;,
+    &quot;definition&quot;: &quot;Тождественными преобразованиями собрать слагаемые с cos t и sin t одного аргумента и константы, получив линейную комбинацию с числовыми коэффициентами.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Свернуть a·cos t + b·sin t через вспомогательный угол</h3><p>Вход: линейная комбинация cos t и sin t с числовыми коэффициентами. Операция: вынести √(a²+b²) и записать как R·cos(t∓φ). Граница: одинаковый аргумент t.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Преобразовать линейную комбинацию cos и sin методом вспомогательного угла&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;cos(2x+π/4) = −√2/2&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;,
+      &quot;reason&quot;: &quot;Приведение и двойной угол; формула сложения/вспомогательный угол не охвачены.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_55d5a6d9eb3c&quot;,
+      &quot;reason&quot;: &quot;То же ограничение.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — вынесение √(a²+b²)=√2 и свёртка cos t − sin t в √2·cos(t+π/4) с делением правой части. В каталоге нет формулы сложения/вспомогательного угла. Промежуточная запись √2cos(2x+π/4)=−1 в шаге не показана.&quot;,
+  &quot;proposal&quot;: {
+    &quot;name&quot;: &quot;Сворачивать a·cos t + b·sin t через вспомогательный угол&quot;,
+    &quot;definition&quot;: &quot;Для числовых a, b, не равных одновременно нулю, вынести √(a²+b²) и записать выражение как √(a²+b²)·cos(t−φ) (или через sin) с углом φ, заданным cos φ и sin φ.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc5"><h3>kc5 · Решить простейшее уравнение cos u = a</h3><p>Вход: cos u = a, |a| ≤ 1, u линейно зависит от x. Операция: u = ±arccos a + 2πk, затем выразить x и упростить серии.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc5&quot;,
+  &quot;status&quot;: &quot;needs_split&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s4:action&quot;,
+      &quot;quote&quot;: &quot;Решить простейшее тригонометрическое уравнение относительно 2x+π/4 и выразить x&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s4:result&quot;,
+      &quot;quote&quot;: &quot;2x+π/4 = ±3π/4 + 2πk; x = π/4 + πk или x = −π/2 + πk, k ∈ Z&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s3:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;elementary_trig_equation&quot;,
+      &quot;reason&quot;: &quot;Покрывает cos u = c с полными сериями, но не выражение x из линейного аргумента.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;reason&quot;: &quot;Покрывает выражение x из 2x+π/4 = значение серии.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Кандидат объединяет решение cos u=−√2/2 (u=±3π/4+2πk) и решение линейного уравнения относительно x с упрощением двух серий. Проверено: обе серии верны.&quot;,
+  &quot;proposal&quot;: {
+    &quot;parts&quot;: [
+      {
+        &quot;part&quot;: &quot;Решить cos u = −√2/2 в виде полных серий&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;elementary_trig_equation&quot;
+      },
+      {
+        &quot;part&quot;: &quot;Выразить x из 2x+π/4 = ±3π/4+2πk и записать серии x=π/4+πk, x=−π/2+πk&quot;,
+        &quot;possible_catalog_kc_id&quot;: &quot;linear_equation&quot;
+      }
+    ]
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc6"><h3>kc6 · Отобрать корни серии на заданном промежутке</h3><p>Вход: серии корней с целым параметром и отрезок. Операция: решить двойное неравенство относительно параметра, найти целые значения и соответствующие корни.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc6&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;periodic_interval&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s5:action&quot;,
+      &quot;quote&quot;: &quot;Отобрать корни на отрезке [5π; 6π] через двойные неравенства для целого k&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s5:result&quot;,
+      &quot;quote&quot;: &quot;π/4+πk ∈ [5π;6π] ⇒ k=5, x=21π/4; −π/2+πk ∈ [5π;6π] ⇒ k=6, x=11π/2&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s4:result&quot;,
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_8409c9003f48&quot;,
+      &quot;reason&quot;: &quot;Относится к конечному набору корней без периодического параметра.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_6ad8f502588e&quot;,
+      &quot;reason&quot;: &quot;Проверка конечных кандидатов, не серии с параметром.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Периодические серии подставлены в границы, найдены все целые k (по одному для каждой серии); проверено: 21π/4 и 11π/2 принадлежат [5π;6π], других нет.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s1:action&quot;
+    ],
+    &quot;description&quot;: &quot;В каталоге два узла literal_cc7d68a38f29 и literal_55d5a6d9eb3c с одинаковым именем и почти совпадающими определениями (формулы приведения и двойного угла); это не позволяет однозначно выбрать соответствие для формулы приведения.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc2&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;i2&quot;,
+    &quot;kind&quot;: &quot;coverage&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s3:action&quot;,
+      &quot;step:s3:result&quot;
+    ],
+    &quot;description&quot;: &quot;В шаге s3 не показана промежуточная запись √2·cos(2x+π/4) = −1 и деление на √2; результат верен, но свидетельство вынесения √(a²+b²) косвенное.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc4&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/c19c6e.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/c19c6e.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

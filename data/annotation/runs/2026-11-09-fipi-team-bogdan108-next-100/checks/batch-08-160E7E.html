@@ -1,0 +1,210 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>160E7E</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Решите неравенство <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mfrac> <mrow> <mn>13</mn> </mrow> <mrow> <msup> <mn>3</mn> <mi>x</mi> </msup> <mo>−</mo><mn>81</mn> </mrow> </mfrac> <mo>≤</mo><mfrac> <mn>1</mn> <mrow> <msup> <mn>3</mn> <mi>x</mi> </msup> <mo>−</mo><mn>9</mn> </mrow> </mfrac> </mrow> </semantics> </math>.</p> <p class="MsoNormal"><span> </span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;160E7E&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;(-∞; 1] ∪ (2; 4)&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Ввести замену t = 3^x с условием t &gt; 0&quot;,
+      &quot;result&quot;: &quot;13/(t-81) ≤ 1/(t-9), t &gt; 0, t ≠ 9, t ≠ 81&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Перенести всё в одну часть и привести к общему знаменателю&quot;,
+      &quot;result&quot;: &quot;12(t-3)/((t-81)(t-9)) ≤ 0&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Решить рациональное неравенство методом интервалов с учётом t &gt; 0&quot;,
+      &quot;result&quot;: &quot;0 &lt; t ≤ 3 или 9 &lt; t &lt; 81&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Выполнить обратную замену и решить простейшие показательные неравенства&quot;,
+      &quot;result&quot;: &quot;x ≤ 1 или 2 &lt; x &lt; 4&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Ввести замену для показательного выражения&quot;,
+      &quot;description&quot;: &quot;Для неравенства, содержащего одно и то же выражение a^x, заменить его новой переменной с учётом положительности a^x.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Привести дробно-рациональное неравенство к виду дробь сравнивается с нулём&quot;,
+      &quot;description&quot;: &quot;Перенести слагаемые в одну часть, привести к общему знаменателю и разложить числитель и знаменатель на множители, сохранив ограничения знаменателей.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Решить рациональное неравенство методом интервалов&quot;,
+      &quot;description&quot;: &quot;По нулям числителя и знаменателя определить знаки дроби на промежутках, учитывая нестрогость знака, исключённые точки знаменателя и дополнительные ограничения переменной.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Решить простейшие показательные неравенства&quot;,
+      &quot;description&quot;: &quot;Перейти от неравенства a^x относительно числа к неравенству для показателя с учётом монотонности при основании a &gt; 1.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Замена переменной и метод интервалов&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;160E7E&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Ввести замену t = 3^x с условием t &gt; 0&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;13/(t-81) ≤ 1/(t-9), t &gt; 0&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+          &quot;reason&quot;: &quot;Ограничения t ≠ 9, t ≠ 81 зафиксированы попутно, но основное действие — введение положительной замены степени.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Введена t=3^x с t&gt;0 при основании 3&gt;0, 3≠1; обе степени 3^x согласованы с t. Обратный переход отнесён к s4, что соответствует границе определения.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_67caf017b566&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Перенести всё в одну часть и привести к общему знаменателю&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;12(t-3)/((t-81)(t-9)) ≤ 0&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+          &quot;reason&quot;: &quot;Только часть действия: сохранение нулей знаменателей; объединение дробей им не покрывается.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+          &quot;reason&quot;: &quot;Вынесение 12 из линейного числителя тривиально и не является отдельной факторизацией многочлена.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Разность дробей объединена в одну дробь с общим знаменателем (t-81)(t-9); знаменатели в разложенном виде, исходные исключения сохраняются из s1. Проверено: 13(t-9)-(t-81)=12t-36=12(t-3).&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;rational_intervals&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;Решить рациональное неравенство методом интервалов с учётом t &gt; 0&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;0 &lt; t ≤ 3 или 9 &lt; t &lt; 81&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+          &quot;reason&quot;: &quot;Учёт t&gt;0 — компонент; основное действие — знаковый анализ по нулю 3 и полюсам 9, 81.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Нуль числителя t=3 включён (нестрогое), полюса 9 и 81 исключены, знаки на промежутках верны; добавлено ограничение t&gt;0. Само исследование знаков в решении не расписано, только результат.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;exponential_inequality&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;Выполнить обратную замену и решить простейшие показательные неравенства&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;x ≤ 1 или 2 &lt; x &lt; 4&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+          &quot;reason&quot;: &quot;Определение исключает обратный переход и решение неравенств.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Из 0&lt;3^x≤3 и 9&lt;3^x&lt;81 по возрастанию 3^x получены x≤1 и 2&lt;x&lt;4; результат верен.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>

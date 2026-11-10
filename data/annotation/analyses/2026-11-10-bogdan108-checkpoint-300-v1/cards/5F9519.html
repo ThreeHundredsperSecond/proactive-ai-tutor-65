@@ -1,0 +1,105 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>5F9519</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>55. ФИПИ 5F9519 · бронь #4, партия 5</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">На рисунке изображён график функции вида <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>f</mi><mrow><mo>(</mo> <mi>x</mi> <mo>)</mo></mrow><mo>=</mo><mi>a</mi><msqrt> <mi>x</mi> </msqrt> <mo>.</mo> </mrow> </semantics> </math> Найдите значение <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>f</mi><mrow><mo>(</mo> <mrow> <mn>25</mn> </mrow> <mo>)</mo></mrow><mo>.</mo> </mrow> </semantics> </math></p> <p class="MsoNormal" align="center"><img src="../../../runs/2026-11-09-fipi-team-bogdan108-next-100/inputs/assets/029c63f242abeef20e62cf15.png" alt="Рисунок ФИПИ"><span></span></p>  </section></div><p>КЭС: 3.3 Степенная функция с натуральным и целым показателем. Её свойства и график. Свойства и график корня n-ой степени</p><h2>Ответ</h2><p>20</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>По графику определить точки с целыми координатами, через которые проходит график: (1; 4) и (4; 8).</td><td>Точки (1; 4) и (4; 8) принадлежат графику</td><td>kc1</td></tr><tr><td>s2 · condition, s1</td><td>Подставить координаты точки (1; 4) в формулу f(x)=a√x и найти коэффициент a; проверить по точке (4; 8).</td><td>a = 4; проверка: 4·√4 = 8</td><td>kc2</td></tr><tr><td>s3 · s2</td><td>Вычислить значение функции f(x)=4√x при x = 25.</td><td>f(25) = 4·5 = 20</td><td>kc3</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Восстановление формулы по точкам графика и вычисление значения&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Считать координаты точек графика по клетчатой сетке</h3><p>Вход: изображение графика на координатной сетке. Операция: выбрать точки графика, лежащие в узлах сетки, и записать их координаты. Граница: только точки, однозначно читаемые по рисунку.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;graph_coordinates&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;По графику определить точки с целыми координатами, через которые проходит график: (1; 4) и (4; 8).&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;image:assets/029c63f242abeef20e62cf15.png&quot;,
+      &quot;region_description&quot;: &quot;Кривая на клетчатой сетке проходит через узлы при x=1, y=4 (подписи 1 и 4 на осях) и x=4, y=8 (подписи 4 и 8 на осях).&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_9aee0783618d&quot;,
+      &quot;reason&quot;: &quot;Про знак производной по графику, не про координаты точек.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — считывание координат точек графика по масштабу сетки; точки лежат в узлах, совпадающих с подписанными делениями осей. Восстановление формулы вынесено в s2, что соответствует границе определения.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc2"><h3>kc2 · Найти параметр формулы функции по точке графика</h3><p>Вход: формула функции заданного вида с неизвестным коэффициентом и точка, принадлежащая графику. Операция: подставить координаты в формулу и решить полученное уравнение относительно параметра, при возможности проверить по другой точке.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_51a8c0abd718&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Подставить координаты точки (1; 4) в формулу f(x)=a√x и найти коэффициент a&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;a = 4&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;direct_proportion&quot;,
+      &quot;reason&quot;: &quot;Определение для y=kx, а не для корневой функции.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_3ac0ecd3cd49&quot;,
+      &quot;reason&quot;: &quot;Для показательной функции.&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+      &quot;reason&quot;: &quot;Общая подстановка в прикладную формулу; есть точный узел для y=a√x.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Для y=a√x по точке (1; 4) с x&gt;0 найдено a=4/√1=4 — полное соответствие узлу. Проверка по второй точке — дополнительная, не меняет соответствие.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Вычислить значение функции в заданной точке</h3><p>Вход: полностью заданная формула функции и значение аргумента из области определения. Операция: подставить аргумент и вычислить значение.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Вычислить значение функции f(x)=4√x при x = 25.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;f(25) = 4·5 = 20&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+      &quot;reason&quot;: &quot;Ориентирован на прикладные формулы и единицы; узел вычисления значения функции точнее.&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Подстановка аргумента 25 из области определения в установленную формулу и вычисление 4·√25=20.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/5F9519.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/5F9519.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>

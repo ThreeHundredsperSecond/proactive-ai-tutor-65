@@ -1,0 +1,1012 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>8755EE</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Деревянную линейку, длина которой выражается целым числом сантиметров, разрезают на куски. За один ход можно взять один или несколько кусков линейки, положить их друг на друга и разрезать каждый из них на две части, длины которых выражаются целым числом сантиметров.</p> <p class="MsoNormal">а) Можно ли за четыре хода разрезать линейку длиной 16 см на куски <br> длиной 1 см?</p> <p class="MsoNormal">б) Можно ли за пять ходов разрезать линейку длиной 100 см на куски <br> длиной 1 см?</p> <p class="MsoNormal">в) Какое наименьшее число ходов нужно сделать, чтобы разрезать линейку длиной 200 см на куски длиной 1 см?</p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;8755EE&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;а) да; б) нет; в) 8&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Построить алгоритм для пункта а: на каждом ходу сложить все куски и разрезать каждый пополам: 16→8→4→2→1.&quot;,
+      &quot;result&quot;: &quot;За 4 хода все куски длины 1 см; ответ а) да.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Доказать оценку: за один ход длина наибольшего куска уменьшается не более чем вдвое (кусок длины m даёт часть не короче m/2), значит после k ходов наибольший кусок имеет длину не меньше L/2^k.&quot;,
+      &quot;result&quot;: &quot;После k ходов наибольший кусок ≥ L/2^k; для получения кусков 1 см нужно 2^k ≥ L.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Применить оценку к L=100, k=5.&quot;,
+      &quot;result&quot;: &quot;100/32 &gt; 1, кусок длины ≥ 4 см остаётся; ответ б) нет.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Применить оценку к L=200: найти наименьшее k с 2^k ≥ 200.&quot;,
+      &quot;result&quot;: &quot;2^7=128&lt;200, значит нужно не менее 8 ходов.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s5&quot;,
+      &quot;action&quot;: &quot;Построить пример за 8 ходов: каждый раз разрезать все куски длины больше 1 на части ⌈m/2⌉ и ⌊m/2⌋; наибольший кусок: 200→100→50→25→13→7→4→2→1.&quot;,
+      &quot;result&quot;: &quot;8 ходов достаточно; ответ в) 8.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Построить пример процесса, удовлетворяющий условию&quot;,
+      &quot;description&quot;: &quot;По правилам процесса и цели предъявить явную последовательность допустимых действий и проверить, что она достигает цели за заданное число шагов.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Доказать оценку через монотонную величину процесса&quot;,
+      &quot;description&quot;: &quot;Выбрать величину (например, максимум), изменение которой за один ход ограничено, и вывести оценку её значения после заданного числа ходов.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Сравнить требуемое и достижимое значения по оценке&quot;,
+      &quot;description&quot;: &quot;Подставить параметры в полученную оценку и сделать вывод о невозможности или о нижней границе числа ходов, решив неравенство с показательной функцией в целых числах.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Пример для а&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;m2&quot;,
+      &quot;name&quot;: &quot;Оценка плюс пример для б и в&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;,
+        &quot;s5&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;8755EE&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;uncertain&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;на каждом ходу сложить все куски и разрезать каждый пополам: 16→8→4→2→1.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s5:action&quot;,
+          &quot;quote&quot;: &quot;каждый раз разрезать все куски длины больше 1 на части ⌈m/2⌉ и ⌊m/2⌋; наибольший кусок: 200→100→50→25→13→7→4→2→1.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s4:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;integer_construction&quot;,
+          &quot;reason&quot;: &quot;Определение ориентировано на статический целочисленный объект с ограничениями количества, различности, остатков, суммы; здесь предъявляется последовательность допустимых ходов процесса. Частичное перекрытие.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_f6b803c5f9c2&quot;,
+          &quot;reason&quot;: &quot;Подходит к s5 (пример, достигающий доказанной границы 8), но не к s1, где границы нет; кандидат объединяет оба употребления.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;optimal_bound_attainment&quot;,
+          &quot;reason&quot;: &quot;Это общее доказательство оптимальности (граница + пример), а не построение примера само по себе.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: предъявить алгоритм ходов и проверить достижение цели за заданное число ходов. Два каталожных определения перекрываются частично (integer_construction для объекта, literal_f6b803c5f9c2 для s5 при наличии границы), ни одно не покрывает кандидат целиком для процесса; основания выбрать одно нет.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;за один ход длина наибольшего куска уменьшается не более чем вдвое (кусок длины m даёт часть не короче m/2), значит после k ходов наибольший кусок имеет длину не меньше L/2^k.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;optimal_bound_attainment&quot;,
+          &quot;reason&quot;: &quot;Явно исключает способ получения границы, который размечается отдельно; kc2 — именно способ.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_31eed356b5e1&quot;,
+          &quot;reason&quot;: &quot;Оценка дроби через монотонность, не оценка величины процесса по ходам.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;finite_exhaustion&quot;,
+          &quot;reason&quot;: &quot;Перебора случаев нет.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдаемое действие: выбрать величину процесса (максимальную длину куска), ограничить её изменение за один ход и итерацией получить оценку после k ходов. В каталоге нет узла для оценки через ограниченно меняющуюся величину процесса.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Оценивать величину процесса по ограничению её изменения за ход&quot;,
+        &quot;definition&quot;: &quot;Выбрать характеристику состояния процесса, доказать ограничение её изменения за один допустимый ход и индукцией по числу ходов вывести границу её значения после k ходов.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;100/32 &gt; 1, кусок длины ≥ 4 см остаётся; ответ б) нет.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;найти наименьшее k с 2^k ≥ 200.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;2^7=128&lt;200, значит нужно не менее 8 ходов.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_inequality&quot;,
+          &quot;reason&quot;: &quot;Переход b^x→x по монотонности для действительного x; здесь наименьшее натуральное k находится сравнением степеней двойки, плюс в s3 лишь числовая проверка и вывод о невозможности.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+          &quot;reason&quot;: &quot;Касается заданной прикладной формулы и единиц, а не доказанной в решении оценки.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+          &quot;reason&quot;: &quot;Вычисление значения функции покрывает только подстановку, но не вывод о невозможности/нижней границе.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: подставить параметры в доказанную оценку L/2^k и сделать вывод о невозможности (s3) или о наименьшем натуральном k (s4). Близкие узлы покрывают лишь части; подходящего определения целиком нет. Возможна и трактовка как needs_split (подстановка + целочисленное показательное неравенство), но действие компактно.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Выводить невозможность или нижнюю границу числа ходов из доказанной оценки&quot;,
+        &quot;definition&quot;: &quot;Подставить параметры задачи в доказанную оценку и решить полученное ограничение в натуральных числах (например, наименьшее k с 2^k ≥ L), сделав вывод о невозможности или нижней границе.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;missing_annotation&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s4:result&quot;,
+        &quot;step:s5:result&quot;
+      ],
+      &quot;description&quot;: &quot;Объединение нижней границы 8 (s4) и примера за 8 ходов (s5) в вывод о наименьшем числе ходов — действие уровня optimal_bound_attainment — не размечено отдельным кандидатом; s5 помечен только kc1.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;i2&quot;,
+      &quot;kind&quot;: &quot;coverage&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s5:action&quot;
+      ],
+      &quot;description&quot;: &quot;В s5 прослежен только наибольший кусок; то, что остальные куски (не длиннее наибольшего) тоже доходят до 1 за те же ходы, не проговорено явно, хотя следует из монотонности ⌈m/2⌉. Ошибки нет, ответ 8 верен.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc1&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>62A335</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal"><a name="_GoBack"></a>На рисунке изображён график функции вида <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>f</mi><mrow><mo fence="true">(</mo><mi>x</mi><mo fence="true">)</mo></mrow><mo>=</mo><msup><mi>a</mi><mi>x</mi></msup><mtext>​</mtext><mo>.</mo></mrow></mstyle></math></span> Найдите значение <span class="mml"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><mi>f</mi><mrow><mo fence="true">(</mo><mrow><mo>−</mo><mtext> </mtext><mn>2</mn></mrow><mo fence="true">)</mo></mrow><mo>.</mo></mrow></mstyle></math></span> </p> <p class="MsoNormal" align="center"><img src="file:///Users/bogdanlukancuk/proactive-ai-tutor-65/data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/inputs/assets/7fa3bff10326ab1014522713.png" alt="Рисунок ФИПИ"></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;62A335&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;16&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;По отмеченной на графике точке (-1; 4) составить и решить уравнение a^(-1)=4 для основания&quot;,
+      &quot;result&quot;: &quot;a=1/4, f(x)=(1/4)^x&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Вычислить значение найденной функции при x=-2&quot;,
+      &quot;result&quot;: &quot;f(-2)=(1/4)^(-2)=16&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;condition&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Определить параметр показательной функции по точке графика&quot;,
+      &quot;description&quot;: &quot;Вход: вид функции a^x и точка с целыми координатами, читаемая на графике. Операция: подставить координаты и решить получившееся уравнение относительно основания a&gt;0, a≠1.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Вычислить значение степени с отрицательным показателем&quot;,
+      &quot;description&quot;: &quot;Вход: известное основание и целый отрицательный показатель. Операция: перейти к обратному основанию и возвести в положительную степень.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Восстановление формулы функции по точке графика и подстановка аргумента&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: [
+    &quot;Точка (-1; 4) прочитана по отметкам на рисунке; точка (0; 1) согласуется с видом a^x.&quot;
+  ]
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;62A335&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_3ac0ecd3cd49&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;составить и решить уравнение a^(-1)=4 для основания&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;a=1/4, f(x)=(1/4)^x&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;image:assets/7fa3bff10326ab1014522713.png&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;graph_coordinates&quot;,
+          &quot;reason&quot;: &quot;Считывание точки (-1; 4) — входное состояние кандидата, а не его операция; узел определения явно отделяет восстановление формулы.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+          &quot;reason&quot;: &quot;Неизвестно основание, а не показатель; приравнивание показателей не выполняется.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;direct_proportion&quot;,
+          &quot;reason&quot;: &quot;Относится к y=kx, а не к a^x.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция — нахождение основания a&gt;0, a≠1 функции a^x по известной точке с ненулевой абсциссой -1; это целиком соответствует определению узла. Точка взята с рисунка (входное состояние), вид функции — из условия.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;uncertain&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Вычислить значение найденной функции при x=-2&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;f(-2)=(1/4)^(-2)=16&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_6308771d01a6&quot;,
+          &quot;reason&quot;: &quot;Шаг s2 соответствует подстановке аргумента в найденную формулу, но кандидат определён уже: только вычисление степени с отрицательным показателем; границы не совпадают.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+          &quot;reason&quot;: &quot;Законы степени степени/произведения/частного; переход к обратному основанию при отрицательном показателе прямо не назван.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдаемое действие s2 — вычисление значения функции (подстановка x=-2) с вычислением (1/4)^(-2)=16. Кандидат описывает только компонент — степень с отрицательным показателем; узел literal_6308771d01a6 шире, power_laws лишь частично перекрывает. Однозначной границы для match нет.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i2&quot;
+      ]
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;missing_annotation&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s1:action&quot;,
+        &quot;image:assets/7fa3bff10326ab1014522713.png&quot;
+      ],
+      &quot;description&quot;: &quot;Считывание точки (-1; 4) с графика (узел graph_coordinates) выполняется, но не размечено отдельным кандидатом. На рисунке отмечены точки на кривой при x=-1 (y=4, подпись 4 на оси y) и при x=0 (y=1); прочтение автора согласуется с рисунком, ответ 16 верен.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;i2&quot;,
+      &quot;kind&quot;: &quot;boundary&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s2:action&quot;
+      ],
+      &quot;description&quot;: &quot;Название шага (значение функции по формуле) и кандидат kc2 (степень с отрицательным показателем) описывают разные уровни действия.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc2&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>160E7E</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Решите неравенство <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mfrac> <mrow> <mn>13</mn> </mrow> <mrow> <msup> <mn>3</mn> <mi>x</mi> </msup> <mo>−</mo><mn>81</mn> </mrow> </mfrac> <mo>≤</mo><mfrac> <mn>1</mn> <mrow> <msup> <mn>3</mn> <mi>x</mi> </msup> <mo>−</mo><mn>9</mn> </mrow> </mfrac> </mrow> </semantics> </math>.</p> <p class="MsoNormal"><span> </span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;160E7E&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;(-∞; 1] ∪ (2; 4)&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Ввести замену t = 3^x с условием t &gt; 0&quot;,
+      &quot;result&quot;: &quot;13/(t-81) ≤ 1/(t-9), t &gt; 0, t ≠ 9, t ≠ 81&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Перенести всё в одну часть и привести к общему знаменателю&quot;,
+      &quot;result&quot;: &quot;12(t-3)/((t-81)(t-9)) ≤ 0&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Решить рациональное неравенство методом интервалов с учётом t &gt; 0&quot;,
+      &quot;result&quot;: &quot;0 &lt; t ≤ 3 или 9 &lt; t &lt; 81&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Выполнить обратную замену и решить простейшие показательные неравенства&quot;,
+      &quot;result&quot;: &quot;x ≤ 1 или 2 &lt; x &lt; 4&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Ввести замену для показательного выражения&quot;,
+      &quot;description&quot;: &quot;Для неравенства, содержащего одно и то же выражение a^x, заменить его новой переменной с учётом положительности a^x.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Привести дробно-рациональное неравенство к виду дробь сравнивается с нулём&quot;,
+      &quot;description&quot;: &quot;Перенести слагаемые в одну часть, привести к общему знаменателю и разложить числитель и знаменатель на множители, сохранив ограничения знаменателей.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Решить рациональное неравенство методом интервалов&quot;,
+      &quot;description&quot;: &quot;По нулям числителя и знаменателя определить знаки дроби на промежутках, учитывая нестрогость знака, исключённые точки знаменателя и дополнительные ограничения переменной.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Решить простейшие показательные неравенства&quot;,
+      &quot;description&quot;: &quot;Перейти от неравенства a^x относительно числа к неравенству для показателя с учётом монотонности при основании a &gt; 1.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Замена переменной и метод интервалов&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;160E7E&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Ввести замену t = 3^x с условием t &gt; 0&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;13/(t-81) ≤ 1/(t-9), t &gt; 0&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+          &quot;reason&quot;: &quot;Ограничения t ≠ 9, t ≠ 81 зафиксированы попутно, но основное действие — введение положительной замены степени.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Введена t=3^x с t&gt;0 при основании 3&gt;0, 3≠1; обе степени 3^x согласованы с t. Обратный переход отнесён к s4, что соответствует границе определения.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_67caf017b566&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Перенести всё в одну часть и привести к общему знаменателю&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;12(t-3)/((t-81)(t-9)) ≤ 0&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+          &quot;reason&quot;: &quot;Только часть действия: сохранение нулей знаменателей; объединение дробей им не покрывается.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+          &quot;reason&quot;: &quot;Вынесение 12 из линейного числителя тривиально и не является отдельной факторизацией многочлена.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Разность дробей объединена в одну дробь с общим знаменателем (t-81)(t-9); знаменатели в разложенном виде, исходные исключения сохраняются из s1. Проверено: 13(t-9)-(t-81)=12t-36=12(t-3).&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;rational_intervals&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;Решить рациональное неравенство методом интервалов с учётом t &gt; 0&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;0 &lt; t ≤ 3 или 9 &lt; t &lt; 81&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+          &quot;reason&quot;: &quot;Учёт t&gt;0 — компонент; основное действие — знаковый анализ по нулю 3 и полюсам 9, 81.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Нуль числителя t=3 включён (нестрогое), полюса 9 и 81 исключены, знаки на промежутках верны; добавлено ограничение t&gt;0. Само исследование знаков в решении не расписано, только результат.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;exponential_inequality&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;Выполнить обратную замену и решить простейшие показательные неравенства&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;x ≤ 1 или 2 &lt; x &lt; 4&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+          &quot;reason&quot;: &quot;Определение исключает обратный переход и решение неравенств.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Из 0&lt;3^x≤3 и 9&lt;3^x&lt;81 по возрастанию 3^x получены x≤1 и 2&lt;x&lt;4; результат верен.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>4A4AB8</h2><p>Впишите правильный ответ.</p><div><section> <p class="MsoNormal">Теплоход проходит по течению реки до пункта назначения 48 км и после стоянки возвращается в пункт отправления. Найдите скорость теплохода в неподвижной воде, если скорость течения равна 4 км/ч, стоянка длится 5 часов, а в пункт отправления теплоход возвращается через 10 часов. Ответ дайте в км/ч.</p></section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;4A4AB8&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;20&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;S1&quot;,
+      &quot;action&quot;: &quot;Определить время движения как общее время минус стоянка и составить уравнение по времени движения по течению и против течения при скорости v в неподвижной воде, v&gt;4&quot;,
+      &quot;result&quot;: &quot;48/(v+4)+48/(v-4)=10-5=5, v&gt;4&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;S2&quot;,
+      &quot;action&quot;: &quot;Привести дробно-рациональное уравнение к квадратному, умножив на ненулевой общий знаменатель&quot;,
+      &quot;result&quot;: &quot;5v^2-96v-80=0&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;S1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;S3&quot;,
+      &quot;action&quot;: &quot;Решить квадратное уравнение и отобрать корень по ограничению v&gt;4&quot;,
+      &quot;result&quot;: &quot;D=10816=104^2; v=20 или v=-0,8; подходит v=20&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;S1&quot;,
+        &quot;S2&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;KC1&quot;,
+      &quot;name&quot;: &quot;Составить уравнение движения по реке через время&quot;,
+      &quot;description&quot;: &quot;По известным расстоянию, скорости течения и суммарному времени движения выразить время по течению и против течения через собственную скорость и записать уравнение; применимо к движению с постоянными скоростями, с условием, что собственная скорость больше скорости течения.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;KC2&quot;,
+      &quot;name&quot;: &quot;Свести дробно-рациональное уравнение к многочлену&quot;,
+      &quot;description&quot;: &quot;Умножить уравнение с дробями на общий знаменатель, ненулевой в области допустимых значений, и получить равносильное ей полиномиальное уравнение.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;KC3&quot;,
+      &quot;name&quot;: &quot;Решить квадратное уравнение с отбором корней&quot;,
+      &quot;description&quot;: &quot;Найти корни квадратного уравнения через дискриминант и оставить только корни, удовлетворяющие ограничениям из ОДЗ и смысла задачи.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;M1&quot;,
+      &quot;name&quot;: &quot;Уравнение по суммарному времени движения&quot;,
+      &quot;step_ids&quot;: [
+        &quot;S1&quot;,
+        &quot;S2&quot;,
+        &quot;S3&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;4A4AB8&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;KC1&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_63c80a69a122&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S1:action&quot;,
+          &quot;quote&quot;: &quot;Определить время движения как общее время минус стоянка и составить уравнение по времени движения по течению и против течения при скорости v в неподвижной воде, v&gt;4&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S1:result&quot;,
+          &quot;quote&quot;: &quot;48/(v+4)+48/(v-4)=10-5=5, v&gt;4&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+          &quot;reason&quot;: &quot;Формула не задана в условии; здесь строится модель движения, что этот узел исключает.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+          &quot;reason&quot;: &quot;Решение уравнения не входит; кандидат — построение модели.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция — составление уравнения времени: скорости v±4, времена 48/(v±4), стоянка вычтена из общего времени, сохранено v&gt;4. Это полностью совпадает с определением узла (скорости v±c, время s/v, отделение стоянки, положительность скоростей).&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;KC2&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_9698b97fef22&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S2:action&quot;,
+          &quot;quote&quot;: &quot;Привести дробно-рациональное уравнение к квадратному, умножив на ненулевой общий знаменатель&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S2:result&quot;,
+          &quot;quote&quot;: &quot;5v^2-96v-80=0&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:S1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_67caf017b566&quot;,
+          &quot;reason&quot;: &quot;Касается объединения дробей в выражении, а не перехода от уравнения к полиномиальному умножением на общий знаменатель.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+          &quot;reason&quot;: &quot;Только сохранение ограничений знаменателей, без самого преобразования уравнения.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Умножение рационального уравнения на ненулевой общий знаменатель (v+4)(v-4) при v&gt;4 из S1 с получением квадратного уравнения соответствует определению узла. Ненулевость знаменателей опирается на ограничение v&gt;4 из S1. Результат проверен: 96v=5(v^2-16).&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;KC3&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S3:action&quot;,
+          &quot;quote&quot;: &quot;Решить квадратное уравнение и отобрать корень по ограничению v&gt;4&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S3:result&quot;,
+          &quot;quote&quot;: &quot;D=10816=104^2; v=20 или v=-0,8; подходит v=20&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:S1:result&quot;,
+        &quot;step:S2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+          &quot;reason&quot;: &quot;Покрывает только нахождение корней через дискриминант, без отбора.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+          &quot;reason&quot;: &quot;Покрывает только отбор корней по смыслу модели, без решения уравнения.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+          &quot;reason&quot;: &quot;Отбор по заданной области/промежутку; здесь ограничение физическое (v&gt;4), ближе literal_c840012ba3dd.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат объединяет два разных действия: решение квадратного уравнения через дискриминант (D=10816, корни 20 и -0,8) и отбор корня по ограничению модели v&gt;4. В каталоге они представлены отдельными узлами. Вычисления проверены: D=96^2+4·5·80=10816, v=(96±104)/10.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;part&quot;: &quot;Найти корни 5v^2-96v-80=0 через дискриминант&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+            &quot;evidence_ref&quot;: &quot;step:S3:result&quot;
+          },
+          {
+            &quot;part&quot;: &quot;Отобрать корень v=20 по ограничению v&gt;4 из модели&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+            &quot;evidence_ref&quot;: &quot;step:S3:result&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><section><h2>2F9BDB</h2><p>Впишите правильный ответ.</p><div><section>  <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0"> <tr> <td valign="top"> <p class="MsoNormal">Площадь боковой поверхности треугольной призмы равна 54. Через среднюю линию основания призмы проведена плоскость, параллельная боковому ребру. Найдите площадь боковой поверхности отсечённой треугольной призмы.</p> </td> <td valign="top"> <p class="MsoNormal" align="right"><img src="file:///Users/bogdanlukancuk/proactive-ai-tutor-65/data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/inputs/assets/089a38b6f165902df128244d.png" alt="Рисунок ФИПИ"><span></span></p> </td> </tr> </table> <p class="MsoNormal"><span> </span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;2F9BDB&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;27&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;S1&quot;,
+      &quot;action&quot;: &quot;Установить, что сечение плоскостью через среднюю линию основания параллельно боковому ребру отсекает призму с теми же боковыми рёбрами, основание которой — треугольник, отсечённый средней линией и подобный исходному основанию с коэффициентом 1/2; поэтому периметр её перпендикулярного сечения (или основания) вдвое меньше&quot;,
+      &quot;result&quot;: &quot;Периметр отсечённой призмы равен половине периметра исходной, боковые рёбра те же&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC1&quot;,
+        &quot;KC2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;S2&quot;,
+      &quot;action&quot;: &quot;Выразить площадь боковой поверхности призмы как произведение периметра перпендикулярного сечения на длину бокового ребра и найти отношение площадей&quot;,
+      &quot;result&quot;: &quot;S = 54 · 1/2 = 27&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;S1&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;KC1&quot;,
+      &quot;name&quot;: &quot;Применить свойство средней линии треугольника&quot;,
+      &quot;description&quot;: &quot;По средней линии треугольника определить, что отсекаемый ею треугольник подобен исходному с коэффициентом 1/2 и его периметр вдвое меньше; применимо, когда отрезок соединяет середины двух сторон.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;KC2&quot;,
+      &quot;name&quot;: &quot;Определить вид сечения призмы плоскостью, параллельной боковому ребру&quot;,
+      &quot;description&quot;: &quot;По прямой в основании и условию параллельности боковому ребру установить, что сечение отсекает призму с теми же боковыми рёбрами и основанием, ограниченным этой прямой.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;KC3&quot;,
+      &quot;name&quot;: &quot;Сравнить площади боковых поверхностей призм с общими боковыми рёбрами&quot;,
+      &quot;description&quot;: &quot;Использовать формулу боковой поверхности призмы как произведения периметра перпендикулярного сечения на боковое ребро, чтобы при равных рёбрах найти отношение площадей как отношение периметров.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;M1&quot;,
+      &quot;name&quot;: &quot;Отношение боковых поверхностей через отношение периметров сечений&quot;,
+      &quot;step_ids&quot;: [
+        &quot;S1&quot;,
+        &quot;S2&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;2F9BDB&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;KC1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S1:action&quot;,
+          &quot;quote&quot;: &quot;основание которой — треугольник, отсечённый средней линией и подобный исходному основанию с коэффициентом 1/2&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S1:result&quot;,
+          &quot;quote&quot;: &quot;Периметр отсечённой призмы равен половине периметра исходной&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_d5e287608dd5&quot;,
+          &quot;reason&quot;: &quot;Общее подобие для пропорции отрезков и высот; не содержит свойства средней линии (параллельность и половина стороны) и вывода об отношении периметров.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_b58390338050&quot;,
+          &quot;reason&quot;: &quot;Использует уже установленное подобие для пропорции сторон; здесь же подобие выводится из средней линии и переносится на периметр.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;similar_area&quot;,
+          &quot;reason&quot;: &quot;Отношение площадей подобных фигур (квадрат коэффициента), а здесь отношение периметров (первая степень).&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;similarity_AA&quot;,
+          &quot;reason&quot;: &quot;Доказательство подобия по двум углам в решении не выполняется.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: по средней линии треугольника-основания установить подобие отсекаемого треугольника с коэффициентом 1/2 и уменьшение периметра вдвое. Объект — треугольник основания призмы; условие — отрезок соединяет середины двух сторон (из условия). В каталоге нет узла о средней линии треугольника; ближайшие узлы о подобии покрывают лишь часть действия.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Применять свойство средней линии треугольника&quot;,
+        &quot;definition&quot;: &quot;По отрезку, соединяющему середины двух сторон треугольника, установить его параллельность третьей стороне и равенство её половине; отсекаемый треугольник подобен исходному с коэффициентом 1/2, поэтому соответствующие длины и периметр вдвое меньше.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;KC2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S1:action&quot;,
+          &quot;quote&quot;: &quot;сечение плоскостью через среднюю линию основания параллельно боковому ребру отсекает призму с теми же боковыми рёбрами&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;image:assets/089a38b6f165902df128244d.png&quot;,
+          &quot;region_description&quot;: &quot;Треугольная призма с наклонными боковыми рёбрами; внутри проведена плоскость (сплошные и штриховые линии) через отрезок в основаниях, параллельная боковым рёбрам, отсекающая меньшую треугольную призму у одного ребра.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;image:assets/089a38b6f165902df128244d.png&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_6f2cb1731d16&quot;,
+          &quot;reason&quot;: &quot;Определяет тип многоугольника сечения по пересечённым рёбрам; здесь устанавливается, что отсечённая часть — призма с общими боковыми рёбрами, это другой результат.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_0cd75b4548b3&quot;,
+          &quot;reason&quot;: &quot;Распознавание призмы по параллельным равным основаниям — близкий компонент, но не включает построение плоскости через прямую основания параллельно ребру и вывод об отсечённом теле.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: по прямой в основании и параллельности плоскости боковому ребру установить, что отсечённая часть — призма с той же длиной боковых рёбер и основанием, ограниченным этой прямой. Ни один узел каталога не описывает этот вывод целиком.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Определять отсечённое тело при сечении призмы плоскостью, параллельной боковому ребру&quot;,
+        &quot;definition&quot;: &quot;Для плоскости, проходящей через прямую в основании призмы параллельно боковому ребру, установить, что она отсекает призму с боковыми рёбрами той же длины и основанием, ограниченным этой прямой.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;KC3&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S2:action&quot;,
+          &quot;quote&quot;: &quot;Выразить площадь боковой поверхности призмы как произведение периметра перпендикулярного сечения на длину бокового ребра и найти отношение площадей&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S2:result&quot;,
+          &quot;quote&quot;: &quot;S = 54 · 1/2 = 27&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:S1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;cylinder_lateral&quot;,
+          &quot;reason&quot;: &quot;Боковая поверхность прямого цилиндра S=2πrh, другой объект.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_e97bf0e03da7&quot;,
+          &quot;reason&quot;: &quot;Боковая поверхность конуса, другой объект.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_19971b364ca1&quot;,
+          &quot;reason&quot;: &quot;Объём призмы, а не площадь боковой поверхности.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;similar_area&quot;,
+          &quot;reason&quot;: &quot;Отношение площадей здесь линейно по периметру при равных рёбрах, а не квадрат коэффициента подобия; призмы не подобны.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: использовать S_бок = P_⊥·l и при равных боковых рёбрах перейти к отношению периметров (входное состояние — результат S1). Узла о боковой поверхности призмы в каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Сравнивать площади боковых поверхностей призм через периметры сечений&quot;,
+        &quot;definition&quot;: &quot;Использовать S_бок = P_⊥·l (P_⊥ — периметр перпендикулярного сечения, l — боковое ребро); при равных боковых рёбрах отношение боковых поверхностей равно отношению периметров перпендикулярных сечений.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;boundary&quot;,
+      &quot;refs&quot;: [
+        &quot;step:S1:action&quot;,
+        &quot;step:S2:action&quot;
+      ],
+      &quot;description&quot;: &quot;Для наклонной призмы (как на рисунке) в S2 нужно отношение периметров перпендикулярных сечений; в S1 оно обосновано через основание с оговоркой «(или основания)». Вывод верен, поскольку перпендикулярное сечение отсечённой призмы — треугольник, отсечённый средней линией перпендикулярного сечения исходной призмы, но этот переход явно не показан. Ответ 27 подтверждается.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;KC1&quot;,
+        &quot;KC3&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>

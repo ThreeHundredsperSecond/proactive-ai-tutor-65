@@ -1,0 +1,144 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>DB5D8C</title><style>body{font:17px/1.55 system-ui;max-width:1300px;margin:30px auto;padding:0 20px;color:#183340}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd4da;padding:8px;vertical-align:top}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{border-top:1px solid #abc;margin:20px 0}small{color:#567}a{color:#096c96}</style><nav><a href="../index.html">Отчёт</a></nav><h1>66. ФИПИ DB5D8C · бронь #4, партия 6</h1><p>Авторский разбор и аудит предварительны; внешней экспертизы нет.</p><p>Модель автора: claude-opus-5-5 (opus; effort=low); в основных частотах: True · </p><h2>Условие</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">15-го декабря планируется взять кредит в банке на 11 месяцев. Условия его возврата таковы:</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mo>—</mo>  </semantics> </mstyle></math> 1-го числа каждого месяца долг возрастает на 3% по сравнению с концом предыдущего месяца;</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mo>—</mo>  </semantics> </mstyle></math> со 2-го по 14-е число каждого месяца необходимо выплатить часть долга;</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mo>—</mo>  </semantics> </mstyle></math> 15-го числа каждого месяца с 1-го по 10-й долг должен быть на 80 тысяч рублей меньше долга на 15-е число предыдущего месяца;</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mo>—</mo>  </semantics> </mstyle></math> к 15-му числу 11-го месяца кредит должен быть полностью погашен.</p> <p class="MsoNormal">Какой долг будет 15-го числа 10-го месяца, если общая сумма выплат после полного погашения кредита составит 1198 тысяч рублей?</p> <p class="MsoNormal"><span> </span></p>  </section></div><p>КЭС: 1.2 Рациональные числа. Обыкновенные и десятичные дроби, проценты, бесконечные периодические дроби; 2.1 Целые и дробно-рациональные уравнения; 3.8 Арифметическая и геометрическая прогрессии. Формула сложных процентов</p><h2>Ответ</h2><p>200 тысяч рублей</p><h2>Шаги</h2><table><tr><th>ID / вход</th><th>Действие</th><th>Результат</th><th>Локальные KC</th></tr><tr><td>s1 · condition</td><td>Обозначить сумму кредита S и выразить долги на 15-е число месяцев 0–10 как арифметическую прогрессию S−80k (k=0..10); в 11-м месяце долг 0.</td><td>Долги: S, S−80, ..., S−800 тыс. руб.</td><td>kc1</td></tr><tr><td>s2 · s1</td><td>Выразить общую сумму выплат как сумму кредита плюс начисленные проценты: 0,03 от суммы долгов месяцев 0–10.</td><td>Выплаты = S + 0,03·(11S − 80·55) = 1,33S − 132</td><td>kc2, kc3</td></tr><tr><td>s3 · s2, condition</td><td>Приравнять выплаты 1198 и решить линейное уравнение.</td><td>1,33S = 1330, S = 1000</td><td>kc4</td></tr><tr><td>s4 · s1, s3</td><td>Вычислить долг на 15-е число 10-го месяца.</td><td>1000 − 800 = 200 тыс. руб.</td><td>kc1</td></tr></table><h2>Методы</h2><pre>[
+  {
+    &quot;id&quot;: &quot;m1&quot;,
+    &quot;name&quot;: &quot;Суммирование процентов по графику остатков долга&quot;,
+    &quot;step_ids&quot;: [
+      &quot;s1&quot;,
+      &quot;s2&quot;,
+      &quot;s3&quot;,
+      &quot;s4&quot;
+    ]
+  }
+]</pre><h2>Кандидаты и аудит</h2><section id="kc1"><h3>kc1 · Выразить график долга по условию равномерного уменьшения</h3><p>По условию фиксированного уменьшения долга за период записать долг в каждый период как член арифметической прогрессии от неизвестной суммы кредита.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc1&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s1:action&quot;,
+      &quot;quote&quot;: &quot;выразить долги на 15-е число месяцев 0–10 как арифметическую прогрессию S−80k (k=0..10); в 11-м месяце долг 0&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s1:result&quot;,
+      &quot;quote&quot;: &quot;Долги: S, S−80, ..., S−800 тыс. руб.&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;arithmetic_series&quot;,
+      &quot;reason&quot;: &quot;суммирование прогрессии, а не составление графика долга по условию кредита&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_33060533660f&quot;,
+      &quot;reason&quot;: &quot;модель прибыли и окупаемости, не график остатков кредита&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+      &quot;reason&quot;: &quot;процентная доля части от целого; здесь моделируется уменьшение долга на фиксированную сумму&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Действие: по условиям кредита записать остаток долга на 15-е число каждого месяца как член арифметической прогрессии от неизвестной суммы S. В каталоге нет узла моделирования графика долга по кредиту. Шаг s4 (1000 − 800) тоже помечен kc1, но это лишь подстановка найденного S в уже построенную формулу, а не построение графика.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;По условию кредита с фиксированным уменьшением долга на заданную сумму за период выразить остаток долга на каждую контрольную дату через неизвестную сумму кредита, учитывая полное погашение в последнем периоде.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: [
+    &quot;i1&quot;
+  ]
+}</pre></section><section id="kc2"><h3>kc2 · Выразить сумму выплат через долг и проценты</h3><p>Для кредита с начислением процента на остаток представить общую выплату как исходный долг плюс сумму процентов, начисленных на остатки каждого периода.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc2&quot;,
+  &quot;status&quot;: &quot;new_candidate&quot;,
+  &quot;catalog_kc_id&quot;: null,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:action&quot;,
+      &quot;quote&quot;: &quot;Выразить общую сумму выплат как сумму кредита плюс начисленные проценты: 0,03 от суммы долгов месяцев 0–10.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;Выплаты = S + 0,03·(11S − 80·55) = 1,33S − 132&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;condition&quot;,
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+      &quot;reason&quot;: &quot;перевод процента в множитель — только компонент; кандидат включает учёт того, что выплаты равны кредиту плюс проценты на все остатки&quot;
+    },
+    {
+      &quot;catalog_kc_id&quot;: &quot;literal_33060533660f&quot;,
+      &quot;reason&quot;: &quot;другой экономический объект (прибыль и окупаемость)&quot;
+    }
+  ],
+  &quot;rationale&quot;: &quot;Операция — составить выражение общей суммы выплат по кредиту через тело долга и проценты на остатки каждого периода. Подходящего узла нет. Суммирование прогрессии внутри шага соответствует отдельному kc3.&quot;,
+  &quot;proposal&quot;: {
+    &quot;definition&quot;: &quot;Для кредита с начислением процента на остаток выразить общую сумму выплат как сумму кредита плюс проценты, начисленные на остатки долга каждого периода.&quot;
+  },
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc3"><h3>kc3 · Вычислить сумму арифметической прогрессии</h3><p>По первому члену, разности и числу членов найти сумму конечной арифметической прогрессии, в том числе с буквенным членом.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc3&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;arithmetic_series&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s2:result&quot;,
+      &quot;quote&quot;: &quot;11S − 80·55&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s1:result&quot;
+  ],
+  &quot;alternatives_checked&quot;: [],
+  &quot;rationale&quot;: &quot;Сумма 11 членов S−80k (k=0..10) найдена как 11S − 80·(0+…+10) = 11S − 80·55; это суммирование конечной арифметической прогрессии по числу членов и крайним членам. Промежуточная запись краткая, но верная.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><section id="kc4"><h3>kc4 · Решить линейное уравнение</h3><p>Найти неизвестное из уравнения первой степени с числовыми коэффициентами.</p><pre>{
+  &quot;local_kc_id&quot;: &quot;kc4&quot;,
+  &quot;status&quot;: &quot;match&quot;,
+  &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+  &quot;evidence&quot;: [
+    {
+      &quot;ref&quot;: &quot;step:s3:action&quot;,
+      &quot;quote&quot;: &quot;Приравнять выплаты 1198 и решить линейное уравнение.&quot;
+    },
+    {
+      &quot;ref&quot;: &quot;step:s3:result&quot;,
+      &quot;quote&quot;: &quot;1,33S = 1330, S = 1000&quot;
+    }
+  ],
+  &quot;context_refs&quot;: [
+    &quot;step:s2:result&quot;,
+    &quot;condition&quot;
+  ],
+  &quot;alternatives_checked&quot;: [],
+  &quot;rationale&quot;: &quot;Решается аффинное уравнение 1,33S − 132 = 1198 с числовыми коэффициентами; построение модели относится к kc1/kc2.&quot;,
+  &quot;proposal&quot;: null,
+  &quot;blocking&quot;: false,
+  &quot;issue_ids&quot;: []
+}</pre></section><h2>Предупреждения автора</h2><pre>[]</pre><h2>Замечания аудитора</h2><pre>[
+  {
+    &quot;id&quot;: &quot;i1&quot;,
+    &quot;kind&quot;: &quot;boundary&quot;,
+    &quot;refs&quot;: [
+      &quot;step:s4:action&quot;,
+      &quot;step:s4:result&quot;
+    ],
+    &quot;description&quot;: &quot;Шаг s4 помечен kc1, хотя в нём лишь подставляется S=1000 в выражение долга для 10-го месяца (1000 − 800). Это вычисление по уже построенной модели, близкое к literal_6308771d01a6 или literal_89184e5e6ac9, а не построение графика долга. Математика решения проверена: S=1000, ответ 200 тыс. руб. верен.&quot;,
+    &quot;blocking&quot;: false,
+    &quot;affected_local_kc_ids&quot;: [
+      &quot;kc1&quot;
+    ]
+  }
+]</pre><h2>Источник</h2><pre>{
+  &quot;author_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/author/DB5D8C.json&quot;,
+  &quot;auditor_path&quot;: &quot;data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100/raw/auditor/DB5D8C.json&quot;,
+  &quot;accepted_after_review&quot;: null
+}</pre></html>
