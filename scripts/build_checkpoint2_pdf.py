@@ -56,8 +56,8 @@ def build():
         pdfmetrics.registerFont(TTFont(name, file))
     addMapping('Body', 0, 0, 'Body')
     addMapping('Body', 1, 0, 'BodyBold')
-    body = ParagraphStyle('body', fontName='Body', fontSize=9.4, leading=12.6, spaceAfter=5, textColor=INK)
-    title = ParagraphStyle('title', parent=body, fontName='BodyBold', fontSize=22, leading=26, spaceAfter=4, textColor=TEAL)
+    body = ParagraphStyle('body', fontName='Body', fontSize=10.2, leading=14.3, spaceAfter=7, textColor=INK)
+    title = ParagraphStyle('title', parent=body, fontName='BodyBold', fontSize=25, leading=30, spaceAfter=7, textColor=TEAL)
     heading = ParagraphStyle('heading', parent=body, fontName='BodyBold', fontSize=10.8, leading=14, spaceBefore=6, spaceAfter=4, textColor=TEAL, keepWithNext=True)
     subtitle = ParagraphStyle('subtitle', parent=body, fontSize=9, leading=12, spaceAfter=8, textColor=MUTED)
     bullet = ParagraphStyle('bullet', parent=body, leftIndent=11, bulletIndent=0, spaceAfter=3)
@@ -92,7 +92,7 @@ def build():
     assert len(pdf.pages) == 1, f'Expected one page, got {len(pdf.pages)}'
     text = pdf.pages[0].extract_text()
     for token in ['1148', '315', '312', '20', '280', '71%', '83%', 'KC', 'Целая задача', 'рабочей версией',
-                  'Трудности и их серьёзность', 'Как оценивать качество']:
+                  'Основные риски', 'Качество материалов', 'подбором упражнений']:
         assert token in text, f'Missing text: {token}'
     print(TARGET)
 
