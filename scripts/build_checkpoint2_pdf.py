@@ -79,7 +79,7 @@ def build():
     pdf = PdfReader(TARGET)
     assert len(pdf.pages) == 1, f'Expected one page, got {len(pdf.pages)}'
     text = pdf.pages[0].extract_text()
-    for token in ['1148', '100', '98', 'KC', 'Целая задача', 'рабочей версией']:
+    for token in ['1148', '315', '312', '20', '280', '71%', '83%', 'KC', 'Целая задача', 'рабочей версией']:
         assert token in text, f'Missing text: {token}'
     print(TARGET)
 
