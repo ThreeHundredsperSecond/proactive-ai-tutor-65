@@ -12,7 +12,7 @@ EDA-200 summary and frequencies equal the saved EDA-200 outputs.
 
 Usage:
   .venv/bin/python scripts/fipi_checkpoint250.py check
-  .venv/bin/python scripts/fipi_checkpoint250.py build [--out data/annotation/analyses/2026-11-09-fipi-checkpoint-250-v1]
+  .venv/bin/python scripts/fipi_checkpoint250.py build [--out data/annotation/analyses/2026-11-09-bogdan108-checkpoint-250-v1]
 The output directory is immutable: an existing directory is never overwritten (use a new -vN name).
 """
 import argparse
@@ -34,7 +34,7 @@ ROOT = cp.ROOT
 H200 = ROOT / 'data/annotation/analyses/2026-11-09-fipi-checkpoint-200-v1'
 NEXT = ROOT / 'data/annotation/runs/2026-11-09-fipi-team-bogdan108-next-100'
 NEXT_BATCHES = [1, 2, 3, 4]
-DEFAULT_OUT = 'data/annotation/analyses/2026-11-09-fipi-checkpoint-250-v1'
+DEFAULT_OUT = 'data/annotation/analyses/2026-11-09-bogdan108-checkpoint-250-v1'
 STATUSES, STATUS_LABELS, REASON_LABELS = cp.STATUSES, cp.STATUS_LABELS, cp.REASON_LABELS
 read, sha, dump, csvout, pct = cp.read, cp.sha, cp.dump, cp.csvout, cp.pct
 

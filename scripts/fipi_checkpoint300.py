@@ -12,7 +12,7 @@ the recomputed EDA-250 (batches 1-4) summary and frequencies equal the saved EDA
 
 Usage:
   .venv/bin/python scripts/fipi_checkpoint300.py check
-  .venv/bin/python scripts/fipi_checkpoint300.py build [--out data/annotation/analyses/2026-11-10-fipi-checkpoint-300-v1]
+  .venv/bin/python scripts/fipi_checkpoint300.py build [--out data/annotation/analyses/2026-11-10-bogdan108-checkpoint-300-v1]
 The output directory is immutable: an existing directory is never overwritten (use a new -vN name).
 """
 import argparse
@@ -34,10 +34,10 @@ rep, ext = cp.rep, cp.ext
 plt, Image = cp.plt, cp.Image
 ROOT = cp.ROOT
 H200 = c250.H200
-H250 = ROOT / 'data/annotation/analyses/2026-11-09-fipi-checkpoint-250-v1'
+H250 = ROOT / 'data/annotation/analyses/2026-11-09-bogdan108-checkpoint-250-v1'
 NEXT = c250.NEXT
 NEXT_BATCHES = [1, 2, 3, 4, 5, 6, 7, 8]
-DEFAULT_OUT = 'data/annotation/analyses/2026-11-10-fipi-checkpoint-300-v1'
+DEFAULT_OUT = 'data/annotation/analyses/2026-11-10-bogdan108-checkpoint-300-v1'
 STATUSES, STATUS_LABELS, REASON_LABELS = cp.STATUSES, cp.STATUS_LABELS, cp.REASON_LABELS
 read, sha, dump, csvout, pct = cp.read, cp.sha, cp.dump, cp.csvout, cp.pct
 FIGURES = ('01-composition', '02-structure', '03-audit-statuses', '04-catalog-evidence', '05-next-batches')
@@ -299,7 +299,7 @@ def report_lines(data, summary, tables, checks):
     lines = ['# ФИПИ: накопленная контрольная точка 300 задач', '',
              'Расчёт по сохранённым разборам и аудитам, без новых модельных запросов. Корпус — [EDA-200](../2026-11-09-fipi-checkpoint-200-v1/report.md) '
              'и все 100 задач брони #4 Bogdan108 (партии 1–8); первые 50 из них вошли в промежуточный '
-             '[EDA-250](../2026-11-09-fipi-checkpoint-250-v1/report.md). Определения метрик — как в '
+             '[EDA-250](../2026-11-09-bogdan108-checkpoint-250-v1/report.md). Определения метрик — как в '
              '[EDA-100](../../runs/2026-11-02-fipi-extension-150/derived/checkpoint-100-v1/report.md), EDA-200 и EDA-250: узел каталога считается '
              'подтверждённым в задаче, если аудитор поставил `match` без блокировки; частоты — число задач, а не упоминаний; '
              'единичный узел — подтверждён ровно в одной включённой задаче. Внешнего эталона нет; статус `solved` не является оценкой точности.', '',
