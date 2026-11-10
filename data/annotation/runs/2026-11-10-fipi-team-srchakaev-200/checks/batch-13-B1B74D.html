@@ -1,0 +1,243 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>B1B74D</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">В июле 2028 года планируется взять в банке кредит на три года в размере 6 млн рублей. Условия его возврата таковы:</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> каждый январь долг увеличивается на <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mi>r</mi> </semantics> </math> % по сравнению с концом предыдущего года;</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> с февраля по июнь каждого года необходимо выплатить одним платежом часть долга;</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> в июле 2029 и 2030 годов долг должен быть на 70 % меньше долга на июль предыдущего года;</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> к июлю 2031 года долг должен быть выплачен полностью.</p> <p class="MsoNormal">Известно, что сумма всех платежей после полного погашения кредита будет равна 8085 тыс. рублей. Найдите <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>r</mi><mo>.</mo> </mrow> </semantics> </math> <span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;B1B74D&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;25&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Определить долг на июль каждого года по условию уменьшения на 70% и полного погашения&quot;,
+      &quot;result&quot;: &quot;Долг (тыс. руб.): июль 2028 — 6000, июль 2029 — 1800, июль 2030 — 540, июль 2031 — 0&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Выразить ежегодные платежи как разность между долгом после начисления процентов и долгом после платежа, k = 1 + r/100&quot;,
+      &quot;result&quot;: &quot;x1 = 6000k − 1800, x2 = 1800k − 540, x3 = 540k&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Составить уравнение по сумме всех платежей&quot;,
+      &quot;result&quot;: &quot;8340k − 2340 = 8085&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Решить линейное уравнение относительно k и найти r&quot;,
+      &quot;result&quot;: &quot;k = 1,25, r = 25&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Вычислить остатки долга по заданной схеме уменьшения&quot;,
+      &quot;description&quot;: &quot;Вход: начальный долг и правило изменения долга на фиксированные даты (процентное уменьшение, полное погашение). Операция: последовательно найти долг на каждую дату. Граница: схемы, где остаток задан условием, а не платежом.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Выразить платёж через долг до и после выплаты&quot;,
+      &quot;description&quot;: &quot;Вход: долг на конец периода, коэффициент начисления процентов, долг после платежа. Операция: платёж = долг·k − новый долг. Граница: ежегодное начисление процентов перед одним платежом.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Составить уравнение по сумме платежей&quot;,
+      &quot;description&quot;: &quot;Вход: выражения платежей через параметр и известная общая сумма выплат. Операция: сложить выражения и приравнять к сумме. Граница: суммарная выплата задана в условии.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Решить линейное уравнение и перевести коэффициент в процентную ставку&quot;,
+      &quot;description&quot;: &quot;Вход: линейное уравнение относительно k = 1 + r/100. Операция: найти k, затем r = 100(k − 1). Граница: числовые коэффициенты, k &gt; 1.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Расчёт кредита через остатки долга и сумму платежей&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;B1B74D&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Определить долг на июль каждого года по условию уменьшения на 70% и полного погашения&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;июль 2028 — 6000, июль 2029 — 1800, июль 2030 — 540, июль 2031 — 0&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+          &quot;reason&quot;: &quot;Составление уравнения процентной доли; здесь не уравнение, а последовательное вычисление остатков по заданному правилу уменьшения&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+          &quot;reason&quot;: &quot;Нет заданной формулы, в которую подставляются величины&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: последовательное применение процентного уменьшения к остатку долга по датам с учётом полного погашения. Объект — график остатков кредита. В каталоге нет узла для финансовой схемы остатков; процентный узел касается уравнения части и целого.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;По начальному долгу и заданному условием правилу изменения остатка на фиксированные даты (уменьшение на p%, полное погашение) последовательно вычислить остаток на каждую дату.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Выразить ежегодные платежи как разность между долгом после начисления процентов и долгом после платежа, k = 1 + r/100&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;x1 = 6000k − 1800, x2 = 1800k − 540, x3 = 540k&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+          &quot;reason&quot;: &quot;Перевод процента в множитель является лишь компонентом; основная операция — баланс долга до и после платежа&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_33060533660f&quot;,
+          &quot;reason&quot;: &quot;Моделирование прибыли и окупаемости, а не платежей по кредиту&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: моделирование платежа как разности долга после начисления процентов (умножение на k) и остатка после платежа. Подходящего узла кредитной модели в каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Для схемы с ежегодным начислением r% перед одним платежом выразить платёж периода как D·(1+r/100) − D&#x27;, где D — долг до начисления, D&#x27; — долг после платежа.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;Составить уравнение по сумме всех платежей&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;8340k − 2340 = 8085&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+          &quot;reason&quot;: &quot;Построение модели явно исключено из определения&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_33060533660f&quot;,
+          &quot;reason&quot;: &quot;Суммирует прибыль за срок, а не платежи по кредиту&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: сложение выражений платежей и приравнивание к заданной в условии сумме выплат (составление модели). Узла для этого в каталоге нет. Арифметика проверена: сумма коэффициентов 8340, свободных членов −2340.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Сложить выражения платежей через параметр и приравнять к известной из условия общей сумме выплат, получив уравнение относительно параметра.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;Решить линейное уравнение относительно k и найти r&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;k = 1,25, r = 25&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s3:result&quot;,
+        &quot;step:s2:action&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+          &quot;reason&quot;: &quot;Покрывает решение 8340k − 2340 = 8085, но не переход от k к r&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_89184e5e6ac9&quot;,
+          &quot;reason&quot;: &quot;Покрывает восстановление r из вспомогательного k, но не решение уравнения&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат объединяет два действия: решение линейного уравнения с числовыми коэффициентами (k = 10425/8340 = 1,25, верно) и восстановление искомой ставки из вспомогательного параметра k = 1 + r/100.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;part&quot;: &quot;Решить 8340k − 2340 = 8085 относительно k&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;linear_equation&quot;
+          },
+          {
+            &quot;part&quot;: &quot;Вычислить r = 100(k − 1) из введённого параметра k&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;literal_89184e5e6ac9&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>

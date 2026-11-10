@@ -1,0 +1,236 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>66CF9D</h2><p>Дайте развернутый ответ.</p><div><section> <p class="Basis">Решите неравенство <span><img src="file:///Users/srchakaev/Projects/uni/yearly%20project/repo/data/annotation/runs/2026-11-10-fipi-team-srchakaev-200/inputs/assets/7416a38ef96e42494ed05976.png" alt="Рисунок ФИПИ"></span>.</p>
+<p class="Basis"><span lang="EN-US"> </span></p> </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;66CF9D&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;(-∞; 0] ∪ [2; 3]&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Представить все степени через a=2^x&gt;0, b=3^x&gt;0: 12^x=a^2 b, 8^x=a^3, 6^{x+1}=6ab, 4^{x+1}=4a^2, 2^{x+5}=32a&quot;,
+      &quot;result&quot;: &quot;a^2 b − a^3 − 12ab + 12a^2 + 32b − 32a ≤ 0&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Разложить левую часть на множители группировкой&quot;,
+      &quot;result&quot;: &quot;(b − a)(a^2 − 12a + 32) = (3^x − 2^x)(2^x − 4)(2^x − 8) ≤ 0&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Заменить каждый множитель равносильным по знаку: 3^x−2^x ~ x, 2^x−4 ~ x−2, 2^x−8 ~ x−3 (монотонность показательной функции)&quot;,
+      &quot;result&quot;: &quot;x(x − 2)(x − 3) ≤ 0&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Решить рациональное неравенство методом интервалов&quot;,
+      &quot;result&quot;: &quot;x ≤ 0 или 2 ≤ x ≤ 3&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Выразить показательные выражения через степени с простыми основаниями&quot;,
+      &quot;description&quot;: &quot;Вход: показательное выражение со степенями разных оснований и сдвинутыми показателями. Операция: разложить основания на множители и ввести новые переменные для степеней простых оснований. Граница: основания — произведения степеней общих простых оснований.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Разложить многочлен на множители группировкой&quot;,
+      &quot;description&quot;: &quot;Вход: многочлен от нескольких переменных. Операция: сгруппировать слагаемые и вынести общий множитель, разложить квадратный трёхчлен. Граница: группировка дает общий множитель.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Заменить множитель равносильным по знаку&quot;,
+      &quot;description&quot;: &quot;Вход: множитель вида a^f − a^g или a^f − c при a&gt;0, a≠1, либо разность степеней разных оснований с одинаковым показателем. Операция: заменить выражением с тем же знаком на области определения, используя монотонность. Граница: только для неравенств вида произведение сравнивается с нулём.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Решить неравенство методом интервалов&quot;,
+      &quot;description&quot;: &quot;Вход: неравенство с произведением линейных множителей относительно нуля. Операция: отметить нули, определить знаки на интервалах, учесть нестрогость. Граница: множители рациональные, известны все нули.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Замена переменных, разложение на множители и рационализация&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;66CF9D&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Представить все степени через a=2^x&gt;0, b=3^x&gt;0&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;image:assets/7416a38ef96e42494ed05976.png&quot;,
+          &quot;region_description&quot;: &quot;Вся строка неравенства: 12^x − 8^x − 2·6^(x+1) + 3·4^(x+1) + 32·3^x − 2^(x+5) ≤ 0, степени с основаниями 12, 8, 6, 4, 3, 2&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;image:assets/7416a38ef96e42494ed05976.png&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+          &quot;reason&quot;: &quot;Определение описывает одну замену t=b^x; здесь две переменные a=2^x, b=3^x, и разложение составных оснований не входит&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+          &quot;reason&quot;: &quot;Покрывает переписывание 12^x=a^2 b, 6^{x+1}=6ab, 2^{x+5}=32a, но не введение новых переменных&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат объединяет преобразование степеней по законам (разложение оснований 12, 8, 6, 4 на 2 и 3, сдвиг показателей) и введение замены степенными переменными. Первая часть соответствует power_laws, вторая близка к exponential_substitution, но в случае двух независимых переменных. Результат s1 проверен и верен.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;part&quot;: &quot;Переписать степени с составными основаниями и сдвинутыми показателями через 2^x и 3^x&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;power_laws&quot;
+          },
+          {
+            &quot;part&quot;: &quot;Ввести положительные переменные a=2^x, b=3^x&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+            &quot;note&quot;: &quot;в каталоге только одна переменная t; соответствие частичное&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Разложить левую часть на множители группировкой&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;(b − a)(a^2 − 12a + 32) = (3^x − 2^x)(2^x − 4)(2^x − 8) ≤ 0&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_89adef4e8cee&quot;,
+          &quot;reason&quot;: &quot;Трёхчлен без параметра&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+          &quot;reason&quot;: &quot;Решение уравнения через нули не выполняется в этом шаге&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Многочлен от a, b представлен произведением b(a^2−12a+32)−a(a^2−12a+32) с последующим разложением трёхчлена, чтобы исследовать знак левой части неравенства. Разложение проверено и верно. Обратная подстановка в правой части результата — тривиальная запись.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;3^x−2^x ~ x, 2^x−4 ~ x−2, 2^x−8 ~ x−3 (монотонность показательной функции)&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;x(x − 2)(x − 3) ≤ 0&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_inequality&quot;,
+          &quot;reason&quot;: &quot;Переход от отдельного ограничения b^x к x, а не замена множителя в произведении знакоэквивалентным; не покрывает 3^x−2^x&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_f68eccc115c2&quot;,
+          &quot;reason&quot;: &quot;Удаляет строго положительный множитель, а здесь множители знакопеременны и заменяются&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;rational_intervals&quot;,
+          &quot;reason&quot;: &quot;Решение полученного неравенства — отдельный шаг s4&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Шаг заменяет каждый множитель произведения, сравниваемого с нулём, выражением того же знака на основе монотонности (метод рационализации), включая разность степеней разных оснований с одинаковым показателем. В каталоге такого действия нет. Замены верны: 3^x−2^x имеет знак x, 2^x−4 знак x−2, 2^x−8 знак x−3.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;В неравенстве вида произведение множителей сравнивается с нулём заменить множители a^f−a^g, a^f−c (a&gt;0, a≠1, c&gt;0) или a^x−b^x на выражения того же знака на области определения, обосновав замену монотонностью.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;rational_intervals&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;Решить рациональное неравенство методом интервалов&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;x ≤ 0 или 2 ≤ x ≤ 3&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_1b97db4e28e8&quot;,
+          &quot;reason&quot;: &quot;Только квадратный трёхчлен; здесь кубическое произведение&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Нули 0, 2, 3 делят прямую, знаки определены, нестрогость учтена включением концов. Полюсов нет, что не противоречит определению. Ответ верен.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>

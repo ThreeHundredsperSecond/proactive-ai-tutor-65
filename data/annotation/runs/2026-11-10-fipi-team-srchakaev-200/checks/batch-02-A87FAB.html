@@ -1,0 +1,314 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>A87FAB</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">На столе лежит некоторое количество карточек, часть из которых синего цвета, а остальные красного (есть хотя бы по одной карточке каждого цвета). На каждой карточке написано целое число. На карточках синего цвета написаны различные числа, делящиеся на 5, а на карточках красного цвета написаны различные числа, делящиеся на 3 (при этом некоторые числа могут быть написаны дважды: один раз на синей карточке и один раз на красной карточке). Все числа на карточках больше <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mo>−</mo><mn>45.</mn> </mrow> </semantics> </math></p> <p class="MsoNormal">Оказалось, что наибольшее число, написанное на красной карточке, равно утроенному количеству синих карточек, а наибольшее число, написанное на синей карточке, равно количеству красных карточек.</p> <p class="MsoNormal">а) Может ли на столе лежать ровно пять красных карточек?</p> <p class="MsoNormal">б) Может ли на столе лежать ровно 100 красных карточек?</p> <p class="MsoNormal">в) Какое наибольшее количество красных карточек может лежать на столе?<span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;A87FAB&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;а) да; б) нет; в) 30&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;S1&quot;,
+      &quot;action&quot;: &quot;Ввести обозначения: b синих и r красных карточек; наибольшее красное число 3b, наибольшее синее r, значит r делится на 5.&quot;,
+      &quot;result&quot;: &quot;max красное = 3b, max синее = r, r кратно 5, r ≥ 5&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;S2&quot;,
+      &quot;action&quot;: &quot;Подсчитать различные числа, кратные 3, в промежутке (-45; 3b], и сравнить с количеством красных карточек.&quot;,
+      &quot;result&quot;: &quot;таких чисел (от -42 до 3b) ровно b+15, поэтому r ≤ b+15&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;S1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;S3&quot;,
+      &quot;action&quot;: &quot;Подсчитать различные числа, кратные 5, в промежутке (-45; r], и сравнить с количеством синих карточек.&quot;,
+      &quot;result&quot;: &quot;таких чисел (от -40 до r) ровно r/5+9, поэтому b ≤ r/5+9&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;S1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;S4&quot;,
+      &quot;action&quot;: &quot;Пункт а: построить пример при r=5.&quot;,
+      &quot;result&quot;: &quot;b=1: синяя 5; красные 3, 0, -3, -6, -9; условия выполнены, ответ да&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;S1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;S5&quot;,
+      &quot;action&quot;: &quot;Объединить неравенства r ≤ b+15 и b ≤ r/5+9 и оценить r.&quot;,
+      &quot;result&quot;: &quot;r ≤ r/5+24, откуда r ≤ 30&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;S2&quot;,
+        &quot;S3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;S6&quot;,
+      &quot;action&quot;: &quot;Пункт б: сравнить 100 с полученной оценкой.&quot;,
+      &quot;result&quot;: &quot;100 &gt; 30, ответ нет&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;S5&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;S7&quot;,
+      &quot;action&quot;: &quot;Пункт в: построить пример при r=30, проверив, что оценка достигается.&quot;,
+      &quot;result&quot;: &quot;b=15: синие -40, -35, ..., 30 (15 чисел, максимум 30); красные -42, -39, ..., 45 (30 чисел, максимум 45 = 3·15); ответ 30&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;S1&quot;,
+        &quot;S2&quot;,
+        &quot;S3&quot;,
+        &quot;S5&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;KC1&quot;,
+      &quot;name&quot;: &quot;Формализовать условие через переменные-количества&quot;,
+      &quot;description&quot;: &quot;По текстовому условию о наборах объектов ввести переменные для количеств и выразить связи и делимость; применимо к комбинаторным задачам с числовыми наборами.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;KC2&quot;,
+      &quot;name&quot;: &quot;Оценить мощность множества различных кратных в промежутке&quot;,
+      &quot;description&quot;: &quot;Для набора различных целых, кратных данному числу и лежащих в заданном промежутке, подсчитать число возможных значений и получить верхнюю оценку количества элементов набора.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;KC3&quot;,
+      &quot;name&quot;: &quot;Построить пример, удовлетворяющий всем условиям&quot;,
+      &quot;description&quot;: &quot;Предъявить конкретный набор значений и проверить выполнение каждого условия, доказывая существование или достижимость оценки.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;KC4&quot;,
+      &quot;name&quot;: &quot;Получить оценку из системы неравенств&quot;,
+      &quot;description&quot;: &quot;Исключить вспомогательную переменную из системы линейных неравенств и вывести ограничение на целевую величину, сравнить с проверяемым значением.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;M1&quot;,
+      &quot;name&quot;: &quot;Оценка через подсчёт допустимых значений плюс пример&quot;,
+      &quot;step_ids&quot;: [
+        &quot;S1&quot;,
+        &quot;S2&quot;,
+        &quot;S3&quot;,
+        &quot;S4&quot;,
+        &quot;S5&quot;,
+        &quot;S6&quot;,
+        &quot;S7&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;A87FAB&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;KC1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S1:action&quot;,
+          &quot;quote&quot;: &quot;Ввести обозначения: b синих и r красных карточек; наибольшее красное число 3b, наибольшее синее r, значит r делится на 5.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S1:result&quot;,
+          &quot;quote&quot;: &quot;max красное = 3b, max синее = r, r кратно 5, r ≥ 5&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_032c8bc781fd&quot;,
+          &quot;reason&quot;: &quot;моделирует процентную долю целочисленными количествами, а не связи максимумов и делимости в наборах&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+          &quot;reason&quot;: &quot;уравнение процентной доли, процентов в задаче нет&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_e3fb5cdd2965&quot;,
+          &quot;reason&quot;: &quot;сравнения по модулю для суммы; здесь вывод кратности r из того, что r — число на синей карточке&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: перевод текстового условия о двух наборах карточек в переменные-количества b, r с выражением максимумов (3b, r) и выводом кратности r пятёрке. В каталоге нет узла построения такой комбинаторной модели; ближайшие узлы относятся к процентам или модулярной арифметике сумм.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Формализовать условие о наборах через переменные-количества&quot;,
+        &quot;definition&quot;: &quot;По текстовому условию о наборах целых чисел ввести переменные для количеств элементов, выразить через них заданные характеристики (максимумы, кратность) и вытекающие ограничения; дальнейшие оценки не входят.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;KC2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S2:action&quot;,
+          &quot;quote&quot;: &quot;Подсчитать различные числа, кратные 3, в промежутке (-45; 3b], и сравнить с количеством красных карточек.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S2:result&quot;,
+          &quot;quote&quot;: &quot;таких чисел (от -42 до 3b) ровно b+15, поэтому r ≤ b+15&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S3:action&quot;,
+          &quot;quote&quot;: &quot;Подсчитать различные числа, кратные 5, в промежутке (-45; r], и сравнить с количеством синих карточек.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S3:result&quot;,
+          &quot;quote&quot;: &quot;таких чисел (от -40 до r) ровно r/5+9, поэтому b ≤ r/5+9&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:S1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_af302473a16f&quot;,
+          &quot;reason&quot;: &quot;оценивает сумму различных кратных снизу, а здесь оценивается количество различных кратных в промежутке сверху&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_de250a7de0bb&quot;,
+          &quot;reason&quot;: &quot;нижняя оценка суммы по классам остатков, не подсчёт мощности&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;finite_exhaustion&quot;,
+          &quot;reason&quot;: &quot;полный перебор случаев не выполняется&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: подсчёт числа кратных k целых в полуинтервале (-45; M] и вывод верхней оценки размера набора различных таких чисел (принцип: различных элементов не больше числа допустимых значений). Подсчёты b+15 и r/5+9 проверены и верны. Подходящего узла в каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Оценивать количество различных кратных в промежутке&quot;,
+        &quot;definition&quot;: &quot;Для набора различных целых, кратных k и лежащих в заданном промежутке, подсчитать число допустимых значений и получить верхнюю оценку числа элементов набора.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;KC3&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;integer_construction&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S4:result&quot;,
+          &quot;quote&quot;: &quot;b=1: синяя 5; красные 3, 0, -3, -6, -9; условия выполнены, ответ да&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S7:result&quot;,
+          &quot;quote&quot;: &quot;b=15: синие -40, -35, ..., 30 (15 чисел, максимум 30); красные -42, -39, ..., 45 (30 чисел, максимум 45 = 3·15); ответ 30&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_f6b803c5f9c2&quot;,
+          &quot;reason&quot;: &quot;покрывает только пример на достижение уже доказанной границы (S7), но не пример существования в S4&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;optimal_bound_attainment&quot;,
+          &quot;reason&quot;: &quot;составное действие «оценка + пример»; KC3 содержит только пример&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;В S4 и S7 предъявлены конкретные наборы целых чисел с проверкой количества, различности, кратности 5 и 3, нижней границы -45 и условий на максимумы — это целиком определение integer_construction. Примеры проверены: оба удовлетворяют условию. Роль S7 как достижимости границы лежит вне этого узла (см. i1).&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;KC4&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S5:action&quot;,
+          &quot;quote&quot;: &quot;Объединить неравенства r ≤ b+15 и b ≤ r/5+9 и оценить r.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S5:result&quot;,
+          &quot;quote&quot;: &quot;r ≤ r/5+24, откуда r ≤ 30&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S6:result&quot;,
+          &quot;quote&quot;: &quot;100 &gt; 30, ответ нет&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:S2:result&quot;,
+        &quot;step:S3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_0a4ebc8382b5&quot;,
+          &quot;reason&quot;: &quot;исключение переменной подстановкой из равенства, а здесь цепочка неравенств&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_48d7fd02cfd9&quot;,
+          &quot;reason&quot;: &quot;подстановка y=mx в уравнение, не неравенства&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_0cf8af170957&quot;,
+          &quot;reason&quot;: &quot;решение линейного неравенства r ≤ r/5+24 — лишь компонент; исключение b транзитивностью не входит&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: исключение вспомогательной переменной b цепочкой (транзитивностью) двух линейных неравенств и решение полученного линейного неравенства r ≤ 30; S6 — тривиальное сравнение с этой оценкой. Вычисление верно. Каталог содержит только части действия (решение линейного неравенства), но не исключение переменной из системы неравенств.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Исключать переменную из системы линейных неравенств&quot;,
+        &quot;definition&quot;: &quot;Скомбинировать неравенства одного направления через общую вспомогательную переменную (транзитивность) и решить полученное линейное неравенство относительно целевой величины.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;missing_annotation&quot;,
+      &quot;refs&quot;: [
+        &quot;step:S7:action&quot;
+      ],
+      &quot;description&quot;: &quot;В S7 по сути выполнено доказательство оптимальности (граница S5 + достигающий пример), что соответствует optimal_bound_attainment, но это общее доказательное действие не размечено отдельным кандидатом; KC3 отражает только построение примера.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;KC3&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>

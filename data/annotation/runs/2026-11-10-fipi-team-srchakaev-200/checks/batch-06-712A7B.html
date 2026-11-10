@@ -1,0 +1,269 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>712A7B</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">а) Решите уравнение</p> <p class="MsoNormal" align="center"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <msqrt> <mn>2</mn> </msqrt> <mi>sin</mi><mrow><mo>(</mo> <mrow> <mi>x</mi><mo>+</mo><mfrac> <mi>π</mi> <mn>4</mn> </mfrac> </mrow> <mo>)</mo></mrow><mo>+</mo><mn>2</mn><msup> <mrow> <mi>sin</mi> </mrow> <mn>2</mn> </msup> <mi>x</mi><mo>=</mo><mi>sin</mi><mi>x</mi><mo>+</mo><mn>2</mn> </mrow>  </semantics> </mstyle></math>.</p> <p class="MsoNormal">б) Укажите корни этого уравнения, принадлежащие отрезку <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mrow><mo>[</mo> <mrow> <mn>2</mn><mi>π</mi><mo>;</mo><mtext> </mtext><mfrac> <mrow> <mtext>7π</mtext> </mrow> <mn>2</mn> </mfrac> </mrow> <mo>]</mo></mrow> </mrow>  </semantics> </mstyle></math>.</p> <p class="MsoNormal"><span> </span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;712A7B&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;а) π/2+πk, ±π/3+2πk, k∈Z; б) 7π/3, 5π/2, 7π/2&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Раскрыть √2·sin(x+π/4) по формуле синуса суммы&quot;,
+      &quot;result&quot;: &quot;√2·sin(x+π/4)=sin x+cos x&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Подставить в уравнение, сократить sin x и заменить sin²x=1−cos²x&quot;,
+      &quot;result&quot;: &quot;cos x−2cos²x=0&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Разложить на множители и решить совокупность простейших уравнений&quot;,
+      &quot;result&quot;: &quot;cos x(1−2cos x)=0 ⇒ cos x=0 или cos x=1/2 ⇒ x=π/2+πk, x=±π/3+2πk, k∈Z&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;,
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Отобрать корни из серий на отрезке [2π; 7π/2]&quot;,
+      &quot;result&quot;: &quot;7π/3, 5π/2, 7π/2&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Применить формулу синуса суммы&quot;,
+      &quot;description&quot;: &quot;Вход: выражение вида a·sin(x+α) с табличным углом α; операция: раскрыть по формуле sin(x+α)=sin x cos α+cos x sin α и упростить коэффициенты.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Свести тригонометрическое уравнение к одной функции&quot;,
+      &quot;description&quot;: &quot;Вход: уравнение с sin²x и cos x; операция: заменить квадрат через основное тригонометрическое тождество и получить алгебраическое уравнение относительно одной функции.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Решить уравнение разложением на множители&quot;,
+      &quot;description&quot;: &quot;Вход: многочлен относительно функции, равный нулю, без свободного члена; операция: вынести общий множитель и перейти к совокупности уравнений.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Решить простейшее уравнение cos x = a&quot;,
+      &quot;description&quot;: &quot;Вход: cos x = a при |a|≤1; операция: записать серию решений с учётом частных случаев a=0.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc5&quot;,
+      &quot;name&quot;: &quot;Отобрать корни тригонометрических серий на отрезке&quot;,
+      &quot;description&quot;: &quot;Вход: серии решений и отрезок; операция: перебор целых параметров или двойное неравенство для каждой серии, включая проверку концов.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Преобразование к уравнению относительно cos x и разложение на множители&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;m2&quot;,
+      &quot;name&quot;: &quot;Отбор корней серий на отрезке&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;712A7B&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Раскрыть √2·sin(x+π/4) по формуле синуса суммы&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;√2·sin(x+π/4)=sin x+cos x&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;,
+          &quot;reason&quot;: &quot;Определение ограничено формулами приведения и двойного угла; формула синуса суммы не входит.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_55d5a6d9eb3c&quot;,
+          &quot;reason&quot;: &quot;Тоже приведение и двойной угол, не формула сложения.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_3d70ab3eb24a&quot;,
+          &quot;reason&quot;: &quot;Только двойной угол.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: раскрытие синуса суммы с табличным углом π/4 и упрощение коэффициента √2·√2/2=1. В каталоге нет узла для формул сложения аргументов; ближайшие узлы тригонометрических тождеств явно перечисляют другие формулы.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Применять формулу синуса (косинуса) суммы&quot;,
+        &quot;definition&quot;: &quot;Раскрыть sin(x±α) или cos(x±α) по формуле сложения при табличном α и упростить числовые коэффициенты.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Подставить в уравнение, сократить sin x и заменить sin²x=1−cos²x&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;cos x−2cos²x=0&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_6d4854d97c9c&quot;,
+          &quot;reason&quot;: &quot;Покрывает только замену sin²x через основное тождество, не подстановку и приведение подобных.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_55d5a6d9eb3c&quot;,
+          &quot;reason&quot;: &quot;Сведение к одной функции, но через приведение и двойной угол, а не основное тождество.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат объединяет подстановку результата s1 с приведением подобных (сокращение sin x, взаимное уничтожение 2 и −2) и замену sin²x=1−cos²x по основному тождеству. Узкая часть соответствует literal_6d4854d97c9c, остальное — рутинная алгебра без отдельного KC; составной кандидат не получает match к узкому узлу.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;part&quot;: &quot;Замена sin²x=1−cos²x&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;literal_6d4854d97c9c&quot;
+          },
+          {
+            &quot;part&quot;: &quot;Подстановка s1 и приведение подобных к cos x−2cos²x=0&quot;,
+            &quot;possible_catalog_kc_id&quot;: null,
+            &quot;note&quot;: &quot;рутинное алгебраическое упрощение, отдельный KC не предлагается&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;cos x(1−2cos x)=0 ⇒ cos x=0 или cos x=1/2&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;Разложить на множители и решить совокупность простейших уравнений&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+          &quot;reason&quot;: &quot;Факторизация для исследования знака, а не решение уравнения.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Вынесение общего множителя cos x и переход к совокупности cos x=0 или cos x=1/2 — получение нулей множителей; область — вся прямая, ограничений нет. Решение простейших уравнений отнесено к kc4.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;elementary_trig_equation&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;cos x=0 или cos x=1/2 ⇒ x=π/2+πk, x=±π/3+2πk, k∈Z&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [],
+      &quot;alternatives_checked&quot;: [],
+      &quot;rationale&quot;: &quot;Решены cos x=0 и cos x=1/2 на всей прямой с выписыванием полных периодических серий; серии верны.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc5&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;periodic_interval&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;Отобрать корни из серий на отрезке [2π; 7π/2]&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;7π/3, 5π/2, 7π/2&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_8409c9003f48&quot;,
+          &quot;reason&quot;: &quot;Для конечного набора корней без периодического параметра.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_6ad8f502588e&quot;,
+          &quot;reason&quot;: &quot;Общая проверка принадлежности точек, без работы с параметром серий.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Отбор корней периодических серий на отрезке; результат проверен: 5π/2 и 7π/2 (правый конец включён) из π/2+πk, 7π/3 из π/3+2πk, 11π/3&gt;7π/2 и 5π/3&lt;2π исключены. Сам перебор параметров в решении не расписан, но итоговый набор верен.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>

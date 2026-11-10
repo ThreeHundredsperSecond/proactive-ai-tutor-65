@@ -1,0 +1,263 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>6F97FE</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Решите неравенство </p> <p class="MsoNormal" align="center"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mfrac> <mrow> <msup> <mrow> <mn>15</mn> </mrow> <mi>x</mi> </msup> <mo>−</mo><msup> <mn>3</mn> <mrow> <mi>x</mi><mo>+</mo><mn>1</mn> </mrow> </msup> <mo>−</mo><msup> <mn>5</mn> <mrow> <mi>x</mi><mo>+</mo><mn>1</mn> </mrow> </msup> <mo>+</mo><mn>15</mn> </mrow> <mrow> <mo>−</mo><msup> <mi>x</mi> <mn>2</mn> </msup> <mo>+</mo><mn>2</mn><mi>x</mi> </mrow> </mfrac> <mo>≥</mo><mn>0</mn> </mrow>  </semantics> </mstyle></math>.</p> <p class="MsoNormal"><span> </span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;6F97FE&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;(0; log_5 3] ∪ [log_3 5; 2)&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Разложить числитель на множители группировкой: 15^x − 3·3^x − 5·5^x + 15 = (3^x − 5)(5^x − 3)&quot;,
+      &quot;result&quot;: &quot;(3^x − 5)(5^x − 3)&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Разложить знаменатель и найти его нули и знаки: −x^2 + 2x = x(2 − x); x ≠ 0, x ≠ 2&quot;,
+      &quot;result&quot;: &quot;знаменатель &gt; 0 при 0 &lt; x &lt; 2, &lt; 0 при x &lt; 0 и x &gt; 2; нули x = 0, x = 2 исключаются&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Найти нули и знаки множителей числителя по монотонности показательной функции&quot;,
+      &quot;result&quot;: &quot;3^x − 5 = 0 при x = log_3 5, &gt;0 при x &gt; log_3 5; 5^x − 3 = 0 при x = log_5 3, &gt;0 при x &gt; log_5 3; log_5 3 &lt; 1 &lt; log_3 5 &lt; 2&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Применить метод интервалов к дроби с учётом нулей числителя (включаются) и нулей знаменателя (исключаются)&quot;,
+      &quot;result&quot;: &quot;x ∈ (0; log_5 3] ∪ [log_3 5; 2)&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Разложить показательное выражение группировкой&quot;,
+      &quot;description&quot;: &quot;Вход: сумма степеней с основаниями, являющимися произведениями других оснований; операция: представить a^x b^x как произведение и сгруппировать слагаемые в произведение двух множителей; граница: когда группировка даёт общий множитель.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Определить знаки квадратного трёхчлена&quot;,
+      &quot;description&quot;: &quot;Вход: квадратный трёхчлен; операция: разложить на линейные множители, найти корни и промежутки знакопостоянства; граница: действительные корни.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Найти нуль и знак разности показательной функции и числа&quot;,
+      &quot;description&quot;: &quot;Вход: выражение a^x − c, a&gt;0, a≠1, c&gt;0; операция: нуль x = log_a c, знак по монотонности; граница: положительное c.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Решить дробное неравенство методом интервалов&quot;,
+      &quot;description&quot;: &quot;Вход: дробь из множителей с известными нулями и знаками; операция: расставить точки на прямой, определить знак на промежутках, включить нули числителя для нестрогого неравенства и исключить нули знаменателя; граница: нестрогие и строгие рациональные по множителям неравенства.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Разложение на множители и метод интервалов&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;6F97FE&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;15^x − 3·3^x − 5·5^x + 15 = (3^x − 5)(5^x − 3)&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+          &quot;reason&quot;: &quot;Покрывает только компонент 15^x=3^x·5^x и 3^(x+1)=3·3^x, но не группировку суммы в произведение двух множителей.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+          &quot;reason&quot;: &quot;Факторизация многочлена; здесь выражение показательное, не многочлен по x.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+          &quot;reason&quot;: &quot;Замена t=b^x в решении не вводится.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: разложение суммы четырёх показательных слагаемых на произведение (3^x − 5)(5^x − 3) группировкой с использованием 15^x=3^x·5^x. Проверено раскрытием: тождество верно. В каталоге нет узла факторизации показательных выражений группировкой; power_laws — лишь компонент.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Разлагать показательное выражение на множители группировкой&quot;,
+        &quot;definition&quot;: &quot;Представить степени с составным основанием и сдвинутым показателем через степени простых оснований (a^x b^x, a·a^x) и сгруппировать слагаемые в произведение множителей вида (a^x − c)(b^x − d); проверить раскрытием.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;uncertain&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;−x^2 + 2x = x(2 − x); x ≠ 0, x ≠ 2&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;знаменатель &gt; 0 при 0 &lt; x &lt; 2, &lt; 0 при x &lt; 0 и x &gt; 2; нули x = 0, x = 2 исключаются&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_1b97db4e28e8&quot;,
+          &quot;reason&quot;: &quot;Близко (корни и знак трёхчлена по промежуткам), но определение включает решение квадратного неравенства со строгостью; здесь неравенство для трёхчлена не решается, лишь определяется знак знаменателя.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+          &quot;reason&quot;: &quot;Факторизация многочлена для исследования знака — покрывает разложение x(2 − x), но кандидат также фиксирует промежутки знакопостоянства.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+          &quot;reason&quot;: &quot;Покрывает исключение x=0, x=2, но не определение знаков.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;rational_intervals&quot;,
+          &quot;reason&quot;: &quot;Знак знаменателя — компонент метода интервалов, а не весь метод.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Действие корректно: разложение знаменателя, его нули и знаки на промежутках, исключение нулей. Несколько перекрывающихся определений (literal_1b97db4e28e8, literal_cab525070130, denominator_domain) покрывают его частично; оснований выбрать одно нет.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;Найти нули и знаки множителей числителя по монотонности показательной функции&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;3^x − 5 = 0 при x = log_3 5, &gt;0 при x &gt; log_3 5&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;log_5 3 &lt; 1 &lt; log_3 5 &lt; 2&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_inequality&quot;,
+          &quot;reason&quot;: &quot;Соответствует части: переход 3^x &gt; 5 ⇔ x &gt; log_3 5 по возрастанию; не включает нахождение нуля и сравнение логарифмов с числами.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_d66dd830e876&quot;,
+          &quot;reason&quot;: &quot;Логарифм по определению — близко к нахождению нуля x=log_3 5, но это вычисление значения, не решение уравнения.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+          &quot;reason&quot;: &quot;Требует общего основания; 5 не степень 3, ответ выражается логарифмом.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат смешивает: (а) решение a^x = c через логарифм, (б) знак a^x − c по монотонности, (в) сравнение log_5 3, log_3 5 с 1 и 2 для упорядочивания точек на прямой. Результаты верны.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;part&quot;: &quot;нуль a^x − c: x = log_a c&quot;,
+            &quot;possible_catalog_kc_ids&quot;: [
+              &quot;literal_d66dd830e876&quot;
+            ],
+            &quot;note&quot;: &quot;частичное соответствие; возможно новый узел решения a^x=c логарифмированием&quot;
+          },
+          {
+            &quot;part&quot;: &quot;знак a^x − c по монотонности&quot;,
+            &quot;possible_catalog_kc_ids&quot;: [
+              &quot;exponential_inequality&quot;
+            ]
+          },
+          {
+            &quot;part&quot;: &quot;сравнение логарифмов с числами 1 и 2&quot;,
+            &quot;possible_catalog_kc_ids&quot;: [],
+            &quot;note&quot;: &quot;в каталоге нет; кандидат на новый узел&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;uncertain&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;Применить метод интервалов к дроби с учётом нулей числителя (включаются) и нулей знаменателя (исключаются)&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;x ∈ (0; log_5 3] ∪ [log_3 5; 2)&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;,
+        &quot;step:s3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;rational_intervals&quot;,
+          &quot;reason&quot;: &quot;Операция совпадает (разбиение нулями и полюсами, знак, концы), но определение ограничено рациональным неравенством; здесь числитель — произведение показательных множителей, знаки которых получены в s3.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+          &quot;reason&quot;: &quot;Пересечение ограничений — лишь компонент.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Ответ проверен и верен. Граница: обобщённый метод интервалов для дроби с непрерывными монотонными множителями vs узел rational_intervals только для рациональных выражений. Без решения о расширении узла подтвердить match нельзя.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>

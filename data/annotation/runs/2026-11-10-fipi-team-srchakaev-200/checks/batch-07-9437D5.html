@@ -1,0 +1,371 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>9437D5</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Найдите все значения <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>a</mi>  </semantics> </mstyle></math>, при каждом из которых уравнение</p> <p class="MsoNormal" align="center"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mrow><mo>(</mo> <mrow> <mn>5</mn><mi>x</mi><mo>−</mo><mn>2</mn> </mrow> <mo>)</mo></mrow><mo>⋅</mo><mi>ln</mi><mrow><mo>(</mo> <mrow> <mi>x</mi><mo>+</mo><mi>a</mi> </mrow> <mo>)</mo></mrow><mo>=</mo><mrow><mo>(</mo> <mrow> <mn>5</mn><mi>x</mi><mo>−</mo><mn>2</mn> </mrow> <mo>)</mo></mrow><mo>⋅</mo><mi>ln</mi><mrow><mo>(</mo> <mrow> <mn>2</mn><mi>x</mi><mo>−</mo><mi>a</mi> </mrow> <mo>)</mo></mrow> </mrow>  </semantics> </mstyle></math></p> <p class="MsoNormal">имеет ровно один корень на отрезке <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <mrow><mo>[</mo> <mrow> <mn>0</mn><mo>;</mo><mtext> </mtext><mn>1</mn> </mrow> <mo>]</mo></mrow> </mrow>  </semantics> </mstyle></math>.<span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;9437D5&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;a ∈ (−2/5; 0] ∪ {1/5} ∪ (1/2; 4/5)&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Записать ОДЗ уравнения: x + a &gt; 0 и 2x − a &gt; 0.&quot;,
+      &quot;result&quot;: &quot;ОДЗ: x &gt; −a, x &gt; a/2&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Перенести всё в одну часть и разложить на множители; приравнять каждый множитель к нулю с учётом ОДЗ.&quot;,
+      &quot;result&quot;: &quot;(5x−2)(ln(x+a) − ln(2x−a)) = 0 ⇔ на ОДЗ: x = 2/5 или ln(x+a) = ln(2x−a)&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Свести равенство логарифмов к равенству аргументов на ОДЗ и решить полученное линейное уравнение.&quot;,
+      &quot;result&quot;: &quot;x + a = 2x − a ⇒ x = 2a; ОДЗ: 3a &gt; 0 ⇒ a &gt; 0&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Определить, при каких a корень x = 2/5 (лежащий на [0; 1]) удовлетворяет ОДЗ.&quot;,
+      &quot;result&quot;: &quot;2/5 + a &gt; 0 и 4/5 − a &gt; 0 ⇒ a ∈ (−2/5; 4/5)&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s5&quot;,
+      &quot;action&quot;: &quot;Определить, при каких a корень x = 2a принадлежит отрезку [0; 1] с учётом ОДЗ.&quot;,
+      &quot;result&quot;: &quot;0 ≤ 2a ≤ 1 и a &gt; 0 ⇒ a ∈ (0; 1/2]&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s6&quot;,
+      &quot;action&quot;: &quot;Найти значение a, при котором два корня совпадают.&quot;,
+      &quot;result&quot;: &quot;2a = 2/5 ⇒ a = 1/5&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s7&quot;,
+      &quot;action&quot;: &quot;Объединить условия: ровно один корень на [0; 1], если подходит ровно один из корней либо оба совпадают.&quot;,
+      &quot;result&quot;: &quot;(−2/5; 4/5) без (0; 1/2], плюс a = 1/5: a ∈ (−2/5; 0] ∪ {1/5} ∪ (1/2; 4/5)&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s4&quot;,
+        &quot;s5&quot;,
+        &quot;s6&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Выписать ОДЗ логарифмического уравнения&quot;,
+      &quot;description&quot;: &quot;Вход: уравнение с логарифмами от выражений с параметром. Операция: потребовать положительности всех аргументов логарифмов. Граница: только условия существования выражений, без решения уравнения.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Разложить уравнение на множители и расщепить на совокупность&quot;,
+      &quot;description&quot;: &quot;Вход: уравнение вида f·g = f·h. Операция: привести к f·(g − h) = 0 и перейти к совокупности f = 0 или g = h при условии существования всех множителей на ОДЗ. Граница: без деления на выражение, которое может обращаться в нуль.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Перейти от равенства логарифмов к равенству аргументов&quot;,
+      &quot;description&quot;: &quot;Вход: равенство логарифмов с одинаковым основанием. Операция: приравнять аргументы при сохранении условий положительности аргументов. Граница: равносильно только на ОДЗ.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Найти значения параметра, при которых корень допустим и лежит в промежутке&quot;,
+      &quot;description&quot;: &quot;Вход: корень, выраженный через параметр (или постоянный), ОДЗ и заданный промежуток. Операция: подставить корень в условия ОДЗ и принадлежности промежутку и решить полученные неравенства относительно параметра.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc5&quot;,
+      &quot;name&quot;: &quot;Подсчитать число различных корней с учётом совпадения&quot;,
+      &quot;description&quot;: &quot;Вход: множества значений параметра, при которых допустим каждый из корней. Операция: найти значения параметра, при которых корни совпадают, и скомбинировать множества для требуемого количества различных корней.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Расщепление на совокупность с последующим анализом допустимости корней по параметру&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;,
+        &quot;s5&quot;,
+        &quot;s6&quot;,
+        &quot;s7&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;9437D5&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_7baedb55a81a&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Записать ОДЗ уравнения: x + a &gt; 0 и 2x − a &gt; 0.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;ОДЗ: x &gt; −a, x &gt; a/2&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_0214fc221120&quot;,
+          &quot;reason&quot;: &quot;Область определения функции с проверкой принадлежности промежутка; в s1 промежуток не проверяется.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_37584ab15732&quot;,
+          &quot;reason&quot;: &quot;Требует совместной области логарифма и корня; корней в задаче нет.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: потребовать положительность каждого аргумента логарифма (основание e допустимо). Объект: логарифмическое уравнение с параметром. Результат: система ограничений без решения уравнения — определение literal_7baedb55a81a выполнено целиком.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Перенести всё в одну часть и разложить на множители; приравнять каждый множитель к нулю с учётом ОДЗ.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;(5x−2)(ln(x+a) − ln(2x−a)) = 0 ⇔ на ОДЗ: x = 2/5 или ln(x+a) = ln(2x−a)&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+          &quot;reason&quot;: &quot;Требует получить нули множителей и объединить допустимые корни; в s2 второй множитель лишь записан как уравнение (решён в s3), объединение корней — в s7. Кандидат является компонентом, а не полным действием.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+          &quot;reason&quot;: &quot;Факторизация многочлена для исследования знака; здесь вынесение общего множителя в уравнении с логарифмами.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдается вынесение общего множителя f в f·g=f·h и переход к совокупности f=0 или g=h на ОДЗ без деления на f. В каталоге нет узла для этого перехода как такового; zero_product шире.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Переходить от f·g=f·h к совокупности на ОДЗ&quot;,
+        &quot;definition&quot;: &quot;Перенести слагаемые, вынести общий множитель и заменить уравнение совокупностью f=0 или g=h при условии существования всех выражений, не деля на f. Решение компонент совокупности и отбор корней отдельно.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;Свести равенство логарифмов к равенству аргументов на ОДЗ и решить полученное линейное уравнение.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;x + a = 2x − a ⇒ x = 2a; ОДЗ: 3a &gt; 0 ⇒ a &gt; 0&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_2443f08dda82&quot;,
+          &quot;reason&quot;: &quot;Соответствует только части: переход к равенству аргументов.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+          &quot;reason&quot;: &quot;Уравнение содержит параметр a, а узел ограничен числовыми коэффициентами; к тому же это отдельная часть.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_0cf8af170957&quot;,
+          &quot;reason&quot;: &quot;Подстановка корня в ОДЗ и решение 3a&gt;0 — отдельное действие проверки допустимости.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Шаг s3 объединяет три действия: (1) снятие логарифмов по инъективности, (2) решение линейного уравнения относительно x с параметром, (3) подстановку x=2a в ОДЗ и получение a&gt;0. Описание kc3 охватывает лишь (1), а размечен весь шаг.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;part&quot;: &quot;Переход ln(x+a)=ln(2x−a) → x+a=2x−a на ОДЗ&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;literal_2443f08dda82&quot;
+          },
+          {
+            &quot;part&quot;: &quot;Решение x+a=2x−a относительно x с параметром&quot;,
+            &quot;possible_catalog_kc_id&quot;: null,
+            &quot;note&quot;: &quot;linear_equation близок, но ограничен числовыми коэффициентами&quot;
+          },
+          {
+            &quot;part&quot;: &quot;Подстановка x=2a в ОДЗ: 3a&gt;0 ⇒ a&gt;0&quot;,
+            &quot;possible_catalog_kc_id&quot;: null,
+            &quot;note&quot;: &quot;пересекается с kc4&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;2/5 + a &gt; 0 и 4/5 − a &gt; 0 ⇒ a ∈ (−2/5; 4/5)&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s5:result&quot;,
+          &quot;quote&quot;: &quot;0 ≤ 2a ≤ 1 и a &gt; 0 ⇒ a ∈ (0; 1/2]&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s2:result&quot;,
+        &quot;step:s3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+          &quot;reason&quot;: &quot;Проверка конкретных кандидатов на область и промежуток; здесь корень зависит от параметра и решаются неравенства относительно a.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_8409c9003f48&quot;,
+          &quot;reason&quot;: &quot;Сравнение конкретных корней с границами, без параметра.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_0cf8af170957&quot;,
+          &quot;reason&quot;: &quot;Решение линейного неравенства — лишь компонент.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: подставить корень, зависящий от параметра, в условия ОДЗ и принадлежности [0; 1] и решить систему неравенств относительно a. Ни один узел каталога не описывает отбор с выражением множества параметров.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Находить значения параметра, при которых корень допустим и лежит в промежутке&quot;,
+        &quot;definition&quot;: &quot;Подставить корень x(a) в условия ОДЗ и принадлежности заданному промежутку и решить полученную систему неравенств относительно параметра, сохраняя строгость границ.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc5&quot;,
+      &quot;status&quot;: &quot;uncertain&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s6:result&quot;,
+          &quot;quote&quot;: &quot;2a = 2/5 ⇒ a = 1/5&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s7:action&quot;,
+          &quot;quote&quot;: &quot;Объединить условия: ровно один корень на [0; 1], если подходит ровно один из корней либо оба совпадают.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s7:result&quot;,
+          &quot;quote&quot;: &quot;(−2/5; 4/5) без (0; 1/2], плюс a = 1/5: a ∈ (−2/5; 0] ∪ {1/5} ∪ (1/2; 4/5)&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s4:result&quot;,
+        &quot;step:s5:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_05f53e4cc43a&quot;,
+          &quot;reason&quot;: &quot;Подсчёт различных решений объединения ветвей с учётом совпадения — близко, но не про множества параметров.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_d93e50c17220&quot;,
+          &quot;reason&quot;: &quot;Перекрывающееся определение: допустимость, совпадения, не считать корень дважды.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_5dcd4a01af19&quot;,
+          &quot;reason&quot;: &quot;Перекрывающееся определение с тем же названием.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+          &quot;reason&quot;: &quot;Покрывает исключение множеств (0; 1/2] из (−2/5; 4/5) в s7, но не поиск совпадения корней.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_e41f0e408b87&quot;,
+          &quot;reason&quot;: &quot;Запись множества параметров с граничными случаями — компонент s7.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат совмещает поиск совпадения корней (s6) и теоретико-множественную комбинацию по параметру (s7). Несколько перекрывающихся определений (literal_05f53e4cc43a, literal_d93e50c17220, literal_5dcd4a01af19) подходят частично без основания выбрать одно; set_intersection и literal_e41f0e408b87 покрывают другие части.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;boundary&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s3:result&quot;,
+        &quot;step:s5:result&quot;
+      ],
+      &quot;description&quot;: &quot;Условие a &gt; 0 из ОДЗ для корня x = 2a выведено в s3 (kc3) и повторно использовано в s5 (kc4): проверка допустимости корня частично размечена kc3, а не kc4. Граница между kc3 и kc4 размыта.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc3&quot;,
+        &quot;kc4&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>

@@ -1,0 +1,309 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>AB0F0C</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">На доске написано несколько различных натуральных чисел, произведение любых двух из которых больше 60 и меньше 140.</p> <p class="MsoNormal">а) Может ли на доске быть 5 чисел?</p> <p class="MsoNormal">б) Может ли на доске быть 6 чисел?</p> <p class="MsoNormal">в) Какое наименьшее значение может принимать сумма чисел на доске, если их четыре?<span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;AB0F0C&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;а) да, например 8, 9, 10, 11, 12; б) нет; в) 37&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Упорядочить числа a1&lt;a2&lt;...&lt;an и свести условие к двум крайним произведениям: наименьшее произведение a1·a2&gt;60, наибольшее a(n-1)·an&lt;140&quot;,
+      &quot;result&quot;: &quot;Условие равносильно a1·a2&gt;60 и a(n-1)·an&lt;140&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Построить пример пяти чисел и проверить крайние произведения&quot;,
+      &quot;result&quot;: &quot;8, 9, 10, 11, 12: 8·9=72&gt;60, 11·12=132&lt;140 — пять чисел возможны&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Оценить a2 снизу: из a1&lt;a2 и a1·a2&gt;60 следует a2²&gt;60, a2≥8; при a2=8 нужно a1≥8 — противоречие, значит a2≥9&quot;,
+      &quot;result&quot;: &quot;a2≥9&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Для шести чисел оценить последние: a5≥a2+3≥12, a6≥13, тогда a5·a6≥156&gt;140&quot;,
+      &quot;result&quot;: &quot;Шесть чисел невозможны&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;,
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s5&quot;,
+      &quot;action&quot;: &quot;Для четырёх чисел оценить сумму: a3≥a2+1, a4≥a2+2, сумма ≥ (a1+a2)+2a2+3; перебором пар с a1&lt;a2, a1·a2&gt;60 получить a1+a2≥16, вместе с a2≥9 сумма ≥37&quot;,
+      &quot;result&quot;: &quot;Сумма ≥ 37&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;,
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s6&quot;,
+      &quot;action&quot;: &quot;Построить пример, на котором достигается оценка&quot;,
+      &quot;result&quot;: &quot;7, 9, 10, 11: 7·9=63&gt;60, 10·11=110&lt;140, сумма 37&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s5&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Свести условие на все попарные произведения к крайним&quot;,
+      &quot;description&quot;: &quot;Вход: набор различных положительных чисел с ограничением на все попарные произведения. Операция: упорядочить и заменить условие оценками для двух наименьших и двух наибольших. Граница: положительные числа.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Построить пример и проверить его по условию&quot;,
+      &quot;description&quot;: &quot;Вход: требование существования набора с ограничениями. Операция: предъявить конкретный набор и проверить все ограничения. Граница: доказывает существование или достижимость оценки.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Оценить элемент упорядоченного набора различных натуральных чисел&quot;,
+      &quot;description&quot;: &quot;Вход: различные натуральные a1&lt;...&lt;an и неравенство на часть из них. Операция: использовать a(i+k)≥a(i)+k и неравенства на произведение для получения нижних оценок. Граница: целые различные числа.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Получить противоречие или оценку из нижних границ&quot;,
+      &quot;description&quot;: &quot;Вход: нижние оценки элементов. Операция: подставить в целевое выражение (произведение или сумму) и сравнить с ограничением. Граница: монотонные выражения от положительных чисел.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Пример для пункта а&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;m2&quot;,
+      &quot;name&quot;: &quot;Оценка через крайние элементы для пункта б&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;m3&quot;,
+      &quot;name&quot;: &quot;Оценка плюс пример для пункта в&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s3&quot;,
+        &quot;s5&quot;,
+        &quot;s6&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;AB0F0C&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Упорядочить числа a1&lt;a2&lt;...&lt;an и свести условие к двум крайним произведениям&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;Условие равносильно a1·a2&gt;60 и a(n-1)·an&lt;140&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+          &quot;reason&quot;: &quot;совмещение уже установленных ограничений, а не сведение семейства попарных условий к крайним по монотонности произведения&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_de250a7de0bb&quot;,
+          &quot;reason&quot;: &quot;оценка суммы по классам остатков, другой объект и операция&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: упорядочить различные положительные числа и заменить ограничение на все попарные произведения двумя крайними (наименьшее и наибольшее произведение). В каталоге нет узла о сведении попарных ограничений к экстремальным парам.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Сводить ограничение на все попарные произведения к крайним парам&quot;,
+        &quot;definition&quot;: &quot;Для различных положительных чисел, упорядоченных по возрастанию, заменить условие на все попарные произведения условиями на произведение двух наименьших и двух наибольших, обосновав равносильность монотонностью.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;integer_construction&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;8, 9, 10, 11, 12: 8·9=72&gt;60, 11·12=132&lt;140 — пять чисел возможны&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s6:result&quot;,
+          &quot;quote&quot;: &quot;7, 9, 10, 11: 7·9=63&gt;60, 10·11=110&lt;140, сумма 37&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s5:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_f6b803c5f9c2&quot;,
+          &quot;reason&quot;: &quot;узкий вариант для достижимости границы; kc2 применяется и к чистому существованию (s2), что покрывает integer_construction&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;optimal_bound_attainment&quot;,
+          &quot;reason&quot;: &quot;составное действие оценка+пример; kc2 содержит только пример&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;В s2 и s6 предъявлены конкретные различные натуральные числа и проверены требования (через крайние произведения, обоснованные в s1; количество и сумма). Это соответствует integer_construction целиком; оптимальность в s6 опирается на отдельную оценку s5.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;из a1&lt;a2 и a1·a2&gt;60 следует a2²&gt;60, a2≥8; при a2=8 нужно a1≥8 — противоречие, значит a2≥9&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;a5≥a2+3≥12, a6≥13&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s5:action&quot;,
+          &quot;quote&quot;: &quot;a3≥a2+1, a4≥a2+2&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_af302473a16f&quot;,
+          &quot;reason&quot;: &quot;наименьшие кратные для суммы, не оценка элемента упорядоченного набора&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_de250a7de0bb&quot;,
+          &quot;reason&quot;: &quot;классы остатков, другое условие&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;finite_exhaustion&quot;,
+          &quot;reason&quot;: &quot;в s3 нет полного перебора диапазона, лишь разбор граничного значения&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: нижние оценки элементов упорядоченного набора различных натуральных чисел через a(i+k)≥a(i)+k и неравенство на произведение. Подходящего узла каталога нет. Граница: подстановка оценок в целевое выражение относится к kc4.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Оценивать элементы упорядоченного набора различных натуральных чисел&quot;,
+        &quot;definition&quot;: &quot;Для различных натуральных a1&lt;...&lt;an использовать a(i+k)≥a(i)+k и заданные неравенства (в том числе на произведения) для целочисленных нижних оценок отдельных элементов.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;тогда a5·a6≥156&gt;140&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s5:action&quot;,
+          &quot;quote&quot;: &quot;сумма ≥ (a1+a2)+2a2+3&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_31eed356b5e1&quot;,
+          &quot;reason&quot;: &quot;оценка дроби, а не произведения или суммы&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;optimal_bound_attainment&quot;,
+          &quot;reason&quot;: &quot;включает достижимость; kc4 только получает границу или противоречие&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: подставить нижние оценки элементов в монотонное выражение (произведение в s4, сумму в s5) и сравнить с ограничением. Ближайшие узлы относятся к другим объектам; подходящего нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Получать оценку монотонного выражения из нижних границ элементов&quot;,
+        &quot;definition&quot;: &quot;Подставить нижние оценки положительных переменных в монотонно возрастающее выражение (сумму, произведение) и сравнить результат с ограничением задачи для вывода оценки или противоречия.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;missing_annotation&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s5:action&quot;
+      ],
+      &quot;description&quot;: &quot;В s5 использован перебор пар («перебором пар с a1&lt;a2, a1·a2&gt;60 получить a1+a2≥16»), не размеченный отдельно (ближайший узел finite_exhaustion); диапазон перебора не указан явно.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc4&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;i2&quot;,
+      &quot;kind&quot;: &quot;missing_annotation&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s5:result&quot;,
+        &quot;step:s6:result&quot;
+      ],
+      &quot;description&quot;: &quot;Для пункта в общее действие «оценка плюс достижимость» (optimal_bound_attainment) не размечено ни одним локальным кандидатом, хотя присутствует в s5–s6.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: []
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>

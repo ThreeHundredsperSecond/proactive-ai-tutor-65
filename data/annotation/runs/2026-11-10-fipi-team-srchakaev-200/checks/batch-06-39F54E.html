@@ -1,0 +1,181 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>39F54E</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal"><a name="_GoBack"></a>Один мастер может выполнить заказ за 40 часов, а другой — за 24 часа. За сколько часов выполнят этот заказ оба мастера, работая вместе?</p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;39F54E&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;15&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Принять весь заказ за 1 и выразить производительности мастеров как величины, обратные времени выполнения заказа: 1/40 и 1/24 заказа в час.&quot;,
+      &quot;result&quot;: &quot;p1 = 1/40, p2 = 1/24 заказа в час&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Сложить производительности при совместной работе.&quot;,
+      &quot;result&quot;: &quot;1/40 + 1/24 = 3/120 + 5/120 = 8/120 = 1/15 заказа в час&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Найти время совместной работы как отношение объёма работы к совместной производительности.&quot;,
+      &quot;result&quot;: &quot;t = 1 : (1/15) = 15 часов&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Выразить производительность через время выполнения работы&quot;,
+      &quot;description&quot;: &quot;Вход: время, за которое исполнитель выполняет всю работу, принятую за 1. Операция: производительность = 1/время. Применимо при постоянной скорости работы.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Сложить производительности при совместной работе&quot;,
+      &quot;description&quot;: &quot;Вход: производительности нескольких исполнителей, работающих одновременно над одной работой. Операция: совместная производительность равна сумме (сложение дробей). Применимо, если исполнители не мешают друг другу.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Найти время по объёму работы и производительности&quot;,
+      &quot;description&quot;: &quot;Вход: объём работы и производительность. Операция: время = объём / производительность. Применимо при постоянной производительности.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Метод производительностей для задачи на совместную работу&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;39F54E&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;выразить производительности мастеров как величины, обратные времени выполнения заказа: 1/40 и 1/24 заказа в час&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;p1 = 1/40, p2 = 1/24 заказа в час&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+          &quot;reason&quot;: &quot;Требует заданную в условии формулу; здесь модель производительности строится решающим, а не подставляется в данную формулу.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+          &quot;reason&quot;: &quot;Процентная доля, а не скорость работы как доля работы в единицу времени.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: принять всю работу за 1 и получить производительность исполнителя как 1/время при постоянном темпе. В каталоге нет узлов задач на работу/производительность; ближайшие узлы касаются подстановки в заданную формулу или процентов.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Выражать производительность как долю работы в единицу времени&quot;,
+        &quot;definition&quot;: &quot;Приняв всю работу за 1, по времени t выполнения всей работы исполнителем с постоянным темпом получить производительность 1/t.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Сложить производительности при совместной работе.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;1/40 + 1/24 = 3/120 + 5/120 = 8/120 = 1/15 заказа в час&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_67caf017b566&quot;,
+          &quot;reason&quot;: &quot;Касается рациональных выражений с переменными и сохранения области; здесь содержательный шаг — модельное допущение об аддитивности производительностей, а сложение числовых дробей лишь арифметика.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_68de6fa84846&quot;,
+          &quot;reason&quot;: &quot;Сложение векторов по координатам, другой объект.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: при одновременной независимой работе над одним заказом совместная производительность равна сумме индивидуальных. Узла аддитивности производительностей в каталоге нет; арифметика дробей отдельного KC не создаёт.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Складывать производительности при совместной работе&quot;,
+        &quot;definition&quot;: &quot;Для исполнителей, одновременно и независимо работающих над одной работой с постоянными темпами, найти совместную производительность как сумму индивидуальных.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;Найти время совместной работы как отношение объёма работы к совместной производительности.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;t = 1 : (1/15) = 15 часов&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+          &quot;reason&quot;: &quot;Формула t=A/p не задана в условии, а применяется как модельное соотношение; определение узла предполагает заданную формулу.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_63c80a69a122&quot;,
+          &quot;reason&quot;: &quot;Время s/v при движении по течению с учётом скорости течения и стоянки; уже и про другой объект.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: по объёму работы и постоянной производительности найти время t=A/p. Близкий по смыслу узел движения специфичен для течения, а подстановка в формулу требует заданной формулы; подходящего определения нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Находить время работы по объёму и производительности&quot;,
+        &quot;definition&quot;: &quot;При постоянной производительности p найти время выполнения работы объёма A как A/p.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>

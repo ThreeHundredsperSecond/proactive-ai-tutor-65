@@ -1,0 +1,305 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>2D54B0</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">а) Решите уравнение</p> <p class="MsoNormal" align="center"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>cos</mi><mn>2</mn><mi>x</mi><mo>−</mo><mn>3</mn><mi>sin</mi><mrow><mo>(</mo> <mrow> <mo>−</mo><mi>x</mi> </mrow> <mo>)</mo></mrow><mo>−</mo><mn>2</mn><mo>=</mo><mn>0.</mn> </mrow> </semantics> </math></p> <p class="MsoNormal">б) Укажите корни этого уравнения, принадлежащие отрезку <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mrow><mo>[</mo> <mrow> <mtext>3π</mtext><mo>;</mo><mtext> </mtext><mfrac> <mrow> <mtext>9π</mtext> </mrow> <mn>2</mn> </mfrac> </mrow> <mo>]</mo></mrow><mo>.</mo> </mrow> </semantics> </math></p> <p class="MsoNormal"><span> </span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;2D54B0&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;а) π/2+2πk, π/6+2πk, 5π/6+2πk, k∈Z; б) 25π/6, 9π/2&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Применить нечётность синуса и формулу cos2x=1-2sin²x, привести уравнение к квадратному относительно sin x&quot;,
+      &quot;result&quot;: &quot;2sin²x-3sin x+1=0&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;,
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Решить квадратное уравнение относительно t=sin x и проверить ограничение |t|≤1&quot;,
+      &quot;result&quot;: &quot;sin x=1 или sin x=1/2 (оба допустимы)&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Решить простейшие уравнения sin x=1 и sin x=1/2&quot;,
+      &quot;result&quot;: &quot;x=π/2+2πk, x=π/6+2πk, x=5π/6+2πk, k∈Z&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Отобрать корни серий, принадлежащие отрезку [3π; 9π/2]&quot;,
+      &quot;result&quot;: &quot;25π/6, 9π/2&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s3&quot;,
+        &quot;condition&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Преобразовать тригонометрическую функцию отрицательного аргумента&quot;,
+      &quot;description&quot;: &quot;Вход: выражение с sin(-x) или cos(-x). Операция: применить нечётность синуса/чётность косинуса. Граница: только смена знака аргумента.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Свести тригонометрическое уравнение к квадратному относительно одной функции&quot;,
+      &quot;description&quot;: &quot;Вход: уравнение с cos2x и sin x (или аналогичное). Операция: выразить cos2x через sin x по формуле двойного угла и собрать квадратный трёхчлен. Граница: когда все слагаемые выражаются через одну функцию.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Решить квадратное уравнение после замены с учётом области значений&quot;,
+      &quot;description&quot;: &quot;Вход: квадратное уравнение по t=sin x или cos x. Операция: найти корни и отбросить те, что вне [-1;1]. Граница: замена ограниченной функцией.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Решить простейшее уравнение sin x = a&quot;,
+      &quot;description&quot;: &quot;Вход: sin x=a, |a|≤1. Операция: записать общий вид серий решений. Граница: простейшие уравнения для синуса.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc5&quot;,
+      &quot;name&quot;: &quot;Отобрать корни тригонометрических серий на отрезке&quot;,
+      &quot;description&quot;: &quot;Вход: серии решений и отрезок. Операция: подобрать целые параметры (перебором или неравенством), дающие корни в отрезке. Граница: конечный отрезок.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Сведение к квадратному уравнению относительно sin x с последующим отбором корней&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;2D54B0&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Применить нечётность синуса&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;,
+          &quot;reason&quot;: &quot;Формулы приведения и двойного угла; чётность/нечётность (sin(-x)=-sin x) не является формулой приведения или двойного угла в определении.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_55d5a6d9eb3c&quot;,
+          &quot;reason&quot;: &quot;То же определение: приведение и двойной угол, нечётность не упомянута.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_3d70ab3eb24a&quot;,
+          &quot;reason&quot;: &quot;Только формула двойного угла для sin2x/произведения sin·cos.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: замена sin(-x) на -sin x по нечётности синуса. Объект: тригонометрическая функция отрицательного аргумента. В каталоге нет узла о чётности/нечётности тригонометрических функций; ближайшие узлы тождеств ограничены приведением и двойным углом. Действие наблюдается в s1 только как компонент составного шага.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Преобразовывать тригонометрическую функцию отрицательного аргумента&quot;,
+        &quot;definition&quot;: &quot;Использовать sin(-x)=-sin x, tg(-x)=-tg x и cos(-x)=cos x для устранения знака аргумента; дальнейшие тождества размечаются отдельно.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;uncertain&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;формулу cos2x=1-2sin²x, привести уравнение к квадратному относительно sin x&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;2sin²x-3sin x+1=0&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_cc7d68a38f29&quot;,
+          &quot;reason&quot;: &quot;Подходит по сути (двойной угол для сведения к одной функции), но определение совпадает с literal_55d5a6d9eb3c.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_55d5a6d9eb3c&quot;,
+          &quot;reason&quot;: &quot;Подходит по сути, перекрывается с literal_cc7d68a38f29 без основания выбрать один.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_3d70ab3eb24a&quot;,
+          &quot;reason&quot;: &quot;Только sin2x и произведение sin·cos; здесь cos2x через sin²x.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: выразить cos2x через sin x по формуле двойного угла и собрать квадратный трёхчлен относительно sin x. Это соответствует определению «сведения к выбранной функции одного аргумента», но в каталоге два перекрывающихся узла с практически одинаковым определением (literal_cc7d68a38f29 и literal_55d5a6d9eb3c), поэтому по правилу ставится uncertain. Сборка трёхчлена — алгебраическая часть того же сведения.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i2&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Решить квадратное уравнение относительно t=sin x и проверить ограничение |t|≤1&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;sin x=1 или sin x=1/2 (оба допустимы)&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+          &quot;reason&quot;: &quot;Покрывает нахождение корней, но не отбор по области значений замены.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+          &quot;reason&quot;: &quot;Отбор алгебраических решений по области; близко к проверке |t|≤1, но не к решению квадратного уравнения.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+          &quot;reason&quot;: &quot;Аналог замены для показательной функции, не для синуса.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат смешивает решение квадратного уравнения (нахождение корней 1 и 1/2) и проверку корней на принадлежность [-1;1] как области значений синуса. Способ решения квадратного уравнения (дискриминант или иное) в шаге не показан. Проверка тривиальна (оба корня допустимы), но выполнена явно.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;part&quot;: &quot;Найти корни квадратного уравнения 2t²-3t+1=0&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+            &quot;note&quot;: &quot;метод в шаге не указан; соответствие условное&quot;
+          },
+          {
+            &quot;part&quot;: &quot;Проверить корни на |t|≤1 для t=sin x&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+            &quot;note&quot;: &quot;либо новый узел об области значений тригонометрической замены&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;elementary_trig_equation&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;Решить простейшие уравнения sin x=1 и sin x=1/2&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;x=π/2+2πk, x=π/6+2πk, x=5π/6+2πk, k∈Z&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [],
+      &quot;rationale&quot;: &quot;Операция: решение sin x=c на всей прямой с выписыванием полных периодических серий. Обе серии для 1/2 и серия для 1 выписаны корректно; определение elementary_trig_equation выполнено целиком.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc5&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;periodic_interval&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;Отобрать корни серий, принадлежащие отрезку [3π; 9π/2]&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;25π/6, 9π/2&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s3:result&quot;,
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_8409c9003f48&quot;,
+          &quot;reason&quot;: &quot;Для конечного набора корней без периодического параметра; здесь серии.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_6ad8f502588e&quot;,
+          &quot;reason&quot;: &quot;Общий отбор точек, без периодических серий.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Отбор корней трёх периодических серий на отрезке [3π;9π/2]. Результат проверен: π/2+4π=9π/2, π/6+4π=25π/6, серия 5π/6+2πk даёт 17π/6&lt;3π и 29π/6&gt;9π/2. Сам перебор параметров в шаге не расписан, но результат соответствует определению periodic_interval.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;boundary&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s1:action&quot;
+      ],
+      &quot;description&quot;: &quot;Шаг s1 объединяет два действия (нечётность синуса и двойной угол с переходом к квадратному уравнению); разметка kc1+kc2 корректно их разделяет, но в каталоге нет узла для нечётности.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;i2&quot;,
+      &quot;kind&quot;: &quot;boundary&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s1:action&quot;
+      ],
+      &quot;description&quot;: &quot;В каталоге узлы literal_cc7d68a38f29 и literal_55d5a6d9eb3c имеют одинаковое название и практически одинаковое определение, что не позволяет однозначно выбрать match.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc2&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>

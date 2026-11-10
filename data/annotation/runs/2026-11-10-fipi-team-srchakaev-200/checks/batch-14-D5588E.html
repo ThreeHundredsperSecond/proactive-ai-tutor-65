@@ -1,0 +1,311 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>D5588E</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">На доске написано 10 различных натуральных чисел. Среднее арифметическое шести наименьших из них равно 6, а среднее арифметическое шести наибольших равно 12.</p> <p class="MsoNormal">а) Может ли наибольшее из этих десяти чисел равняться 14?</p> <p class="MsoNormal">б) Может ли среднее арифметическое всех десяти чисел равняться 8,4?</p> <p class="MsoNormal">в) Найдите наименьшее значение среднего арифметического всех десяти чисел.</p> <p class="MsoNormal"><span> </span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;D5588E&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;а) нет; б) нет; в) 8,9&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Упорядочить числа a1&lt;a2&lt;...&lt;a10 и выразить суммы: a1+...+a6=36, a5+...+a10=72, сумма всех S=108-(a5+a6)&quot;,
+      &quot;result&quot;: &quot;S=108-(a5+a6)&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;а) Оценить сверху a7+...+a10 при a10≤14 через различие натуральных чисел и получить оценку a5+a6&quot;,
+      &quot;result&quot;: &quot;a7+...+a10≤11+12+13+14=50, значит a5+a6≥22 и a6≥12&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;а) Оценить снизу a7,...,a10 через a6≥12 и получить противоречие с a10≤14&quot;,
+      &quot;result&quot;: &quot;a10≥a6+4≥16&gt;14 — противоречие; ответ: нет&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;б) Из S=84 найти a5+a6 и оценить a6&quot;,
+      &quot;result&quot;: &quot;a5+a6=24, a5&lt;a6, значит a6≥13&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;,
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s5&quot;,
+      &quot;action&quot;: &quot;б) Оценить снизу a7+...+a10 и сравнить с требуемой суммой 72-24&quot;,
+      &quot;result&quot;: &quot;a7+...+a10≥14+15+16+17=62&gt;48 — противоречие; ответ: нет&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s4&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s6&quot;,
+      &quot;action&quot;: &quot;в) Свести минимизацию S к максимизации a5+a6 и оценить: a7+...+a10≥4a6+10, т.е. 72-(a5+a6)≥4a6+10, при a5≤a6-1&quot;,
+      &quot;result&quot;: &quot;a5+5a6≤62; при a6=t максимум a5+a6=min(t-1+t, 62-4t), откуда a5+a6≤19 (достигается при a5=9, a6=10); S≥89&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;,
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s7&quot;,
+      &quot;action&quot;: &quot;в) Построить пример с a5=9, a6=10 и проверить условия&quot;,
+      &quot;result&quot;: &quot;1,2,6,8,9,10,11,12,13,17: шесть наименьших дают 36, шесть наибольших 72, S=89, среднее 8,9&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s6&quot;,
+        &quot;condition&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Выразить сумму всех чисел через суммы пересекающихся групп&quot;,
+      &quot;description&quot;: &quot;Вход: упорядоченный набор и суммы двух перекрывающихся подмножеств. Операция: сложить суммы групп и вычесть общие элементы. Граница: группы покрывают весь набор.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Оценить сумму различных натуральных чисел через крайнее значение&quot;,
+      &quot;description&quot;: &quot;Вход: k различных натуральных чисел, больших (меньших) заданного. Операция: оценить сумму снизу (сверху) суммой последовательных натуральных чисел. Граница: числа попарно различны и целые.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Найти экстремум целевой величины по системе оценок&quot;,
+      &quot;description&quot;: &quot;Вход: целевая величина, выраженная через параметры, и набор неравенств для них. Операция: свести задачу к оптимизации одного параметра и найти границу. Граница: требуется пример достижимости.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Построить пример набора, удовлетворяющего условиям&quot;,
+      &quot;description&quot;: &quot;Вход: найденная оценка и ограничения задачи. Операция: подобрать конкретный набор, достигающий оценки, и проверить все условия. Граница: подтверждает достижимость оценки.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Оценка через суммы перекрывающихся групп и противоречие&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;,
+        &quot;s5&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;m2&quot;,
+      &quot;name&quot;: &quot;Оценка плюс пример&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s6&quot;,
+        &quot;s7&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;D5588E&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;a1+...+a6=36, a5+...+a10=72, сумма всех S=108-(a5+a6)&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;S=108-(a5+a6)&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_0a4ebc8382b5&quot;,
+          &quot;reason&quot;: &quot;исключение переменной подстановкой из линейной связи; здесь нет подстановки, а есть учёт пересечения двух групп (включение-исключение по сумме)&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;arithmetic_series&quot;,
+          &quot;reason&quot;: &quot;суммирование прогрессии; здесь суммы групп получены из средних, прогрессии нет&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: перевести средние в суммы двух перекрывающихся групп упорядоченного набора и выразить общую сумму, вычтя общие элементы a5,a6. В каталоге нет узла о сумме по перекрывающимся подмножествам. В s4 повторно используется готовое выражение S=108-(a5+a6) с S=84; это уже вычисление, а не новое применение kc1.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Для упорядоченного набора, покрытого двумя перекрывающимися группами с известными суммами (в т.ч. из средних), выразить сумму всего набора как сумму сумм групп минус сумма общих элементов.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;a7+...+a10≤11+12+13+14=50&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;a10≥a6+4≥16&gt;14&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s5:result&quot;,
+          &quot;quote&quot;: &quot;a7+...+a10≥14+15+16+17=62&gt;48&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s6:action&quot;,
+          &quot;quote&quot;: &quot;a7+...+a10≥4a6+10&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_de250a7de0bb&quot;,
+          &quot;reason&quot;: &quot;нижняя оценка суммы различных чисел по классам остатков; здесь классов нет, граница задаётся крайним элементом&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_af302473a16f&quot;,
+          &quot;reason&quot;: &quot;сумма различных кратных; здесь произвольные различные натуральные&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;arithmetic_series&quot;,
+          &quot;reason&quot;: &quot;лишь вычисление суммы последовательных чисел, без оценочного рассуждения&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: оценить сумму (или отдельный элемент) k различных натуральных чисел, больших/меньших известного, суммой подряд идущих натуральных. Наблюдается в s2, s3, s5, s6. Прямого узла каталога нет. В s4 к kc2 отнесено лишь a6≥13 из a5+a6=24 и a5&lt;a6 — это частный случай (k=2) той же оценки.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Для k попарно различных целых чисел, каждое больше (меньше) заданного значения m, оценить их сумму снизу (сверху) суммой k последовательных целых, начиная с m+1 (заканчивая m-1).&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s6:action&quot;,
+          &quot;quote&quot;: &quot;Свести минимизацию S к максимизации a5+a6&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s6:result&quot;,
+          &quot;quote&quot;: &quot;при a6=t максимум a5+a6=min(t-1+t, 62-4t), откуда a5+a6≤19&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;optimal_bound_attainment&quot;,
+          &quot;reason&quot;: &quot;включает предъявление достигающего объекта (s7); kc3 описывает только получение границы, и узел явно отделяет способ получения границы&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_159daa67ec43&quot;,
+          &quot;reason&quot;: &quot;про проверку вершины квадратичной функции на допустимой области; здесь целочисленная оптимизация min двух линейных функций&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_0cf8af170957&quot;,
+          &quot;reason&quot;: &quot;решение одного линейного неравенства; здесь комбинация двух оценок и максимизация по целому t&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: свести экстремум S к максимизации a5+a6 при системе целочисленных неравенств (a5≤a6-1, a5+5a6≤62) и найти максимум по параметру t. Оценка a7+...+a10≥4a6+10 внутри s6 — это kc2, а не часть kc3. Подходящего узла нет. Описание кандидата («требуется пример достижимости») касается границы, сам пример — kc4.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Свести целевую величину к функции одного целого параметра при системе линейных оценок и найти её точную границу как экстремум минимума/максимума этих оценок.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;uncertain&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s7:action&quot;,
+          &quot;quote&quot;: &quot;Построить пример с a5=9, a6=10 и проверить условия&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s7:result&quot;,
+          &quot;quote&quot;: &quot;1,2,6,8,9,10,11,12,13,17: шесть наименьших дают 36, шесть наибольших 72, S=89, среднее 8,9&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s6:result&quot;,
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;integer_construction&quot;,
+          &quot;reason&quot;: &quot;предъявить целые числа и проверить количество, различность, сумму — подходит&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_f6b803c5f9c2&quot;,
+          &quot;reason&quot;: &quot;предъявить целочисленный объект для достижимости уже доказанной границы — тоже подходит и ближе к роли kc4&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;optimal_bound_attainment&quot;,
+          &quot;reason&quot;: &quot;составное действие граница+пример; kc4 содержит только пример&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдается предъявление набора, достигающего оценки 89, и проверка сумм групп. Два перекрывающихся узла (integer_construction и literal_f6b803c5f9c2) подходят без явного основания выбрать один. Кроме того, проверка различности и натуральности в s7 явно не записана.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;coverage&quot;,
+      &quot;refs&quot;: [
+        &quot;step:s7:result&quot;
+      ],
+      &quot;description&quot;: &quot;В s7 проверены суммы и среднее, но различность и порядок чисел явно не проговорены (фактически выполнены: набор строго возрастает). Вычисления в s2–s7 при выборочной проверке верны.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;kc4&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>

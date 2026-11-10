@@ -1,0 +1,340 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>BF9904</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Решите неравенство <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mrow> <msub> <mrow> <mi>log</mi> </mrow> <mn>2</mn> </msub> <mrow><mo>(</mo> <mrow> <mn>4</mn><msup> <mi>x</mi> <mn>2</mn> </msup> <mo>−</mo><mn>1</mn> </mrow> <mo>)</mo></mrow><mo>−</mo><msub> <mrow> <mi>log</mi> </mrow> <mn>2</mn> </msub> <mi>x</mi><mo>≤</mo><msub> <mrow> <mi>log</mi> </mrow> <mn>2</mn> </msub> <mrow><mo>(</mo> <mrow> <mn>5</mn><mi>x</mi><mo>+</mo><mfrac> <mn>9</mn> <mi>x</mi> </mfrac> <mo>−</mo><mn>11</mn> </mrow> <mo>)</mo></mrow> </mrow>  </semantics> </mstyle></math>.</p> <p class="MsoNormal"><span> </span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;BF9904&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;(1/2; 1] ∪ [10; +∞)&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Найти ОДЗ: x&gt;0, 4x^2-1&gt;0, 5x+9/x-11&gt;0; для x&gt;0 последнее равносильно 5x^2-11x+9&gt;0, дискриминант 121-180&lt;0, поэтому выполнено всегда&quot;,
+      &quot;result&quot;: &quot;ОДЗ: x&gt;1/2&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;,
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Преобразовать разность логарифмов в логарифм частного и перейти от неравенства логарифмов с основанием 2&gt;1 к неравенству аргументов на ОДЗ&quot;,
+      &quot;result&quot;: &quot;(4x^2-1)/x ≤ (5x^2-11x+9)/x&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;,
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Умножить на x&gt;0 и привести к квадратному неравенству&quot;,
+      &quot;result&quot;: &quot;x^2-11x+10 ≥ 0&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;,
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Решить квадратное неравенство методом интервалов (корни 1 и 10)&quot;,
+      &quot;result&quot;: &quot;x ≤ 1 или x ≥ 10&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc6&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s5&quot;,
+      &quot;action&quot;: &quot;Пересечь решение с ОДЗ&quot;,
+      &quot;result&quot;: &quot;x ∈ (1/2; 1] ∪ [10; +∞)&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc7&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Найти ОДЗ логарифмического неравенства&quot;,
+      &quot;description&quot;: &quot;Вход: неравенство с логарифмами. Операция: записать условия положительности всех аргументов логарифмов и решить систему. Граница: основания числовые и допустимые.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Установить знакопостоянство квадратного трёхчлена&quot;,
+      &quot;description&quot;: &quot;Вход: квадратный трёхчлен. Операция: по знаку дискриминанта и старшего коэффициента определить, что трёхчлен сохраняет знак на всей прямой. Граница: отрицательный дискриминант.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Применить свойство разности логарифмов&quot;,
+      &quot;description&quot;: &quot;Вход: разность логарифмов с одинаковым основанием. Операция: заменить логарифмом частного аргументов. Граница: аргументы положительны (на ОДЗ).&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Перейти от логарифмического неравенства к неравенству аргументов&quot;,
+      &quot;description&quot;: &quot;Вход: неравенство log_a f ≤ log_a g с числовым основанием. Операция: при a&gt;1 сохранить знак, при 0&lt;a&lt;1 сменить. Граница: только на ОДЗ.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc5&quot;,
+      &quot;name&quot;: &quot;Освободиться от знаменателя известного знака&quot;,
+      &quot;description&quot;: &quot;Вход: неравенство с рациональными выражениями и общим знаменателем, знак которого на ОДЗ известен. Операция: умножить на знаменатель с учётом знака и привести подобные. Граница: знак знаменателя определён.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc6&quot;,
+      &quot;name&quot;: &quot;Решить квадратное неравенство&quot;,
+      &quot;description&quot;: &quot;Вход: квадратное неравенство с числовыми коэффициентами. Операция: найти корни и выбрать промежутки по знаку старшего коэффициента. Граница: учитывать строгость неравенства.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc7&quot;,
+      &quot;name&quot;: &quot;Пересечь множество решений с ОДЗ&quot;,
+      &quot;description&quot;: &quot;Вход: решение преобразованного неравенства и ОДЗ. Операция: найти пересечение промежутков. Граница: сохранять включение/исключение концов.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Сведение логарифмического неравенства к рациональному на ОДЗ&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;,
+        &quot;s5&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;BF9904&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_7baedb55a81a&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Найти ОДЗ: x&gt;0, 4x^2-1&gt;0, 5x+9/x-11&gt;0&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;ОДЗ: x&gt;1/2&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_0214fc221120&quot;,
+          &quot;reason&quot;: &quot;про область определения логарифмической функции и проверку промежутка, а не систему условий для всех аргументов выражения&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_37584ab15732&quot;,
+          &quot;reason&quot;: &quot;совместная область логарифма и корня; корней в задаче нет&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Записаны условия положительности всех трёх аргументов логарифмов с числовым основанием 2 и получено итоговое ограничение x&gt;1/2. Знакопостоянство трёхчлена внутри этого шага размечено отдельно как kc2.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;дискриминант 121-180&lt;0, поэтому выполнено всегда&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_1b97db4e28e8&quot;,
+          &quot;reason&quot;: &quot;требует нахождения корней и знаков на промежутках; здесь корней нет, знак определяется по дискриминанту и старшему коэффициенту&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+          &quot;reason&quot;: &quot;находит действительные корни уравнения, а не делает вывод о знаке трёхчлена на всей прямой&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_f68eccc115c2&quot;,
+          &quot;reason&quot;: &quot;использует уже доказанную положительность множителя, а не доказывает её&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдается вывод о постоянном знаке квадратного трёхчлена 5x^2-11x+9 по отрицательному дискриминанту (положительный старший коэффициент подразумевается). В каталоге нет узла для этого действия.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Устанавливать знакопостоянство квадратного трёхчлена по дискриминанту&quot;,
+        &quot;definition&quot;: &quot;При отрицательном дискриминанте и известном знаке старшего коэффициента сделать вывод, что трёхчлен сохраняет этот знак на всей прямой.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_ad68659d5755&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Преобразовать разность логарифмов в логарифм частного&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [],
+      &quot;rationale&quot;: &quot;Разность log_2(4x^2-1)-log_2 x заменена логарифмом частного на ОДЗ, где аргументы положительны; это совпадает с определением узла.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_eae4ca1f2f8b&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;перейти от неравенства логарифмов с основанием 2&gt;1 к неравенству аргументов на ОДЗ&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;(4x^2-1)/x ≤ (5x^2-11x+9)/x&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_2443f08dda82&quot;,
+          &quot;reason&quot;: &quot;про равенство логарифмов, а не неравенство&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_inequality&quot;,
+          &quot;reason&quot;: &quot;показательное, а не логарифмическое неравенство&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Сравнение логарифмов с основанием 2&gt;1 заменено сравнением положительных аргументов с сохранением знака неравенства.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc5&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_b9b755cc8462&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;Умножить на x&gt;0 и привести к квадратному неравенству&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;x^2-11x+10 ≥ 0&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a78667313aa3&quot;,
+          &quot;reason&quot;: &quot;включает решение оставшегося неравенства, которое здесь вынесено в s4&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_ef3f8c7287d4&quot;,
+          &quot;reason&quot;: &quot;близко, но говорит о знаке одной дроби, а здесь сравниваются две дроби с общим знаменателем&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_9698b97fef22&quot;,
+          &quot;reason&quot;: &quot;про уравнения, не неравенства&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Обе части умножены на x, положительный на ОДЗ (s1), без смены знака; приведение подобных — сопутствующая арифметика.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc6&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_1b97db4e28e8&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;Решить квадратное неравенство методом интервалов (корни 1 и 10)&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;x ≤ 1 или x ≥ 10&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;rational_intervals&quot;,
+          &quot;reason&quot;: &quot;рациональное неравенство с полюсами; здесь квадратный трёхчлен без знаменателя&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+          &quot;reason&quot;: &quot;только корни уравнения, без выбора промежутков&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Найдены корни 1 и 10, выбраны промежутки по знаку трёхчлена с включением концов для нестрогого неравенства.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc7&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s5:action&quot;,
+          &quot;quote&quot;: &quot;Пересечь решение с ОДЗ&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s5:result&quot;,
+          &quot;quote&quot;: &quot;x ∈ (1/2; 1] ∪ [10; +∞)&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s4:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+          &quot;reason&quot;: &quot;отбор отдельных кандидатов, а не пересечение промежутков&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Множество x≤1 или x≥10 пересечено с x&gt;1/2 с корректной обработкой концов.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>
