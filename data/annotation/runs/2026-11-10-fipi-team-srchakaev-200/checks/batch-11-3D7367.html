@@ -1,0 +1,368 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>3D7367</h2><p>Дайте развернутый ответ.</p><div><section> <p class="Basis">Найдите все значения <span><img src="file:///Users/srchakaev/Projects/uni/yearly%20project/repo/data/annotation/runs/2026-11-10-fipi-team-srchakaev-200/inputs/assets/24bab9396b90217201b52db6.png" alt="Рисунок ФИПИ"></span>, при каждом из которых система уравнений</p>
+<p class="Basis" align="center"><span><img src="file:///Users/srchakaev/Projects/uni/yearly%20project/repo/data/annotation/runs/2026-11-10-fipi-team-srchakaev-200/inputs/assets/586108106149f7792198ff67.png" alt="Рисунок ФИПИ"></span></p>
+<p class="Basis">имеет ровно два различных решения.</p> </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;3D7367&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;a ∈ [1; 9)&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Преобразовать первое уравнение с корнями в равносильную систему: равенство подкоренных выражений при условии их неотрицательности&quot;,
+      &quot;result&quot;: &quot;a − y² = a − x², a − x² ≥ 0, т.е. y² = x² и x² ≤ a&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Разложить y² = x² на совокупность линейных уравнений&quot;,
+      &quot;result&quot;: &quot;y = x или y = −x&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Подставить y = x во второе уравнение и решить полученное квадратное уравнение&quot;,
+      &quot;result&quot;: &quot;2x² = 6x, x = 0 или x = 3; точки (0;0), (3;3)&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Подставить y = −x во второе уравнение и решить полученное квадратное уравнение&quot;,
+      &quot;result&quot;: &quot;2x² = −2x, x = 0 или x = −1; точки (0;0), (−1;1)&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s5&quot;,
+      &quot;action&quot;: &quot;Собрать различные кандидаты в решения и для каждого записать условие x² ≤ a&quot;,
+      &quot;result&quot;: &quot;(0;0) при a ≥ 0; (−1;1) при a ≥ 1; (3;3) при a ≥ 9&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s6&quot;,
+      &quot;action&quot;: &quot;Подсчитать число решений в зависимости от a и выбрать значения, дающие ровно два решения&quot;,
+      &quot;result&quot;: &quot;a &lt; 0: 0 решений; 0 ≤ a &lt; 1: 1; 1 ≤ a &lt; 9: 2; a ≥ 9: 3. Ответ: 1 ≤ a &lt; 9&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s5&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Заменить равенство квадратных корней равносильной системой&quot;,
+      &quot;description&quot;: &quot;Вход: уравнение √f = √g. Операция: заменить на f = g при условии f ≥ 0 (или g ≥ 0). Граница: только для арифметических корней чётной степени с обеих сторон.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Разложить равенство квадратов на совокупность&quot;,
+      &quot;description&quot;: &quot;Вход: уравнение u² = v². Операция: записать совокупность u = v или u = −v. Граница: для любых выражений u, v.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Решить систему подстановкой линейной связи в квадратное уравнение&quot;,
+      &quot;description&quot;: &quot;Вход: система из линейного соотношения между переменными и уравнения второй степени. Операция: выразить переменную, подставить, решить квадратное уравнение, найти пары. Граница: когда одна переменная явно выражается через другую.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Сопоставить каждому кандидату условие на параметр&quot;,
+      &quot;description&quot;: &quot;Вход: конечный набор найденных решений и ограничение, зависящее от параметра. Операция: подставить каждое решение в ограничение и получить множество значений параметра, при котором оно допустимо. Граница: решения не зависят от параметра, ограничение явное.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc5&quot;,
+      &quot;name&quot;: &quot;Подсчитать число решений по промежуткам параметра&quot;,
+      &quot;description&quot;: &quot;Вход: условия допустимости каждого различного решения в виде промежутков параметра. Операция: разбить ось параметра на промежутки и подсчитать число допустимых решений, выбрать промежутки с требуемым количеством. Граница: решения попарно различны и не совпадают при изменении параметра.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Сведение к совокупности линейных случаев и отбор решений по условию на параметр&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;,
+        &quot;s5&quot;,
+        &quot;s6&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;3D7367&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Преобразовать первое уравнение с корнями в равносильную систему: равенство подкоренных выражений при условии их неотрицательности&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;a − y² = a − x², a − x² ≥ 0, т.е. y² = x² и x² ≤ a&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;image:assets/586108106149f7792198ff67.png&quot;,
+          &quot;region_description&quot;: &quot;Верхняя строка системы: равенство √(a − y²) = √(a − x²)&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;image:assets/586108106149f7792198ff67.png&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_0b7ec31b74d9&quot;,
+          &quot;reason&quot;: &quot;Покрывает замену равенства корней равенством радикандов, но явно оговаривает, что область сохраняется отдельно&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a5938e1a7fec&quot;,
+          &quot;reason&quot;: &quot;Покрывает требование неотрицательности радиканда (x² ≤ a), но не переход к равенству радикандов&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_10490f2275e0&quot;,
+          &quot;reason&quot;: &quot;Возведение в квадрат с проверкой знаков обеих частей; здесь корни уже равны, переход идёт к радикандам напрямую&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат объединяет два действия, которые каталог разделяет: снятие равенства корней (f = g) и сохранение условия неотрицательности одного радиканда. Оба наблюдаются в s1.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;part&quot;: &quot;Переход √f = √g к f = g&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;literal_0b7ec31b74d9&quot;
+          },
+          {
+            &quot;part&quot;: &quot;Сохранение условия a − x² ≥ 0&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;literal_a5938e1a7fec&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Разложить y² = x² на совокупность линейных уравнений&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;y = x или y = −x&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_57e72251d4a8&quot;,
+          &quot;reason&quot;: &quot;x² = c с числовой правой частью; здесь равенство квадратов двух выражений&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+          &quot;reason&quot;: &quot;Требует факторизации и нулей множителей; разложение (y−x)(y+x)=0 в решении не наблюдается&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fe2b4673ac10&quot;,
+          &quot;reason&quot;: &quot;Выделение полного квадрата для квадратного уравнения, не равенство квадратов&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция u² = v² ⇔ u = v или u = −v над выражениями с двумя переменными; в каталоге нет узла для равенства квадратов.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Переходить от равенства квадратов к совокупности&quot;,
+        &quot;definition&quot;: &quot;Заменить u² = v² совокупностью u = v или u = −v для любых выражений u, v без потери ветвей.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;Подставить y = x во второе уравнение и решить полученное квадратное уравнение&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;2x² = 6x, x = 0 или x = 3; точки (0;0), (3;3)&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;Подставить y = −x во второе уравнение и решить полученное квадратное уравнение&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;2x² = −2x, x = 0 или x = −1; точки (0;0), (−1;1)&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;image:assets/586108106149f7792198ff67.png&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_48d7fd02cfd9&quot;,
+          &quot;reason&quot;: &quot;Точно покрывает подстановку y = mx в другое уравнение, но не решение полученного уравнения&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_0a4ebc8382b5&quot;,
+          &quot;reason&quot;: &quot;Перекрывается с literal_48d7fd02cfd9 (общая линейная связь); здесь связь вида y = mx&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+          &quot;reason&quot;: &quot;Возможное соответствие решению неполного квадратного уравнения 2x² = 6x, но вынесение x явно не записано&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+          &quot;reason&quot;: &quot;Дискриминант не используется&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат соединяет исключение переменной подстановкой и решение полученного квадратного уравнения с восстановлением пар; каталог разделяет эти действия.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;part&quot;: &quot;Подстановка y = ±x во второе уравнение&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;literal_48d7fd02cfd9&quot;
+          },
+          {
+            &quot;part&quot;: &quot;Решение неполного квадратного уравнения 2x² = 6x / 2x² = −2x&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;zero_product&quot;,
+            &quot;note&quot;: &quot;факторизация не показана, соответствие предположительное&quot;
+          },
+          {
+            &quot;part&quot;: &quot;Восстановление пар (x; y) по связи&quot;,
+            &quot;possible_catalog_kc_id&quot;: null
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s5:action&quot;,
+          &quot;quote&quot;: &quot;Собрать различные кандидаты в решения и для каждого записать условие x² ≤ a&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s5:result&quot;,
+          &quot;quote&quot;: &quot;(0;0) при a ≥ 0; (−1;1) при a ≥ 1; (3;3) при a ≥ 9&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s3:result&quot;,
+        &quot;step:s4:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+          &quot;reason&quot;: &quot;Отбор по фиксированной области; здесь результат — множество значений параметра, а не отбор&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+          &quot;reason&quot;: &quot;Проверка корней на ОДЗ/смысл без вывода условия на параметр&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a5938e1a7fec&quot;,
+          &quot;reason&quot;: &quot;Требование неотрицательности радиканда; перевод его в условие на a для каждого кандидата не описан&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_5dcd4a01af19&quot;,
+          &quot;reason&quot;: &quot;Подсчёт корней по ветвям, а не вывод условия на параметр&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Подстановка каждого параметр-независимого решения в ограничение x² ≤ a даёт множество допустимых a; каталог такого действия не содержит.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Выводить условие на параметр для каждого найденного решения&quot;,
+        &quot;definition&quot;: &quot;Подставить каждое не зависящее от параметра решение в явное параметрическое ограничение и получить множество значений параметра, при которых решение допустимо.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc5&quot;,
+      &quot;status&quot;: &quot;uncertain&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s6:action&quot;,
+          &quot;quote&quot;: &quot;Подсчитать число решений в зависимости от a и выбрать значения, дающие ровно два решения&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s6:result&quot;,
+          &quot;quote&quot;: &quot;a &lt; 0: 0 решений; 0 ≤ a &lt; 1: 1; 1 ≤ a &lt; 9: 2; a ≥ 9: 3. Ответ: 1 ≤ a &lt; 9&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s5:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_05f53e4cc43a&quot;,
+          &quot;reason&quot;: &quot;Подсчёт различных решений объединения ветвей с учётом совпадений; близко, но без параметрических промежутков&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_5dcd4a01af19&quot;,
+          &quot;reason&quot;: &quot;Перекрывающееся определение (различные корни с учётом ветвей и границ)&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_d93e50c17220&quot;,
+          &quot;reason&quot;: &quot;Дубликат по названию с иным определением; та же граница&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_e41f0e408b87&quot;,
+          &quot;reason&quot;: &quot;Запись множества параметров с граничными случаями — покрывает только итоговую запись&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдаемое действие — подсчёт числа решений по промежуткам a и выбор промежутка с двумя решениями. Несколько перекрывающихся узлов покрывают части (учёт совпадений, граничные случаи), ни один целиком; нет основания выбрать один. Возможно, нужен отдельный узел подсчёта по промежуткам параметра.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>

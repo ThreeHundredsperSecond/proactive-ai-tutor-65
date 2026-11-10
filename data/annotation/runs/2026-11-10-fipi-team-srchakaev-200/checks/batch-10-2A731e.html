@@ -1,0 +1,248 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>2A731e</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">15 декабря 2026 года планируется взять кредит в банке на сумму <br> <i><span>A</span></i> млн рублей на 24 месяца. Условия его возврата таковы:</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>–</mo> </semantics> </math> 1-го числа каждого месяца долг возрастает на 3 % по сравнению с концом предыдущего месяца;</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>–</mo> </semantics> </math> со 2-го по 14-е число каждого месяца необходимо одним платежом оплатить часть долга;</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>–</mo> </semantics> </math> 15-го числа каждого месяца долг должен быть на одну и ту же величину меньше долга на 15-е число предыдущего месяца;</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>–</mo> </semantics> </math> к 15 декабря 2028 года кредит должен быть полностью погашен.</p> <p class="MsoNormal">Чему равно <i><span>A</span></i>, если общая сумма платежей в 2028 году составит 17 925 тыс. рублей?<span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;2A731e&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;30&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;По условию равномерного уменьшения долга на 15-е число найти долг после k-го платежа: долг уменьшается ежемесячно на A/24, после k платежей он равен A(24-k)/24 млн руб.&quot;,
+      &quot;result&quot;: &quot;S_k = A(24-k)/24, k=0..24; S_24=0&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Выразить платёж k-го месяца как начисленные проценты на долг предыдущего месяца плюс уменьшение долга: x_k = 0,03·S_{k-1} + A/24.&quot;,
+      &quot;result&quot;: &quot;x_k = 0,03·A(25-k)/24 + A/24&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Определить, что платежи 2028 года — месяцы 13–24, и просуммировать их: проценты начисляются на долги A·12/24, …, A·1/24, основной долг погашается 12 частями по A/24.&quot;,
+      &quot;result&quot;: &quot;Сумма = 0,03·A·(1+2+…+12)/24 + 12·A/24 = 0,03·A·78/24 + A/2 = 0,5975A&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Составить и решить уравнение 0,5975A = 17,925 (млн руб.).&quot;,
+      &quot;result&quot;: &quot;A = 30&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s3&quot;,
+        &quot;condition&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Построить график остатка долга при дифференцированных платежах&quot;,
+      &quot;description&quot;: &quot;Вход: сумма кредита, число периодов и условие равного ежепериодного уменьшения долга. Операция: выразить остаток после каждого периода как линейно убывающую величину. Граница: схемы с одинаковым уменьшением долга.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Выразить платёж периода через проценты и уменьшение долга&quot;,
+      &quot;description&quot;: &quot;Вход: остаток долга на начало периода, процентная ставка, величина погашения основного долга. Операция: платёж = начисленные проценты + уменьшение долга. Граница: кредиты с начислением процентов на остаток.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Просуммировать платежи за выбранный интервал периодов&quot;,
+      &quot;description&quot;: &quot;Вход: формула платежа периода и границы интервала. Операция: сложить процентные части через сумму арифметической прогрессии и части основного долга. Граница: платежи, линейно зависящие от номера периода.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Решить линейное уравнение относительно суммы кредита&quot;,
+      &quot;description&quot;: &quot;Вход: выражение суммы платежей, пропорциональное сумме кредита, и известное значение. Операция: найти неизвестную сумму с учётом единиц измерения. Граница: линейная зависимость от неизвестного.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Дифференцированная схема: остатки долга, формула платежа, суммирование за год, уравнение&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;2A731e&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;долг уменьшается ежемесячно на A/24, после k платежей он равен A(24-k)/24 млн руб.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;S_k = A(24-k)/24, k=0..24; S_24=0&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+          &quot;reason&quot;: &quot;перевод процента в множитель и связь части с целым; здесь проценты не участвуют, строится последовательность остатков&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_f253b50b98a1&quot;,
+          &quot;reason&quot;: &quot;восстановление y=kx+b по двум точкам; здесь линейная зависимость выводится из условия равного уменьшения, а не по двум точкам&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: по условию равного уменьшения долга на 15-е число и полного погашения за 24 месяца выразить остаток после k-го платежа. В каталоге нет узлов кредитных схем; ближайшие узлы о процентах и линейной функции не описывают это действие.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;По сумме кредита, числу периодов и условию равного уменьшения долга после каждой выплаты выразить остаток после k-го периода как S_k=A(n-k)/n, включая S_n=0.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;x_k = 0,03·S_{k-1} + A/24&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;x_k = 0,03·A(25-k)/24 + A/24&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+          &quot;reason&quot;: &quot;покрывает только перевод 3% в множитель 0,03 и долю от целого, но не баланс платежа как проценты плюс погашение тела долга&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_33060533660f&quot;,
+          &quot;reason&quot;: &quot;модель прибыли и окупаемости, иной объект&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: платёж месяца = начисленные на остаток предыдущего месяца проценты + величина уменьшения долга. Остатки взяты из s1. Подходящего кредитного узла в каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Для кредита с начислением r% на остаток S_{k-1} и заданным уменьшением долга d выразить платёж периода x_k = r/100·S_{k-1} + d.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;Определить, что платежи 2028 года — месяцы 13–24, и просуммировать их&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;0,03·A·(1+2+…+12)/24 + 12·A/24 = 0,03·A·78/24 + A/2 = 0,5975A&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;arithmetic_series&quot;,
+          &quot;reason&quot;: &quot;покрывает только вычисление 1+2+…+12=78, но не выбор интервала месяцев по календарю и разложение суммы платежей на процентную часть и тело долга&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат смешивает: (а) сопоставление календарного года 2028 с номерами месяцев 13–24 и сведение суммы платежей к сумме процентов на остатки S_12…S_23 плюс 12 долей A/24; (б) суммирование арифметической прогрессии 1+…+12. Часть (б) соответствует arithmetic_series, часть (а) в каталоге отсутствует. Составной кандидат не получает match к узкому узлу.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;part&quot;: &quot;Определить номера периодов, попадающих в заданный календарный интервал, и записать суммарный платёж за них как сумму процентных частей по остаткам плюс суммарное погашение долга&quot;,
+            &quot;possible_catalog_kc_id&quot;: null
+          },
+          {
+            &quot;part&quot;: &quot;Сумма 1+2+…+12 = 78&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;arithmetic_series&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;Составить и решить уравнение 0,5975A = 17,925 (млн руб.).&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;A = 30&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s3:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+          &quot;reason&quot;: &quot;покрывает решение 0,5975A=17,925, но явно исключает построение модели; перевод 17 925 тыс. руб. в 17,925 млн руб. и приравнивание к выражению из s3 — не часть узла&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+          &quot;reason&quot;: &quot;подстановка величин в заданную формулу с согласованием единиц близка к части составления, но формула здесь не задана условием, а выведена в s3&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Шаг включает составление уравнения с переводом единиц (тыс. руб. → млн руб.) и решение линейного уравнения с числовыми коэффициентами. Решение соответствует linear_equation; составление с согласованием единиц — отдельное действие без точного узла.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;part&quot;: &quot;Приравнять полученное выражение суммы платежей к данному значению, согласовав единицы (17 925 тыс. руб. = 17,925 млн руб.)&quot;,
+            &quot;possible_catalog_kc_id&quot;: null
+          },
+          {
+            &quot;part&quot;: &quot;Решить 0,5975A = 17,925&quot;,
+            &quot;possible_catalog_kc_id&quot;: &quot;linear_equation&quot;
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>

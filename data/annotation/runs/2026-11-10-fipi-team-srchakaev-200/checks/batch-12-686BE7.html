@@ -1,0 +1,199 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>686BE7</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">В июле планируется взять кредит в банке на сумму 7 млн рублей на срок <br> 10 лет. Условия возврата таковы:</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mo>—</mo>  </semantics> </mstyle></math><span> </span>каждый январь долг возрастает на <i><span>r</span></i><span> </span>% по сравнению с концом предыдущего года;</p> <p class="MsoNormal"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mo>—</mo>  </semantics> </mstyle></math><span> </span>с февраля по июнь необходимо выплатить часть долга так, чтобы на начало июля каждого года долг уменьшался на одну и ту же сумму по сравнению с предыдущим июлем.</p> <p class="MsoNormal">Найдите наименьшую возможную ставку <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"> <semantics> <mi>r</mi>  </semantics> </mstyle></math>, если известно, что последний платёж будет не менее 0,819 млн рублей.<span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;686BE7&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;17&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Из условия равномерного уменьшения долга найти ежегодное уменьшение долга: 7 млн / 10 лет&quot;,
+      &quot;result&quot;: &quot;Долг каждый июль уменьшается на 0,7 млн руб.; перед последним годом (июль 9-го года) долг равен 0,7 млн руб.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Выразить последний платёж: долг 0,7 млн после начисления r% в январе выплачивается полностью&quot;,
+      &quot;result&quot;: &quot;Последний платёж = 0,7·(1 + r/100) млн руб.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Составить и решить неравенство 0,7·(1 + r/100) ≥ 0,819&quot;,
+      &quot;result&quot;: &quot;1 + r/100 ≥ 1,17, r ≥ 17; наименьшее r = 17&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Найти ежегодное уменьшение долга при дифференцированной схеме&quot;,
+      &quot;description&quot;: &quot;Вход: сумма кредита и число лет при условии уменьшения долга на одинаковую сумму ежегодно. Операция: разделить сумму на число периодов и определить остаток долга на начало нужного года. Граница: только схемы с равным уменьшением долга.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Выразить платёж через остаток долга и начисленный процент&quot;,
+      &quot;description&quot;: &quot;Вход: долг на начало года, процентная ставка и долг после платежа. Операция: платёж = долг·(1 + r/100) − новый долг. Граница: проценты начисляются один раз в году на текущий остаток.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Решить линейное неравенство относительно параметра и выбрать наименьшее значение&quot;,
+      &quot;description&quot;: &quot;Вход: линейное неравенство с одним неизвестным параметром. Операция: выразить параметр и определить наименьшее допустимое значение. Граница: положительный коэффициент при параметре или учёт смены знака.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Анализ последнего года дифференцированной схемы кредита&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;686BE7&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Из условия равномерного уменьшения долга найти ежегодное уменьшение долга: 7 млн / 10 лет&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;перед последним годом (июль 9-го года) долг равен 0,7 млн руб.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;arithmetic_series&quot;,
+          &quot;reason&quot;: &quot;Речь о сумме прогрессии; здесь нужен шаг убывания и остаток долга, суммирования нет.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+          &quot;reason&quot;: &quot;Перевод процента в долю; в s1 проценты не используются.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: из условия равного ежегодного уменьшения долга разделить сумму кредита на число лет и определить остаток перед последним годом. В каталоге нет узла для дифференцированной схемы погашения кредита.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;При кредите с уменьшением долга на одну и ту же сумму каждый год найти величину ежегодного уменьшения (S/n) и остаток долга на начало заданного года.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;долг 0,7 млн после начисления r% в январе выплачивается полностью&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;Последний платёж = 0,7·(1 + r/100) млн руб.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+          &quot;reason&quot;: &quot;Охватывает только перевод процента в множитель p/100 и связь части с целым, но не выражение платежа как разности долга после начисления и нового долга.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+          &quot;reason&quot;: &quot;Формула платежа не задана в условии, её строят по схеме кредита.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: платёж за год = долг·(1+r/100) − долг после платежа (здесь 0). Это моделирование платежа в кредитной схеме; подходящего узла в каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;definition&quot;: &quot;Выразить годовой платёж по кредиту как долг после начисления r% минус долг после платежа: P = D·(1+r/100) − D′.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;Составить и решить неравенство 0,7·(1 + r/100) ≥ 0,819&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;1 + r/100 ≥ 1,17, r ≥ 17; наименьшее r = 17&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_0cf8af170957&quot;,
+          &quot;reason&quot;: &quot;Соответствует решению неравенства 0,7·(1 + r/100) ≥ 0,819, но не составлению неравенства из условия и не выбору наименьшего значения.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_cb48e5bc61de&quot;,
+          &quot;reason&quot;: &quot;Близок к переводу ограничения «не менее 0,819» в неравенство, но определён для прикладной формулы, заданной в условии.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_a873d91378ab&quot;,
+          &quot;reason&quot;: &quot;Проверка достижения границы в решении явно не выполнена.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат объединяет три действия: перевод условия «последний платёж не менее 0,819» в неравенство, решение линейного неравенства с числовыми коэффициентами и выбор наименьшего r из луча r ≥ 17. Решение неравенства соответствует literal_0cf8af170957; остальные части отдельны.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;part&quot;: &quot;Перевести ограничение на платёж в неравенство 0,7·(1 + r/100) ≥ 0,819&quot;,
+            &quot;possible_match&quot;: &quot;literal_cb48e5bc61de (с оговоркой) или новый кандидат&quot;
+          },
+          {
+            &quot;part&quot;: &quot;Решить линейное неравенство относительно r&quot;,
+            &quot;possible_match&quot;: &quot;literal_0cf8af170957&quot;
+          },
+          {
+            &quot;part&quot;: &quot;Выбрать наименьшее значение r из множества r ≥ 17&quot;,
+            &quot;possible_match&quot;: null
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>

@@ -1,0 +1,228 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>E7FA88</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">В июле 2026 года планируется взять кредит на пять лет в размере 825 тыс. рублей. Условия его возврата таковы:</p> <p class="MsoNormal">— каждый январь долг возрастает на 20% по сравнению с концом предыдущего года;</p> <p class="MsoNormal">— с февраля по июнь каждого года необходимо выплатить одним платежом часть долга;</p> <p class="MsoNormal">— в июле 2027, 2028 и 2029 годов долг остаётся равным 825 тыс. рублей;</p> <p class="MsoNormal">— выплаты в 2030 и 2031 годах равны;</p> <p class="MsoNormal">— к июлю 2031 года долг будет выплачен полностью.</p> <p class="MsoNormal">Найдите общую сумму выплат за пять лет.</p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;E7FA88&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;1575 тыс. рублей&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Поскольку в июле 2027, 2028 и 2029 годов долг остаётся равным 825 тыс. руб., выплата каждого из этих лет равна начисленным процентам: 0,2·825&quot;,
+      &quot;result&quot;: &quot;Выплаты в 2027, 2028, 2029 годах по 165 тыс. руб., всего 495 тыс. руб.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Обозначить равную выплату 2030 и 2031 годов через x и составить уравнение по динамике долга: после 2030 года долг 1,2·825 − x, к июлю 2031 года 1,2·(990 − x) − x = 0&quot;,
+      &quot;result&quot;: &quot;1,2·(990 − x) − x = 0&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Решить линейное уравнение 1188 − 1,2x − x = 0&quot;,
+      &quot;result&quot;: &quot;x = 540 тыс. руб.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Сложить все выплаты: 495 + 2·540&quot;,
+      &quot;result&quot;: &quot;1575 тыс. руб.&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Определить выплату при неизменном долге&quot;,
+      &quot;description&quot;: &quot;Вход: сумма долга и годовая ставка, условие, что долг после выплаты не меняется. Операция: выплата равна начисленным за год процентам. Граница: только периоды с постоянным остатком долга.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Составить уравнение динамики долга по годам&quot;,
+      &quot;description&quot;: &quot;Вход: начальный долг, ставка начисления, неизвестные выплаты и конечный остаток. Операция: последовательно применить начисление процентов и вычитание выплаты, приравнять итог заданному остатку. Граница: схемы с ежегодным начислением процентов и одной выплатой в год.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Решить линейное уравнение с одной неизвестной&quot;,
+      &quot;description&quot;: &quot;Вход: линейное уравнение с числовыми коэффициентами. Операция: перенос слагаемых и деление на коэффициент. Граница: уравнения первой степени.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Найти общую сумму выплат по кредиту&quot;,
+      &quot;description&quot;: &quot;Вход: найденные выплаты по периодам. Операция: сложить выплаты всех периодов. Граница: когда выплаты каждого периода известны.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Пошаговое отслеживание долга: проценты при постоянном долге, уравнение для равных выплат, суммирование&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;E7FA88&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;выплата каждого из этих лет равна начисленным процентам: 0,2·825&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;Выплаты в 2027, 2028, 2029 годах по 165 тыс. руб., всего 495 тыс. руб.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+          &quot;reason&quot;: &quot;Перевод процента в множитель и связь части с целым — лишь компонент; не охватывает вывод, что при неизменном остатке выплата равна начисленным процентам.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;physical_formula_substitution&quot;,
+          &quot;reason&quot;: &quot;Нет заданной формулы; действие — вывод выплаты из условия неизменности долга, а не подстановка.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: из условия постоянства долга после выплаты вывести, что выплата равна годовым процентам r·S. Объект — кредитная схема с ежегодным начислением. В каталоге нет узлов по кредитным схемам; ближайшие покрывают только процентный множитель.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Определять выплату при неизменном остатке долга&quot;,
+        &quot;definition&quot;: &quot;При ежегодном начислении r% и условии, что долг после выплаты равен долгу до начисления S, установить, что выплата равна r/100·S. Только периоды с постоянным остатком.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;после 2030 года долг 1,2·825 − x, к июлю 2031 года 1,2·(990 − x) − x = 0&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;1,2·(990 − x) − x = 0&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_33060533660f&quot;,
+          &quot;reason&quot;: &quot;Моделирование прибыли и окупаемости, не динамики долга с начислением процентов и выплатами.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fc13ac040da4&quot;,
+          &quot;reason&quot;: &quot;Уравнение процентной доли связывает часть с целым; здесь — рекуррентная модель долга по годам.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+          &quot;reason&quot;: &quot;Построение модели явно исключено из определения.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: ввести неизвестную равную выплату, последовательно применить умножение на 1,2 и вычитание выплаты, приравнять итоговый долг нулю. Это составление модели; подходящего узла в каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Составлять уравнение динамики долга по годам&quot;,
+        &quot;definition&quot;: &quot;По начальному долгу, коэффициенту годового начисления и (неизвестным) выплатам последовательно записать долг после каждого года (умножение на 1+r/100, вычитание выплаты) и приравнять итог заданному остатку. Решение уравнения отдельно.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;linear_equation&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;Решить линейное уравнение 1188 − 1,2x − x = 0&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;x = 540 тыс. руб.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [],
+      &quot;rationale&quot;: &quot;Аффинное уравнение одной переменной с числовыми коэффициентами преобразовано в решение x=540; проверка: 1188=2,2x. Раскрытие скобок 1,2·(990 − x) выполнено неявно при переходе от s2 к s3 и укладывается в то же действие. Построение модели не входит (это kc2).&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;Сложить все выплаты: 495 + 2·540&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;1575 тыс. руб.&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;,
+        &quot;step:s3:result&quot;,
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;arithmetic_series&quot;,
+          &quot;reason&quot;: &quot;Выплаты не образуют арифметическую прогрессию; формула суммы не применяется.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_89184e5e6ac9&quot;,
+          &quot;reason&quot;: &quot;Частично близко (переход от вспомогательного x к величине вопроса), но определение не описывает суммирование выплат по периодам.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: собрать общую сумму выплат из найденных выплат по периодам, учитывая, что выплаты 2030 и 2031 годов равны (из условия). Это простая арифметика; узел имеет смысл только как переход к искомой величине задачи о кредите. Подходящего узла нет; возможно, его стоит не выделять отдельно, а считать частью модели кредита.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Находить общую сумму выплат по кредиту&quot;,
+        &quot;definition&quot;: &quot;Сложить выплаты всех периодов, учитывая кратность равных выплат, чтобы получить величину, требуемую вопросом. Вычисление отдельных выплат не входит.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>

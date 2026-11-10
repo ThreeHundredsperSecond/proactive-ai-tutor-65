@@ -1,0 +1,397 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>D354DE</h2><p>Дайте развернутый ответ.</p><div><section> <p class="Basis">Найдите все значения <span><img src="file:///Users/srchakaev/Projects/uni/yearly%20project/repo/data/annotation/runs/2026-11-10-fipi-team-srchakaev-200/inputs/assets/9d51c42a0d7f254388a03cf6.png" alt="Рисунок ФИПИ"></span>, при каждом из которых система уравнений</p>
+<p class="Basis" align="center"><span><img src="file:///Users/srchakaev/Projects/uni/yearly%20project/repo/data/annotation/runs/2026-11-10-fipi-team-srchakaev-200/inputs/assets/b607de2ae7445d88be029d8d.png" alt="Рисунок ФИПИ"></span></p>
+<p class="Basis">имеет ровно два различных решения.</p> </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;D354DE&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;a ∈ (4; 16]&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;S1&quot;,
+      &quot;action&quot;: &quot;Привести уравнение с равными логарифмами по одному основанию к равенству аргументов с условием положительности: a−y²=a−x² при a−x²&gt;0, то есть y²=x², a&gt;x².&quot;,
+      &quot;result&quot;: &quot;y²=x², a&gt;x²&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;S2&quot;,
+      &quot;action&quot;: &quot;Разложить y²=x² на совокупность прямых.&quot;,
+      &quot;result&quot;: &quot;y=x или y=−x&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;S1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;S3&quot;,
+      &quot;action&quot;: &quot;Подставить y=x во второе уравнение и решить: 2x²=8x.&quot;,
+      &quot;result&quot;: &quot;(0;0), (4;4)&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;S2&quot;,
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;S4&quot;,
+      &quot;action&quot;: &quot;Подставить y=−x во второе уравнение и решить: 2x²=−4x.&quot;,
+      &quot;result&quot;: &quot;(0;0), (−2;2)&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;S2&quot;,
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;S5&quot;,
+      &quot;action&quot;: &quot;Для каждой найденной точки записать условие a&gt;x², учитывая совпадение точки (0;0) в обеих ветвях.&quot;,
+      &quot;result&quot;: &quot;(0;0): a&gt;0; (−2;2): a&gt;4; (4;4): a&gt;16&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;S1&quot;,
+        &quot;S3&quot;,
+        &quot;S4&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;S6&quot;,
+      &quot;action&quot;: &quot;Подсчитать число различных решений в зависимости от a и выбрать случаи ровно двух решений.&quot;,
+      &quot;result&quot;: &quot;a≤0: 0; 0&lt;a≤4: 1; 4&lt;a≤16: 2; a&gt;16: 3; ответ 4&lt;a≤16&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;KC5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;S5&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;KC1&quot;,
+      &quot;name&quot;: &quot;Свести равенство логарифмов к равенству аргументов&quot;,
+      &quot;description&quot;: &quot;Вход: уравнение log_b f = log_b g с одинаковым допустимым основанием. Операция: заменить на f=g вместе с условием положительности одного из аргументов. Граница: только при одинаковом основании; ОДЗ сохраняется.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;KC2&quot;,
+      &quot;name&quot;: &quot;Разложить равенство квадратов на совокупность&quot;,
+      &quot;description&quot;: &quot;Вход: уравнение u²=v². Операция: заменить совокупностью u=v или u=−v. Граница: любые выражения u, v.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;KC3&quot;,
+      &quot;name&quot;: &quot;Решить систему подстановкой линейной связи&quot;,
+      &quot;description&quot;: &quot;Вход: система из линейного соотношения между переменными и уравнения второй степени. Операция: выразить переменную и подставить, решить полученное уравнение с одной переменной. Граница: связь позволяет явно выразить переменную.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;KC4&quot;,
+      &quot;name&quot;: &quot;Наложить ограничение параметра на найденные решения&quot;,
+      &quot;description&quot;: &quot;Вход: найденные кандидаты-решения и условие ОДЗ с параметром. Операция: для каждого кандидата выписать условие на параметр, при котором он допустим; совпадающие кандидаты учитывать один раз. Граница: условие зависит от координат решения явно.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;KC5&quot;,
+      &quot;name&quot;: &quot;Подсчитать число решений по промежуткам параметра&quot;,
+      &quot;description&quot;: &quot;Вход: набор кандидатов с условиями на параметр. Операция: разбить ось параметра граничными значениями и на каждом промежутке подсчитать число допустимых различных решений, выбрать требуемые. Граница: условия задают промежутки параметра.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;M1&quot;,
+      &quot;name&quot;: &quot;Переход к равенству аргументов, разбиение на прямые, подстановка в окружность и отбор по параметру&quot;,
+      &quot;step_ids&quot;: [
+        &quot;S1&quot;,
+        &quot;S2&quot;,
+        &quot;S3&quot;,
+        &quot;S4&quot;,
+        &quot;S5&quot;,
+        &quot;S6&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;D354DE&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;KC1&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_2443f08dda82&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S1:action&quot;,
+          &quot;quote&quot;: &quot;a−y²=a−x² при a−x²&gt;0&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;image:assets/b607de2ae7445d88be029d8d.png&quot;,
+          &quot;region_description&quot;: &quot;Первая строка системы: log_11(a−y²)=log_11(a−x²), одинаковое основание 11 в обеих частях&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;image:assets/b607de2ae7445d88be029d8d.png&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_9a635e89ccb3&quot;,
+          &quot;reason&quot;: &quot;простейшее логарифмическое уравнение по определению, а здесь логарифм с обеих сторон&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_7baedb55a81a&quot;,
+          &quot;reason&quot;: &quot;только установление ОДЗ, без перехода к равенству аргументов&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: переход от равенства логарифмов с одинаковым основанием 11 к равенству аргументов с сохранением положительности аргумента; совпадает с определением узла целиком.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;KC2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S2:action&quot;,
+          &quot;quote&quot;: &quot;Разложить y²=x² на совокупность прямых.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S2:result&quot;,
+          &quot;quote&quot;: &quot;y=x или y=−x&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:S1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_57e72251d4a8&quot;,
+          &quot;reason&quot;: &quot;x²=c с числовой правой частью, а здесь равенство квадратов двух выражений&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+          &quot;reason&quot;: &quot;разложение (y−x)(y+x)=0 и нулевое произведение в решении не наблюдаются&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_fe2b4673ac10&quot;,
+          &quot;reason&quot;: &quot;выделение полного квадрата не выполняется&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдается замена u²=v² совокупностью u=v или u=−v; подходящего определения в каталоге нет.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Заменять равенство квадратов совокупностью&quot;,
+        &quot;definition&quot;: &quot;Уравнение u²=v² заменить равносильной совокупностью u=v или u=−v для любых выражений u, v.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;KC3&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S3:action&quot;,
+          &quot;quote&quot;: &quot;Подставить y=x во второе уравнение и решить: 2x²=8x.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S4:action&quot;,
+          &quot;quote&quot;: &quot;Подставить y=−x во второе уравнение и решить: 2x²=−4x.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S3:result&quot;,
+          &quot;quote&quot;: &quot;(0;0), (4;4)&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S4:result&quot;,
+          &quot;quote&quot;: &quot;(0;0), (−2;2)&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:S2:result&quot;,
+        &quot;image:assets/b607de2ae7445d88be029d8d.png&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_48d7fd02cfd9&quot;,
+          &quot;reason&quot;: &quot;покрывает только подстановку y=mx, не решение полученного уравнения&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_0a4ebc8382b5&quot;,
+          &quot;reason&quot;: &quot;перекрывается с literal_48d7fd02cfd9, тоже только исключение переменной&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;zero_product&quot;,
+          &quot;reason&quot;: &quot;покрывает решение 2x²=8x и 2x²=−4x через вынесение x, но не подстановку&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;quadratic_discriminant&quot;,
+          &quot;reason&quot;: &quot;дискриминант в решении не используется&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат объединяет подстановку линейной связи во второе уравнение системы и решение полученного неполного квадратного уравнения; это два разных узла каталога.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;part&quot;: &quot;Подстановка y=x и y=−x в x²+y²=2x+6y&quot;,
+            &quot;possible_kc&quot;: [
+              &quot;literal_48d7fd02cfd9&quot;,
+              &quot;literal_0a4ebc8382b5&quot;
+            ]
+          },
+          {
+            &quot;part&quot;: &quot;Решение 2x²=8x и 2x²=−4x (нули множителей x и x−4, x+2)&quot;,
+            &quot;possible_kc&quot;: [
+              &quot;zero_product&quot;
+            ]
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i1&quot;
+      ]
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;KC4&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S5:action&quot;,
+          &quot;quote&quot;: &quot;Для каждой найденной точки записать условие a&gt;x²&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S5:result&quot;,
+          &quot;quote&quot;: &quot;(0;0): a&gt;0; (−2;2): a&gt;4; (4;4): a&gt;16&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:S1:result&quot;,
+        &quot;step:S3:result&quot;,
+        &quot;step:S4:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_c840012ba3dd&quot;,
+          &quot;reason&quot;: &quot;проверка корней на ОДЗ без параметра даёт да/нет, а здесь из ОДЗ выводится условие на параметр&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_ae9adc80bc91&quot;,
+          &quot;reason&quot;: &quot;отбор по заданной области без параметра&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_05f53e4cc43a&quot;,
+          &quot;reason&quot;: &quot;учёт совпадения ветвей относится к подсчёту, а основное действие шага — вывод условия на a&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Для каждого кандидата-решения подставляются координаты в условие ОДЗ с параметром и получается ограничение на a; в каталоге нет узла для параметрической допустимости кандидатов.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Выражать допустимость кандидата условием на параметр&quot;,
+        &quot;definition&quot;: &quot;Подставить координаты найденного кандидата в условие ОДЗ, содержащее параметр, и получить множество значений параметра, при которых кандидат является решением.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;KC5&quot;,
+      &quot;status&quot;: &quot;needs_split&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:S6:action&quot;,
+          &quot;quote&quot;: &quot;Подсчитать число различных решений в зависимости от a и выбрать случаи ровно двух решений.&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:S6:result&quot;,
+          &quot;quote&quot;: &quot;a≤0: 0; 0&lt;a≤4: 1; 4&lt;a≤16: 2; a&gt;16: 3; ответ 4&lt;a≤16&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:S5:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_05f53e4cc43a&quot;,
+          &quot;reason&quot;: &quot;подсчёт различных решений объединения ветвей без разбиения оси параметра&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_5dcd4a01af19&quot;,
+          &quot;reason&quot;: &quot;перекрывающийся узел подсчёта различных корней с учётом ветвей; без параметрических промежутков&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_d93e50c17220&quot;,
+          &quot;reason&quot;: &quot;дубль предыдущего по смыслу&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_e41f0e408b87&quot;,
+          &quot;reason&quot;: &quot;запись множества параметров с границами — только заключительная часть&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+          &quot;reason&quot;: &quot;совмещение ограничений, но не подсчёт числа решений&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Кандидат включает подсчёт различных решений (с учётом общей точки (0;0)) на промежутках параметра и запись итогового множества a с граничными значениями; это разные действия, а узлы подсчёта в каталоге перекрываются между собой.&quot;,
+      &quot;proposal&quot;: {
+        &quot;parts&quot;: [
+          {
+            &quot;part&quot;: &quot;Подсчёт числа различных допустимых решений на каждом промежутке a&quot;,
+            &quot;possible_kc&quot;: [
+              &quot;literal_05f53e4cc43a&quot;,
+              &quot;literal_5dcd4a01af19&quot;,
+              &quot;literal_d93e50c17220&quot;
+            ],
+            &quot;note&quot;: &quot;узлы перекрываются; разбиение оси параметра в них явно не описано&quot;
+          },
+          {
+            &quot;part&quot;: &quot;Выбор промежутка с ровно двумя решениями и запись ответа 4&lt;a≤16 с проверкой границ&quot;,
+            &quot;possible_kc&quot;: [
+              &quot;literal_e41f0e408b87&quot;
+            ]
+          }
+        ]
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: [
+        &quot;i2&quot;
+      ]
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;id&quot;: &quot;i1&quot;,
+      &quot;kind&quot;: &quot;boundary&quot;,
+      &quot;refs&quot;: [
+        &quot;step:S3:action&quot;,
+        &quot;step:S4:action&quot;
+      ],
+      &quot;description&quot;: &quot;Шаги S3 и S4 размечены одним KC3, хотя каждый содержит и подстановку, и решение неполного квадратного уравнения; проверка: при y=−x получаем 2x²=2x−6x=−4x, корни x=0, x=−2, результаты S3 и S4 верны.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;KC3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;i2&quot;,
+      &quot;kind&quot;: &quot;boundary&quot;,
+      &quot;refs&quot;: [
+        &quot;step:S6:result&quot;
+      ],
+      &quot;description&quot;: &quot;В каталоге три перекрывающихся узла подсчёта различных решений по ветвям (literal_05f53e4cc43a, literal_5dcd4a01af19, literal_d93e50c17220), что не позволяет однозначно выбрать соответствие для части подсчёта. Сам подсчёт и ответ 4&lt;a≤16 при проверке согласуются с S5.&quot;,
+      &quot;blocking&quot;: false,
+      &quot;affected_local_kc_ids&quot;: [
+        &quot;KC5&quot;
+      ]
+    }
+  ],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>

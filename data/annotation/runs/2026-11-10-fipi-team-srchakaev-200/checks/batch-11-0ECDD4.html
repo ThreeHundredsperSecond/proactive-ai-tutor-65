@@ -1,0 +1,144 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>0ECDD4</h2><p>Впишите правильный ответ.</p><div><section>  <p class="MsoNormal">Помещение освещается тремя лампами. Вероятность перегорания каждой лампы в течение года равна 0,8. Лампы перегорают независимо друг от друга. Найдите вероятность того, что в течение года хотя бы одна лампа <b>не перегорит</b>.<span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;0ECDD4&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;0,488&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Перейти к противоположному событию: хотя бы одна лампа не перегорит ⇔ не все три лампы перегорят; P = 1 − P(все перегорят)&quot;,
+      &quot;result&quot;: &quot;P = 1 − P(все три перегорят)&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Найти вероятность того, что перегорят все три независимые лампы, перемножив вероятности&quot;,
+      &quot;result&quot;: &quot;P(все перегорят) = 0,8^3 = 0,512&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Вычесть вероятность противоположного события из единицы&quot;,
+      &quot;result&quot;: &quot;P = 1 − 0,512 = 0,488&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Вычислить вероятность через противоположное событие&quot;,
+      &quot;description&quot;: &quot;Вход: событие вида «хотя бы один» или другое, у которого противоположное событие проще. Операция: P(A) = 1 − P(не A). Применимо, когда P(не A) вычисляется напрямую.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Перемножить вероятности независимых событий&quot;,
+      &quot;description&quot;: &quot;Вход: несколько независимых событий с известными вероятностями. Операция: вероятность их совместного наступления равна произведению вероятностей. Применимо только при независимости событий.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Переход к противоположному событию и умножение вероятностей независимых событий&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;0ECDD4&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Перейти к противоположному событию: хотя бы одна лампа не перегорит ⇔ не все три лампы перегорят; P = 1 − P(все перегорят)&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;P = 1 − 0,512 = 0,488&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;classical_probability&quot;,
+          &quot;reason&quot;: &quot;Вычисляет m/n в равновозможной модели; здесь нет подсчёта исходов, операция P(A)=1−P(не A).&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+          &quot;reason&quot;: &quot;Умножение вероятностей независимых событий — это s2, а не переход к дополнению.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;bernoulli_model&quot;,
+          &quot;reason&quot;: &quot;Задаёт модель независимых испытаний, не содержит перехода к противоположному событию.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: для события «хотя бы одна лампа не перегорит» сформулировать противоположное «все три перегорят» (s1) и вычислить P(A)=1−P(не A) (s3). В каталоге нет узла о вероятности противоположного события; ближайшие узлы описывают другие операции. Числовое вычитание в s3 — завершение того же действия.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Вычислять вероятность через противоположное событие&quot;,
+        &quot;definition&quot;: &quot;Сформулировать событие, противоположное заданному (например, «хотя бы один» ↔ «ни одного/все наоборот»), и вычислить P(A)=1−P(Ā). Вычисление P(Ā) размечается отдельно.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_9db22ef78d3a&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Найти вероятность того, что перегорят все три независимые лампы, перемножив вероятности&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;P(все перегорят) = 0,8^3 = 0,512&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;bernoulli_model&quot;,
+          &quot;reason&quot;: &quot;Касается построения модели испытаний, а не вычисления вероятности пересечения; модель явно не строится.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+          &quot;reason&quot;: &quot;0,8^3 — простое вычисление, не преобразование степеней.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Независимость дана в условии; в s2 перемножены вероятности трёх событий, которые должны произойти одновременно (все лампы перегорят). Это целиком соответствует определению узла.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>
