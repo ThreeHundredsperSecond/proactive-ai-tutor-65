@@ -1,0 +1,275 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>9D2941</h2><p>Дайте развернутый ответ.</p><div><section>  <p class="MsoNormal">Решите неравенство <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mfrac> <mrow> <msup> <mn>4</mn> <mi>x</mi> </msup> <mtext>​</mtext><mo>−</mo><mn>3</mn><mo>⋅</mo><msup> <mn>2</mn> <mrow> <mi>x</mi><mtext> </mtext><mo>+</mo><mtext> </mtext><mn>1</mn> </mrow> </msup> <mtext> </mtext><mo>+</mo><mn>4</mn> </mrow> <mrow> <msup> <mn>2</mn> <mi>x</mi> </msup> <mtext>​</mtext><mo>−</mo><mn>5</mn> </mrow> </mfrac> <mo>+</mo><mfrac> <mrow> <mn>3</mn><mo>⋅</mo><msup> <mn>2</mn> <mrow> <mi>x</mi><mtext> </mtext><mo>+</mo><mtext> </mtext><mn>1</mn> </mrow> </msup> <mtext> </mtext><mo>−</mo><mn>46</mn> </mrow> <mrow> <msup> <mn>2</mn> <mi>x</mi> </msup> <mtext>​</mtext><mo>−</mo><mn>8</mn> </mrow> </mfrac> <mo>≤</mo><msup> <mn>2</mn> <mi>x</mi> </msup> <mtext> </mtext><mo>+</mo><mn>5.</mn> </mrow> </semantics> </math><span></span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;9D2941&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;(-∞; 1] ∪ (log_2 5; 3)&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Сделать замену t = 2^x, t &gt; 0, переписав 4^x = t^2, 2^(x+1) = 2t&quot;,
+      &quot;result&quot;: &quot;(t^2 − 6t + 4)/(t − 5) + (6t − 46)/(t − 8) ≤ t + 5, t &gt; 0&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Выделить целые части дробей&quot;,
+      &quot;result&quot;: &quot;(t^2 − 6t + 4)/(t − 5) = t − 1 − 1/(t − 5); (6t − 46)/(t − 8) = 6 + 2/(t − 8)&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s3&quot;,
+      &quot;action&quot;: &quot;Подставить, сократить t + 5 и привести к общему знаменателю&quot;,
+      &quot;result&quot;: &quot;(t − 2)/((t − 5)(t − 8)) ≤ 0&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc3&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s2&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s4&quot;,
+      &quot;action&quot;: &quot;Решить рациональное неравенство методом интервалов с учётом t &gt; 0&quot;,
+      &quot;result&quot;: &quot;0 &lt; t ≤ 2 или 5 &lt; t &lt; 8&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc4&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s3&quot;,
+        &quot;s1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s5&quot;,
+      &quot;action&quot;: &quot;Вернуться к x, решив простейшие показательные неравенства&quot;,
+      &quot;result&quot;: &quot;x ≤ 1 или log_2 5 &lt; x &lt; 3&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc5&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;s4&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Ввести замену показательной функции&quot;,
+      &quot;description&quot;: &quot;Для неравенства с выражениями a^(kx) и a^(x+c) ввести t = a^x с ограничением t &gt; 0 и переписать неравенство как рациональное относительно t.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Выделить целую часть рациональной дроби&quot;,
+      &quot;description&quot;: &quot;Представить дробь многочлен/линейный двучлен как многочлен плюс правильная дробь делением многочленов.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc3&quot;,
+      &quot;name&quot;: &quot;Привести рациональное неравенство к виду дробь сравнить с нулём&quot;,
+      &quot;description&quot;: &quot;Перенести все члены в одну часть, сократить и привести к общему знаменателю, получив P/Q ≤ 0 без потери ограничений знаменателей.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc4&quot;,
+      &quot;name&quot;: &quot;Решить рациональное неравенство методом интервалов&quot;,
+      &quot;description&quot;: &quot;По нулям числителя и знаменателя определить знаки дроби на интервалах, исключить нули знаменателя и учесть дополнительные ограничения на переменную.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc5&quot;,
+      &quot;name&quot;: &quot;Решить простейшее показательное неравенство&quot;,
+      &quot;description&quot;: &quot;Решить неравенство вида a^x ∨ b при a &gt; 1 логарифмированием по основанию a с сохранением знака неравенства.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Замена t = 2^x, сведение к рациональному неравенству и метод интервалов&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;,
+        &quot;s3&quot;,
+        &quot;s4&quot;,
+        &quot;s5&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;9D2941&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;exponential_substitution&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;Сделать замену t = 2^x, t &gt; 0, переписав 4^x = t^2, 2^(x+1) = 2t&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;(t^2 − 6t + 4)/(t − 5) + (6t − 46)/(t − 8) ≤ t + 5, t &gt; 0&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;power_laws&quot;,
+          &quot;reason&quot;: &quot;Переписывание 4^x и 2^(x+1) через t использует законы степеней как компонент, но основное действие — введение t=b^x&gt;0 и согласование степеней.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_inequality&quot;,
+          &quot;reason&quot;: &quot;Обратный переход к x выполняется отдельно в s5.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Введена t=2^x с ограничением t&gt;0, остальные степени (4^x, 2^(x+1)) выражены через t; это совпадает с определением exponential_substitution, которое не включает обратный переход и решение неравенства.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Выделить целые части дробей&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;(t^2 − 6t + 4)/(t − 5) = t − 1 − 1/(t − 5); (6t − 46)/(t − 8) = 6 + 2/(t − 8)&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_67caf017b566&quot;,
+          &quot;reason&quot;: &quot;Объединение дробей к общему знаменателю — обратная по направлению операция, не деление многочленов.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_7570fa06d474&quot;,
+          &quot;reason&quot;: &quot;Сокращение на общий множитель не выполняется; остаток ненулевой.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_cab525070130&quot;,
+          &quot;reason&quot;: &quot;Факторизация для исследования знака не выполняется.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Наблюдается деление многочлена на линейный двучлен с остатком (обе выкладки верны). В каталоге нет узла для выделения целой части рациональной дроби.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Выделять целую часть рациональной дроби&quot;,
+        &quot;definition&quot;: &quot;Представить P(t)/(t−a) в виде многочлена плюс правильная дробь r/(t−a) делением с остатком, сохраняя ограничение t≠a.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc3&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;literal_67caf017b566&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s3:action&quot;,
+          &quot;quote&quot;: &quot;Подставить, сократить t + 5 и привести к общему знаменателю&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s3:result&quot;,
+          &quot;quote&quot;: &quot;(t − 2)/((t − 5)(t − 8)) ≤ 0&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s2:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;denominator_domain&quot;,
+          &quot;reason&quot;: &quot;Сохранение нулей знаменателей присутствует как условие, но основное действие — объединение дробей; в данном случае знаменатели не сокращаются, так что отдельного действия сохранения ограничений не видно.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_7570fa06d474&quot;,
+          &quot;reason&quot;: &quot;Сокращается слагаемое t+5 в обеих частях, а не общий множитель дроби.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;После переноса и взаимного уничтожения t+5 две дроби объединены в одну с общим знаменателем (t−5)(t−8), знаменатели сохранены; перенос слагаемых — тривиальная арифметика, не дробится отдельно. Выкладка верна.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc4&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;rational_intervals&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s4:action&quot;,
+          &quot;quote&quot;: &quot;Решить рациональное неравенство методом интервалов с учётом t &gt; 0&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s4:result&quot;,
+          &quot;quote&quot;: &quot;0 &lt; t ≤ 2 или 5 &lt; t &lt; 8&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s3:result&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;set_intersection&quot;,
+          &quot;reason&quot;: &quot;Учёт t&gt;0 — компонент пересечения, но основная операция — знаки дроби по нулям и полюсам; rational_intervals включает допустимость концов.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Нули 2, полюса 5 и 8, нестрогое неравенство: t=2 включено, 5 и 8 исключены, затем учтено t&gt;0. Результат верен и полностью соответствует определению rational_intervals.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc5&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;exponential_inequality&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s5:action&quot;,
+          &quot;quote&quot;: &quot;Вернуться к x, решив простейшие показательные неравенства&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s5:result&quot;,
+          &quot;quote&quot;: &quot;x ≤ 1 или log_2 5 &lt; x &lt; 3&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;step:s4:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_d66dd830e876&quot;,
+          &quot;reason&quot;: &quot;Вычисление логарифма по определению лишь компонент (log_2 5 как граница), не всё действие.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;exponential_equation&quot;,
+          &quot;reason&quot;: &quot;Относится к уравнениям, а не неравенствам.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Переход от 0&lt;2^x≤2 и 5&lt;2^x&lt;8 к x при основании 2&gt;1 с сохранением направления; результат верен и соответствует exponential_inequality.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>

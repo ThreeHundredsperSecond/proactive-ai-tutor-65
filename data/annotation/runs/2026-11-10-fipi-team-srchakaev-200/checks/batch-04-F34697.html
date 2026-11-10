@@ -1,0 +1,133 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>body{margin:28px;max-width:1450px;font:20px Georgia;background:white;color:#182b34}section{padding:18px;border-bottom:2px solid #aaa}pre{white-space:pre-wrap;font:15px monospace}img{max-width:100%;height:auto}math{font-size:1.3em}</style><body><section><h2>F34697</h2><p>Впишите правильный ответ.</p><div><section>  <table class="MsoTableGrid" border="0" cellspacing="0" cellpadding="0"> <tr> <td valign="top"> <p class="MsoNormal">Площадь треугольника <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mi>C</mi> </mrow> </semantics> </math> равна 24, <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>D</mi><mi>E</mi> </mrow> </semantics> </math> <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mo>—</mo> </semantics> </math> средняя линия, параллельная стороне<span> </span><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>A</mi><mi>B</mi><mo>.</mo> </mrow> </semantics> </math> Найдите площадь треугольника <math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics> <mrow> <mi>C</mi><mi>D</mi><mi>E</mi><mo>.</mo> </mrow> </semantics> </math></p> </td> <td valign="top"> <p class="MsoNormal" align="right"><img src="file:///Users/srchakaev/Projects/uni/yearly%20project/repo/data/annotation/runs/2026-11-10-fipi-team-srchakaev-200/inputs/assets/456169ead80464ca73a19fbe.png" alt="Рисунок ФИПИ"></p> </td> </tr> </table> <p class="MsoNormal"><span> </span></p>  </section></div><h3>author</h3><pre>{
+  &quot;task_id&quot;: &quot;F34697&quot;,
+  &quot;solution_status&quot;: &quot;solved&quot;,
+  &quot;answer&quot;: &quot;6&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;id&quot;: &quot;s1&quot;,
+      &quot;action&quot;: &quot;Установить подобие треугольников CDE и CAB: DE — средняя линия, параллельная AB, поэтому D и E — середины CA и CB, угол C общий, коэффициент подобия CD/CA = CE/CB = 1/2&quot;,
+      &quot;result&quot;: &quot;Треугольник CDE подобен треугольнику CAB с коэффициентом k = 1/2&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc1&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;s2&quot;,
+      &quot;action&quot;: &quot;Найти площадь треугольника CDE как площадь ABC, умноженную на квадрат коэффициента подобия: 24 · (1/2)^2&quot;,
+      &quot;result&quot;: &quot;S(CDE) = 6&quot;,
+      &quot;kc_ids&quot;: [
+        &quot;kc2&quot;
+      ],
+      &quot;input_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;s1&quot;
+      ]
+    }
+  ],
+  &quot;kc_candidates&quot;: [
+    {
+      &quot;id&quot;: &quot;kc1&quot;,
+      &quot;name&quot;: &quot;Установить подобие треугольника, отсекаемого средней линией&quot;,
+      &quot;description&quot;: &quot;Вход: средняя линия треугольника, параллельная одной из сторон. Операция: по параллельности (или по общему углу и пропорциональным сторонам) доказать подобие отсечённого треугольника исходному и определить коэффициент подобия 1/2. Граница: только отрезок, соединяющий середины двух сторон.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;kc2&quot;,
+      &quot;name&quot;: &quot;Вычислить площадь подобной фигуры через квадрат коэффициента подобия&quot;,
+      &quot;description&quot;: &quot;Вход: площадь одной из подобных фигур и коэффициент подобия. Операция: умножить известную площадь на квадрат коэффициента (или разделить на него). Граница: фигуры должны быть подобны с известным линейным коэффициентом.&quot;
+    }
+  ],
+  &quot;methods&quot;: [
+    {
+      &quot;id&quot;: &quot;m1&quot;,
+      &quot;name&quot;: &quot;Подобие треугольников и отношение площадей&quot;,
+      &quot;step_ids&quot;: [
+        &quot;s1&quot;,
+        &quot;s2&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: []
+}</pre><h3>auditor</h3><pre>{
+  &quot;task_id&quot;: &quot;F34697&quot;,
+  &quot;catalog_version&quot;: &quot;fipi50-editorial-v1-frozen&quot;,
+  &quot;decisions&quot;: [
+    {
+      &quot;local_kc_id&quot;: &quot;kc1&quot;,
+      &quot;status&quot;: &quot;new_candidate&quot;,
+      &quot;catalog_kc_id&quot;: null,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s1:action&quot;,
+          &quot;quote&quot;: &quot;DE — средняя линия, параллельная AB, поэтому D и E — середины CA и CB, угол C общий, коэффициент подобия CD/CA = CE/CB = 1/2&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s1:result&quot;,
+          &quot;quote&quot;: &quot;Треугольник CDE подобен треугольнику CAB с коэффициентом k = 1/2&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;image:assets/456169ead80464ca73a19fbe.png&quot;,
+          &quot;region_description&quot;: &quot;Треугольник ABC с вершиной C сверху; отрезок DE соединяет точки D на AC и E на BC, параллелен основанию AB; штрихи отмечают равенство CD=DA (одинарные) и CE=EB (двойные), то есть D и E — середины сторон&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;image:assets/456169ead80464ca73a19fbe.png&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;similarity_AA&quot;,
+          &quot;reason&quot;: &quot;Определение требует установить две пары равных углов; в s1 подобие обосновано общим углом и пропорциональностью сторон (1/2), т.е. признаком по двум сторонам и углу, а равенства второй пары углов в решении нет.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_d5e287608dd5&quot;,
+          &quot;reason&quot;: &quot;Узел про составление пропорции длин из подобия/параллельности для поиска отрезков и высот; здесь результат — само подобие и коэффициент, пропорция для неизвестной длины не составляется.&quot;
+        },
+        {
+          &quot;catalog_kc_id&quot;: &quot;literal_b58390338050&quot;,
+          &quot;reason&quot;: &quot;Использует уже установленное подобие для пропорции сторон; в s1 подобие только устанавливается.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Операция: из того, что DE — средняя линия (D, E — середины CA, CB, видно по штрихам на рисунке), вывести подобие треугольника CDE треугольнику CAB с коэффициентом 1/2 по общему углу C и пропорциональным сторонам. В каталоге нет узла для признака подобия по углу и двум пропорциональным сторонам или для свойства средней линии; similarity_AA не совпадает по основанию.&quot;,
+      &quot;proposal&quot;: {
+        &quot;name&quot;: &quot;Устанавливать подобие треугольника, отсекаемого средней линией&quot;,
+        &quot;definition&quot;: &quot;По тому, что отрезок соединяет середины двух сторон треугольника, установить подобие отсечённого треугольника исходному (общий угол и пропорциональные прилежащие стороны либо параллельность) с коэффициентом 1/2 и зафиксировать соответствие вершин. Вычисления площадей и длин через коэффициент — отдельно.&quot;
+      },
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    },
+    {
+      &quot;local_kc_id&quot;: &quot;kc2&quot;,
+      &quot;status&quot;: &quot;match&quot;,
+      &quot;catalog_kc_id&quot;: &quot;similar_area&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;ref&quot;: &quot;step:s2:action&quot;,
+          &quot;quote&quot;: &quot;Найти площадь треугольника CDE как площадь ABC, умноженную на квадрат коэффициента подобия: 24 · (1/2)^2&quot;
+        },
+        {
+          &quot;ref&quot;: &quot;step:s2:result&quot;,
+          &quot;quote&quot;: &quot;S(CDE) = 6&quot;
+        }
+      ],
+      &quot;context_refs&quot;: [
+        &quot;condition&quot;,
+        &quot;step:s1:result&quot;
+      ],
+      &quot;alternatives_checked&quot;: [
+        {
+          &quot;catalog_kc_id&quot;: &quot;right_triangle_area&quot;,
+          &quot;reason&quot;: &quot;Не прямоугольный треугольник и не формула половины произведения катетов.&quot;
+        }
+      ],
+      &quot;rationale&quot;: &quot;Отношение площадей подобных треугольников получено возведением в квадрат коэффициента подобия соответствующих длин (k=1/2 из s1), затем умножено на данную площадь 24. Умножение на известную площадь — тривиальная арифметика, не отдельное действие. 24·1/4=6 верно.&quot;,
+      &quot;proposal&quot;: null,
+      &quot;blocking&quot;: false,
+      &quot;issue_ids&quot;: []
+    }
+  ],
+  &quot;issues&quot;: [],
+  &quot;review_scope&quot;: &quot;KC mapping with incidental mathematical checks; not expert validation&quot;
+}</pre></section><script>addEventListener('load',()=>document.body.setAttribute('data-health',JSON.stringify({images:[...document.images].map(i=>i.complete&&i.naturalWidth>0),math:document.querySelectorAll('math').length,mfenced:document.querySelectorAll('mfenced').length,width:document.body.scrollWidth,math_ok:[...document.querySelectorAll('math')].every(m=>m.namespaceURI==='http://www.w3.org/1998/Math/MathML'&&m.getBoundingClientRect().height>0)})))</script></body></html>
