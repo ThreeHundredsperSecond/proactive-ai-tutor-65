@@ -2,7 +2,7 @@
 
 Методика `fipi-extension-v1.1`, база — ветка `docs/full-ege-math-scope` и скрипт `scripts/fipi_team_batch.py`. Модель `claude-opus-5-5`, `effort: low`, для каждой задачи свежий автор и свежий аудитор (Claude Code Agent tool, `general-purpose`). Прогон 10 ноября 2026 года.
 
-**Статус брони: не подтверждена координатором.** Работа начата до ответа координатора из-за срока CP2 (10 ноября). Заявка готовится как Issue #6 (номер предварительный, текст — `issue-srchakaev-200.md` вне репозитория). В [reservation.json](reservation.json) стоит `coordinator_confirmed: false`; ответ координатора нужно записать после публикации заявки. Эти 200 ID нужно исключить из очереди остальных участников.
+**Статус брони: не подтверждена координатором.** Работа начата до ответа координатора из-за срока CP2 (10 ноября). Заявка опубликована 10.11 как [Issue #7](https://github.com/ThreeHundredsperSecond/proactive-ai-tutor-65/issues/7). В [reservation.json](reservation.json) стоит `coordinator_confirmed: false`; ответ координатора нужно записать командой `reserve`. Эти 200 ID нужно исключить из очереди остальных участников.
 
 ## Выборка
 
